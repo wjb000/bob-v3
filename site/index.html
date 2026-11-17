@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bob v3 model</title>
+  <style>
+    :root { color-scheme: dark; }
+    html, body { margin: 0; height: 100%; background: #050505; color: #d7d7d7; font: 14px/1.4 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    header { display: flex; justify-content: space-between; gap: 16px; padding: 12px 16px; border-bottom: 1px solid #222; }
+    a { color: #c8f542; }
+    #view { position: absolute; inset: 46px 0 28px; }
+    footer { position: absolute; left: 0; right: 0; bottom: 0; padding: 6px 16px; color: #8a8a8a; }
+    #err { color: #ffb4a8; }
+  </style>
+</head>
+<body>
+  <header>
+    <div>Bob v3 · design, not built</div>
+    <div><a href="https://www.wyat.dev/bob-v3/">wyat.dev/bob-v3</a> · <a href="https://github.com/wjb000/bob-v3">source</a></div>
+  </header>
+  <div id="view"></div>
+  <footer id="status">Loading the chassis…</footer>
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+      "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+    }
+  }
+  </script>
+  <script type="module">
+    import * as THREE from "three";
+    import { STLLoader } from "three/addons/loaders/STLLoader.js";
+    import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+
+    const status = document.getElementById("status");
+    const view = document.getElementById("view");
+    const renderer = new THREE.WebGLRenderer({ antialias: true });
+    renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+    renderer.setSize(view.clientWidth, view.clientHeight);
+    view.appendChild(renderer.domElement);
+
+    const scene = new THREE.Scene();
+    scene.background = new THREE.Color(0x050505);
+    const camera = new THREE.PerspectiveCamera(40, view.clientWidth / view.clientHeight, 1, 8000);
+    camera.position.set(900, 700, 900);
+    const controls = new OrbitControls(camera, renderer.domElement);
+    controls.target.set(0, 200, 0);
+    scene.add(new THREE.AmbientLight(0xffffff, 0.55));
+    const key = new THREE.DirectionalLight(0xffffff, 1.1);
+    key.position.set(400, 800, 300);
+    scene.add(key);
+    const fill = new THREE.DirectionalLight(0x4da3ff, 0.35);
+    fill.position.set(-400, 200, -200);
+    scene.add(fill);
+
+    // CAD is Z-up. Three.js is Y-up. One rotation for the whole robot.
+    const robot = new THREE.Group();
+    robot.rotation.x = -Math.PI / 2;
+    scene.add(robot);
+
+    function colorFor(name) {
+      if (name.startsWith("deck") || name.startsWith("splice")) return 0xc8f542;
+      if (name.startsWith("tower")) return 0x9a9a9a;
+      if (name.startsWith("carriage") || name.startsWith("arm") || name.startsWith("strap")) return 0x4da3ff;
+      if (name.startsWith("pod") || name.startsWith("caster") || name.startsWith("roller")) return 0xededed;
+      return 0xd7c15a;
+    }
+
+    const loader = new STLLoader();
+    const manifestUrl = new URL("../cad/reports/manifest.json", import.meta.url);
+    const stlBase = new URL("../cad/stl/placed/", import.meta.url);
+
+    try {
+      const manifest = await (await fetch(manifestUrl)).json();
+      const names = manifest.placed_stl || [];
+      let done = 0;
+      await Promise.all(names.map(name => new Promise((resolve, reject) => {
+        loader.load(new URL(name, stlBase).href, geo => {
+          const mat = new THREE.MeshStandardMaterial({
+            color: colorFor(name),
+            metalness: 0.05,
+            roughness: 0.72,
+          });
+          robot.add(new THREE.Mesh(geo, mat));
+          done += 1;
+          status.textContent = done + " / " + names.length;
+          resolve();
+        }, undefined, reject);
+      })));
+      const box = new THREE.Box3().setFromObject(robot);
+      const center = box.getCenter(new THREE.Vector3());
+      controls.target.copy(center);
+      const size = box.getSize(new THREE.Vector3()).length();
+      camera.position.copy(center).add(new THREE.Vector3(size * 0.55, size * 0.35, size * 0.55));
+      camera.near = size / 200;
+      camera.far = size * 10;
+      camera.updateProjectionMatrix();
+      status.textContent = "Shoulder " + manifest.shoulder_lo_mm + "–" + manifest.shoulder_hi_mm + " mm · solid PETG " + (manifest.total_print_mass_g / 1000).toFixed(2) + " kg · drag to orbit";
+    } catch (err) {
+      status.innerHTML = '<span id="err">Could not load the STLs. Serve the repo root (`python3 -m http.server`) or open the GitHub Pages URL.</span>';
+      console.error(err);
+    }
+
+    addEventListener("resize", () => {
+      camera.aspect = view.clientWidth / view.clientHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(view.clientWidth, view.clientHeight);
+    });
+    (function tick() {
+      requestAnimationFrame(tick);
+      controls.update();
+      renderer.render(scene, camera);
+    })();
+  </script>
+</body>
+</html>

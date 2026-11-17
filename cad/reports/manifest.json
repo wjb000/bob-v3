@@ -1,0 +1,573 @@
+{
+  "units": "mm",
+  "density_g_cm3": 1.27,
+  "rod_len_mm": 700.0,
+  "shoulder_lo_mm": 186.4,
+  "shoulder_hi_mm": 755.0,
+  "travel_mm": 568.6,
+  "plate_top_lo_mm": 124.0,
+  "total_print_mass_g": 3737.4,
+  "parts": [
+    {
+      "name": "deck_c0_r0",
+      "qty": 1,
+      "note": "Deck tile. Ribs down. Nuts in from below.",
+      "rot_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "bed_mm": [
+        194.6,
+        169.6,
+        12.6
+      ],
+      "volume_mm3": 116105.2,
+      "mass_g": 147.5,
+      "mass_qty_g": 147.5
+    },
+    {
+      "name": "deck_c0_r1",
+      "qty": 1,
+      "note": "Deck tile. Ribs down. Nuts in from below.",
+      "rot_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "bed_mm": [
+        194.6,
+        169.6,
+        12.6
+      ],
+      "volume_mm3": 116105.2,
+      "mass_g": 147.5,
+      "mass_qty_g": 147.5
+    },
+    {
+      "name": "deck_c1_r0",
+      "qty": 1,
+      "note": "Deck tile. Ribs down. Nuts in from below.",
+      "rot_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "bed_mm": [
+        194.6,
+        169.6,
+        12.6
+      ],
+      "volume_mm3": 111709.5,
+      "mass_g": 141.9,
+      "mass_qty_g": 141.9
+    },
+    {
+      "name": "deck_c1_r1",
+      "qty": 1,
+      "note": "Deck tile. Ribs down. Nuts in from below.",
+      "rot_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "bed_mm": [
+        194.6,
+        169.6,
+        12.6
+      ],
+      "volume_mm3": 111709.5,
+      "mass_g": 141.9,
+      "mass_qty_g": 141.9
+    },
+    {
+      "name": "deck_c2_r0",
+      "qty": 1,
+      "note": "Deck tile. Ribs down. Nuts in from below.",
+      "rot_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "bed_mm": [
+        194.6,
+        169.6,
+        12.6
+      ],
+      "volume_mm3": 112981.4,
+      "mass_g": 143.5,
+      "mass_qty_g": 143.5
+    },
+    {
+      "name": "deck_c2_r1",
+      "qty": 1,
+      "note": "Deck tile. Ribs down. Nuts in from below.",
+      "rot_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "bed_mm": [
+        194.6,
+        169.6,
+        12.6
+      ],
+      "volume_mm3": 109312.2,
+      "mass_g": 138.8,
+      "mass_qty_g": 138.8
+    },
+    {
+      "name": "deck_c3_r0",
+      "qty": 1,
+      "note": "Deck tile. Ribs down. Nuts in from below.",
+      "rot_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "bed_mm": [
+        194.6,
+        169.6,
+        12.6
+      ],
+      "volume_mm3": 116105.2,
+      "mass_g": 147.5,
+      "mass_qty_g": 147.5
+    },
+    {
+      "name": "deck_c3_r1",
+      "qty": 1,
+      "note": "Deck tile. Ribs down. Nuts in from below.",
+      "rot_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "bed_mm": [
+        194.6,
+        169.6,
+        12.6
+      ],
+      "volume_mm3": 117631.6,
+      "mass_g": 149.4,
+      "mass_qty_g": 149.4
+    },
+    {
+      "name": "splice_x",
+      "qty": 6,
+      "note": "Bridges the short joints. Nuts in from below.",
+      "rot_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "bed_mm": [
+        28.0,
+        142.0,
+        6.0
+      ],
+      "volume_mm3": 23187.9,
+      "mass_g": 29.4,
+      "mass_qty_g": 176.7
+    },
+    {
+      "name": "splice_y",
+      "qty": 3,
+      "note": "Bridges the long joints, except under the lift.",
+      "rot_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "bed_mm": [
+        167.0,
+        28.0,
+        6.0
+      ],
+      "volume_mm3": 27387.9,
+      "mass_g": 34.8,
+      "mass_qty_g": 104.3
+    },
+    {
+      "name": "splice_tower_rear",
+      "qty": 1,
+      "note": "Short joint beside the motor window. Nuts in from below.",
+      "rot_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "bed_mm": [
+        45.5,
+        28.0,
+        6.0
+      ],
+      "volume_mm3": 7421.3,
+      "mass_g": 9.4,
+      "mass_qty_g": 9.4
+    },
+    {
+      "name": "splice_tower_front",
+      "qty": 1,
+      "note": "Short joint beside the motor window. Nuts in from below.",
+      "rot_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "bed_mm": [
+        61.5,
+        28.0,
+        6.0
+      ],
+      "volume_mm3": 10109.3,
+      "mass_g": 12.8,
+      "mass_qty_g": 12.8
+    },
+    {
+      "name": "pod_left",
+      "qty": 1,
+      "note": "Lay the plate flat. Drill AXLE_D to the hub.",
+      "rot_deg": [
+        -90,
+        0,
+        0
+      ],
+      "bed_mm": [
+        104.0,
+        65.9,
+        73.5
+      ],
+      "volume_mm3": 79166.8,
+      "mass_g": 100.5,
+      "mass_qty_g": 100.5
+    },
+    {
+      "name": "pod_right",
+      "qty": 1,
+      "note": "Lay the plate flat. Drill AXLE_D to the hub.",
+      "rot_deg": [
+        -90,
+        0,
+        0
+      ],
+      "bed_mm": [
+        104.0,
+        65.9,
+        73.5
+      ],
+      "volume_mm3": 79166.8,
+      "mass_g": 100.5,
+      "mass_qty_g": 100.5
+    },
+    {
+      "name": "caster",
+      "qty": 2,
+      "note": "Nose and tail. Bore ends up vertical.",
+      "rot_deg": [
+        -90,
+        0,
+        0
+      ],
+      "bed_mm": [
+        79.0,
+        18.6,
+        56.0
+      ],
+      "volume_mm3": 16007.9,
+      "mass_g": 20.3,
+      "mass_qty_g": 40.7
+    },
+    {
+      "name": "roller",
+      "qty": 2,
+      "note": "Bore already vertical. Sits past the deck end.",
+      "rot_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "bed_mm": [
+        30.0,
+        30.0,
+        14.0
+      ],
+      "volume_mm3": 9120.2,
+      "mass_g": 11.6,
+      "mass_qty_g": 23.2
+    },
+    {
+      "name": "tower_0_bottom",
+      "qty": 1,
+      "note": "Open front faces the nose. Rods align the stack.",
+      "rot_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "bed_mm": [
+        102.0,
+        172.0,
+        172.0
+      ],
+      "volume_mm3": 278782.4,
+      "mass_g": 354.1,
+      "mass_qty_g": 354.1
+    },
+    {
+      "name": "tower_1_mid",
+      "qty": 1,
+      "note": "Open front faces the nose. Rods align the stack.",
+      "rot_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "bed_mm": [
+        96.0,
+        172.0,
+        132.0
+      ],
+      "volume_mm3": 161224.7,
+      "mass_g": 204.8,
+      "mass_qty_g": 204.8
+    },
+    {
+      "name": "tower_2_mid",
+      "qty": 1,
+      "note": "Open front faces the nose. Rods align the stack.",
+      "rot_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "bed_mm": [
+        96.0,
+        172.0,
+        132.0
+      ],
+      "volume_mm3": 161224.7,
+      "mass_g": 204.8,
+      "mass_qty_g": 204.8
+    },
+    {
+      "name": "tower_3_mid",
+      "qty": 1,
+      "note": "Open front faces the nose. Rods align the stack.",
+      "rot_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "bed_mm": [
+        96.0,
+        172.0,
+        132.0
+      ],
+      "volume_mm3": 161224.7,
+      "mass_g": 204.8,
+      "mass_qty_g": 204.8
+    },
+    {
+      "name": "tower_4_top",
+      "qty": 1,
+      "note": "Open front faces the nose. Rods align the stack.",
+      "rot_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "bed_mm": [
+        96.0,
+        172.0,
+        132.0
+      ],
+      "volume_mm3": 293534.7,
+      "mass_g": 372.8,
+      "mass_qty_g": 372.8
+    },
+    {
+      "name": "bearing_cap",
+      "qty": 4,
+      "note": "One on each LM8UU, rod hole up.",
+      "rot_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "bed_mm": [
+        28.0,
+        28.0,
+        3.5
+      ],
+      "volume_mm3": 1897.6,
+      "mass_g": 2.4,
+      "mass_qty_g": 9.6
+    },
+    {
+      "name": "carriage",
+      "qty": 1,
+      "note": "Slide it onto the rods before the top cap.",
+      "rot_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "bed_mm": [
+        202.0,
+        118.0,
+        80.0
+      ],
+      "volume_mm3": 337689.8,
+      "mass_g": 428.9,
+      "mass_qty_g": 428.9
+    },
+    {
+      "name": "arm_plate",
+      "qty": 1,
+      "note": "SO-101 base is clamped, not screwed. Straps are slotted.",
+      "rot_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "bed_mm": [
+        172.0,
+        120.0,
+        4.0
+      ],
+      "volume_mm3": 81870.7,
+      "mass_g": 104.0,
+      "mass_qty_g": 104.0
+    },
+    {
+      "name": "arm_strap",
+      "qty": 2,
+      "note": "Print two. One flips to the other side.",
+      "rot_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "bed_mm": [
+        156.0,
+        16.0,
+        20.2
+      ],
+      "volume_mm3": 14434.4,
+      "mass_g": 18.3,
+      "mass_qty_g": 36.7
+    },
+    {
+      "name": "elec_tray",
+      "qty": 1,
+      "note": "Pi 5 holes are 58 \u00d7 49, M2.5. Buck is zip-tied.",
+      "rot_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "bed_mm": [
+        140.0,
+        104.0,
+        6.0
+      ],
+      "volume_mm3": 43737.3,
+      "mass_g": 55.5,
+      "mass_qty_g": 55.5
+    },
+    {
+      "name": "cam_shoe",
+      "qty": 1,
+      "note": "Existing Pi camera. No new camera.",
+      "rot_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "bed_mm": [
+        40.0,
+        32.0,
+        20.0
+      ],
+      "volume_mm3": 9449.7,
+      "mass_g": 12.0,
+      "mass_qty_g": 12.0
+    },
+    {
+      "name": "pad_clip",
+      "qty": 1,
+      "note": "Gripper pinches the neck. Cloth goes in the slot.",
+      "rot_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "bed_mm": [
+        48.0,
+        18.0,
+        8.0
+      ],
+      "volume_mm3": 6206.4,
+      "mass_g": 7.9,
+      "mass_qty_g": 7.9
+    },
+    {
+      "name": "cable_clip",
+      "qty": 8,
+      "note": "Zip or M3. Cable along the tower.",
+      "rot_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "bed_mm": [
+        18.0,
+        14.0,
+        8.0
+      ],
+      "volume_mm3": 1547.5,
+      "mass_g": 2.0,
+      "mass_qty_g": 15.7
+    }
+  ],
+  "errors": [],
+  "placed_stl": [
+    "arm_plate.stl",
+    "cam_shoe.stl",
+    "carriage.stl",
+    "caster_nose.stl",
+    "caster_tail.stl",
+    "deck_c0_r0.stl",
+    "deck_c0_r1.stl",
+    "deck_c1_r0.stl",
+    "deck_c1_r1.stl",
+    "deck_c2_r0.stl",
+    "deck_c2_r1.stl",
+    "deck_c3_r0.stl",
+    "deck_c3_r1.stl",
+    "elec_tray.stl",
+    "pod_left.stl",
+    "pod_right.stl",
+    "roller_nose.stl",
+    "roller_tail.stl",
+    "splice_0.stl",
+    "splice_1.stl",
+    "splice_10.stl",
+    "splice_2.stl",
+    "splice_3.stl",
+    "splice_4.stl",
+    "splice_5.stl",
+    "splice_6.stl",
+    "splice_7.stl",
+    "splice_8.stl",
+    "splice_9.stl",
+    "strap_left.stl",
+    "strap_right.stl",
+    "tower_0_bottom.stl",
+    "tower_1_mid.stl",
+    "tower_2_mid.stl",
+    "tower_3_mid.stl",
+    "tower_4_top.stl"
+  ]
+}
