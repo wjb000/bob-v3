@@ -8,7 +8,7 @@ The shoulder in this model runs from **186 mm to 755 mm**. Travel is **569 mm** 
 
 ## What you print
 
-Eight deck tiles, the splices, two wheel pods, two casters, two rollers, five tower segments, the carriage, the arm plate, two straps, an electronics tray, a shoe for the existing Pi camera, a cloth clip, and cable clips. The SO-101 links are **not** in this repo. Print those from [TheRobotStudio/SO-ARM100](https://github.com/TheRobotStudio/SO-ARM100).
+Six deck tiles (`deck_c0` through `deck_c2`, two rows each), the splices, two wheel pods, two casters, two rollers, five tower segments, the carriage, the arm plate, two straps, an electronics tray, a shoe for the existing Pi camera, a cloth clip, and cable clips. The SO-101 links are **not** in this repo. Print those from [TheRobotStudio/SO-ARM100](https://github.com/TheRobotStudio/SO-ARM100).
 
 Open the viewer at [site/index.html](site/index.html) (GitHub Pages: `/site/`).
 

@@ -14,7 +14,7 @@ No support is required on the deck, the plate, or the straps. The tower prints o
 
 ## Order
 
-1. Print the eight `deck_c*_r*` tiles and the splices. Bolt the deck with M3 screws from above and nuts in the splices and the bosses. The motor window straddles the centre joint of column 1. The long splice under that column is the two short `splice_tower_*` bars, one on each side of the window.
+1. Print the six `deck_c*_r*` tiles and the splices. Bolt the deck with M3 screws from above and nuts in the splices and the bosses. The motor window straddles the centre joint of column 1. The long splice under that column is the two short `splice_tower_*` bars, one on each side of the window.
 2. Hang the v2 hubs in `pod_left` and `pod_right`. Drill the bore to the real axle. Confirm the deck still drives straight before the column goes on.
 3. Print the five tower segments. Bolt them ear to ear. The nut sits in the cup on the top of each ear. On the bottom segment, screw the NEMA 17 to the plate from inside the tower, shaft up, before the carriage is on the rods. The motor body hangs through the deck window. Its face is at 52 mm.
 4. Drop the two 8 mm rods into the bottom collars. They stop on the blind floor. Slide the carriage on from the top, LM8UU in the four housings, caps on after. Then the top segment. The T8 nut drops into the pocket from underneath the bridge. Four M3 screws thread into that nut. Use a TR8×2.
