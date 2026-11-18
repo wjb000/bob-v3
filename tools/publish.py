@@ -252,7 +252,7 @@ def main():
     t = _re.sub(r'((?:src|href)=")/bob-v3/(img/[^"?]+|bob-v3-[a-z-]+\.zip)(?:\?v=[0-9a-f]+)?"', bust, t)
     # numbers tagged data-k are refilled on every publish
     fills = {
-        "mass": f"{data['mass_kg']} kg", "nprints": str(manifest["total_prints"]), "total": f"{money(total - have)} to buy",
+        "mass": f"{data['mass_kg']} kg", "nprints": str(manifest["total_prints"]), "total": money(total),
         "printcount": f"{manifest['unique_prints']} files · {manifest['total_prints']} prints · {manifest['print_mass_g'] / 1000:.1f} kg",
         "bomcount": f"{money(total)} · {money(total - have)} to buy (you already have the battery and charger)",
         "printline": f"{manifest['total_prints']} prints from {manifest['unique_prints']} files, about {manifest['print_mass_g'] / 1000:.1f} kg of filament.",
