@@ -58,7 +58,7 @@ def scene(table=False, shelf=False, cubes=()):
 
 def joint_names(m):
     return [m.joint(j).name for j in range(m.njnt)
-            if m.jnt_type[j] in (mujoco.mjtJoint.mjJNT_HINGE, mujoco.mjtJoint.mjJNT_SLIDE) and not m.joint(j).name.startswith("wheel")]
+            if int(m.jnt_type[j]) in (int(mujoco.mjtJoint.mjJNT_HINGE), int(mujoco.mjtJoint.mjJNT_SLIDE)) and not m.joint(j).name.startswith("wheel")]
 
 
 class Rec:
