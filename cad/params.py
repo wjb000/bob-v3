@@ -19,11 +19,16 @@ from __future__ import annotations
 import math
 
 # --- deck ---
-DECK_L = 780.0
+# 480 x 340, not 780. The SO-101 reaches about 400 mm. On a 780 mm deck the
+# nose sat past the hand, so the robot could not pick up what was in front of it.
+# Three 160 mm tiles fit a 220 mm bed (208 mm usable). The tower is on the
+# rear tile so the hand clears the nose. Width stays 340 mm: the hubs hang
+# outside that, and the whole base still fits a doorway.
+DECK_L = 480.0
 DECK_W = 340.0
-NX = 4
+NX = 3
 NY = 2
-CELL_X = DECK_L / NX  # 195
+CELL_X = DECK_L / NX  # 160
 CELL_Y = DECK_W / NY  # 170
 GAP = 0.40  # saw-fit gap between tiles
 
@@ -68,8 +73,16 @@ ROD_X = -6.0  # rod/screw x relative to the tower centre
 TW = 140.0  # tower outer width (Y)
 TD = 80.0  # tower outer depth (X)
 WALL = 3.6
-TOWER_X = -97.5  # middle of deck column 1
+TOWER_COL = 0  # rear tile
+TOWER_X = -DECK_L / 2 + (TOWER_COL + 0.5) * CELL_X  # -160
 TOWER_Y = 0.0
+# Nose tile, right side. The tray is 140 x 104 and sits inside the 160 mm tile.
+ELEC_X = -DECK_L / 2 + ((NX - 1) + 0.5) * CELL_X  # 160
+ELEC_Y = -90.0
+# Just behind the nose, left of centre, clear of the caster bolts.
+CAM_X = DECK_L / 2 - 54.0  # 186
+CAM_Y = 55.0
+CASTER_BOLT_X = DECK_L / 2 - 22.0  # 218
 BOTTOM_H = 172.0
 
 MOTOR_SIZE = 42.3

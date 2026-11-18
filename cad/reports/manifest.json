@@ -6,7 +6,40 @@
   "shoulder_hi_mm": 755.0,
   "travel_mm": 568.6,
   "plate_top_lo_mm": 124.0,
-  "total_print_mass_g": 3737.4,
+  "total_print_mass_g": 3198.9,
+  "placed_stl": [
+    "deck_c0_r0.stl",
+    "deck_c0_r1.stl",
+    "deck_c1_r0.stl",
+    "deck_c1_r1.stl",
+    "deck_c2_r0.stl",
+    "deck_c2_r1.stl",
+    "splice_0.stl",
+    "splice_1.stl",
+    "splice_2.stl",
+    "splice_3.stl",
+    "splice_4.stl",
+    "splice_5.stl",
+    "splice_6.stl",
+    "splice_7.stl",
+    "pod_left.stl",
+    "pod_right.stl",
+    "caster_nose.stl",
+    "caster_tail.stl",
+    "roller_nose.stl",
+    "roller_tail.stl",
+    "tower_0_bottom.stl",
+    "tower_1_mid.stl",
+    "tower_2_mid.stl",
+    "tower_3_mid.stl",
+    "tower_4_top.stl",
+    "carriage.stl",
+    "arm_plate.stl",
+    "strap_left.stl",
+    "strap_right.stl",
+    "elec_tray.stl",
+    "cam_shoe.stl"
+  ],
   "parts": [
     {
       "name": "deck_c0_r0",
@@ -18,13 +51,13 @@
         0.0
       ],
       "bed_mm": [
-        194.6,
+        159.6,
         169.6,
         12.6
       ],
-      "volume_mm3": 116105.2,
-      "mass_g": 147.5,
-      "mass_qty_g": 147.5
+      "volume_mm3": 99498.9,
+      "mass_g": 126.4,
+      "mass_qty_g": 126.4
     },
     {
       "name": "deck_c0_r1",
@@ -36,13 +69,13 @@
         0.0
       ],
       "bed_mm": [
-        194.6,
+        159.6,
         169.6,
         12.6
       ],
-      "volume_mm3": 116105.2,
-      "mass_g": 147.5,
-      "mass_qty_g": 147.5
+      "volume_mm3": 99498.9,
+      "mass_g": 126.4,
+      "mass_qty_g": 126.4
     },
     {
       "name": "deck_c1_r0",
@@ -54,13 +87,13 @@
         0.0
       ],
       "bed_mm": [
-        194.6,
+        159.6,
         169.6,
         12.6
       ],
-      "volume_mm3": 111709.5,
-      "mass_g": 141.9,
-      "mass_qty_g": 141.9
+      "volume_mm3": 90308.6,
+      "mass_g": 114.7,
+      "mass_qty_g": 114.7
     },
     {
       "name": "deck_c1_r1",
@@ -72,13 +105,13 @@
         0.0
       ],
       "bed_mm": [
-        194.6,
+        159.6,
         169.6,
         12.6
       ],
-      "volume_mm3": 111709.5,
-      "mass_g": 141.9,
-      "mass_qty_g": 141.9
+      "volume_mm3": 90308.6,
+      "mass_g": 114.7,
+      "mass_qty_g": 114.7
     },
     {
       "name": "deck_c2_r0",
@@ -90,13 +123,13 @@
         0.0
       ],
       "bed_mm": [
-        194.6,
+        159.6,
         169.6,
         12.6
       ],
-      "volume_mm3": 112981.4,
-      "mass_g": 143.5,
-      "mass_qty_g": 143.5
+      "volume_mm3": 100770.9,
+      "mass_g": 128.0,
+      "mass_qty_g": 128.0
     },
     {
       "name": "deck_c2_r1",
@@ -108,53 +141,17 @@
         0.0
       ],
       "bed_mm": [
-        194.6,
+        159.6,
         169.6,
         12.6
       ],
-      "volume_mm3": 109312.2,
-      "mass_g": 138.8,
-      "mass_qty_g": 138.8
-    },
-    {
-      "name": "deck_c3_r0",
-      "qty": 1,
-      "note": "Deck tile. Ribs down. Nuts in from below.",
-      "rot_deg": [
-        0.0,
-        0.0,
-        0.0
-      ],
-      "bed_mm": [
-        194.6,
-        169.6,
-        12.6
-      ],
-      "volume_mm3": 116105.2,
-      "mass_g": 147.5,
-      "mass_qty_g": 147.5
-    },
-    {
-      "name": "deck_c3_r1",
-      "qty": 1,
-      "note": "Deck tile. Ribs down. Nuts in from below.",
-      "rot_deg": [
-        0.0,
-        0.0,
-        0.0
-      ],
-      "bed_mm": [
-        194.6,
-        169.6,
-        12.6
-      ],
-      "volume_mm3": 117631.6,
-      "mass_g": 149.4,
-      "mass_qty_g": 149.4
+      "volume_mm3": 98628.0,
+      "mass_g": 125.3,
+      "mass_qty_g": 125.3
     },
     {
       "name": "splice_x",
-      "qty": 6,
+      "qty": 4,
       "note": "Bridges the short joints. Nuts in from below.",
       "rot_deg": [
         0.0,
@@ -168,11 +165,11 @@
       ],
       "volume_mm3": 23187.9,
       "mass_g": 29.4,
-      "mass_qty_g": 176.7
+      "mass_qty_g": 117.8
     },
     {
       "name": "splice_y",
-      "qty": 3,
+      "qty": 2,
       "note": "Bridges the long joints, except under the lift.",
       "rot_deg": [
         0.0,
@@ -180,13 +177,13 @@
         0.0
       ],
       "bed_mm": [
-        167.0,
+        132.0,
         28.0,
         6.0
       ],
-      "volume_mm3": 27387.9,
-      "mass_g": 34.8,
-      "mass_qty_g": 104.3
+      "volume_mm3": 21507.9,
+      "mass_g": 27.3,
+      "mass_qty_g": 54.6
     },
     {
       "name": "splice_tower_rear",
@@ -198,13 +195,13 @@
         0.0
       ],
       "bed_mm": [
-        45.5,
+        28.0,
         28.0,
         6.0
       ],
-      "volume_mm3": 7421.3,
-      "mass_g": 9.4,
-      "mass_qty_g": 9.4
+      "volume_mm3": 4481.3,
+      "mass_g": 5.7,
+      "mass_qty_g": 5.7
     },
     {
       "name": "splice_tower_front",
@@ -216,13 +213,13 @@
         0.0
       ],
       "bed_mm": [
-        61.5,
+        44.0,
         28.0,
         6.0
       ],
-      "volume_mm3": 10109.3,
-      "mass_g": 12.8,
-      "mass_qty_g": 12.8
+      "volume_mm3": 7169.3,
+      "mass_g": 9.1,
+      "mass_qty_g": 9.1
     },
     {
       "name": "pod_left",
@@ -531,43 +528,5 @@
       "mass_qty_g": 15.7
     }
   ],
-  "errors": [],
-  "placed_stl": [
-    "arm_plate.stl",
-    "cam_shoe.stl",
-    "carriage.stl",
-    "caster_nose.stl",
-    "caster_tail.stl",
-    "deck_c0_r0.stl",
-    "deck_c0_r1.stl",
-    "deck_c1_r0.stl",
-    "deck_c1_r1.stl",
-    "deck_c2_r0.stl",
-    "deck_c2_r1.stl",
-    "deck_c3_r0.stl",
-    "deck_c3_r1.stl",
-    "elec_tray.stl",
-    "pod_left.stl",
-    "pod_right.stl",
-    "roller_nose.stl",
-    "roller_tail.stl",
-    "splice_0.stl",
-    "splice_1.stl",
-    "splice_10.stl",
-    "splice_2.stl",
-    "splice_3.stl",
-    "splice_4.stl",
-    "splice_5.stl",
-    "splice_6.stl",
-    "splice_7.stl",
-    "splice_8.stl",
-    "splice_9.stl",
-    "strap_left.stl",
-    "strap_right.stl",
-    "tower_0_bottom.stl",
-    "tower_1_mid.stl",
-    "tower_2_mid.stl",
-    "tower_3_mid.stl",
-    "tower_4_top.stl"
-  ]
+  "errors": []
 }

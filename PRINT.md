@@ -1,6 +1,6 @@
 # Print and assembly
 
-PETG, 0.2 mm layers, 15% gyroid. The solid mesh is 3.74 kg (`cad/reports/manifest.json`, volume × 1.27 g/cm³). Infill makes the printed mass lower. Buy enough PETG for the solid number.
+PETG, 0.2 mm layers, 15% gyroid. The solid mesh is 3.20 kg (`cad/reports/manifest.json`, volume × 1.27 g/cm³). Infill makes the printed mass lower. Buy enough PETG for the solid number. The deck is 480 × 340 mm, six tiles of 160 × 170 mm.
 
 | Parts | Walls | Notes |
 | --- | --- | --- |

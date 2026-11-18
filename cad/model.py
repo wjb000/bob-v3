@@ -111,18 +111,18 @@ def deck_holes():
         for dx in (-24.0, 24.0):
             for inset in (16.0, 34.0):
                 holes.append((P.TOWER_X + dx, edge - side * inset, "nut"))
-    # casters
-    for x in (-368.0, 368.0):
+    # casters, inset from each end
+    for x in (-P.CASTER_BOLT_X, P.CASTER_BOLT_X):
         for y in (-20.0, 20.0):
             holes.append((x, y, "nut"))
-    # electronics, right-hand tile of column 2
-    ex, ey = 97.5, -90.0
+    # electronics, nose tile, right side
+    ex, ey = P.ELEC_X, P.ELEC_Y
     for dx in (-50.0, 50.0):
         for dy in (-35.0, 35.0):
             holes.append((ex + dx, ey + dy, "nut"))
     # camera shoe, nose, left of centre so it misses the caster
     for dx in (-12.0, 12.0):
-        holes.append((336.0 + dx, 55.0, "nut"))
+        holes.append((P.CAM_X + dx, P.CAM_Y, "nut"))
     return holes
 
 
@@ -500,7 +500,7 @@ def _strap():
 # ---------------------------------------------------------------- small parts
 
 def _elec():
-    ex, ey = 97.5, -90.0
+    ex, ey = P.ELEC_X, P.ELEC_Y
     z0 = P.DECK_TOP
     z1 = z0 + 3.0
     solid = cub(ex - 70, ey - 52, z0, ex + 70, ey + 52, z1)
@@ -527,7 +527,7 @@ def _elec():
 
 def _cam_shoe():
     """Cradle for the existing Pi camera. No new camera in the BOM."""
-    x, y = 336.0, 55.0
+    x, y = P.CAM_X, P.CAM_Y
     z0 = P.DECK_TOP
     # module is about 25 x 24. A U that aims it forward (+X).
     shapes = [cub(x - 20, y - 16, z0, x + 20, y + 16, z0 + 4)]
@@ -590,8 +590,8 @@ def build():
         prints.append(Part(name, solid, rot=(-90, 0, 0), note="Lay the plate flat. Drill AXLE_D to the hub."))
         assy.append((name, solid))
 
-    nose = _caster_at(368.0)
-    tail = _caster_at(-368.0)
+    nose = _caster_at(P.CASTER_BOLT_X)
+    tail = _caster_at(-P.CASTER_BOLT_X)
     # print one caster in a local frame: shift the nose caster onto the origin for a cleaner STL
     bb = nose.BoundingBox()
     caster_print = nose.translate(cq.Vector(-bb.xmin, -bb.ymin, -bb.zmin))
@@ -600,7 +600,7 @@ def build():
     assy.append(("caster_tail", tail))
     roller = _roller()
     prints.append(Part("roller", roller, qty=2, note="Bore already vertical. Sits past the deck end."))
-    for x, tag in ((368.0, "nose"), (-368.0, "tail")):
+    for x, tag in ((P.CASTER_BOLT_X, "nose"), (-P.CASTER_BOLT_X, "tail")):
         spun = roller.rotate(cq.Vector(0, 0, 0), cq.Vector(1, 0, 0), -90)
         spun = spun.translate(cq.Vector(caster_axle_x(x), -P.CASTER_ROLLER_W / 2, P.CASTER_AXLE_Z))
         assy.append((f"roller_{tag}", spun))

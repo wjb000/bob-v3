@@ -14,17 +14,17 @@ The servo price is the AlohaMini2 STS3215 line, about $15.97, not a cheaper no-n
 | 8 × 700 mm steel rod | 2 | $4 | $8 |
 | LM8UU | 4 | $1.50 | $6 |
 | TMC2209 | 1 | $6 | $6 |
-| PETG, solid mesh 3.74 kg at $18/kg | 1 | $67 | $67 |
+| PETG, solid mesh 3.20 kg at $18/kg | 1 | $58 | $58 |
 | M3 nuts and screws, plus two M8 roller bolts | 1 | $10 | $10 |
-| **New parts** | | | **$239** |
+| **New parts** | | | **$230** |
 
 About 140 M3 screws and 120 M3 nuts. The traps are sized for a 5.5 mm nut, 2.4 mm thick. No heat-set inserts.
 
-The old page guessed 1.5 kg of PETG and $27. The mesh is 3.74 kg, so the filament line is $67 and the total is $239. Printed with 15% gyroid the spool use is lower. See `cad/reports/manifest.json`.
+The deck is 480 × 340 mm, six tiles, so the SO-101 reaches past the nose. The solid mesh is 3.20 kg, so the filament line is $58 and the total is $230. Printed with 15% gyroid the spool use is lower. See `cad/reports/manifest.json`.
 
-From a bare bench, add a Pi 5 (about $93 for a 2 GB board), a used hoverboard (about $60), an ESP32 (about $8), and one USB camera (about $17). 239 + 93 + 60 + 8 + 17 is about $420.
+From a bare bench, add a Pi 5 (about $93 for a 2 GB board), a used hoverboard (about $60), an ESP32 (about $8), and one USB camera (about $17). 230 + 93 + 60 + 8 + 17 is about $410.
 
-## Not in the $239
+## Not in the $230
 
 | Upgrade | When |
 | --- | --- |
