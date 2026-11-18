@@ -19,14 +19,15 @@ from __future__ import annotations
 import math
 
 # --- deck ---
-# 480 x 340, not 780. The SO-101 reaches about 400 mm. On a 780 mm deck the
-# nose sat past the hand, so the robot could not pick up what was in front of it.
-# Three 160 mm tiles fit a 220 mm bed (208 mm usable). The tower is on the
-# rear tile so the hand clears the nose. Width stays 340 mm: the hubs hang
-# outside that, and the whole base still fits a doorway.
-DECK_L = 480.0
+# 320 x 340. The SO-101 gripper origin reaches about 404 mm forward of the
+# arm plate. On the 480 mm deck the plate sat 304 mm behind the nose, so the
+# hand cleared the bumper by about 100 mm and could not put 150 mm of reach
+# on a counter or on the floor in front. Two 160 mm tiles keep the tower on
+# the rear tile and the plate 144 mm behind the nose. Width stays 340 mm:
+# the hubs hang outside that, and the whole base still fits a doorway.
+DECK_L = 320.0
 DECK_W = 340.0
-NX = 3
+NX = 2
 NY = 2
 CELL_X = DECK_L / NX  # 160
 CELL_Y = DECK_W / NY  # 170

@@ -6,22 +6,17 @@
   "shoulder_hi_mm": 755.0,
   "travel_mm": 568.6,
   "plate_top_lo_mm": 124.0,
-  "total_print_mass_g": 3198.9,
+  "total_print_mass_g": 2883.3,
   "placed_stl": [
     "deck_c0_r0.stl",
     "deck_c0_r1.stl",
     "deck_c1_r0.stl",
     "deck_c1_r1.stl",
-    "deck_c2_r0.stl",
-    "deck_c2_r1.stl",
     "splice_0.stl",
     "splice_1.stl",
     "splice_2.stl",
     "splice_3.stl",
     "splice_4.stl",
-    "splice_5.stl",
-    "splice_6.stl",
-    "splice_7.stl",
     "pod_left.stl",
     "pod_right.stl",
     "caster_nose.stl",
@@ -91,48 +86,12 @@
         169.6,
         12.6
       ],
-      "volume_mm3": 90308.6,
-      "mass_g": 114.7,
-      "mass_qty_g": 114.7
-    },
-    {
-      "name": "deck_c1_r1",
-      "qty": 1,
-      "note": "Deck tile. Ribs down. Nuts in from below.",
-      "rot_deg": [
-        0.0,
-        0.0,
-        0.0
-      ],
-      "bed_mm": [
-        159.6,
-        169.6,
-        12.6
-      ],
-      "volume_mm3": 90308.6,
-      "mass_g": 114.7,
-      "mass_qty_g": 114.7
-    },
-    {
-      "name": "deck_c2_r0",
-      "qty": 1,
-      "note": "Deck tile. Ribs down. Nuts in from below.",
-      "rot_deg": [
-        0.0,
-        0.0,
-        0.0
-      ],
-      "bed_mm": [
-        159.6,
-        169.6,
-        12.6
-      ],
       "volume_mm3": 100770.9,
       "mass_g": 128.0,
       "mass_qty_g": 128.0
     },
     {
-      "name": "deck_c2_r1",
+      "name": "deck_c1_r1",
       "qty": 1,
       "note": "Deck tile. Ribs down. Nuts in from below.",
       "rot_deg": [
@@ -151,7 +110,7 @@
     },
     {
       "name": "splice_x",
-      "qty": 4,
+      "qty": 2,
       "note": "Bridges the short joints. Nuts in from below.",
       "rot_deg": [
         0.0,
@@ -165,11 +124,11 @@
       ],
       "volume_mm3": 23187.9,
       "mass_g": 29.4,
-      "mass_qty_g": 117.8
+      "mass_qty_g": 58.9
     },
     {
       "name": "splice_y",
-      "qty": 2,
+      "qty": 1,
       "note": "Bridges the long joints, except under the lift.",
       "rot_deg": [
         0.0,
@@ -183,7 +142,7 @@
       ],
       "volume_mm3": 21507.9,
       "mass_g": 27.3,
-      "mass_qty_g": 54.6
+      "mass_qty_g": 27.3
     },
     {
       "name": "splice_tower_rear",
