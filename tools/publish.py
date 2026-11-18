@@ -28,6 +28,72 @@ import trimesh
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "docs"))
 from bom import BOM  # noqa: E402
+import wiring as WIRING  # noqa: E402
+
+NW, NH, CW, RH, PAD = 150, 46, 176, 64, 16
+
+
+def wiring_svg() -> str:
+    """Lay the wiring out on the grid in docs/wiring.py and route every wire with right angles."""
+    pos = {k: (PAD + c * CW, PAD + 30 + r * RH) for k, (_, _, c, r, _) in WIRING.NODES.items()}
+    cols = max(v[2] for v in WIRING.NODES.values()) + 1
+    rows = max(v[3] for v in WIRING.NODES.values()) + 1
+    W, H = PAD * 2 + (cols - 1) * CW + NW, PAD * 2 + 30 + rows * RH + 30
+    lanes = {}
+    paths = []
+    for i, (a, b, kind, what, wire, conn, fuse) in enumerate(WIRING.WIRES):
+        (xa, ya), (xb, yb) = pos[a], pos[b]
+        ca, cb = WIRING.NODES[a][2], WIRING.NODES[b][2]
+        key = (min(ca, cb), max(ca, cb))
+        lane = lanes.get(key, 0)
+        lanes[key] = lane + 1
+        off = (lane % 7 - 3) * 5
+        ya_, yb_ = ya + NH / 2 + (lane % 3 - 1) * 6, yb + NH / 2 + (lane % 3 - 1) * 6
+        gap = (CW - NW) / 2
+        if cb == ca + 1:  # neighbours: one elbow in the column gap
+            mx = xa + NW + gap + off * 0.6
+            pts = [(xa + NW, ya_), (mx, ya_), (mx, yb_), (xb, yb_)]
+        elif cb > ca:  # run along the row gap above B so no box is crossed
+            gy = yb - (RH - NH) / 2 + (lane % 3 - 1) * 4
+            x1, x2 = xa + NW + gap + off * 0.6, xb - gap + off * 0.6
+            pts = [(xa + NW, ya_), (x1, ya_), (x1, gy), (x2, gy), (x2, yb_), (xb, yb_)]
+        elif cb < ca:
+            gy = yb - (RH - NH) / 2 + (lane % 3 - 1) * 4
+            x1, x2 = xa - gap + off * 0.6, xb + NW + gap + off * 0.6
+            pts = [(xa, ya_), (x1, ya_), (x1, gy), (x2, gy), (x2, yb_), (xb + NW, yb_)]
+        else:
+            x = xa + NW + 8 + (lane % 4) * 4
+            pts = [(xa + NW, ya_), (x, ya_), (x, yb_), (xa + NW, yb_)]
+        d = " ".join(f"{x:.0f},{y:.0f}" for x, y in pts)
+        col = WIRING.COLORS[kind]
+        dash = ' stroke-dasharray="5 4"' if kind == "estop" else ""
+        tip = html.escape(f"{WIRING.NODES[a][0]} → {WIRING.NODES[b][0]}: {what}. {wire} {conn} {fuse}".strip())
+        paths.append(f'<polyline class="w" data-kind="{kind}" points="{d}" stroke="{col}"{dash}><title>{tip}</title></polyline>')
+    nodes = []
+    for k, (label, sub, c, r, item) in WIRING.NODES.items():
+        x, y = pos[k]
+        nodes.append(f'<g class="wn" data-node="{k}"><rect x="{x}" y="{y}" width="{NW}" height="{NH}" rx="8"/>'
+                     f'<text class="t" x="{x + NW / 2}" y="{y + 20}">{html.escape(label)}</text>'
+                     f'<text class="ts" x="{x + NW / 2}" y="{y + 36}">{html.escape(sub)}</text></g>')
+    heads = ["Power in", "Distribution", "Conversion", "Compute, rails", "Buses", "Motors, sensors", "More devices"]
+    hdr = "".join(f'<text class="hd" x="{PAD + i * CW + NW / 2}" y="{PAD + 4}">{h.upper()}</text>' for i, h in enumerate(heads[:cols]))
+    lx = PAD
+    legend = []
+    for k, lab in WIRING.LABELS.items():
+        legend.append(f'<g><line x1="{lx}" y1="{H - 14}" x2="{lx + 22}" y2="{H - 14}" stroke="{WIRING.COLORS[k]}" stroke-width="3"'
+                      f'{" stroke-dasharray=\"5 4\"" if k == "estop" else ""}/><text class="lg" x="{lx + 28}" y="{H - 10}">{lab}</text></g>')
+        lx += 28 + 8 * len(lab) + 26
+    return (f'<svg class="wiresvg" viewBox="0 0 {W} {H}" role="img" aria-label="Bob v3 wiring: every power, bus and signal wire">'
+            f'{hdr}<g class="ws">{"".join(paths)}</g><g>{"".join(nodes)}</g>{"".join(legend)}</svg>')
+
+
+def wiring_table() -> str:
+    rows = ["<tr><th></th><th>From</th><th>To</th><th>What</th><th>Wire</th><th>Connector</th><th>Fuse</th></tr>"]
+    for a, b, kind, what, wire, conn, fuse in WIRING.WIRES:
+        rows.append(f'<tr><td><i class="sw" style="background:{WIRING.COLORS[kind]}"></i></td><td>{html.escape(WIRING.NODES[a][0])}</td>'
+                    f'<td>{html.escape(WIRING.NODES[b][0])}</td><td>{html.escape(what)}</td><td>{html.escape(wire)}</td>'
+                    f'<td>{html.escape(conn)}</td><td>{html.escape(fuse)}</td></tr>')
+    return "\n".join(rows)
 
 COLORS = {"shell": [235, 235, 230], "dark": [34, 34, 37], "frame": [140, 146, 156], "accent": [0, 127, 255],
           "actuator": [52, 52, 58], "electronics": [40, 110, 70], "battery": [90, 140, 50], "metal": [190, 192, 198],
@@ -106,6 +172,9 @@ def main():
                                   for it in scene["items"]]),
                 parts=manifest["parts"], hardware=manifest["hardware"], stability=manifest["stability"],
                 bom=dict(rows=rows, total=total, have=have), checks=checks,
+                wiring=dict(nodes={k: dict(label=v[0], item=v[4]) for k, v in WIRING.NODES.items()},
+                            wires=[dict(a=a, b=b, kind=k, what=w) for a, b, k, w, *_ in WIRING.WIRES], colors=WIRING.COLORS),
+                sim=json.loads((ROOT / "docs" / "sim_pick.json").read_text()),
                 mass_kg=round(manifest["robot_mass_g"] / 1000, 1), print_kg=round(manifest["print_mass_g"] / 1000, 2))
     (dst / "data.json").write_text(json.dumps(data, separators=(",", ":")))
 
@@ -162,6 +231,8 @@ def main():
         }[k](v)
         out.append(f'<tr><td>{"✓" if v["ok"] else "✗"}</td><td>{names.get(k, k)}</td><td class="d2">{html.escape(detail)}</td></tr>')
     t = fill(t, "CHECKS", "\n".join(out))
+    t = fill(t, "WIRING", wiring_svg())
+    t = fill(t, "WIRES", wiring_table())
     t = t.replace("{{TOTAL}}", money(total)).replace("{{TOBUY}}", money(total - have)).replace("{{MASS}}", f"{data['mass_kg']}") \
          .replace("{{PRINTKG}}", f"{manifest['print_mass_g'] / 1000:.1f}").replace("{{NPRINTS}}", str(manifest["total_prints"])) \
          .replace("{{NUNIQUE}}", str(manifest["unique_prints"]))

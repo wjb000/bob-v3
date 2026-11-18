@@ -9,8 +9,8 @@
  "fill": 0.55,
  "unique_prints": 86,
  "total_prints": 164,
- "print_mass_g": 7051.0,
- "robot_mass_g": 21325.0,
+ "print_mass_g": 7047.0,
+ "robot_mass_g": 21351.0,
  "parts": [
   {
    "name": "base_shell_rear_r",
@@ -1075,7 +1075,7 @@
    "link": "lift",
    "material": "PETG",
    "color": "frame",
-   "support_cm2": 37.7,
+   "support_cm2": 33.9,
    "walls": 4,
    "infill": 20,
    "note": "Holds the left DM-J4340 (J1). Prints on its centre face, cup up. 5 walls, 30% infill.",
@@ -1089,8 +1089,8 @@
     143.0,
     147.7
    ],
-   "volume_cm3": 432.3,
-   "grams": 301.9
+   "volume_cm3": 429.6,
+   "grams": 300.1
   },
   {
    "name": "yoke_r",
@@ -1099,7 +1099,7 @@
    "link": "lift",
    "material": "PETG",
    "color": "frame",
-   "support_cm2": 37.7,
+   "support_cm2": 33.9,
    "walls": 4,
    "infill": 20,
    "note": "Mirror of yoke_l.",
@@ -1113,8 +1113,8 @@
     143.0,
     147.7
    ],
-   "volume_cm3": 432.3,
-   "grams": 301.9
+   "volume_cm3": 429.6,
+   "grams": 300.1
   },
   {
    "name": "neck_mount",
@@ -2111,73 +2111,73 @@
  "stability": {
   "zero": {
    "com_mm": [
-    25.0,
-    0.3,
+    24.9,
+    0.2,
     424.0
    ],
-   "margin_front_mm": 175.0,
-   "margin_rear_mm": 225.0,
-   "margin_side_mm": 184.7,
+   "margin_front_mm": 175.1,
+   "margin_rear_mm": 224.9,
+   "margin_side_mm": 184.8,
    "tip_deg_front": 22.4,
-   "tip_deg_rear": 28.0
+   "tip_deg_rear": 27.9
   },
   "home": {
    "com_mm": [
-    41.2,
-    0.3,
-    337.8
+    41.1,
+    0.2,
+    337.7
    ],
-   "margin_front_mm": 158.8,
-   "margin_rear_mm": 241.2,
-   "margin_side_mm": 184.7,
+   "margin_front_mm": 158.9,
+   "margin_rear_mm": 241.1,
+   "margin_side_mm": 184.8,
    "tip_deg_front": 25.2,
    "tip_deg_rear": 35.5
   },
   "counter": {
    "com_mm": [
-    49.5,
-    0.3,
-    440.8
+    49.4,
+    0.2,
+    440.7
    ],
-   "margin_front_mm": 150.5,
-   "margin_rear_mm": 249.5,
-   "margin_side_mm": 184.7,
+   "margin_front_mm": 150.6,
+   "margin_rear_mm": 249.4,
+   "margin_side_mm": 184.8,
    "tip_deg_front": 18.9,
    "tip_deg_rear": 29.5
   },
   "floor": {
    "com_mm": [
-    38.3,
-    0.3,
-    295.8
+    38.2,
+    0.2,
+    295.6
    ],
-   "margin_front_mm": 161.7,
-   "margin_rear_mm": 238.3,
-   "margin_side_mm": 184.7,
+   "margin_front_mm": 161.8,
+   "margin_rear_mm": 238.2,
+   "margin_side_mm": 184.8,
    "tip_deg_front": 28.7,
    "tip_deg_rear": 38.9
   },
   "shelf": {
    "com_mm": [
-    36.8,
-    0.3,
-    560.4
+    36.7,
+    0.2,
+    560.5
    ],
-   "margin_front_mm": 163.2,
-   "margin_rear_mm": 236.8,
-   "margin_side_mm": 184.7,
+   "margin_front_mm": 163.3,
+   "margin_rear_mm": 236.7,
+   "margin_side_mm": 184.8,
    "tip_deg_front": 16.2,
    "tip_deg_rear": 22.9
   },
   "wave": {
    "com_mm": [
-    38.0,
-    10.3,
-    412.0
+    37.9,
+    10.2,
+    411.9
    ],
-   "margin_front_mm": 162.0,
-   "margin_rear_mm": 238.0,
-   "margin_side_mm": 174.7,
+   "margin_front_mm": 162.1,
+   "margin_rear_mm": 237.9,
+   "margin_side_mm": 174.8,
    "tip_deg_front": 21.5,
    "tip_deg_rear": 30.0
   }
@@ -2188,5 +2188,5 @@
  },
  "errors": [],
  "warnings": [],
- "seconds": 75.7
+ "seconds": 84.6
 }

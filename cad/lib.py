@@ -52,6 +52,7 @@ class Bought:
     kind: str  # actuator | electronics | battery | metal | wheel
     mass_g: float = 0.0
     bom: str = ""
+    look: str = ""  # material for the viewer and the sim; defaults to kind
 
 
 @dataclass

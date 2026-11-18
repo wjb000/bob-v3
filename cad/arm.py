@@ -420,22 +420,23 @@ def parts(side: str) -> list[Part]:
 
 
 def bought(side: str) -> list[Bought]:
+    import vendor as V
+
     m = (lambda s: s) if side == "l" else _mirror
     out = []
 
-    def add(name, solid, link, kind, mass, key):
-        out.append(Bought(f"{name}_{side}", m(solid), f"{side}_{link}", "arm", kind, mass, key))
+    def add(name, pieces, link, kind, mass, key):
+        mirrored = [(sfx, m(shp), look) for sfx, shp, look in pieces]
+        out.extend(V.boughts(f"{name}_{side}", mirrored, f"{side}_{link}", "arm", kind, mass, key))
 
-    add("j2", cyl_between("x", (Y0, S), J2_FACE_X, X0 + P.DM4340_H / 2, P.DM4340_D), "link1", "actuator", P.DM4340_MASS, "dm4340")
-    add("j3", cyl_between("z", (X0, Y0), *J3_BODY, P.DM4310_D), "link2", "actuator", P.DM4310_MASS, "dm4310")
-    add("j4", cyl_between("y", (X0, E), Y0 - P.DM4310_H / 2, J4_FACE_Y, P.DM4310_D), "link3", "actuator", P.DM4310_MASS, "dm4310")
-    jb = J5_BODY
-    add("j5", box(*jb["x"], *jb["y"], *jb["z"]), "link4", "actuator", P.STS_MASS, "sts3215")
-    j6x0 = X0 - P.STS_SHAFT_FROM_END
-    add("j6", box(j6x0, j6x0 + P.STS_L, Y0 - P.STS_W / 2, Y0 + P.STS_W / 2, *J6_BODY_Z), "link5", "actuator", P.STS_MASS, "sts3215")
-    sx0 = X0 - P.STS_SHAFT_FROM_END
-    add("j7", box(sx0, sx0 + P.STS_L, Y0 - P.STS_W / 2, Y0 + P.STS_W / 2, *J7_BODY_Z), "link6", "actuator", P.STS_MASS, "sts3215")
-    add("wrist_cam", cbox(WRIST_CAM_X - 4.5, Y0, (HOUSING_Z[0] + HOUSING_Z[1]) / 2, 9, 26, 26), "link6", "electronics", 15, "wristcam")
+    add("j2", V.place(V.damiao("dm4340"), (J2_FACE_X, Y0, S), xdir=(0, 0, 1), zdir=(-1, 0, 0)), "link1", "actuator", P.DM4340_MASS, "dm4340")
+    add("j3", V.place(V.damiao("dm4310"), (X0, Y0, J3_BODY[0]), xdir=(1, 0, 0), zdir=(0, 0, -1)), "link2", "actuator", P.DM4310_MASS, "dm4310")
+    add("j4", V.place(V.damiao("dm4310"), (X0, J4_FACE_Y, E), xdir=(1, 0, 0), zdir=(0, 1, 0)), "link3", "actuator", P.DM4310_MASS, "dm4310")
+    add("j5", V.place(V.sts3215(), (X0, J5_BODY["y"][1], W), xdir=(0, 0, 1), zdir=(0, 1, 0)), "link4", "actuator", P.STS_MASS, "sts3215")
+    add("j6", V.place(V.sts3215(), (X0, Y0, J6_BODY_Z[0]), xdir=(1, 0, 0), zdir=(0, 0, -1)), "link5", "actuator", P.STS_MASS, "sts3215")
+    add("j7", V.place(V.sts3215(), (X0, Y0, J7_BODY_Z[0]), xdir=(1, 0, 0), zdir=(0, 0, -1)), "link6", "actuator", P.STS_MASS, "sts3215")
+    add("wrist_cam", V.place(V.usb_cam(), (WRIST_CAM_X, Y0, (HOUSING_Z[0] + HOUSING_Z[1]) / 2), xdir=(-1, 0, 0), zdir=(0, 0, 1)),
+        "link6", "electronics", 15, "wristcam")
     return out
 
 

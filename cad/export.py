@@ -246,7 +246,7 @@ def main() -> int:
         cq.exporters.export(s, str(PLACED / f"{name}.stl"), tolerance=0.3, angularTolerance=0.5)
         cq.exporters.export(s, str(VIEW / f"{name}.stl"), tolerance=0.5, angularTolerance=0.6)
     for b in buys:
-        items.append(dict(name=b.name, file=f"{b.name}.stl", link=b.link, group=b.group, kind=b.kind, color=b.kind,
+        items.append(dict(name=b.name, file=f"{b.name}.stl", link=b.link, group=b.group, kind=b.kind, color=b.look or b.kind,
                           material="bought", mass_g=b.mass_g, bom=b.bom))
         solids.append(b.solid)
         cq.exporters.export(b.solid, str(PLACED / f"{b.name}.stl"), tolerance=0.3, angularTolerance=0.4)

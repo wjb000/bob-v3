@@ -259,7 +259,7 @@ def yoke(side, sz=S0) -> cq.Shape:
     web = box(YOKE_FACE_X, YOKE_FACE_X + 6, 0.3, 70, cz - 110, cz + 30)
     gusset = box(YOKE_FACE_X, cx - 20, 0.3, 8, cz - 110, cz + 30)
     s = fuse(cup, rear_wall, beam, web, gusset)
-    tools = [cyl_between("y", (cx, cz), rear - 1, body0 - 0.5, 22)]  # cable exit
+    tools = [cyl_between("y", (cx, cz), rear - 14, body0 + 0.5, 22)]  # cable exit, deep enough for the XT30 and CAN plugs
     tools += _dm_rear_holes((cx, 0, cz), "y", body0 + 0.5, depth=-6)
     for y, z in _yoke_web_pts(sz):
         if y > 0:
@@ -421,38 +421,38 @@ def torso_parts() -> list[Part]:
 
 
 def bought(sz=S0) -> list[Bought]:
+    import vendor as V
+
     out = []
     for sy in (1, -1):
         out.append(Bought(f"rod_{'l' if sy > 0 else 'r'}", cyl((P.ROD_X, sy * P.ROD_Y, P.ROD_Z0), "z", P.ROD_D, P.ROD_LEN),
-                          "base", "mast", "metal", 888, "rod"))
-    out.append(Bought("leadscrew", cyl((P.SCREW_X, 0, P.SCREW_Z1 - P.SCREW_LEN), "z", 8, P.SCREW_LEN), "base", "mast", "metal", 350, "screw"))
-    out.append(Bought("lift_motor", cbox(P.SCREW_X, 0, P.NEMA_FACE_Z + P.NEMA_LEN / 2, P.NEMA_SIZE, P.NEMA_SIZE, P.NEMA_LEN),
-                      "base", "mast", "actuator", P.NEMA_MASS, "nema"))
-    out.append(Bought("coupler", tube_between("z", (P.SCREW_X, 0), P.NEMA_FACE_Z - 25, P.NEMA_FACE_Z, 19, 8.2), "base", "mast", "metal", 20, "coupler"))
+                          "base", "mast", "metal", 888, "rod", look="chrome"))
+    out.append(Bought("leadscrew", cyl((P.SCREW_X, 0, P.SCREW_Z1 - P.SCREW_LEN), "z", 8, P.SCREW_LEN), "base", "mast", "metal", 350, "screw",
+                      look="steel"))
+    out += V.boughts("lift_motor", V.place(V.nema17(), (P.SCREW_X, 0, P.NEMA_FACE_Z)), "base", "mast", "actuator", P.NEMA_MASS, "nema")
+    out += V.boughts("coupler", V.place(V.coupler(), (P.SCREW_X, 0, P.NEMA_FACE_Z - 27)), "base", "mast", "metal", 20, "coupler")
     lo_c = sz - P.CARRIAGE_BELOW + 4 + P.LM12_LEN / 2
     for sy in (1, -1):
         for zc in (lo_c, lo_c + P.BEARING_SPAN):
-            out.append(Bought(f"lm12_{'l' if sy > 0 else 'r'}_{int(zc)}", tube_between("z", (P.ROD_X, sy * P.ROD_Y), zc - 15, zc + 15, P.LM12_OD, P.ROD_D),
-                              "lift", "mast", "metal", 60, "lm12"))
+            out += V.boughts(f"lm12_{'l' if sy > 0 else 'r'}_{int(zc)}", V.place(V.lm12uu(), (P.ROD_X, sy * P.ROD_Y, zc)),
+                             "lift", "mast", "metal", 60, "lm12")
     nz = sz - P.CARRIAGE_BELOW
     out.append(Bought("t8_nut", cut(fuse(cyl((P.SCREW_X, 0, nz), "z", 22, 3.5), cyl((P.SCREW_X, 0, nz - 11.5), "z", 10.2, 11.6)),
                                     cyl((P.SCREW_X, 0, nz - 20), "z", 8.2, 40)),
-                      "lift", "mast", "metal", 30, "t8nut"))
+                      "lift", "mast", "metal", 30, "t8nut", look="brass"))
     for sy, j in ((1, "l"), (-1, "r")):
-        body0 = P.J1_FACE_Y - P.DM4340_H
-        out.append(Bought(f"j1_{j}", cyl_between("y", (P.SHOULDER_X, sz), sy * body0, sy * P.J1_FACE_Y, P.DM4340_D),
-                          "lift", "torso", "actuator", P.DM4340_MASS, "dm4340"))
+        pcs = V.place(V.damiao("dm4340"), (P.SHOULDER_X, sy * P.J1_FACE_Y, sz), xdir=(1, 0, 0), zdir=(0, sy, 0))
+        out += V.boughts(f"j1_{j}", pcs, "lift", "torso", "actuator", P.DM4340_MASS, "dm4340")
     jx0 = BP_X1 + 4
-    out.append(Bought("jetson", cbox(jx0 + P.JETSON[2] / 2, 0, sz - 165, P.JETSON[2], P.JETSON[0], P.JETSON[1]),
-                      "lift", "torso", "electronics", 280, "jetson"))
-    for name, (x, y, z), size, m, key in (
-        ("usb_hub", (110, -95, sz - 170), (25, 50, 70), 60, "usbhub"),
-        ("can_l", (100, 80, sz - 170), (20, 50, 30), 25, "usbcan"),
-        ("can_r", (100, 80, sz - 210), (20, 50, 30), 25, "usbcan"),
-        ("servo_bus", (150, 60, sz - 120), (20, 65, 40), 25, "busadapter"),
-        ("speaker", (TX1 - 14, 0, sz - 156), (10, 40, 40), 40, "speaker"),
-        ("pan_servo", (NECK_X - P.STS_SHAFT_FROM_END + P.STS_L / 2, 0, sz + 47 - P.STS_H / 2), (P.STS_L, P.STS_W, P.STS_H), P.STS_MASS, "sts3215"),
+    out += V.boughts("jetson", V.place(V.jetson(), (jx0, 0, sz - 165), xdir=(0, 1, 0), zdir=(1, 0, 0)), "lift", "torso", "electronics", 280, "jetson")
+    for name, (x, y, z), pcs, m, key in (
+        ("usb_hub", (110 - 12.5, -95, sz - 170), V.usb_board(70, 50, 25, ports=4), 60, "usbhub"),
+        ("can_l", (100 - 10, 80, sz - 170), V.usb_board(30, 50, 20, ports=1), 25, "usbcan"),
+        ("can_r", (100 - 10, 80, sz - 210), V.usb_board(30, 50, 20, ports=1), 25, "usbcan"),
+        ("servo_bus", (150 - 10, 60, sz - 120), V.usb_board(40, 65, 20, ports=2), 25, "busadapter"),
+        ("servo_bus_r", (150 - 10, -60, sz - 120), V.usb_board(40, 65, 20, ports=2), 25, "busadapter"),
     ):
-        kind = "actuator" if key == "sts3215" else "electronics"
-        out.append(Bought(name, cbox(x, y, z, *size), "lift", "torso", kind, m, key))
+        out += V.boughts(name, V.place(pcs, (x, y, z), xdir=(0, 0, 1), zdir=(1, 0, 0)), "lift", "torso", "electronics", m, key)
+    out += V.boughts("speaker", V.place(V.speaker(), (TX1 - 10, 0, sz - 156), xdir=(0, 1, 0), zdir=(1, 0, 0)), "lift", "torso", "electronics", 40, "speaker")
+    out += V.boughts("pan_servo", V.place(V.sts3215(), (NECK_X, 0, sz + 47)), "lift", "torso", "actuator", P.STS_MASS, "sts3215")
     return out

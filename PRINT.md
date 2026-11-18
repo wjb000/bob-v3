@@ -1,6 +1,6 @@
 # Print list
 
-86 unique files, 164 prints, about 7.1 kg of filament at the settings below.
+86 unique files, 164 prints, about 7.0 kg of filament at the settings below.
 Every part fits a 200 x 200 x 200 mm volume (Prusa MK4, Ender-3, Bambu A1/P1/X1, Core One).
 The STLs in `cad/stl/` are already oriented: flat face down, no rotating. Grams are at 4 walls and 20% gyroid.
 
@@ -73,8 +73,8 @@ The STLs in `cad/stl/` are already oriented: flat face down, no rotating. Grams 
 | File | Qty | Colour | Bed mm | g each | Support | Note |
 | --- | ---: | --- | --- | ---: | --- | --- |
 | `torso_back_plate.stl` | 1 | grey PETG | 190 x 140 x 8 | 145 | none | Takes the lift tongue, the yokes and the Jetson grid. |
-| `yoke_l.stl` | 1 | grey PETG | 105 x 143 x 148 | 302 | 38 cm² | Holds the left DM-J4340 (J1). Prints on its centre face, cup up. 5 walls, 30% infill. |
-| `yoke_r.stl` | 1 | grey PETG | 105 x 143 x 148 | 302 | 38 cm² | Mirror of yoke_l. |
+| `yoke_l.stl` | 1 | grey PETG | 105 x 143 x 148 | 300 | 34 cm² | Holds the left DM-J4340 (J1). Prints on its centre face, cup up. 5 walls, 30% infill. |
+| `yoke_r.stl` | 1 | grey PETG | 105 x 143 x 148 | 300 | 34 cm² | Mirror of yoke_l. |
 | `neck_mount.stl` | 1 | grey PETG | 108 x 70 x 28 | 42 | 8 cm² | Pan servo cradle, bridges the yokes. |
 | `torso_lower_l.stl` | 1 | white PETG | 170 x 155 x 150 | 170 | 8 cm² | Lower tier prints floor-down; upper tier prints top-down. |
 | `torso_lower_r.stl` | 1 | white PETG | 170 x 155 x 150 | 170 | 8 cm² | Lower tier prints floor-down; upper tier prints top-down. |

@@ -181,17 +181,18 @@ def head_joiners():
 
 
 def bought() -> list[Bought]:
-    tb = TILT_BODY
-    out = [
-        Bought("tilt_servo", box(*tb["x"], *tb["y"], *tb["z"]), "head_pan", "head", "actuator", P.STS_MASS, "sts3215"),
-        Bought("d435", cbox(POST_X[1] + P.D435[2] / 2, 0, CAM_Z, P.D435[2] - 0.2, P.D435[0], P.D435[1]), "head_tilt", "head",
-               "electronics", 72, "d435"),
-        Bought("esp32s3_head", cbox(HCX - 30, 0, S + 140, 25, 52, 10), "head_tilt", "head", "electronics", 10, "esp32s3"),
-        Bought("mic_array", cbox(HCX - 10, 0, HZ1 - 14, 60, 60, 6), "head_tilt", "head", "electronics", 20, "mic"),
-    ]
+    import vendor as V
+
+    out = []
+    out += V.boughts("tilt_servo", V.place(V.sts3215(), (NX, TILT_BODY["y"][1], TILT_Z), xdir=(1, 0, 0), zdir=(0, 1, 0)),
+                     "head_pan", "head", "actuator", P.STS_MASS, "sts3215")
+    out += V.boughts("d435", V.place(V.d435(), (POST_X[1] + P.D435[2] / 2, 0, CAM_Z)), "head_tilt", "head", "electronics", 72, "d435")
+    out += V.boughts("esp32s3_head", V.place(V.small_board(25, 52, (10, 10, 1.5)), (HCX - 30, 0, S + 135)), "head_tilt", "head",
+                     "electronics", 10, "esp32s3")
+    out += V.boughts("mic_array", V.place(V.mic_array(), (HCX - 10, 0, HZ1 - 17)), "head_tilt", "head", "electronics", 20, "mic")
     for y in (-EYE_Y, EYE_Y):
-        out.append(Bought(f"eye_{'l' if y > 0 else 'r'}", cyl_between("x", (y, EYE_Z), EYE_PLATE_X[1] - 2.2, EYE_PLATE_X[1], P.EYE_PCB),
-                          "head_tilt", "head", "electronics", 8, "eye"))
+        pcs = V.place(V.round_tft(), (EYE_PLATE_X[1] - 2.2, y, EYE_Z), xdir=(0, 1, 0), zdir=(1, 0, 0))
+        out += V.boughts(f"eye_{'l' if y > 0 else 'r'}", pcs, "head_tilt", "head", "electronics", 8, "eye")
     return out
 
 

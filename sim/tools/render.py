@@ -25,6 +25,7 @@ views = {
     "back": dict(az=-35, el=-12, dist=1.9, look=(0.0, 0, 0.58)),
     "tall": dict(az=140, el=-6, dist=2.3, look=(0.12, 0, 0.88)),
 }
+shots_inside = [("home", "hero", "inside_hero"), ("home", "back", "inside_back")]
 shots = [("home", "hero"), ("home", "front"), ("home", "side"), ("counter", "hero"), ("floor", "hero"), ("shelf", "tall"),
          ("wave", "hero"), ("home", "back")]
 for key, view in shots:
@@ -38,3 +39,15 @@ for key, view in shots:
     img = r.render()
     Image.fromarray(img).save(out / f"{key}_{view}.png")
     print("wrote", out / f"{key}_{view}.png")
+
+opt.geomgroup[:] = [1, 0, 1, 0, 0, 0]  # bought parts only: motors, boards, battery
+for key, view, name in shots_inside:
+    mujoco.mj_resetDataKeyframe(m, d, m.key(key).id)
+    mujoco.mj_forward(m, d)
+    cam = mujoco.MjvCamera()
+    v = views[view]
+    cam.azimuth, cam.elevation, cam.distance = v["az"], v["el"], v["dist"]
+    cam.lookat[:] = v["look"]
+    r.update_scene(d, cam, opt)
+    Image.fromarray(r.render()).save(out / f"{name}.png", optimize=True)
+    print("wrote", out / f"{name}.png")

@@ -51,10 +51,10 @@
    },
    {
     "joint": "wrist_roll",
-    "worst_Nm": 0.0,
+    "worst_Nm": 0.01,
     "rated_Nm": 0.98,
     "peak_Nm": 2.94,
-    "of_rated": 0.0,
+    "of_rated": 0.01,
     "of_peak": 0.0
    }
   ],
@@ -97,7 +97,7 @@
     "upper_arm_yaw": -2.78,
     "elbow": 0.0,
     "wrist_pitch": 0.0,
-    "wrist_roll": -0.0
+    "wrist_roll": -0.01
    }
   }
  },
@@ -120,25 +120,25 @@
   "travel_mm": 650,
   "speed_mm_s": 25.0,
   "time_s": 22.4,
-  "worst_lag_mm": 5.76,
+  "worst_lag_mm": 5.77,
   "hold_err_mm": 1.4,
-  "hold_force_N": 83.8
+  "hold_force_N": 84.0
  },
  "brake": {
   "ok": true,
   "speed_mps": 0.79,
-  "max_tilt_deg": 0.17,
+  "max_tilt_deg": 0.15,
   "tilt_by_decel": {
    "1.0": 0.05,
    "2.0": 0.12,
    "4.0": 0.14,
-   "6.0": 0.17
+   "6.0": 0.15
   }
  },
  "push": {
   "ok": true,
-  "push_forward_N": 32.2,
-  "push_back_N": 51.6
+  "push_forward_N": 29.9,
+  "push_back_N": 46.3
  },
  "slope": {
   "ok": true,

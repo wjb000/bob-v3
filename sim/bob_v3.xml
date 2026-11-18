@@ -9,16 +9,35 @@
     <default class="col"><geom group="3" rgba="0.9 0.2 0.2 0.25"/></default>
   </default>
   <asset>
-    <material name="m_shell" rgba="0.92 0.92 0.90 1" specular="0.3" shininess="0.4"/>
-    <material name="m_dark" rgba="0.13 0.13 0.14 1" specular="0.3" shininess="0.4"/>
-    <material name="m_frame" rgba="0.56 0.58 0.62 1" specular="0.3" shininess="0.4"/>
-    <material name="m_accent" rgba="0.0 0.5 1.0 1" specular="0.3" shininess="0.4"/>
-    <material name="m_actuator" rgba="0.20 0.20 0.22 1" specular="0.3" shininess="0.4"/>
-    <material name="m_electronics" rgba="0.20 0.45 0.30 1" specular="0.3" shininess="0.4"/>
-    <material name="m_battery" rgba="0.35 0.55 0.20 1" specular="0.3" shininess="0.4"/>
-    <material name="m_metal" rgba="0.75 0.76 0.78 1" specular="0.3" shininess="0.4"/>
-    <material name="m_wheel" rgba="0.10 0.10 0.10 1" specular="0.3" shininess="0.4"/>
-    <material name="m_eye" rgba="0.25 0.85 1.0 1" emission="1.2"/>
+    <material name="m_shell" rgba="0.92 0.92 0.90 1" specular="0.4" shininess="0.5"/>
+    <material name="m_dark" rgba="0.13 0.13 0.14 1" specular="0.4" shininess="0.5"/>
+    <material name="m_frame" rgba="0.56 0.58 0.62 1" specular="0.4" shininess="0.5"/>
+    <material name="m_accent" rgba="0.0 0.5 1.0 1" specular="0.4" shininess="0.5"/>
+    <material name="m_actuator" rgba="0.20 0.20 0.22 1" specular="0.4" shininess="0.5"/>
+    <material name="m_electronics" rgba="0.20 0.45 0.30 1" specular="0.4" shininess="0.5"/>
+    <material name="m_battery" rgba="0.35 0.55 0.20 1" specular="0.4" shininess="0.5"/>
+    <material name="m_metal" rgba="0.75 0.76 0.78 1" specular="0.4" shininess="0.5"/>
+    <material name="m_wheel" rgba="0.10 0.10 0.10 1" specular="0.4" shininess="0.5"/>
+    <material name="m_anodised" rgba="0.17 0.17 0.19 1" specular="0.4" shininess="0.5"/>
+    <material name="m_alu" rgba="0.78 0.79 0.81 1" specular="0.4" shininess="0.5" reflectance="0.15"/>
+    <material name="m_steel" rgba="0.62 0.63 0.66 1" specular="0.4" shininess="0.5" reflectance="0.15"/>
+    <material name="m_chrome" rgba="0.85 0.86 0.88 1" specular="0.4" shininess="0.5" reflectance="0.15"/>
+    <material name="m_brass" rgba="0.80 0.62 0.28 1" specular="0.4" shininess="0.5"/>
+    <material name="m_copper" rgba="0.78 0.45 0.25 1" specular="0.4" shininess="0.5"/>
+    <material name="m_black" rgba="0.08 0.08 0.09 1" specular="0.4" shininess="0.5"/>
+    <material name="m_white" rgba="0.93 0.93 0.92 1" specular="0.4" shininess="0.5"/>
+    <material name="m_grey" rgba="0.40 0.40 0.42 1" specular="0.4" shininess="0.5"/>
+    <material name="m_yellow" rgba="0.95 0.75 0.10 1" specular="0.4" shininess="0.5"/>
+    <material name="m_red" rgba="0.82 0.10 0.10 1" specular="0.4" shininess="0.5"/>
+    <material name="m_green" rgba="0.15 0.55 0.25 1" specular="0.4" shininess="0.5"/>
+    <material name="m_rubber" rgba="0.07 0.07 0.07 1" specular="0.4" shininess="0.5"/>
+    <material name="m_pcb" rgba="0.10 0.40 0.20 1" specular="0.4" shininess="0.5"/>
+    <material name="m_pcb_black" rgba="0.06 0.07 0.07 1" specular="0.4" shininess="0.5"/>
+    <material name="m_pcb_blue" rgba="0.10 0.25 0.60 1" specular="0.4" shininess="0.5"/>
+    <material name="m_glass" rgba="0.05 0.06 0.08 1" specular="0.4" shininess="0.5"/>
+    <material name="m_lens" rgba="0.10 0.12 0.30 1" specular="0.4" shininess="0.5"/>
+    <material name="m_smoke" rgba="0.20 0.20 0.22 1" specular="0.4" shininess="0.5"/>
+    <material name="m_eye" rgba="0.25 0.85 1.0 1" specular="0.4" shininess="0.5" emission="1.2"/>
     <texture name="sky" type="skybox" builtin="gradient" rgb1="0.93 0.94 0.96" rgb2="0.62 0.66 0.72" width="512" height="512"/>
     <texture name="grid" type="2d" builtin="checker" rgb1="0.82 0.80 0.76" rgb2="0.76 0.74 0.70" width="512" height="512"/>
     <material name="floor" texture="grid" texrepeat="8 8" reflectance="0.05"/>
@@ -187,25 +206,60 @@
     <mesh name="joiner_77" file="joiner_77.stl"/>
     <mesh name="joiner_78" file="joiner_78.stl"/>
     <mesh name="hub_l" file="hub_l.stl"/>
+    <mesh name="hub_l_hub" file="hub_l_hub.stl"/>
+    <mesh name="hub_l_axle" file="hub_l_axle.stl"/>
     <mesh name="hub_r" file="hub_r.stl"/>
+    <mesh name="hub_r_hub" file="hub_r_hub.stl"/>
+    <mesh name="hub_r_axle" file="hub_r_axle.stl"/>
     <mesh name="battery" file="battery.stl"/>
+    <mesh name="battery_label" file="battery_label.stl"/>
+    <mesh name="battery_lead" file="battery_lead.stl"/>
     <mesh name="lidar" file="lidar.stl"/>
+    <mesh name="lidar_window" file="lidar_window.stl"/>
     <mesh name="zsx11h_l" file="zsx11h_l.stl"/>
+    <mesh name="zsx11h_l_sink" file="zsx11h_l_sink.stl"/>
+    <mesh name="zsx11h_l_caps" file="zsx11h_l_caps.stl"/>
+    <mesh name="zsx11h_l_terms" file="zsx11h_l_terms.stl"/>
     <mesh name="zsx11h_r" file="zsx11h_r.stl"/>
+    <mesh name="zsx11h_r_sink" file="zsx11h_r_sink.stl"/>
+    <mesh name="zsx11h_r_caps" file="zsx11h_r_caps.stl"/>
+    <mesh name="zsx11h_r_terms" file="zsx11h_r_terms.stl"/>
     <mesh name="esp32" file="esp32.stl"/>
+    <mesh name="esp32_module" file="esp32_module.stl"/>
+    <mesh name="esp32_shield" file="esp32_shield.stl"/>
+    <mesh name="esp32_pins" file="esp32_pins.stl"/>
     <mesh name="imu" file="imu.stl"/>
+    <mesh name="imu_chip" file="imu_chip.stl"/>
+    <mesh name="imu_pins" file="imu_pins.stl"/>
+    <mesh name="tmc2209" file="tmc2209.stl"/>
+    <mesh name="tmc2209_chip" file="tmc2209_chip.stl"/>
+    <mesh name="tmc2209_pins" file="tmc2209_pins.stl"/>
     <mesh name="buck_24v" file="buck_24v.stl"/>
+    <mesh name="buck_24v_terms" file="buck_24v_terms.stl"/>
     <mesh name="buck_12v" file="buck_12v.stl"/>
+    <mesh name="buck_12v_terms" file="buck_12v_terms.stl"/>
     <mesh name="buck_19v" file="buck_19v.stl"/>
+    <mesh name="buck_19v_sink" file="buck_19v_sink.stl"/>
+    <mesh name="buck_19v_ind" file="buck_19v_ind.stl"/>
+    <mesh name="buck_19v_cap" file="buck_19v_cap.stl"/>
+    <mesh name="buck_19v_terms" file="buck_19v_terms.stl"/>
     <mesh name="fuse_block" file="fuse_block.stl"/>
+    <mesh name="fuse_block_lid" file="fuse_block_lid.stl"/>
+    <mesh name="fuse_block_fuses" file="fuse_block_fuses.stl"/>
     <mesh name="contactor_relay" file="contactor_relay.stl"/>
+    <mesh name="contactor_relay_studs" file="contactor_relay_studs.stl"/>
     <mesh name="estop" file="estop.stl"/>
+    <mesh name="estop_ring" file="estop_ring.stl"/>
+    <mesh name="estop_head" file="estop_head.stl"/>
     <mesh name="caster_bolt_f" file="caster_bolt_f.stl"/>
     <mesh name="caster_bolt_r" file="caster_bolt_r.stl"/>
     <mesh name="rod_l" file="rod_l.stl"/>
     <mesh name="rod_r" file="rod_r.stl"/>
     <mesh name="leadscrew" file="leadscrew.stl"/>
     <mesh name="lift_motor" file="lift_motor.stl"/>
+    <mesh name="lift_motor_stack" file="lift_motor_stack.stl"/>
+    <mesh name="lift_motor_shaft" file="lift_motor_shaft.stl"/>
+    <mesh name="lift_motor_conn" file="lift_motor_conn.stl"/>
     <mesh name="coupler" file="coupler.stl"/>
     <mesh name="lm12_l_239" file="lm12_l_239.stl"/>
     <mesh name="lm12_l_349" file="lm12_l_349.stl"/>
@@ -213,34 +267,83 @@
     <mesh name="lm12_r_349" file="lm12_r_349.stl"/>
     <mesh name="t8_nut" file="t8_nut.stl"/>
     <mesh name="j1_l" file="j1_l.stl"/>
+    <mesh name="j1_l_out" file="j1_l_out.stl"/>
+    <mesh name="j1_l_conn" file="j1_l_conn.stl"/>
     <mesh name="j1_r" file="j1_r.stl"/>
+    <mesh name="j1_r_out" file="j1_r_out.stl"/>
+    <mesh name="j1_r_conn" file="j1_r_conn.stl"/>
     <mesh name="jetson" file="jetson.stl"/>
+    <mesh name="jetson_feet" file="jetson_feet.stl"/>
+    <mesh name="jetson_module" file="jetson_module.stl"/>
+    <mesh name="jetson_sink" file="jetson_sink.stl"/>
+    <mesh name="jetson_fan" file="jetson_fan.stl"/>
+    <mesh name="jetson_ports" file="jetson_ports.stl"/>
     <mesh name="usb_hub" file="usb_hub.stl"/>
+    <mesh name="usb_hub_ports" file="usb_hub_ports.stl"/>
     <mesh name="can_l" file="can_l.stl"/>
+    <mesh name="can_l_ports" file="can_l_ports.stl"/>
     <mesh name="can_r" file="can_r.stl"/>
+    <mesh name="can_r_ports" file="can_r_ports.stl"/>
     <mesh name="servo_bus" file="servo_bus.stl"/>
+    <mesh name="servo_bus_ports" file="servo_bus_ports.stl"/>
+    <mesh name="servo_bus_r" file="servo_bus_r.stl"/>
+    <mesh name="servo_bus_r_ports" file="servo_bus_r_ports.stl"/>
     <mesh name="speaker" file="speaker.stl"/>
+    <mesh name="speaker_cone" file="speaker_cone.stl"/>
     <mesh name="pan_servo" file="pan_servo.stl"/>
+    <mesh name="pan_servo_horn" file="pan_servo_horn.stl"/>
     <mesh name="tilt_servo" file="tilt_servo.stl"/>
+    <mesh name="tilt_servo_horn" file="tilt_servo_horn.stl"/>
     <mesh name="d435" file="d435.stl"/>
+    <mesh name="d435_glass" file="d435_glass.stl"/>
+    <mesh name="d435_lens" file="d435_lens.stl"/>
     <mesh name="esp32s3_head" file="esp32s3_head.stl"/>
+    <mesh name="esp32s3_head_chip" file="esp32s3_head_chip.stl"/>
+    <mesh name="esp32s3_head_pins" file="esp32s3_head_pins.stl"/>
     <mesh name="mic_array" file="mic_array.stl"/>
+    <mesh name="mic_array_mics" file="mic_array_mics.stl"/>
+    <mesh name="mic_array_leds" file="mic_array_leds.stl"/>
+    <mesh name="mic_array_chip" file="mic_array_chip.stl"/>
     <mesh name="eye_r" file="eye_r.stl"/>
+    <mesh name="eye_r_glass" file="eye_r_glass.stl"/>
     <mesh name="eye_l" file="eye_l.stl"/>
+    <mesh name="eye_l_glass" file="eye_l_glass.stl"/>
     <mesh name="j2_l" file="j2_l.stl"/>
+    <mesh name="j2_l_out" file="j2_l_out.stl"/>
+    <mesh name="j2_l_conn" file="j2_l_conn.stl"/>
     <mesh name="j3_l" file="j3_l.stl"/>
+    <mesh name="j3_l_out" file="j3_l_out.stl"/>
+    <mesh name="j3_l_conn" file="j3_l_conn.stl"/>
     <mesh name="j4_l" file="j4_l.stl"/>
+    <mesh name="j4_l_out" file="j4_l_out.stl"/>
+    <mesh name="j4_l_conn" file="j4_l_conn.stl"/>
     <mesh name="j5_l" file="j5_l.stl"/>
+    <mesh name="j5_l_horn" file="j5_l_horn.stl"/>
     <mesh name="j6_l" file="j6_l.stl"/>
+    <mesh name="j6_l_horn" file="j6_l_horn.stl"/>
     <mesh name="j7_l" file="j7_l.stl"/>
+    <mesh name="j7_l_horn" file="j7_l_horn.stl"/>
     <mesh name="wrist_cam_l" file="wrist_cam_l.stl"/>
+    <mesh name="wrist_cam_l_holder" file="wrist_cam_l_holder.stl"/>
+    <mesh name="wrist_cam_l_lens" file="wrist_cam_l_lens.stl"/>
     <mesh name="j2_r" file="j2_r.stl"/>
+    <mesh name="j2_r_out" file="j2_r_out.stl"/>
+    <mesh name="j2_r_conn" file="j2_r_conn.stl"/>
     <mesh name="j3_r" file="j3_r.stl"/>
+    <mesh name="j3_r_out" file="j3_r_out.stl"/>
+    <mesh name="j3_r_conn" file="j3_r_conn.stl"/>
     <mesh name="j4_r" file="j4_r.stl"/>
+    <mesh name="j4_r_out" file="j4_r_out.stl"/>
+    <mesh name="j4_r_conn" file="j4_r_conn.stl"/>
     <mesh name="j5_r" file="j5_r.stl"/>
+    <mesh name="j5_r_horn" file="j5_r_horn.stl"/>
     <mesh name="j6_r" file="j6_r.stl"/>
+    <mesh name="j6_r_horn" file="j6_r_horn.stl"/>
     <mesh name="j7_r" file="j7_r.stl"/>
+    <mesh name="j7_r_horn" file="j7_r_horn.stl"/>
     <mesh name="wrist_cam_r" file="wrist_cam_r.stl"/>
+    <mesh name="wrist_cam_r_holder" file="wrist_cam_r_holder.stl"/>
+    <mesh name="wrist_cam_r_lens" file="wrist_cam_r_lens.stl"/>
   </asset>
   <worldbody>
     <light name="sun" pos="1.5 -1.5 3" dir="-0.5 0.5 -1" directional="true" castshadow="true" diffuse="0.7 0.7 0.7"/>
@@ -248,7 +351,7 @@
     <body name="base" pos="0 0 0.002">
       <freejoint name="root"/>
       <site name="imu" pos="0.13 -0.04 0.14" size="0.01"/>
-      <inertial pos="-0.01339 0.00074 0.36333" mass="9.8790" fullinertia="1.16154 1.23736 0.205157 0.00115158 0.0525582 0.00151276"/>
+      <inertial pos="-0.01331 0.00075 0.36272" mass="9.8840" fullinertia="1.16339 1.23922 0.205328 0.00131116 0.0524908 0.00146117"/>
       <geom name="base_shell_rear_r" type="mesh" mesh="base_shell_rear_r" material="m_shell" group="1" mass="0"/>
       <geom name="c_base_shell_rear_r" class="col" type="mesh" mesh="base_shell_rear_r" contype="2" conaffinity="13" friction="0.8 0.01 0.001" mass="0"/>
       <geom name="base_shell_rear_c" type="mesh" mesh="base_shell_rear_c" material="m_shell" group="1" mass="0"/>
@@ -367,29 +470,60 @@
       <geom name="joiner_57" type="mesh" mesh="joiner_57" material="m_frame" group="1" mass="0"/>
       <geom name="joiner_58" type="mesh" mesh="joiner_58" material="m_frame" group="1" mass="0"/>
       <geom name="battery" type="mesh" mesh="battery" material="m_battery" group="2" mass="0"/>
-      <geom name="lidar" type="mesh" mesh="lidar" material="m_electronics" group="2" mass="0"/>
-      <geom name="zsx11h_l" type="mesh" mesh="zsx11h_l" material="m_electronics" group="2" mass="0"/>
-      <geom name="zsx11h_r" type="mesh" mesh="zsx11h_r" material="m_electronics" group="2" mass="0"/>
-      <geom name="esp32" type="mesh" mesh="esp32" material="m_electronics" group="2" mass="0"/>
-      <geom name="imu" type="mesh" mesh="imu" material="m_electronics" group="2" mass="0"/>
-      <geom name="buck_24v" type="mesh" mesh="buck_24v" material="m_electronics" group="2" mass="0"/>
-      <geom name="buck_12v" type="mesh" mesh="buck_12v" material="m_electronics" group="2" mass="0"/>
-      <geom name="buck_19v" type="mesh" mesh="buck_19v" material="m_electronics" group="2" mass="0"/>
-      <geom name="fuse_block" type="mesh" mesh="fuse_block" material="m_electronics" group="2" mass="0"/>
-      <geom name="contactor_relay" type="mesh" mesh="contactor_relay" material="m_electronics" group="2" mass="0"/>
-      <geom name="estop" type="mesh" mesh="estop" material="m_electronics" group="2" mass="0"/>
-      <geom name="caster_bolt_f" type="mesh" mesh="caster_bolt_f" material="m_metal" group="2" mass="0"/>
-      <geom name="caster_bolt_r" type="mesh" mesh="caster_bolt_r" material="m_metal" group="2" mass="0"/>
-      <geom name="rod_l" type="mesh" mesh="rod_l" material="m_metal" group="2" mass="0"/>
-      <geom name="rod_r" type="mesh" mesh="rod_r" material="m_metal" group="2" mass="0"/>
-      <geom name="leadscrew" type="mesh" mesh="leadscrew" material="m_metal" group="2" mass="0"/>
-      <geom name="lift_motor" type="mesh" mesh="lift_motor" material="m_actuator" group="2" mass="0"/>
-      <geom name="coupler" type="mesh" mesh="coupler" material="m_metal" group="2" mass="0"/>
+      <geom name="battery_label" type="mesh" mesh="battery_label" material="m_white" group="2" mass="0"/>
+      <geom name="battery_lead" type="mesh" mesh="battery_lead" material="m_red" group="2" mass="0"/>
+      <geom name="lidar" type="mesh" mesh="lidar" material="m_black" group="2" mass="0"/>
+      <geom name="lidar_window" type="mesh" mesh="lidar_window" material="m_glass" group="2" mass="0"/>
+      <geom name="zsx11h_l" type="mesh" mesh="zsx11h_l" material="m_pcb" group="2" mass="0"/>
+      <geom name="zsx11h_l_sink" type="mesh" mesh="zsx11h_l_sink" material="m_alu" group="2" mass="0"/>
+      <geom name="zsx11h_l_caps" type="mesh" mesh="zsx11h_l_caps" material="m_black" group="2" mass="0"/>
+      <geom name="zsx11h_l_terms" type="mesh" mesh="zsx11h_l_terms" material="m_green" group="2" mass="0"/>
+      <geom name="zsx11h_r" type="mesh" mesh="zsx11h_r" material="m_pcb" group="2" mass="0"/>
+      <geom name="zsx11h_r_sink" type="mesh" mesh="zsx11h_r_sink" material="m_alu" group="2" mass="0"/>
+      <geom name="zsx11h_r_caps" type="mesh" mesh="zsx11h_r_caps" material="m_black" group="2" mass="0"/>
+      <geom name="zsx11h_r_terms" type="mesh" mesh="zsx11h_r_terms" material="m_green" group="2" mass="0"/>
+      <geom name="esp32" type="mesh" mesh="esp32" material="m_pcb_black" group="2" mass="0"/>
+      <geom name="esp32_module" type="mesh" mesh="esp32_module" material="m_steel" group="2" mass="0"/>
+      <geom name="esp32_shield" type="mesh" mesh="esp32_shield" material="m_steel" group="2" mass="0"/>
+      <geom name="esp32_pins" type="mesh" mesh="esp32_pins" material="m_black" group="2" mass="0"/>
+      <geom name="imu" type="mesh" mesh="imu" material="m_pcb_blue" group="2" mass="0"/>
+      <geom name="imu_chip" type="mesh" mesh="imu_chip" material="m_black" group="2" mass="0"/>
+      <geom name="imu_pins" type="mesh" mesh="imu_pins" material="m_black" group="2" mass="0"/>
+      <geom name="tmc2209" type="mesh" mesh="tmc2209" material="m_pcb_black" group="2" mass="0"/>
+      <geom name="tmc2209_chip" type="mesh" mesh="tmc2209_chip" material="m_black" group="2" mass="0"/>
+      <geom name="tmc2209_pins" type="mesh" mesh="tmc2209_pins" material="m_black" group="2" mass="0"/>
+      <geom name="buck_24v" type="mesh" mesh="buck_24v" material="m_alu" group="2" mass="0"/>
+      <geom name="buck_24v_terms" type="mesh" mesh="buck_24v_terms" material="m_black" group="2" mass="0"/>
+      <geom name="buck_12v" type="mesh" mesh="buck_12v" material="m_alu" group="2" mass="0"/>
+      <geom name="buck_12v_terms" type="mesh" mesh="buck_12v_terms" material="m_black" group="2" mass="0"/>
+      <geom name="buck_19v" type="mesh" mesh="buck_19v" material="m_pcb_blue" group="2" mass="0"/>
+      <geom name="buck_19v_sink" type="mesh" mesh="buck_19v_sink" material="m_alu" group="2" mass="0"/>
+      <geom name="buck_19v_ind" type="mesh" mesh="buck_19v_ind" material="m_copper" group="2" mass="0"/>
+      <geom name="buck_19v_cap" type="mesh" mesh="buck_19v_cap" material="m_black" group="2" mass="0"/>
+      <geom name="buck_19v_terms" type="mesh" mesh="buck_19v_terms" material="m_green" group="2" mass="0"/>
+      <geom name="fuse_block" type="mesh" mesh="fuse_block" material="m_black" group="2" mass="0"/>
+      <geom name="fuse_block_lid" type="mesh" mesh="fuse_block_lid" material="m_smoke" group="2" mass="0"/>
+      <geom name="fuse_block_fuses" type="mesh" mesh="fuse_block_fuses" material="m_red" group="2" mass="0"/>
+      <geom name="contactor_relay" type="mesh" mesh="contactor_relay" material="m_black" group="2" mass="0"/>
+      <geom name="contactor_relay_studs" type="mesh" mesh="contactor_relay_studs" material="m_copper" group="2" mass="0"/>
+      <geom name="estop" type="mesh" mesh="estop" material="m_black" group="2" mass="0"/>
+      <geom name="estop_ring" type="mesh" mesh="estop_ring" material="m_yellow" group="2" mass="0"/>
+      <geom name="estop_head" type="mesh" mesh="estop_head" material="m_red" group="2" mass="0"/>
+      <geom name="caster_bolt_f" type="mesh" mesh="caster_bolt_f" material="m_steel" group="2" mass="0"/>
+      <geom name="caster_bolt_r" type="mesh" mesh="caster_bolt_r" material="m_steel" group="2" mass="0"/>
+      <geom name="rod_l" type="mesh" mesh="rod_l" material="m_chrome" group="2" mass="0"/>
+      <geom name="rod_r" type="mesh" mesh="rod_r" material="m_chrome" group="2" mass="0"/>
+      <geom name="leadscrew" type="mesh" mesh="leadscrew" material="m_steel" group="2" mass="0"/>
+      <geom name="lift_motor" type="mesh" mesh="lift_motor" material="m_alu" group="2" mass="0"/>
+      <geom name="lift_motor_stack" type="mesh" mesh="lift_motor_stack" material="m_black" group="2" mass="0"/>
+      <geom name="lift_motor_shaft" type="mesh" mesh="lift_motor_shaft" material="m_steel" group="2" mass="0"/>
+      <geom name="lift_motor_conn" type="mesh" mesh="lift_motor_conn" material="m_white" group="2" mass="0"/>
+      <geom name="coupler" type="mesh" mesh="coupler" material="m_alu" group="2" mass="0"/>
       <geom name="caster_front" class="col" type="sphere" size="0.0250" pos="0.2000 0 0.0250" contype="1" conaffinity="0" condim="1" priority="1" friction="0 0 0" mass="0"/>
       <geom name="caster_rear" class="col" type="sphere" size="0.0250" pos="-0.2300 0 0.0250" contype="1" conaffinity="0" condim="1" priority="1" friction="0 0 0" mass="0"/>
       <body name="lift" pos="-0.03000 0.00000 0.00000">
         <joint name="lift" type="slide" axis="0 0 1" range="0.0 0.65" damping="1000.0" armature="0.0" frictionloss="15.0"/>
-        <inertial pos="0.10253 -0.00005 0.42961" mass="3.7904" fullinertia="0.058753 0.0484205 0.0376064 -1.2506e-05 -0.0112558 -1.09228e-05"/>
+        <inertial pos="0.10159 -0.00045 0.42940" mass="3.8118" fullinertia="0.0588349 0.048543 0.0378441 7.54065e-05 -0.0115819 -5.49763e-05"/>
         <geom name="carriage" type="mesh" mesh="carriage" material="m_frame" group="1" mass="0"/>
         <geom name="torso_back_plate" type="mesh" mesh="torso_back_plate" material="m_frame" group="1" mass="0"/>
         <geom name="yoke_l" type="mesh" mesh="yoke_l" material="m_frame" group="1" mass="0"/>
@@ -417,30 +551,48 @@
         <geom name="joiner_70" type="mesh" mesh="joiner_70" material="m_frame" group="1" mass="0"/>
         <geom name="joiner_71" type="mesh" mesh="joiner_71" material="m_frame" group="1" mass="0"/>
         <geom name="joiner_72" type="mesh" mesh="joiner_72" material="m_frame" group="1" mass="0"/>
-        <geom name="lm12_l_239" type="mesh" mesh="lm12_l_239" material="m_metal" group="2" mass="0"/>
-        <geom name="lm12_l_349" type="mesh" mesh="lm12_l_349" material="m_metal" group="2" mass="0"/>
-        <geom name="lm12_r_239" type="mesh" mesh="lm12_r_239" material="m_metal" group="2" mass="0"/>
-        <geom name="lm12_r_349" type="mesh" mesh="lm12_r_349" material="m_metal" group="2" mass="0"/>
-        <geom name="t8_nut" type="mesh" mesh="t8_nut" material="m_metal" group="2" mass="0"/>
-        <geom name="j1_l" type="mesh" mesh="j1_l" material="m_actuator" group="2" mass="0"/>
-        <geom name="j1_r" type="mesh" mesh="j1_r" material="m_actuator" group="2" mass="0"/>
-        <geom name="jetson" type="mesh" mesh="jetson" material="m_electronics" group="2" mass="0"/>
-        <geom name="usb_hub" type="mesh" mesh="usb_hub" material="m_electronics" group="2" mass="0"/>
-        <geom name="can_l" type="mesh" mesh="can_l" material="m_electronics" group="2" mass="0"/>
-        <geom name="can_r" type="mesh" mesh="can_r" material="m_electronics" group="2" mass="0"/>
-        <geom name="servo_bus" type="mesh" mesh="servo_bus" material="m_electronics" group="2" mass="0"/>
-        <geom name="speaker" type="mesh" mesh="speaker" material="m_electronics" group="2" mass="0"/>
-        <geom name="pan_servo" type="mesh" mesh="pan_servo" material="m_actuator" group="2" mass="0"/>
+        <geom name="lm12_l_239" type="mesh" mesh="lm12_l_239" material="m_steel" group="2" mass="0"/>
+        <geom name="lm12_l_349" type="mesh" mesh="lm12_l_349" material="m_steel" group="2" mass="0"/>
+        <geom name="lm12_r_239" type="mesh" mesh="lm12_r_239" material="m_steel" group="2" mass="0"/>
+        <geom name="lm12_r_349" type="mesh" mesh="lm12_r_349" material="m_steel" group="2" mass="0"/>
+        <geom name="t8_nut" type="mesh" mesh="t8_nut" material="m_brass" group="2" mass="0"/>
+        <geom name="j1_l" type="mesh" mesh="j1_l" material="m_anodised" group="2" mass="0"/>
+        <geom name="j1_l_out" type="mesh" mesh="j1_l_out" material="m_alu" group="2" mass="0"/>
+        <geom name="j1_l_conn" type="mesh" mesh="j1_l_conn" material="m_yellow" group="2" mass="0"/>
+        <geom name="j1_r" type="mesh" mesh="j1_r" material="m_anodised" group="2" mass="0"/>
+        <geom name="j1_r_out" type="mesh" mesh="j1_r_out" material="m_alu" group="2" mass="0"/>
+        <geom name="j1_r_conn" type="mesh" mesh="j1_r_conn" material="m_yellow" group="2" mass="0"/>
+        <geom name="jetson" type="mesh" mesh="jetson" material="m_pcb_black" group="2" mass="0"/>
+        <geom name="jetson_feet" type="mesh" mesh="jetson_feet" material="m_steel" group="2" mass="0"/>
+        <geom name="jetson_module" type="mesh" mesh="jetson_module" material="m_pcb" group="2" mass="0"/>
+        <geom name="jetson_sink" type="mesh" mesh="jetson_sink" material="m_alu" group="2" mass="0"/>
+        <geom name="jetson_fan" type="mesh" mesh="jetson_fan" material="m_black" group="2" mass="0"/>
+        <geom name="jetson_ports" type="mesh" mesh="jetson_ports" material="m_steel" group="2" mass="0"/>
+        <geom name="usb_hub" type="mesh" mesh="usb_hub" material="m_pcb" group="2" mass="0"/>
+        <geom name="usb_hub_ports" type="mesh" mesh="usb_hub_ports" material="m_steel" group="2" mass="0"/>
+        <geom name="can_l" type="mesh" mesh="can_l" material="m_pcb" group="2" mass="0"/>
+        <geom name="can_l_ports" type="mesh" mesh="can_l_ports" material="m_steel" group="2" mass="0"/>
+        <geom name="can_r" type="mesh" mesh="can_r" material="m_pcb" group="2" mass="0"/>
+        <geom name="can_r_ports" type="mesh" mesh="can_r_ports" material="m_steel" group="2" mass="0"/>
+        <geom name="servo_bus" type="mesh" mesh="servo_bus" material="m_pcb" group="2" mass="0"/>
+        <geom name="servo_bus_ports" type="mesh" mesh="servo_bus_ports" material="m_steel" group="2" mass="0"/>
+        <geom name="servo_bus_r" type="mesh" mesh="servo_bus_r" material="m_pcb" group="2" mass="0"/>
+        <geom name="servo_bus_r_ports" type="mesh" mesh="servo_bus_r_ports" material="m_steel" group="2" mass="0"/>
+        <geom name="speaker" type="mesh" mesh="speaker" material="m_black" group="2" mass="0"/>
+        <geom name="speaker_cone" type="mesh" mesh="speaker_cone" material="m_grey" group="2" mass="0"/>
+        <geom name="pan_servo" type="mesh" mesh="pan_servo" material="m_black" group="2" mass="0"/>
+        <geom name="pan_servo_horn" type="mesh" mesh="pan_servo_horn" material="m_white" group="2" mass="0"/>
         <body name="head_pan" pos="0.13600 0.00000 0.57100">
           <joint name="head_pan" type="hinge" axis="0 0 1" range="-1.57 1.57" damping="0.05" armature="0.004" frictionloss="0.03"/>
-          <inertial pos="0.00914 -0.00497 0.04311" mass="0.0828" fullinertia="2.79817e-05 3.51528e-05 2.43504e-05 2.89555e-07 -4.45548e-06 1.00423e-06"/>
+          <inertial pos="0.00914 -0.00498 0.04311" mass="0.0828" fullinertia="2.79782e-05 3.51528e-05 2.43469e-05 2.90094e-07 -4.45548e-06 1.00585e-06"/>
           <geom name="neck_yoke" type="mesh" mesh="neck_yoke" material="m_dark" group="1" mass="0"/>
-          <geom name="tilt_servo" type="mesh" mesh="tilt_servo" material="m_actuator" group="2" mass="0"/>
+          <geom name="tilt_servo" type="mesh" mesh="tilt_servo" material="m_black" group="2" mass="0"/>
+          <geom name="tilt_servo_horn" type="mesh" mesh="tilt_servo_horn" material="m_white" group="2" mass="0"/>
           <body name="head_tilt" pos="0.00000 0.00000 0.04900">
             <joint name="head_tilt" type="hinge" axis="0 1 0" range="-0.6 0.95" damping="0.05" armature="0.004" frictionloss="0.03"/>
-            <inertial pos="0.01838 0.00012 0.07239" mass="0.5180" fullinertia="0.00273426 0.00241738 0.00292082 7.77091e-08 -7.24735e-05 3.61743e-06"/>
+            <inertial pos="0.01830 0.00012 0.07222" mass="0.5180" fullinertia="0.00272667 0.0024108 0.00291223 7.28507e-08 -7.46414e-05 3.60699e-06"/>
             <geom name="head_frame" type="mesh" mesh="head_frame" material="m_frame" group="1" mass="0"/>
-            <geom name="eye_plate" type="mesh" mesh="eye_plate" material="m_eye" group="1" mass="0"/>
+            <geom name="eye_plate" type="mesh" mesh="eye_plate" material="m_frame" group="1" mass="0"/>
             <geom name="visor" type="mesh" mesh="visor" material="m_dark" group="1" mass="0"/>
             <geom name="c_visor" class="col" type="mesh" mesh="visor" contype="2" conaffinity="13" friction="0.8 0.01 0.001" mass="0"/>
             <geom name="head_lower" type="mesh" mesh="head_lower" material="m_shell" group="1" mass="0"/>
@@ -453,60 +605,80 @@
             <geom name="joiner_76" type="mesh" mesh="joiner_76" material="m_frame" group="1" mass="0"/>
             <geom name="joiner_77" type="mesh" mesh="joiner_77" material="m_frame" group="1" mass="0"/>
             <geom name="joiner_78" type="mesh" mesh="joiner_78" material="m_frame" group="1" mass="0"/>
-            <geom name="d435" type="mesh" mesh="d435" material="m_electronics" group="2" mass="0"/>
-            <geom name="esp32s3_head" type="mesh" mesh="esp32s3_head" material="m_electronics" group="2" mass="0"/>
-            <geom name="mic_array" type="mesh" mesh="mic_array" material="m_electronics" group="2" mass="0"/>
-            <geom name="eye_r" type="mesh" mesh="eye_r" material="m_eye" group="2" mass="0"/>
-            <geom name="eye_l" type="mesh" mesh="eye_l" material="m_eye" group="2" mass="0"/>
-            <camera name="head_cam" pos="0.0739 0.0000 0.0960" xyaxes="0 -1 0 0 0 1" fovy="58"/>
+            <geom name="d435" type="mesh" mesh="d435" material="m_alu" group="2" mass="0"/>
+            <geom name="d435_glass" type="mesh" mesh="d435_glass" material="m_glass" group="2" mass="0"/>
+            <geom name="d435_lens" type="mesh" mesh="d435_lens" material="m_lens" group="2" mass="0"/>
+            <geom name="esp32s3_head" type="mesh" mesh="esp32s3_head" material="m_pcb_blue" group="2" mass="0"/>
+            <geom name="esp32s3_head_chip" type="mesh" mesh="esp32s3_head_chip" material="m_black" group="2" mass="0"/>
+            <geom name="esp32s3_head_pins" type="mesh" mesh="esp32s3_head_pins" material="m_black" group="2" mass="0"/>
+            <geom name="mic_array" type="mesh" mesh="mic_array" material="m_pcb_black" group="2" mass="0"/>
+            <geom name="mic_array_mics" type="mesh" mesh="mic_array_mics" material="m_steel" group="2" mass="0"/>
+            <geom name="mic_array_leds" type="mesh" mesh="mic_array_leds" material="m_eye" group="2" mass="0"/>
+            <geom name="mic_array_chip" type="mesh" mesh="mic_array_chip" material="m_black" group="2" mass="0"/>
+            <geom name="eye_r" type="mesh" mesh="eye_r" material="m_pcb_blue" group="2" mass="0"/>
+            <geom name="eye_r_glass" type="mesh" mesh="eye_r_glass" material="m_eye" group="2" mass="0"/>
+            <geom name="eye_l" type="mesh" mesh="eye_l" material="m_pcb_blue" group="2" mass="0"/>
+            <geom name="eye_l_glass" type="mesh" mesh="eye_l_glass" material="m_eye" group="2" mass="0"/>
+            <camera name="head_cam" pos="0.0730 0.0000 0.0960" xyaxes="0 -1 0 0 0 1" fovy="58"/>
           </body>
         </body>
         <body name="l_link1" pos="0.14000 0.15200 0.52000">
           <joint name="l_shoulder_pitch" type="hinge" axis="0 1 0" range="-3.1 1.0" damping="0.4" armature="0.03" frictionloss="0.25"/>
-          <inertial pos="0.00074 0.04176 0.00000" mass="0.4111" fullinertia="0.000197252 0.00019355 0.000206223 7.83658e-08 2.85621e-10 2.67768e-10"/>
+          <inertial pos="0.00056 0.04176 0.00000" mass="0.4111" fullinertia="0.000196425 0.00019104 0.000203713 1.66527e-07 2.62651e-10 2.67059e-10"/>
           <geom name="shoulder_l" type="mesh" mesh="shoulder_l" material="m_shell" group="1" mass="0"/>
           <geom name="c_shoulder_l" class="col" type="mesh" mesh="shoulder_l" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
-          <geom name="j2_l" type="mesh" mesh="j2_l" material="m_actuator" group="2" mass="0"/>
+          <geom name="j2_l" type="mesh" mesh="j2_l" material="m_anodised" group="2" mass="0"/>
+          <geom name="j2_l_out" type="mesh" mesh="j2_l_out" material="m_alu" group="2" mass="0"/>
+          <geom name="j2_l_conn" type="mesh" mesh="j2_l_conn" material="m_yellow" group="2" mass="0"/>
           <body name="l_link2" pos="0.00000 0.04300 0.00000">
             <joint name="l_shoulder_roll" type="hinge" axis="1 0 0" range="-0.2 1.75" damping="0.4" armature="0.03" frictionloss="0.25"/>
-            <inertial pos="-0.00150 -0.00000 -0.06615" mass="0.3454" fullinertia="0.000177737 0.000190049 0.000159637 0 2.22827e-05 0"/>
+            <inertial pos="-0.00150 -0.00000 -0.06632" mass="0.3454" fullinertia="0.000176131 0.000188443 0.000158849 0 2.23687e-05 0"/>
             <geom name="clevis_l" type="mesh" mesh="clevis_l" material="m_frame" group="1" mass="0"/>
             <geom name="c_clevis_l" class="col" type="mesh" mesh="clevis_l" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
-            <geom name="j3_l" type="mesh" mesh="j3_l" material="m_actuator" group="2" mass="0"/>
+            <geom name="j3_l" type="mesh" mesh="j3_l" material="m_anodised" group="2" mass="0"/>
+            <geom name="j3_l_out" type="mesh" mesh="j3_l_out" material="m_alu" group="2" mass="0"/>
+            <geom name="j3_l_conn" type="mesh" mesh="j3_l_conn" material="m_yellow" group="2" mass="0"/>
             <body name="l_link3" pos="0.00000 0.00000 -0.09200">
               <joint name="l_upper_arm_yaw" type="hinge" axis="0 0 1" range="-1.6 1.6" damping="0.15" armature="0.006" frictionloss="0.08"/>
-              <inertial pos="0.00000 -0.00060 -0.13357" mass="0.3892" fullinertia="0.000707318 0.000715357 0.00018079 -3.7734e-09 -6.20548e-09 -3.37235e-06"/>
+              <inertial pos="0.00000 -0.00045 -0.13357" mass="0.3892" fullinertia="0.000705456 0.000714568 0.000178927 -3.74975e-09 -6.19673e-09 -2.5462e-06"/>
               <geom name="upper_arm_a_l" type="mesh" mesh="upper_arm_a_l" material="m_shell" group="1" mass="0"/>
               <geom name="c_upper_arm_a_l" class="col" type="mesh" mesh="upper_arm_a_l" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
               <geom name="upper_arm_b_l" type="mesh" mesh="upper_arm_b_l" material="m_shell" group="1" mass="0"/>
               <geom name="c_upper_arm_b_l" class="col" type="mesh" mesh="upper_arm_b_l" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
-              <geom name="j4_l" type="mesh" mesh="j4_l" material="m_actuator" group="2" mass="0"/>
+              <geom name="j4_l" type="mesh" mesh="j4_l" material="m_anodised" group="2" mass="0"/>
+              <geom name="j4_l_out" type="mesh" mesh="j4_l_out" material="m_alu" group="2" mass="0"/>
+              <geom name="j4_l_conn" type="mesh" mesh="j4_l_conn" material="m_yellow" group="2" mass="0"/>
               <body name="l_link4" pos="0.00000 0.00000 -0.14800">
                 <joint name="l_elbow" type="hinge" axis="0 1 0" range="-2.35 0.0" damping="0.15" armature="0.006" frictionloss="0.08"/>
-                <inertial pos="-0.00000 0.00173 -0.14873" mass="0.1883" fullinertia="0.000825306 0.000813714 8.24835e-05 6.27871e-09 6.39689e-09 -6.1737e-05"/>
+                <inertial pos="-0.00000 0.00173 -0.14873" mass="0.1883" fullinertia="0.000825304 0.000813714 8.24818e-05 6.27884e-09 6.39689e-09 -6.1748e-05"/>
                 <geom name="elbow_l" type="mesh" mesh="elbow_l" material="m_frame" group="1" mass="0"/>
                 <geom name="c_elbow_l" class="col" type="mesh" mesh="elbow_l" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
                 <geom name="forearm_a_l" type="mesh" mesh="forearm_a_l" material="m_shell" group="1" mass="0"/>
                 <geom name="c_forearm_a_l" class="col" type="mesh" mesh="forearm_a_l" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
                 <geom name="forearm_b_l" type="mesh" mesh="forearm_b_l" material="m_shell" group="1" mass="0"/>
                 <geom name="c_forearm_b_l" class="col" type="mesh" mesh="forearm_b_l" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
-                <geom name="j5_l" type="mesh" mesh="j5_l" material="m_actuator" group="2" mass="0"/>
+                <geom name="j5_l" type="mesh" mesh="j5_l" material="m_black" group="2" mass="0"/>
+                <geom name="j5_l_horn" type="mesh" mesh="j5_l_horn" material="m_white" group="2" mass="0"/>
                 <body name="l_link5" pos="0.00000 0.00000 -0.20000">
                   <joint name="l_wrist_pitch" type="hinge" axis="0 1 0" range="-2.3 2.3" damping="0.05" armature="0.004" frictionloss="0.03"/>
-                  <inertial pos="0.00823 0.00034 -0.05116" mass="0.0937" fullinertia="7.04151e-05 6.73435e-05 4.14283e-05 2.61101e-07 8.15888e-06 -1.62305e-06"/>
+                  <inertial pos="0.00823 0.00034 -0.05116" mass="0.0937" fullinertia="7.04051e-05 6.73336e-05 4.14283e-05 2.61101e-07 8.15809e-06 -1.62296e-06"/>
                   <geom name="wrist_l" type="mesh" mesh="wrist_l" material="m_dark" group="1" mass="0"/>
                   <geom name="c_wrist_l" class="col" type="mesh" mesh="wrist_l" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
-                  <geom name="j6_l" type="mesh" mesh="j6_l" material="m_actuator" group="2" mass="0"/>
+                  <geom name="j6_l" type="mesh" mesh="j6_l" material="m_black" group="2" mass="0"/>
+                  <geom name="j6_l_horn" type="mesh" mesh="j6_l_horn" material="m_white" group="2" mass="0"/>
                   <body name="l_link6" pos="0.00000 0.00000 -0.08500">
                     <joint name="l_wrist_roll" type="hinge" axis="0 0 1" range="-2.8 2.8" damping="0.05" armature="0.004" frictionloss="0.03"/>
-                    <inertial pos="0.00377 -0.00000 -0.02935" mass="0.1245" fullinertia="8.61659e-05 7.60021e-05 0.000102374 5.70346e-21 -1.28431e-05 -2.01493e-20"/>
+                    <inertial pos="0.00422 -0.00000 -0.02935" mass="0.1245" fullinertia="8.61659e-05 7.23692e-05 9.87409e-05 8.5668e-21 -1.17128e-05 3.75496e-20"/>
                     <geom name="palm_l" type="mesh" mesh="palm_l" material="m_dark" group="1" mass="0"/>
                     <geom name="c_palm_l" class="col" type="mesh" mesh="palm_l" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
                     <geom name="pinion_l" type="mesh" mesh="pinion_l" material="m_frame" group="1" mass="0"/>
                     <geom name="c_pinion_l" class="col" type="mesh" mesh="pinion_l" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
-                    <geom name="j7_l" type="mesh" mesh="j7_l" material="m_actuator" group="2" mass="0"/>
-                    <geom name="wrist_cam_l" type="mesh" mesh="wrist_cam_l" material="m_electronics" group="2" mass="0"/>
-                    <camera name="wrist_cam_l" pos="-0.0297 0.0000 -0.0498" xyaxes="0 -1 0 0.94 0 0.34" fovy="80"/>
+                    <geom name="j7_l" type="mesh" mesh="j7_l" material="m_black" group="2" mass="0"/>
+                    <geom name="j7_l_horn" type="mesh" mesh="j7_l_horn" material="m_white" group="2" mass="0"/>
+                    <geom name="wrist_cam_l" type="mesh" mesh="wrist_cam_l" material="m_pcb" group="2" mass="0"/>
+                    <geom name="wrist_cam_l_holder" type="mesh" mesh="wrist_cam_l_holder" material="m_black" group="2" mass="0"/>
+                    <geom name="wrist_cam_l_lens" type="mesh" mesh="wrist_cam_l_lens" material="m_lens" group="2" mass="0"/>
+                    <camera name="wrist_cam_l" pos="-0.0260 0.0000 -0.0498" xyaxes="0 -1 0 0.94 0 0.34" fovy="80"/>
                     <site name="tcp_l" pos="0.0000 0.0000 -0.0950" size="0.006" rgba="1 0.3 0 1"/>
                     <body name="l_link7" pos="0.00000 0.00000 -0.05300">
                       <joint name="l_gripper" type="slide" axis="0 1.0 0" range="0.0 0.04" damping="5.0" armature="0.4" frictionloss="0.8"/>
@@ -534,50 +706,61 @@
         </body>
         <body name="r_link1" pos="0.14000 -0.15200 0.52000">
           <joint name="r_shoulder_pitch" type="hinge" axis="0 1 0" range="-3.1 1.0" damping="0.4" armature="0.03" frictionloss="0.25"/>
-          <inertial pos="0.00074 -0.04176 0.00000" mass="0.4111" fullinertia="0.000197252 0.00019355 0.000206223 -7.83658e-08 2.85621e-10 -2.67768e-10"/>
+          <inertial pos="0.00056 -0.04176 0.00000" mass="0.4111" fullinertia="0.000196425 0.00019104 0.000203713 -1.66527e-07 2.62651e-10 -2.67059e-10"/>
           <geom name="shoulder_r" type="mesh" mesh="shoulder_r" material="m_shell" group="1" mass="0"/>
           <geom name="c_shoulder_r" class="col" type="mesh" mesh="shoulder_r" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
-          <geom name="j2_r" type="mesh" mesh="j2_r" material="m_actuator" group="2" mass="0"/>
+          <geom name="j2_r" type="mesh" mesh="j2_r" material="m_anodised" group="2" mass="0"/>
+          <geom name="j2_r_out" type="mesh" mesh="j2_r_out" material="m_alu" group="2" mass="0"/>
+          <geom name="j2_r_conn" type="mesh" mesh="j2_r_conn" material="m_yellow" group="2" mass="0"/>
           <body name="r_link2" pos="0.00000 -0.04300 0.00000">
             <joint name="r_shoulder_roll" type="hinge" axis="-1 0 0" range="-0.2 1.75" damping="0.4" armature="0.03" frictionloss="0.25"/>
-            <inertial pos="-0.00150 0.00000 -0.06615" mass="0.3454" fullinertia="0.000177737 0.000190049 0.000159637 -4.94776e-21 2.22827e-05 6.75262e-21"/>
+            <inertial pos="-0.00150 0.00000 -0.06632" mass="0.3454" fullinertia="0.000176131 0.000188443 0.000158849 -2.71284e-21 2.23687e-05 1.64545e-20"/>
             <geom name="clevis_r" type="mesh" mesh="clevis_r" material="m_frame" group="1" mass="0"/>
             <geom name="c_clevis_r" class="col" type="mesh" mesh="clevis_r" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
-            <geom name="j3_r" type="mesh" mesh="j3_r" material="m_actuator" group="2" mass="0"/>
+            <geom name="j3_r" type="mesh" mesh="j3_r" material="m_anodised" group="2" mass="0"/>
+            <geom name="j3_r_out" type="mesh" mesh="j3_r_out" material="m_alu" group="2" mass="0"/>
+            <geom name="j3_r_conn" type="mesh" mesh="j3_r_conn" material="m_yellow" group="2" mass="0"/>
             <body name="r_link3" pos="0.00000 0.00000 -0.09200">
               <joint name="r_upper_arm_yaw" type="hinge" axis="0 0 -1" range="-1.6 1.6" damping="0.15" armature="0.006" frictionloss="0.08"/>
-              <inertial pos="0.00000 0.00060 -0.13357" mass="0.3892" fullinertia="0.000707318 0.000715357 0.00018079 3.7734e-09 -6.20548e-09 3.37235e-06"/>
+              <inertial pos="0.00000 0.00045 -0.13357" mass="0.3892" fullinertia="0.000705456 0.000714568 0.000178927 3.74975e-09 -6.19673e-09 2.5462e-06"/>
               <geom name="upper_arm_a_r" type="mesh" mesh="upper_arm_a_r" material="m_shell" group="1" mass="0"/>
               <geom name="c_upper_arm_a_r" class="col" type="mesh" mesh="upper_arm_a_r" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
               <geom name="upper_arm_b_r" type="mesh" mesh="upper_arm_b_r" material="m_shell" group="1" mass="0"/>
               <geom name="c_upper_arm_b_r" class="col" type="mesh" mesh="upper_arm_b_r" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
-              <geom name="j4_r" type="mesh" mesh="j4_r" material="m_actuator" group="2" mass="0"/>
+              <geom name="j4_r" type="mesh" mesh="j4_r" material="m_anodised" group="2" mass="0"/>
+              <geom name="j4_r_out" type="mesh" mesh="j4_r_out" material="m_alu" group="2" mass="0"/>
+              <geom name="j4_r_conn" type="mesh" mesh="j4_r_conn" material="m_yellow" group="2" mass="0"/>
               <body name="r_link4" pos="0.00000 0.00000 -0.14800">
                 <joint name="r_elbow" type="hinge" axis="0 1 0" range="-2.35 0.0" damping="0.15" armature="0.006" frictionloss="0.08"/>
-                <inertial pos="-0.00000 -0.00173 -0.14873" mass="0.1883" fullinertia="0.000825306 0.000813714 8.24835e-05 -6.27871e-09 6.39689e-09 6.1737e-05"/>
+                <inertial pos="-0.00000 -0.00173 -0.14873" mass="0.1883" fullinertia="0.000825304 0.000813714 8.24818e-05 -6.27884e-09 6.39689e-09 6.1748e-05"/>
                 <geom name="elbow_r" type="mesh" mesh="elbow_r" material="m_frame" group="1" mass="0"/>
                 <geom name="c_elbow_r" class="col" type="mesh" mesh="elbow_r" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
                 <geom name="forearm_a_r" type="mesh" mesh="forearm_a_r" material="m_shell" group="1" mass="0"/>
                 <geom name="c_forearm_a_r" class="col" type="mesh" mesh="forearm_a_r" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
                 <geom name="forearm_b_r" type="mesh" mesh="forearm_b_r" material="m_shell" group="1" mass="0"/>
                 <geom name="c_forearm_b_r" class="col" type="mesh" mesh="forearm_b_r" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
-                <geom name="j5_r" type="mesh" mesh="j5_r" material="m_actuator" group="2" mass="0"/>
+                <geom name="j5_r" type="mesh" mesh="j5_r" material="m_black" group="2" mass="0"/>
+                <geom name="j5_r_horn" type="mesh" mesh="j5_r_horn" material="m_white" group="2" mass="0"/>
                 <body name="r_link5" pos="0.00000 0.00000 -0.20000">
                   <joint name="r_wrist_pitch" type="hinge" axis="0 1 0" range="-2.3 2.3" damping="0.05" armature="0.004" frictionloss="0.03"/>
-                  <inertial pos="0.00823 -0.00034 -0.05116" mass="0.0937" fullinertia="7.04151e-05 6.73435e-05 4.14283e-05 -2.61101e-07 8.15888e-06 1.62305e-06"/>
+                  <inertial pos="0.00823 -0.00034 -0.05116" mass="0.0937" fullinertia="7.04051e-05 6.73336e-05 4.14283e-05 -2.61101e-07 8.15809e-06 1.62296e-06"/>
                   <geom name="wrist_r" type="mesh" mesh="wrist_r" material="m_dark" group="1" mass="0"/>
                   <geom name="c_wrist_r" class="col" type="mesh" mesh="wrist_r" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
-                  <geom name="j6_r" type="mesh" mesh="j6_r" material="m_actuator" group="2" mass="0"/>
+                  <geom name="j6_r" type="mesh" mesh="j6_r" material="m_black" group="2" mass="0"/>
+                  <geom name="j6_r_horn" type="mesh" mesh="j6_r_horn" material="m_white" group="2" mass="0"/>
                   <body name="r_link6" pos="0.00000 0.00000 -0.08500">
                     <joint name="r_wrist_roll" type="hinge" axis="0 0 -1" range="-2.8 2.8" damping="0.05" armature="0.004" frictionloss="0.03"/>
-                    <inertial pos="0.00377 0.00000 -0.02935" mass="0.1245" fullinertia="8.61659e-05 7.60021e-05 0.000102374 -5.70346e-21 -1.28431e-05 2.01493e-20"/>
+                    <inertial pos="0.00422 0.00000 -0.02935" mass="0.1245" fullinertia="8.61659e-05 7.23692e-05 9.87409e-05 -8.5668e-21 -1.17128e-05 -3.75496e-20"/>
                     <geom name="palm_r" type="mesh" mesh="palm_r" material="m_dark" group="1" mass="0"/>
                     <geom name="c_palm_r" class="col" type="mesh" mesh="palm_r" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
                     <geom name="pinion_r" type="mesh" mesh="pinion_r" material="m_frame" group="1" mass="0"/>
                     <geom name="c_pinion_r" class="col" type="mesh" mesh="pinion_r" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
-                    <geom name="j7_r" type="mesh" mesh="j7_r" material="m_actuator" group="2" mass="0"/>
-                    <geom name="wrist_cam_r" type="mesh" mesh="wrist_cam_r" material="m_electronics" group="2" mass="0"/>
-                    <camera name="wrist_cam_r" pos="-0.0297 0.0000 -0.0498" xyaxes="0 -1 0 0.94 0 0.34" fovy="80"/>
+                    <geom name="j7_r" type="mesh" mesh="j7_r" material="m_black" group="2" mass="0"/>
+                    <geom name="j7_r_horn" type="mesh" mesh="j7_r_horn" material="m_white" group="2" mass="0"/>
+                    <geom name="wrist_cam_r" type="mesh" mesh="wrist_cam_r" material="m_pcb" group="2" mass="0"/>
+                    <geom name="wrist_cam_r_holder" type="mesh" mesh="wrist_cam_r_holder" material="m_black" group="2" mass="0"/>
+                    <geom name="wrist_cam_r_lens" type="mesh" mesh="wrist_cam_r_lens" material="m_lens" group="2" mass="0"/>
+                    <camera name="wrist_cam_r" pos="-0.0260 0.0000 -0.0498" xyaxes="0 -1 0 0.94 0 0.34" fovy="80"/>
                     <site name="tcp_r" pos="0.0000 0.0000 -0.0950" size="0.006" rgba="1 0.3 0 1"/>
                     <body name="r_link7" pos="0.00000 0.00000 -0.05300">
                       <joint name="r_gripper" type="slide" axis="0 -1.0 0" range="0.0 0.04" damping="5.0" armature="0.4" frictionloss="0.8"/>
@@ -606,14 +789,18 @@
       </body>
       <body name="wheel_l" pos="0.00000 0.18500 0.08250">
         <joint name="wheel_l" type="hinge" axis="0 1 0" damping="0.05" armature="0.02" frictionloss="0.05"/>
-        <inertial pos="0.00000 -0.00024 -0.00000" mass="2.8000" fullinertia="0.00517073 0.009226 0.00517076 0 0 8.22016e-13"/>
-        <geom name="hub_l" type="mesh" mesh="hub_l" material="m_wheel" group="2" mass="0"/>
+        <inertial pos="-0.00000 0.00000 -0.00000" mass="2.8000" fullinertia="0.00815425 0.0153489 0.00815425 0 0 1.72514e-18"/>
+        <geom name="hub_l" type="mesh" mesh="hub_l" material="m_rubber" group="2" mass="0"/>
+        <geom name="hub_l_hub" type="mesh" mesh="hub_l_hub" material="m_alu" group="2" mass="0"/>
+        <geom name="hub_l_axle" type="mesh" mesh="hub_l_axle" material="m_steel" group="2" mass="0"/>
         <geom name="tire_wheel_l" class="col" type="sphere" size="0.0825" contype="1" conaffinity="0" friction="1.0 0.005 0.0001" condim="3" mass="0"/>
       </body>
       <body name="wheel_r" pos="0.00000 -0.18500 0.08250">
         <joint name="wheel_r" type="hinge" axis="0 1 0" damping="0.05" armature="0.02" frictionloss="0.05"/>
-        <inertial pos="0.00000 0.00024 -0.00000" mass="2.8000" fullinertia="0.00517073 0.009226 0.00517076 0 0 -8.2201e-13"/>
-        <geom name="hub_r" type="mesh" mesh="hub_r" material="m_wheel" group="2" mass="0"/>
+        <inertial pos="0.00000 -0.00000 -0.00000" mass="2.8000" fullinertia="0.00815425 0.0153489 0.00815425 0 0 1.17852e-18"/>
+        <geom name="hub_r" type="mesh" mesh="hub_r" material="m_rubber" group="2" mass="0"/>
+        <geom name="hub_r_hub" type="mesh" mesh="hub_r_hub" material="m_alu" group="2" mass="0"/>
+        <geom name="hub_r_axle" type="mesh" mesh="hub_r_axle" material="m_steel" group="2" mass="0"/>
         <geom name="tire_wheel_r" class="col" type="sphere" size="0.0825" contype="1" conaffinity="0" friction="1.0 0.005 0.0001" condim="3" mass="0"/>
       </body>
     </body>

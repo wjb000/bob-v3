@@ -3,19 +3,19 @@
  "frame": "x forward, y left, z up, origin on the floor between the wheels",
  "links": {
   "base": {
-   "mass_g": 8679.0,
+   "mass_g": 8684.0,
    "com": [
-    -15.2,
+    -15.1,
     0.8,
-    335.6
+    334.8
    ]
   },
   "lift": {
-   "mass_g": 3290.4,
+   "mass_g": 3311.8,
    "com": [
-    73.6,
-    -0.1,
-    434.2
+    72.5,
+    -0.5,
+    433.9
    ]
   },
   "head_pan": {
@@ -23,21 +23,21 @@
    "com": [
     115.1,
     -5.0,
-    614.1
+    614.2
    ]
   },
   "head_tilt": {
    "mass_g": 518.0,
    "com": [
-    124.4,
+    124.3,
     0.1,
-    692.4
+    692.2
    ]
   },
   "l_link1": {
    "mass_g": 411.1,
    "com": [
-    110.7,
+    110.6,
     193.8,
     520.0
    ]
@@ -47,14 +47,14 @@
    "com": [
     108.5,
     195.0,
-    453.8
+    453.7
    ]
   },
   "l_link3": {
    "mass_g": 389.2,
    "com": [
     110.0,
-    194.4,
+    194.5,
     294.4
    ]
   },
@@ -70,14 +70,14 @@
    "mass_g": 93.7,
    "com": [
     118.2,
-    195.3,
+    195.4,
     28.8
    ]
   },
   "l_link6": {
    "mass_g": 124.5,
    "com": [
-    112.5,
+    112.9,
     195.0,
     -39.5
    ]
@@ -101,7 +101,7 @@
   "r_link1": {
    "mass_g": 411.1,
    "com": [
-    110.7,
+    110.6,
     -193.8,
     520.0
    ]
@@ -111,14 +111,14 @@
    "com": [
     108.5,
     -195.0,
-    453.8
+    453.7
    ]
   },
   "r_link3": {
    "mass_g": 389.2,
    "com": [
     110.0,
-    -194.4,
+    -194.5,
     294.4
    ]
   },
@@ -134,14 +134,14 @@
    "mass_g": 93.7,
    "com": [
     118.2,
-    -195.3,
+    -195.4,
     28.8
    ]
   },
   "r_link6": {
    "mass_g": 124.5,
    "com": [
-    112.5,
+    112.9,
     -195.0,
     -39.5
    ]
@@ -165,8 +165,8 @@
   "wheel_l": {
    "mass_g": 2800.0,
    "com": [
-    0.0,
-    184.8,
+    -0.0,
+    185.0,
     82.5
    ]
   },
@@ -174,12 +174,12 @@
    "mass_g": 2800.0,
    "com": [
     0.0,
-    -184.8,
+    -185.0,
     82.5
    ]
   }
  },
- "total_mass_g": 21324.6,
+ "total_mass_g": 21351.0,
  "joints": [
   {
    "name": "lift",
@@ -1280,7 +1280,7 @@
    "kind": "print",
    "color": "frame",
    "material": "PETG",
-   "mass_g": 301.9,
+   "mass_g": 300.1,
    "print": "yoke_l",
    "note": "Holds the left DM-J4340 (J1). Prints on its centre face, cup up. 5 walls, 30% infill."
   },
@@ -1292,7 +1292,7 @@
    "kind": "print",
    "color": "frame",
    "material": "PETG",
-   "mass_g": 301.9,
+   "mass_g": 300.1,
    "print": "yoke_r",
    "note": "Mirror of yoke_l."
   },
@@ -2718,9 +2718,31 @@
    "link": "wheel_l",
    "group": "base",
    "kind": "wheel",
-   "color": "wheel",
+   "color": "rubber",
    "material": "bought",
    "mass_g": 2800.0,
+   "bom": "hub"
+  },
+  {
+   "name": "hub_l_hub",
+   "file": "hub_l_hub.stl",
+   "link": "wheel_l",
+   "group": "base",
+   "kind": "wheel",
+   "color": "alu",
+   "material": "bought",
+   "mass_g": 0.0,
+   "bom": "hub"
+  },
+  {
+   "name": "hub_l_axle",
+   "file": "hub_l_axle.stl",
+   "link": "wheel_l",
+   "group": "base",
+   "kind": "wheel",
+   "color": "steel",
+   "material": "bought",
+   "mass_g": 0.0,
    "bom": "hub"
   },
   {
@@ -2729,9 +2751,31 @@
    "link": "wheel_r",
    "group": "base",
    "kind": "wheel",
-   "color": "wheel",
+   "color": "rubber",
    "material": "bought",
    "mass_g": 2800.0,
+   "bom": "hub"
+  },
+  {
+   "name": "hub_r_hub",
+   "file": "hub_r_hub.stl",
+   "link": "wheel_r",
+   "group": "base",
+   "kind": "wheel",
+   "color": "alu",
+   "material": "bought",
+   "mass_g": 0.0,
+   "bom": "hub"
+  },
+  {
+   "name": "hub_r_axle",
+   "file": "hub_r_axle.stl",
+   "link": "wheel_r",
+   "group": "base",
+   "kind": "wheel",
+   "color": "steel",
+   "material": "bought",
+   "mass_g": 0.0,
    "bom": "hub"
   },
   {
@@ -2746,14 +2790,47 @@
    "bom": "battery"
   },
   {
+   "name": "battery_label",
+   "file": "battery_label.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "battery",
+   "color": "white",
+   "material": "bought",
+   "mass_g": 0.0,
+   "bom": "battery"
+  },
+  {
+   "name": "battery_lead",
+   "file": "battery_lead.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "battery",
+   "color": "red",
+   "material": "bought",
+   "mass_g": 0.0,
+   "bom": "battery"
+  },
+  {
    "name": "lidar",
    "file": "lidar.stl",
    "link": "base",
    "group": "base",
    "kind": "electronics",
-   "color": "electronics",
+   "color": "black",
    "material": "bought",
    "mass_g": 110,
+   "bom": "lidar"
+  },
+  {
+   "name": "lidar_window",
+   "file": "lidar_window.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "electronics",
+   "color": "glass",
+   "material": "bought",
+   "mass_g": 0.0,
    "bom": "lidar"
   },
   {
@@ -2762,9 +2839,42 @@
    "link": "base",
    "group": "base",
    "kind": "electronics",
-   "color": "electronics",
+   "color": "pcb",
    "material": "bought",
    "mass_g": 60,
+   "bom": "zsx"
+  },
+  {
+   "name": "zsx11h_l_sink",
+   "file": "zsx11h_l_sink.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "electronics",
+   "color": "alu",
+   "material": "bought",
+   "mass_g": 0.0,
+   "bom": "zsx"
+  },
+  {
+   "name": "zsx11h_l_caps",
+   "file": "zsx11h_l_caps.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "electronics",
+   "color": "black",
+   "material": "bought",
+   "mass_g": 0.0,
+   "bom": "zsx"
+  },
+  {
+   "name": "zsx11h_l_terms",
+   "file": "zsx11h_l_terms.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "electronics",
+   "color": "green",
+   "material": "bought",
+   "mass_g": 0.0,
    "bom": "zsx"
   },
   {
@@ -2773,9 +2883,42 @@
    "link": "base",
    "group": "base",
    "kind": "electronics",
-   "color": "electronics",
+   "color": "pcb",
    "material": "bought",
    "mass_g": 60,
+   "bom": "zsx"
+  },
+  {
+   "name": "zsx11h_r_sink",
+   "file": "zsx11h_r_sink.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "electronics",
+   "color": "alu",
+   "material": "bought",
+   "mass_g": 0.0,
+   "bom": "zsx"
+  },
+  {
+   "name": "zsx11h_r_caps",
+   "file": "zsx11h_r_caps.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "electronics",
+   "color": "black",
+   "material": "bought",
+   "mass_g": 0.0,
+   "bom": "zsx"
+  },
+  {
+   "name": "zsx11h_r_terms",
+   "file": "zsx11h_r_terms.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "electronics",
+   "color": "green",
+   "material": "bought",
+   "mass_g": 0.0,
    "bom": "zsx"
   },
   {
@@ -2784,9 +2927,42 @@
    "link": "base",
    "group": "base",
    "kind": "electronics",
-   "color": "electronics",
+   "color": "pcb_black",
    "material": "bought",
    "mass_g": 10,
+   "bom": "esp32"
+  },
+  {
+   "name": "esp32_module",
+   "file": "esp32_module.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "electronics",
+   "color": "steel",
+   "material": "bought",
+   "mass_g": 0.0,
+   "bom": "esp32"
+  },
+  {
+   "name": "esp32_shield",
+   "file": "esp32_shield.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "electronics",
+   "color": "steel",
+   "material": "bought",
+   "mass_g": 0.0,
+   "bom": "esp32"
+  },
+  {
+   "name": "esp32_pins",
+   "file": "esp32_pins.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "electronics",
+   "color": "black",
+   "material": "bought",
+   "mass_g": 0.0,
    "bom": "esp32"
   },
   {
@@ -2795,10 +2971,65 @@
    "link": "base",
    "group": "base",
    "kind": "electronics",
-   "color": "electronics",
+   "color": "pcb_blue",
    "material": "bought",
    "mass_g": 5,
    "bom": "imu"
+  },
+  {
+   "name": "imu_chip",
+   "file": "imu_chip.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "electronics",
+   "color": "black",
+   "material": "bought",
+   "mass_g": 0.0,
+   "bom": "imu"
+  },
+  {
+   "name": "imu_pins",
+   "file": "imu_pins.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "electronics",
+   "color": "black",
+   "material": "bought",
+   "mass_g": 0.0,
+   "bom": "imu"
+  },
+  {
+   "name": "tmc2209",
+   "file": "tmc2209.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "electronics",
+   "color": "pcb_black",
+   "material": "bought",
+   "mass_g": 5,
+   "bom": "tmc"
+  },
+  {
+   "name": "tmc2209_chip",
+   "file": "tmc2209_chip.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "electronics",
+   "color": "black",
+   "material": "bought",
+   "mass_g": 0.0,
+   "bom": "tmc"
+  },
+  {
+   "name": "tmc2209_pins",
+   "file": "tmc2209_pins.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "electronics",
+   "color": "black",
+   "material": "bought",
+   "mass_g": 0.0,
+   "bom": "tmc"
   },
   {
    "name": "buck_24v",
@@ -2806,9 +3037,20 @@
    "link": "base",
    "group": "base",
    "kind": "electronics",
-   "color": "electronics",
+   "color": "alu",
    "material": "bought",
    "mass_g": 260,
+   "bom": "buck24"
+  },
+  {
+   "name": "buck_24v_terms",
+   "file": "buck_24v_terms.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "electronics",
+   "color": "black",
+   "material": "bought",
+   "mass_g": 0.0,
    "bom": "buck24"
   },
   {
@@ -2817,9 +3059,20 @@
    "link": "base",
    "group": "base",
    "kind": "electronics",
-   "color": "electronics",
+   "color": "alu",
    "material": "bought",
    "mass_g": 150,
+   "bom": "buck12"
+  },
+  {
+   "name": "buck_12v_terms",
+   "file": "buck_12v_terms.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "electronics",
+   "color": "black",
+   "material": "bought",
+   "mass_g": 0.0,
    "bom": "buck12"
   },
   {
@@ -2828,9 +3081,53 @@
    "link": "base",
    "group": "base",
    "kind": "electronics",
-   "color": "electronics",
+   "color": "pcb_blue",
    "material": "bought",
    "mass_g": 70,
+   "bom": "buck19"
+  },
+  {
+   "name": "buck_19v_sink",
+   "file": "buck_19v_sink.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "electronics",
+   "color": "alu",
+   "material": "bought",
+   "mass_g": 0.0,
+   "bom": "buck19"
+  },
+  {
+   "name": "buck_19v_ind",
+   "file": "buck_19v_ind.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "electronics",
+   "color": "copper",
+   "material": "bought",
+   "mass_g": 0.0,
+   "bom": "buck19"
+  },
+  {
+   "name": "buck_19v_cap",
+   "file": "buck_19v_cap.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "electronics",
+   "color": "black",
+   "material": "bought",
+   "mass_g": 0.0,
+   "bom": "buck19"
+  },
+  {
+   "name": "buck_19v_terms",
+   "file": "buck_19v_terms.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "electronics",
+   "color": "green",
+   "material": "bought",
+   "mass_g": 0.0,
    "bom": "buck19"
   },
   {
@@ -2839,9 +3136,31 @@
    "link": "base",
    "group": "base",
    "kind": "electronics",
-   "color": "electronics",
+   "color": "black",
    "material": "bought",
    "mass_g": 40,
+   "bom": "fuse"
+  },
+  {
+   "name": "fuse_block_lid",
+   "file": "fuse_block_lid.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "electronics",
+   "color": "smoke",
+   "material": "bought",
+   "mass_g": 0.0,
+   "bom": "fuse"
+  },
+  {
+   "name": "fuse_block_fuses",
+   "file": "fuse_block_fuses.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "electronics",
+   "color": "red",
+   "material": "bought",
+   "mass_g": 0.0,
    "bom": "fuse"
   },
   {
@@ -2850,9 +3169,20 @@
    "link": "base",
    "group": "base",
    "kind": "electronics",
-   "color": "electronics",
+   "color": "black",
    "material": "bought",
    "mass_g": 60,
+   "bom": "relay"
+  },
+  {
+   "name": "contactor_relay_studs",
+   "file": "contactor_relay_studs.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "electronics",
+   "color": "copper",
+   "material": "bought",
+   "mass_g": 0.0,
    "bom": "relay"
   },
   {
@@ -2861,9 +3191,31 @@
    "link": "base",
    "group": "base",
    "kind": "electronics",
-   "color": "electronics",
+   "color": "black",
    "material": "bought",
    "mass_g": 80,
+   "bom": "estop"
+  },
+  {
+   "name": "estop_ring",
+   "file": "estop_ring.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "electronics",
+   "color": "yellow",
+   "material": "bought",
+   "mass_g": 0.0,
+   "bom": "estop"
+  },
+  {
+   "name": "estop_head",
+   "file": "estop_head.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "electronics",
+   "color": "red",
+   "material": "bought",
+   "mass_g": 0.0,
    "bom": "estop"
   },
   {
@@ -2872,7 +3224,7 @@
    "link": "base",
    "group": "base",
    "kind": "metal",
-   "color": "metal",
+   "color": "steel",
    "material": "bought",
    "mass_g": 30,
    "bom": "m8"
@@ -2883,7 +3235,7 @@
    "link": "base",
    "group": "base",
    "kind": "metal",
-   "color": "metal",
+   "color": "steel",
    "material": "bought",
    "mass_g": 30,
    "bom": "m8"
@@ -2894,7 +3246,7 @@
    "link": "base",
    "group": "mast",
    "kind": "metal",
-   "color": "metal",
+   "color": "chrome",
    "material": "bought",
    "mass_g": 888,
    "bom": "rod"
@@ -2905,7 +3257,7 @@
    "link": "base",
    "group": "mast",
    "kind": "metal",
-   "color": "metal",
+   "color": "chrome",
    "material": "bought",
    "mass_g": 888,
    "bom": "rod"
@@ -2916,7 +3268,7 @@
    "link": "base",
    "group": "mast",
    "kind": "metal",
-   "color": "metal",
+   "color": "steel",
    "material": "bought",
    "mass_g": 350,
    "bom": "screw"
@@ -2927,9 +3279,42 @@
    "link": "base",
    "group": "mast",
    "kind": "actuator",
-   "color": "actuator",
+   "color": "alu",
    "material": "bought",
    "mass_g": 360.0,
+   "bom": "nema"
+  },
+  {
+   "name": "lift_motor_stack",
+   "file": "lift_motor_stack.stl",
+   "link": "base",
+   "group": "mast",
+   "kind": "actuator",
+   "color": "black",
+   "material": "bought",
+   "mass_g": 0.0,
+   "bom": "nema"
+  },
+  {
+   "name": "lift_motor_shaft",
+   "file": "lift_motor_shaft.stl",
+   "link": "base",
+   "group": "mast",
+   "kind": "actuator",
+   "color": "steel",
+   "material": "bought",
+   "mass_g": 0.0,
+   "bom": "nema"
+  },
+  {
+   "name": "lift_motor_conn",
+   "file": "lift_motor_conn.stl",
+   "link": "base",
+   "group": "mast",
+   "kind": "actuator",
+   "color": "white",
+   "material": "bought",
+   "mass_g": 0.0,
    "bom": "nema"
   },
   {
@@ -2938,7 +3323,7 @@
    "link": "base",
    "group": "mast",
    "kind": "metal",
-   "color": "metal",
+   "color": "alu",
    "material": "bought",
    "mass_g": 20,
    "bom": "coupler"
@@ -2949,7 +3334,7 @@
    "link": "lift",
    "group": "mast",
    "kind": "metal",
-   "color": "metal",
+   "color": "steel",
    "material": "bought",
    "mass_g": 60,
    "bom": "lm12"
@@ -2960,7 +3345,7 @@
    "link": "lift",
    "group": "mast",
    "kind": "metal",
-   "color": "metal",
+   "color": "steel",
    "material": "bought",
    "mass_g": 60,
    "bom": "lm12"
@@ -2971,7 +3356,7 @@
    "link": "lift",
    "group": "mast",
    "kind": "metal",
-   "color": "metal",
+   "color": "steel",
    "material": "bought",
    "mass_g": 60,
    "bom": "lm12"
@@ -2982,7 +3367,7 @@
    "link": "lift",
    "group": "mast",
    "kind": "metal",
-   "color": "metal",
+   "color": "steel",
    "material": "bought",
    "mass_g": 60,
    "bom": "lm12"
@@ -2993,7 +3378,7 @@
    "link": "lift",
    "group": "mast",
    "kind": "metal",
-   "color": "metal",
+   "color": "brass",
    "material": "bought",
    "mass_g": 30,
    "bom": "t8nut"
@@ -3004,9 +3389,31 @@
    "link": "lift",
    "group": "torso",
    "kind": "actuator",
-   "color": "actuator",
+   "color": "anodised",
    "material": "bought",
    "mass_g": 362.0,
+   "bom": "dm4340"
+  },
+  {
+   "name": "j1_l_out",
+   "file": "j1_l_out.stl",
+   "link": "lift",
+   "group": "torso",
+   "kind": "actuator",
+   "color": "alu",
+   "material": "bought",
+   "mass_g": 0.0,
+   "bom": "dm4340"
+  },
+  {
+   "name": "j1_l_conn",
+   "file": "j1_l_conn.stl",
+   "link": "lift",
+   "group": "torso",
+   "kind": "actuator",
+   "color": "yellow",
+   "material": "bought",
+   "mass_g": 0.0,
    "bom": "dm4340"
   },
   {
@@ -3015,9 +3422,31 @@
    "link": "lift",
    "group": "torso",
    "kind": "actuator",
-   "color": "actuator",
+   "color": "anodised",
    "material": "bought",
    "mass_g": 362.0,
+   "bom": "dm4340"
+  },
+  {
+   "name": "j1_r_out",
+   "file": "j1_r_out.stl",
+   "link": "lift",
+   "group": "torso",
+   "kind": "actuator",
+   "color": "alu",
+   "material": "bought",
+   "mass_g": 0.0,
+   "bom": "dm4340"
+  },
+  {
+   "name": "j1_r_conn",
+   "file": "j1_r_conn.stl",
+   "link": "lift",
+   "group": "torso",
+   "kind": "actuator",
+   "color": "yellow",
+   "material": "bought",
+   "mass_g": 0.0,
    "bom": "dm4340"
   },
   {
@@ -3026,9 +3455,64 @@
    "link": "lift",
    "group": "torso",
    "kind": "electronics",
-   "color": "electronics",
+   "color": "pcb_black",
    "material": "bought",
    "mass_g": 280,
+   "bom": "jetson"
+  },
+  {
+   "name": "jetson_feet",
+   "file": "jetson_feet.stl",
+   "link": "lift",
+   "group": "torso",
+   "kind": "electronics",
+   "color": "steel",
+   "material": "bought",
+   "mass_g": 0.0,
+   "bom": "jetson"
+  },
+  {
+   "name": "jetson_module",
+   "file": "jetson_module.stl",
+   "link": "lift",
+   "group": "torso",
+   "kind": "electronics",
+   "color": "pcb",
+   "material": "bought",
+   "mass_g": 0.0,
+   "bom": "jetson"
+  },
+  {
+   "name": "jetson_sink",
+   "file": "jetson_sink.stl",
+   "link": "lift",
+   "group": "torso",
+   "kind": "electronics",
+   "color": "alu",
+   "material": "bought",
+   "mass_g": 0.0,
+   "bom": "jetson"
+  },
+  {
+   "name": "jetson_fan",
+   "file": "jetson_fan.stl",
+   "link": "lift",
+   "group": "torso",
+   "kind": "electronics",
+   "color": "black",
+   "material": "bought",
+   "mass_g": 0.0,
+   "bom": "jetson"
+  },
+  {
+   "name": "jetson_ports",
+   "file": "jetson_ports.stl",
+   "link": "lift",
+   "group": "torso",
+   "kind": "electronics",
+   "color": "steel",
+   "material": "bought",
+   "mass_g": 0.0,
    "bom": "jetson"
   },
   {
@@ -3037,9 +3521,20 @@
    "link": "lift",
    "group": "torso",
    "kind": "electronics",
-   "color": "electronics",
+   "color": "pcb",
    "material": "bought",
    "mass_g": 60,
+   "bom": "usbhub"
+  },
+  {
+   "name": "usb_hub_ports",
+   "file": "usb_hub_ports.stl",
+   "link": "lift",
+   "group": "torso",
+   "kind": "electronics",
+   "color": "steel",
+   "material": "bought",
+   "mass_g": 0.0,
    "bom": "usbhub"
   },
   {
@@ -3048,9 +3543,20 @@
    "link": "lift",
    "group": "torso",
    "kind": "electronics",
-   "color": "electronics",
+   "color": "pcb",
    "material": "bought",
    "mass_g": 25,
+   "bom": "usbcan"
+  },
+  {
+   "name": "can_l_ports",
+   "file": "can_l_ports.stl",
+   "link": "lift",
+   "group": "torso",
+   "kind": "electronics",
+   "color": "steel",
+   "material": "bought",
+   "mass_g": 0.0,
    "bom": "usbcan"
   },
   {
@@ -3059,9 +3565,20 @@
    "link": "lift",
    "group": "torso",
    "kind": "electronics",
-   "color": "electronics",
+   "color": "pcb",
    "material": "bought",
    "mass_g": 25,
+   "bom": "usbcan"
+  },
+  {
+   "name": "can_r_ports",
+   "file": "can_r_ports.stl",
+   "link": "lift",
+   "group": "torso",
+   "kind": "electronics",
+   "color": "steel",
+   "material": "bought",
+   "mass_g": 0.0,
    "bom": "usbcan"
   },
   {
@@ -3070,9 +3587,42 @@
    "link": "lift",
    "group": "torso",
    "kind": "electronics",
-   "color": "electronics",
+   "color": "pcb",
    "material": "bought",
    "mass_g": 25,
+   "bom": "busadapter"
+  },
+  {
+   "name": "servo_bus_ports",
+   "file": "servo_bus_ports.stl",
+   "link": "lift",
+   "group": "torso",
+   "kind": "electronics",
+   "color": "steel",
+   "material": "bought",
+   "mass_g": 0.0,
+   "bom": "busadapter"
+  },
+  {
+   "name": "servo_bus_r",
+   "file": "servo_bus_r.stl",
+   "link": "lift",
+   "group": "torso",
+   "kind": "electronics",
+   "color": "pcb",
+   "material": "bought",
+   "mass_g": 25,
+   "bom": "busadapter"
+  },
+  {
+   "name": "servo_bus_r_ports",
+   "file": "servo_bus_r_ports.stl",
+   "link": "lift",
+   "group": "torso",
+   "kind": "electronics",
+   "color": "steel",
+   "material": "bought",
+   "mass_g": 0.0,
    "bom": "busadapter"
   },
   {
@@ -3081,9 +3631,20 @@
    "link": "lift",
    "group": "torso",
    "kind": "electronics",
-   "color": "electronics",
+   "color": "black",
    "material": "bought",
    "mass_g": 40,
+   "bom": "speaker"
+  },
+  {
+   "name": "speaker_cone",
+   "file": "speaker_cone.stl",
+   "link": "lift",
+   "group": "torso",
+   "kind": "electronics",
+   "color": "grey",
+   "material": "bought",
+   "mass_g": 0.0,
    "bom": "speaker"
   },
   {
@@ -3092,9 +3653,20 @@
    "link": "lift",
    "group": "torso",
    "kind": "actuator",
-   "color": "actuator",
+   "color": "black",
    "material": "bought",
    "mass_g": 55.0,
+   "bom": "sts3215"
+  },
+  {
+   "name": "pan_servo_horn",
+   "file": "pan_servo_horn.stl",
+   "link": "lift",
+   "group": "torso",
+   "kind": "actuator",
+   "color": "white",
+   "material": "bought",
+   "mass_g": 0.0,
    "bom": "sts3215"
   },
   {
@@ -3103,9 +3675,20 @@
    "link": "head_pan",
    "group": "head",
    "kind": "actuator",
-   "color": "actuator",
+   "color": "black",
    "material": "bought",
    "mass_g": 55.0,
+   "bom": "sts3215"
+  },
+  {
+   "name": "tilt_servo_horn",
+   "file": "tilt_servo_horn.stl",
+   "link": "head_pan",
+   "group": "head",
+   "kind": "actuator",
+   "color": "white",
+   "material": "bought",
+   "mass_g": 0.0,
    "bom": "sts3215"
   },
   {
@@ -3114,9 +3697,31 @@
    "link": "head_tilt",
    "group": "head",
    "kind": "electronics",
-   "color": "electronics",
+   "color": "alu",
    "material": "bought",
    "mass_g": 72,
+   "bom": "d435"
+  },
+  {
+   "name": "d435_glass",
+   "file": "d435_glass.stl",
+   "link": "head_tilt",
+   "group": "head",
+   "kind": "electronics",
+   "color": "glass",
+   "material": "bought",
+   "mass_g": 0.0,
+   "bom": "d435"
+  },
+  {
+   "name": "d435_lens",
+   "file": "d435_lens.stl",
+   "link": "head_tilt",
+   "group": "head",
+   "kind": "electronics",
+   "color": "lens",
+   "material": "bought",
+   "mass_g": 0.0,
    "bom": "d435"
   },
   {
@@ -3125,9 +3730,31 @@
    "link": "head_tilt",
    "group": "head",
    "kind": "electronics",
-   "color": "electronics",
+   "color": "pcb_blue",
    "material": "bought",
    "mass_g": 10,
+   "bom": "esp32s3"
+  },
+  {
+   "name": "esp32s3_head_chip",
+   "file": "esp32s3_head_chip.stl",
+   "link": "head_tilt",
+   "group": "head",
+   "kind": "electronics",
+   "color": "black",
+   "material": "bought",
+   "mass_g": 0.0,
+   "bom": "esp32s3"
+  },
+  {
+   "name": "esp32s3_head_pins",
+   "file": "esp32s3_head_pins.stl",
+   "link": "head_tilt",
+   "group": "head",
+   "kind": "electronics",
+   "color": "black",
+   "material": "bought",
+   "mass_g": 0.0,
    "bom": "esp32s3"
   },
   {
@@ -3136,9 +3763,42 @@
    "link": "head_tilt",
    "group": "head",
    "kind": "electronics",
-   "color": "electronics",
+   "color": "pcb_black",
    "material": "bought",
    "mass_g": 20,
+   "bom": "mic"
+  },
+  {
+   "name": "mic_array_mics",
+   "file": "mic_array_mics.stl",
+   "link": "head_tilt",
+   "group": "head",
+   "kind": "electronics",
+   "color": "steel",
+   "material": "bought",
+   "mass_g": 0.0,
+   "bom": "mic"
+  },
+  {
+   "name": "mic_array_leds",
+   "file": "mic_array_leds.stl",
+   "link": "head_tilt",
+   "group": "head",
+   "kind": "electronics",
+   "color": "eye",
+   "material": "bought",
+   "mass_g": 0.0,
+   "bom": "mic"
+  },
+  {
+   "name": "mic_array_chip",
+   "file": "mic_array_chip.stl",
+   "link": "head_tilt",
+   "group": "head",
+   "kind": "electronics",
+   "color": "black",
+   "material": "bought",
+   "mass_g": 0.0,
    "bom": "mic"
   },
   {
@@ -3147,9 +3807,20 @@
    "link": "head_tilt",
    "group": "head",
    "kind": "electronics",
-   "color": "electronics",
+   "color": "pcb_blue",
    "material": "bought",
    "mass_g": 8,
+   "bom": "eye"
+  },
+  {
+   "name": "eye_r_glass",
+   "file": "eye_r_glass.stl",
+   "link": "head_tilt",
+   "group": "head",
+   "kind": "electronics",
+   "color": "eye",
+   "material": "bought",
+   "mass_g": 0.0,
    "bom": "eye"
   },
   {
@@ -3158,9 +3829,20 @@
    "link": "head_tilt",
    "group": "head",
    "kind": "electronics",
-   "color": "electronics",
+   "color": "pcb_blue",
    "material": "bought",
    "mass_g": 8,
+   "bom": "eye"
+  },
+  {
+   "name": "eye_l_glass",
+   "file": "eye_l_glass.stl",
+   "link": "head_tilt",
+   "group": "head",
+   "kind": "electronics",
+   "color": "eye",
+   "material": "bought",
+   "mass_g": 0.0,
    "bom": "eye"
   },
   {
@@ -3169,9 +3851,31 @@
    "link": "l_link1",
    "group": "arm",
    "kind": "actuator",
-   "color": "actuator",
+   "color": "anodised",
    "material": "bought",
    "mass_g": 362.0,
+   "bom": "dm4340"
+  },
+  {
+   "name": "j2_l_out",
+   "file": "j2_l_out.stl",
+   "link": "l_link1",
+   "group": "arm",
+   "kind": "actuator",
+   "color": "alu",
+   "material": "bought",
+   "mass_g": 0.0,
+   "bom": "dm4340"
+  },
+  {
+   "name": "j2_l_conn",
+   "file": "j2_l_conn.stl",
+   "link": "l_link1",
+   "group": "arm",
+   "kind": "actuator",
+   "color": "yellow",
+   "material": "bought",
+   "mass_g": 0.0,
    "bom": "dm4340"
   },
   {
@@ -3180,9 +3884,31 @@
    "link": "l_link2",
    "group": "arm",
    "kind": "actuator",
-   "color": "actuator",
+   "color": "anodised",
    "material": "bought",
    "mass_g": 300.0,
+   "bom": "dm4310"
+  },
+  {
+   "name": "j3_l_out",
+   "file": "j3_l_out.stl",
+   "link": "l_link2",
+   "group": "arm",
+   "kind": "actuator",
+   "color": "alu",
+   "material": "bought",
+   "mass_g": 0.0,
+   "bom": "dm4310"
+  },
+  {
+   "name": "j3_l_conn",
+   "file": "j3_l_conn.stl",
+   "link": "l_link2",
+   "group": "arm",
+   "kind": "actuator",
+   "color": "yellow",
+   "material": "bought",
+   "mass_g": 0.0,
    "bom": "dm4310"
   },
   {
@@ -3191,9 +3917,31 @@
    "link": "l_link3",
    "group": "arm",
    "kind": "actuator",
-   "color": "actuator",
+   "color": "anodised",
    "material": "bought",
    "mass_g": 300.0,
+   "bom": "dm4310"
+  },
+  {
+   "name": "j4_l_out",
+   "file": "j4_l_out.stl",
+   "link": "l_link3",
+   "group": "arm",
+   "kind": "actuator",
+   "color": "alu",
+   "material": "bought",
+   "mass_g": 0.0,
+   "bom": "dm4310"
+  },
+  {
+   "name": "j4_l_conn",
+   "file": "j4_l_conn.stl",
+   "link": "l_link3",
+   "group": "arm",
+   "kind": "actuator",
+   "color": "yellow",
+   "material": "bought",
+   "mass_g": 0.0,
    "bom": "dm4310"
   },
   {
@@ -3202,9 +3950,20 @@
    "link": "l_link4",
    "group": "arm",
    "kind": "actuator",
-   "color": "actuator",
+   "color": "black",
    "material": "bought",
    "mass_g": 55.0,
+   "bom": "sts3215"
+  },
+  {
+   "name": "j5_l_horn",
+   "file": "j5_l_horn.stl",
+   "link": "l_link4",
+   "group": "arm",
+   "kind": "actuator",
+   "color": "white",
+   "material": "bought",
+   "mass_g": 0.0,
    "bom": "sts3215"
   },
   {
@@ -3213,9 +3972,20 @@
    "link": "l_link5",
    "group": "arm",
    "kind": "actuator",
-   "color": "actuator",
+   "color": "black",
    "material": "bought",
    "mass_g": 55.0,
+   "bom": "sts3215"
+  },
+  {
+   "name": "j6_l_horn",
+   "file": "j6_l_horn.stl",
+   "link": "l_link5",
+   "group": "arm",
+   "kind": "actuator",
+   "color": "white",
+   "material": "bought",
+   "mass_g": 0.0,
    "bom": "sts3215"
   },
   {
@@ -3224,9 +3994,20 @@
    "link": "l_link6",
    "group": "arm",
    "kind": "actuator",
-   "color": "actuator",
+   "color": "black",
    "material": "bought",
    "mass_g": 55.0,
+   "bom": "sts3215"
+  },
+  {
+   "name": "j7_l_horn",
+   "file": "j7_l_horn.stl",
+   "link": "l_link6",
+   "group": "arm",
+   "kind": "actuator",
+   "color": "white",
+   "material": "bought",
+   "mass_g": 0.0,
    "bom": "sts3215"
   },
   {
@@ -3235,9 +4016,31 @@
    "link": "l_link6",
    "group": "arm",
    "kind": "electronics",
-   "color": "electronics",
+   "color": "pcb",
    "material": "bought",
    "mass_g": 15,
+   "bom": "wristcam"
+  },
+  {
+   "name": "wrist_cam_l_holder",
+   "file": "wrist_cam_l_holder.stl",
+   "link": "l_link6",
+   "group": "arm",
+   "kind": "electronics",
+   "color": "black",
+   "material": "bought",
+   "mass_g": 0.0,
+   "bom": "wristcam"
+  },
+  {
+   "name": "wrist_cam_l_lens",
+   "file": "wrist_cam_l_lens.stl",
+   "link": "l_link6",
+   "group": "arm",
+   "kind": "electronics",
+   "color": "lens",
+   "material": "bought",
+   "mass_g": 0.0,
    "bom": "wristcam"
   },
   {
@@ -3246,9 +4049,31 @@
    "link": "r_link1",
    "group": "arm",
    "kind": "actuator",
-   "color": "actuator",
+   "color": "anodised",
    "material": "bought",
    "mass_g": 362.0,
+   "bom": "dm4340"
+  },
+  {
+   "name": "j2_r_out",
+   "file": "j2_r_out.stl",
+   "link": "r_link1",
+   "group": "arm",
+   "kind": "actuator",
+   "color": "alu",
+   "material": "bought",
+   "mass_g": 0.0,
+   "bom": "dm4340"
+  },
+  {
+   "name": "j2_r_conn",
+   "file": "j2_r_conn.stl",
+   "link": "r_link1",
+   "group": "arm",
+   "kind": "actuator",
+   "color": "yellow",
+   "material": "bought",
+   "mass_g": 0.0,
    "bom": "dm4340"
   },
   {
@@ -3257,9 +4082,31 @@
    "link": "r_link2",
    "group": "arm",
    "kind": "actuator",
-   "color": "actuator",
+   "color": "anodised",
    "material": "bought",
    "mass_g": 300.0,
+   "bom": "dm4310"
+  },
+  {
+   "name": "j3_r_out",
+   "file": "j3_r_out.stl",
+   "link": "r_link2",
+   "group": "arm",
+   "kind": "actuator",
+   "color": "alu",
+   "material": "bought",
+   "mass_g": 0.0,
+   "bom": "dm4310"
+  },
+  {
+   "name": "j3_r_conn",
+   "file": "j3_r_conn.stl",
+   "link": "r_link2",
+   "group": "arm",
+   "kind": "actuator",
+   "color": "yellow",
+   "material": "bought",
+   "mass_g": 0.0,
    "bom": "dm4310"
   },
   {
@@ -3268,9 +4115,31 @@
    "link": "r_link3",
    "group": "arm",
    "kind": "actuator",
-   "color": "actuator",
+   "color": "anodised",
    "material": "bought",
    "mass_g": 300.0,
+   "bom": "dm4310"
+  },
+  {
+   "name": "j4_r_out",
+   "file": "j4_r_out.stl",
+   "link": "r_link3",
+   "group": "arm",
+   "kind": "actuator",
+   "color": "alu",
+   "material": "bought",
+   "mass_g": 0.0,
+   "bom": "dm4310"
+  },
+  {
+   "name": "j4_r_conn",
+   "file": "j4_r_conn.stl",
+   "link": "r_link3",
+   "group": "arm",
+   "kind": "actuator",
+   "color": "yellow",
+   "material": "bought",
+   "mass_g": 0.0,
    "bom": "dm4310"
   },
   {
@@ -3279,9 +4148,20 @@
    "link": "r_link4",
    "group": "arm",
    "kind": "actuator",
-   "color": "actuator",
+   "color": "black",
    "material": "bought",
    "mass_g": 55.0,
+   "bom": "sts3215"
+  },
+  {
+   "name": "j5_r_horn",
+   "file": "j5_r_horn.stl",
+   "link": "r_link4",
+   "group": "arm",
+   "kind": "actuator",
+   "color": "white",
+   "material": "bought",
+   "mass_g": 0.0,
    "bom": "sts3215"
   },
   {
@@ -3290,9 +4170,20 @@
    "link": "r_link5",
    "group": "arm",
    "kind": "actuator",
-   "color": "actuator",
+   "color": "black",
    "material": "bought",
    "mass_g": 55.0,
+   "bom": "sts3215"
+  },
+  {
+   "name": "j6_r_horn",
+   "file": "j6_r_horn.stl",
+   "link": "r_link5",
+   "group": "arm",
+   "kind": "actuator",
+   "color": "white",
+   "material": "bought",
+   "mass_g": 0.0,
    "bom": "sts3215"
   },
   {
@@ -3301,9 +4192,20 @@
    "link": "r_link6",
    "group": "arm",
    "kind": "actuator",
-   "color": "actuator",
+   "color": "black",
    "material": "bought",
    "mass_g": 55.0,
+   "bom": "sts3215"
+  },
+  {
+   "name": "j7_r_horn",
+   "file": "j7_r_horn.stl",
+   "link": "r_link6",
+   "group": "arm",
+   "kind": "actuator",
+   "color": "white",
+   "material": "bought",
+   "mass_g": 0.0,
    "bom": "sts3215"
   },
   {
@@ -3312,9 +4214,31 @@
    "link": "r_link6",
    "group": "arm",
    "kind": "electronics",
-   "color": "electronics",
+   "color": "pcb",
    "material": "bought",
    "mass_g": 15,
+   "bom": "wristcam"
+  },
+  {
+   "name": "wrist_cam_r_holder",
+   "file": "wrist_cam_r_holder.stl",
+   "link": "r_link6",
+   "group": "arm",
+   "kind": "electronics",
+   "color": "black",
+   "material": "bought",
+   "mass_g": 0.0,
+   "bom": "wristcam"
+  },
+  {
+   "name": "wrist_cam_r_lens",
+   "file": "wrist_cam_r_lens.stl",
+   "link": "r_link6",
+   "group": "arm",
+   "kind": "electronics",
+   "color": "lens",
+   "material": "bought",
+   "mass_g": 0.0,
    "bom": "wristcam"
   }
  ],

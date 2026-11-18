@@ -599,36 +599,34 @@ def rear_shelf(side) -> cq.Shape:
 # ---------------------------------------------------------------- bought envelopes
 
 def bought() -> list[Bought]:
+    import vendor as V
+
     out = []
     for sy, name in ((1, "hub_l"), (-1, "hub_r")):
-        y0 = sy * (P.WHEEL_Y - P.WHEEL_W / 2)
-        y1 = sy * (P.WHEEL_Y + P.WHEEL_W / 2)
-        tire = cyl_between("y", (0, P.AXLE_Z), y0, y1, P.WHEEL_OD)
-        hub = cyl_between("y", (0, P.AXLE_Z), y0 - sy * 2, y1 + sy * 2, P.WHEEL_OD - 40)
-        axle = cyl_between("y", (0, P.AXLE_Z), sy * 112, y0, P.AXLE_D).intersect(
-            box(-20, 20, sy * 100, sy * 170, P.AXLE_Z - P.AXLE_FLATS / 2, P.AXLE_Z + P.AXLE_FLATS / 2))
-        out.append(Bought(name, fuse(tire, hub, axle), f"wheel_{'l' if sy > 0 else 'r'}", "base", "wheel", P.HUB_MASS, "hub"))
-    bx, by, bz = P.BATT
-    out.append(Bought("battery", cbox(BATT_C[0], BATT_C[1], BATT_Z0 + bz / 2, bx, by, bz), "base", "base", "battery", P.BATT_MASS, "battery"))
-    out.append(Bought("lidar", cyl((P.LIDAR_X, 0, P.LIDAR_Z0), "z", P.LIDAR_D, P.LIDAR_H), "base", "base", "electronics", 110, "lidar"))
+        pcs = V.place(V.hub_motor(sy), (0, sy * P.WHEEL_Y, P.AXLE_Z), xdir=(1, 0, 0), zdir=(0, sy, 0))
+        out += V.boughts(name, pcs, f"wheel_{'l' if sy > 0 else 'r'}", "base", "wheel", P.HUB_MASS, "hub")
+    out += V.boughts("battery", V.place(V.battery(), (BATT_C[0], BATT_C[1], BATT_Z0)), "base", "base", "battery", P.BATT_MASS, "battery")
+    out += V.boughts("lidar", V.place(V.rplidar_c1(), (P.LIDAR_X, 0, P.LIDAR_Z0)), "base", "base", "electronics", 110, "lidar")
     z = SHELF_Z + SHELF_T
-    env = [
-        ("zsx11h_l", (70, 60), (63, 45, 22), 60, "zsx"),
-        ("zsx11h_r", (70, -60), (63, 45, 22), 60, "zsx"),
-        ("esp32", (130, 60), (52, 28, 12), 10, "esp32"),
-        ("imu", (130, -40), (25, 20, 5), 5, "imu"),
-        ("buck_24v", (-175, 88), (110, 62, 33), 260, "buck24"),
-        ("buck_12v", (-195, -85), (63, 53, 30), 150, "buck12"),
-        ("buck_19v", (-125, -100), (60, 40, 22), 70, "buck19"),
-        ("fuse_block", (-118, 38), (40, 30, 25), 40, "fuse"),
-        ("contactor_relay", (-212, 38), (40, 30, 30), 60, "relay"),
+    boards = [
+        ("zsx11h_l", (70, 60), V.zsx11h(), 60, "zsx"),
+        ("zsx11h_r", (70, -60), V.zsx11h(), 60, "zsx"),
+        ("esp32", (130, 60), V.esp32_devkit(), 10, "esp32"),
+        ("imu", (130, -40), V.small_board(25, 20, (5, 5, 1)), 5, "imu"),
+        ("tmc2209", (132, -92), V.small_board(15, 20, (5, 5, 1), look="pcb_black"), 5, "tmc"),
+        ("buck_24v", (-175, 88), V.finned_buck(110, 62, 33), 260, "buck24"),
+        ("buck_12v", (-195, -85), V.finned_buck(63, 53, 30), 150, "buck12"),
+        ("buck_19v", (-125, -100), V.open_buck(60, 40, 22), 70, "buck19"),
+        ("fuse_block", (-118, 38), V.fuse_block(40, 30, 25), 40, "fuse"),
+        ("contactor_relay", (-212, 38), V.contactor(40, 30, 30), 60, "relay"),
     ]
-    for name, (x, y), (sx, sy, sz), m, key in env:
-        out.append(Bought(name, cbox(x, y, z + sz / 2, sx, sy, sz), "base", "base", "electronics", m, key))
-    out.append(Bought("estop", fuse(cyl((ESTOP_XY[0], ESTOP_XY[1], P.BASE_TOP - 45), "z", 22, 45),
-                                    cyl((ESTOP_XY[0], ESTOP_XY[1], P.BASE_TOP), "z", 40, 22)), "base", "base", "electronics", 80, "estop"))
+    for name, (x, y), pcs, m, key in boards:
+        zz = z + (8.5 if name == "esp32" else 0.0)  # the devkit stands on its pin headers
+        out += V.boughts(name, V.place(pcs, (x, y, zz)), "base", "base", "electronics", m, key)
+    out += V.boughts("estop", V.place(V.estop(), (ESTOP_XY[0], ESTOP_XY[1], P.BASE_TOP)), "base", "base", "electronics", 80, "estop")
     for cx in (P.CASTER_X, -P.CASTER_X):
-        out.append(Bought(f"caster_bolt_{'f' if cx > 0 else 'r'}", cyl((cx, 0, P.CASTER_PLATE_Z - 12), "z", 8, 30), "base", "base", "metal", 30, "m8"))
+        out.append(Bought(f"caster_bolt_{'f' if cx > 0 else 'r'}", cyl((cx, 0, P.CASTER_PLATE_Z - 12), "z", 8, 30), "base", "base", "metal", 30, "m8",
+                          look="steel"))
     return out
 
 

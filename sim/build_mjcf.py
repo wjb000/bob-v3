@@ -54,6 +54,12 @@ COLORS = {
     "shell": "0.92 0.92 0.90 1", "dark": "0.13 0.13 0.14 1", "frame": "0.56 0.58 0.62 1", "accent": "0.0 0.5 1.0 1",
     "actuator": "0.20 0.20 0.22 1", "electronics": "0.20 0.45 0.30 1", "battery": "0.35 0.55 0.20 1",
     "metal": "0.75 0.76 0.78 1", "wheel": "0.10 0.10 0.10 1",
+    # looks of the modelled bought parts
+    "anodised": "0.17 0.17 0.19 1", "alu": "0.78 0.79 0.81 1", "steel": "0.62 0.63 0.66 1", "chrome": "0.85 0.86 0.88 1",
+    "brass": "0.80 0.62 0.28 1", "copper": "0.78 0.45 0.25 1", "black": "0.08 0.08 0.09 1", "white": "0.93 0.93 0.92 1",
+    "grey": "0.40 0.40 0.42 1", "yellow": "0.95 0.75 0.10 1", "red": "0.82 0.10 0.10 1", "green": "0.15 0.55 0.25 1",
+    "rubber": "0.07 0.07 0.07 1", "pcb": "0.10 0.40 0.20 1", "pcb_black": "0.06 0.07 0.07 1", "pcb_blue": "0.10 0.25 0.60 1",
+    "glass": "0.05 0.06 0.08 1", "lens": "0.10 0.12 0.30 1", "smoke": "0.20 0.20 0.22 1", "eye": "0.25 0.85 1.0 1",
 }
 
 
@@ -148,8 +154,8 @@ def main():
     w("  </default>")
     w("  <asset>")
     for c, rgba in COLORS.items():
-        w(f'    <material name="m_{c}" rgba="{rgba}" specular="0.3" shininess="0.4"/>')
-    w('    <material name="m_eye" rgba="0.25 0.85 1.0 1" emission="1.2"/>')
+        extra = ' emission="1.2"' if c == "eye" else ' reflectance="0.15"' if c in ("alu", "chrome", "steel") else ""
+        w(f'    <material name="m_{c}" rgba="{rgba}" specular="0.4" shininess="0.5"{extra}/>')
     w('    <texture name="sky" type="skybox" builtin="gradient" rgb1="0.93 0.94 0.96" rgb2="0.62 0.66 0.72" width="512" height="512"/>')
     w('    <texture name="grid" type="2d" builtin="checker" rgb1="0.82 0.80 0.76" rgb2="0.76 0.74 0.70" width="512" height="512"/>')
     w('    <material name="floor" texture="grid" texrepeat="8 8" reflectance="0.05"/>')
@@ -197,9 +203,7 @@ def main():
           f'fullinertia="{I[0,0]:.6g} {I[1,1]:.6g} {I[2,2]:.6g} {I[0,1]:.6g} {I[0,2]:.6g} {I[1,2]:.6g}"/>')
         for it in by_link.get(link, []):
             col = collides(it)
-            mat = f"m_{it['color']}" if it["kind"] == "print" else f"m_{it['kind']}"
-            if it["name"].startswith("eye_"):
-                mat = "m_eye"
+            mat = f"m_{it['color']}" if it["color"] in COLORS else f"m_{it['kind']}"
             grp = 1 if it["kind"] == "print" else 2
             w(f'{pad}  <geom name="{it["name"]}" type="mesh" mesh="{it["name"]}" material="{mat}" group="{grp}" mass="0"/>')
             if col and it["name"].startswith("finger_"):
