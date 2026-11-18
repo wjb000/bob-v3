@@ -1,0 +1,3337 @@
+{
+ "units": "mm",
+ "frame": "x forward, y left, z up, origin on the floor between the wheels",
+ "links": {
+  "base": {
+   "mass_g": 8679.0,
+   "com": [
+    -15.2,
+    0.8,
+    335.6
+   ]
+  },
+  "lift": {
+   "mass_g": 3290.4,
+   "com": [
+    73.6,
+    -0.1,
+    434.2
+   ]
+  },
+  "head_pan": {
+   "mass_g": 82.8,
+   "com": [
+    115.1,
+    -5.0,
+    614.1
+   ]
+  },
+  "head_tilt": {
+   "mass_g": 518.0,
+   "com": [
+    124.4,
+    0.1,
+    692.4
+   ]
+  },
+  "l_link1": {
+   "mass_g": 411.1,
+   "com": [
+    110.7,
+    193.8,
+    520.0
+   ]
+  },
+  "l_link2": {
+   "mass_g": 345.4,
+   "com": [
+    108.5,
+    195.0,
+    453.8
+   ]
+  },
+  "l_link3": {
+   "mass_g": 389.2,
+   "com": [
+    110.0,
+    194.4,
+    294.4
+   ]
+  },
+  "l_link4": {
+   "mass_g": 188.3,
+   "com": [
+    110.0,
+    196.7,
+    131.2
+   ]
+  },
+  "l_link5": {
+   "mass_g": 93.7,
+   "com": [
+    118.2,
+    195.3,
+    28.8
+   ]
+  },
+  "l_link6": {
+   "mass_g": 124.5,
+   "com": [
+    112.5,
+    195.0,
+    -39.5
+   ]
+  },
+  "l_link7": {
+   "mass_g": 12.5,
+   "com": [
+    113.9,
+    197.4,
+    -82.9
+   ]
+  },
+  "l_link8": {
+   "mass_g": 12.5,
+   "com": [
+    106.1,
+    192.6,
+    -82.9
+   ]
+  },
+  "r_link1": {
+   "mass_g": 411.1,
+   "com": [
+    110.7,
+    -193.8,
+    520.0
+   ]
+  },
+  "r_link2": {
+   "mass_g": 345.4,
+   "com": [
+    108.5,
+    -195.0,
+    453.8
+   ]
+  },
+  "r_link3": {
+   "mass_g": 389.2,
+   "com": [
+    110.0,
+    -194.4,
+    294.4
+   ]
+  },
+  "r_link4": {
+   "mass_g": 188.3,
+   "com": [
+    110.0,
+    -196.7,
+    131.2
+   ]
+  },
+  "r_link5": {
+   "mass_g": 93.7,
+   "com": [
+    118.2,
+    -195.3,
+    28.8
+   ]
+  },
+  "r_link6": {
+   "mass_g": 124.5,
+   "com": [
+    112.5,
+    -195.0,
+    -39.5
+   ]
+  },
+  "r_link7": {
+   "mass_g": 12.5,
+   "com": [
+    113.9,
+    -197.4,
+    -82.9
+   ]
+  },
+  "r_link8": {
+   "mass_g": 12.5,
+   "com": [
+    106.1,
+    -192.6,
+    -82.9
+   ]
+  },
+  "wheel_l": {
+   "mass_g": 2800.0,
+   "com": [
+    0.0,
+    184.8,
+    82.5
+   ]
+  },
+  "wheel_r": {
+   "mass_g": 2800.0,
+   "com": [
+    0.0,
+    -184.8,
+    82.5
+   ]
+  }
+ },
+ "total_mass_g": 21324.6,
+ "joints": [
+  {
+   "name": "lift",
+   "kind": "slide",
+   "parent": "base",
+   "child": "lift",
+   "anchor": [
+    -30.0,
+    0.0,
+    0.0
+   ],
+   "axis": [
+    0,
+    0,
+    1
+   ],
+   "range": [
+    0.0,
+    0.65
+   ],
+   "actuator": "nema",
+   "mimic": ""
+  },
+  {
+   "name": "wheel_l",
+   "kind": "hinge",
+   "parent": "base",
+   "child": "wheel_l",
+   "anchor": [
+    0.0,
+    185.0,
+    82.5
+   ],
+   "axis": [
+    0,
+    1,
+    0
+   ],
+   "range": [
+    -1000000000.0,
+    1000000000.0
+   ],
+   "actuator": "hub",
+   "mimic": ""
+  },
+  {
+   "name": "wheel_r",
+   "kind": "hinge",
+   "parent": "base",
+   "child": "wheel_r",
+   "anchor": [
+    0.0,
+    -185.0,
+    82.5
+   ],
+   "axis": [
+    0,
+    1,
+    0
+   ],
+   "range": [
+    -1000000000.0,
+    1000000000.0
+   ],
+   "actuator": "hub",
+   "mimic": ""
+  },
+  {
+   "name": "head_pan",
+   "kind": "hinge",
+   "parent": "lift",
+   "child": "head_pan",
+   "anchor": [
+    106.0,
+    0,
+    571.0
+   ],
+   "axis": [
+    0,
+    0,
+    1
+   ],
+   "range": [
+    -1.57,
+    1.57
+   ],
+   "actuator": "sts3215",
+   "mimic": ""
+  },
+  {
+   "name": "head_tilt",
+   "kind": "hinge",
+   "parent": "head_pan",
+   "child": "head_tilt",
+   "anchor": [
+    106.0,
+    0,
+    620.0
+   ],
+   "axis": [
+    0,
+    1,
+    0
+   ],
+   "range": [
+    -0.6,
+    0.95
+   ],
+   "actuator": "sts3215",
+   "mimic": ""
+  },
+  {
+   "name": "l_shoulder_pitch",
+   "kind": "hinge",
+   "parent": "lift",
+   "child": "l_link1",
+   "anchor": [
+    110.0,
+    152.0,
+    520.0
+   ],
+   "axis": [
+    0,
+    1,
+    0
+   ],
+   "range": [
+    -3.1,
+    1.0
+   ],
+   "actuator": "dm4340",
+   "mimic": ""
+  },
+  {
+   "name": "l_shoulder_roll",
+   "kind": "hinge",
+   "parent": "l_link1",
+   "child": "l_link2",
+   "anchor": [
+    110.0,
+    195.0,
+    520.0
+   ],
+   "axis": [
+    1,
+    0,
+    0
+   ],
+   "range": [
+    -0.2,
+    1.75
+   ],
+   "actuator": "dm4340",
+   "mimic": ""
+  },
+  {
+   "name": "l_upper_arm_yaw",
+   "kind": "hinge",
+   "parent": "l_link2",
+   "child": "l_link3",
+   "anchor": [
+    110.0,
+    195.0,
+    428.0
+   ],
+   "axis": [
+    0,
+    0,
+    1
+   ],
+   "range": [
+    -1.6,
+    1.6
+   ],
+   "actuator": "dm4310",
+   "mimic": ""
+  },
+  {
+   "name": "l_elbow",
+   "kind": "hinge",
+   "parent": "l_link3",
+   "child": "l_link4",
+   "anchor": [
+    110.0,
+    195.0,
+    280.0
+   ],
+   "axis": [
+    0,
+    1,
+    0
+   ],
+   "range": [
+    -2.35,
+    0.0
+   ],
+   "actuator": "dm4310",
+   "mimic": ""
+  },
+  {
+   "name": "l_wrist_pitch",
+   "kind": "hinge",
+   "parent": "l_link4",
+   "child": "l_link5",
+   "anchor": [
+    110.0,
+    195.0,
+    80.0
+   ],
+   "axis": [
+    0,
+    1,
+    0
+   ],
+   "range": [
+    -2.3,
+    2.3
+   ],
+   "actuator": "sts3215",
+   "mimic": ""
+  },
+  {
+   "name": "l_wrist_roll",
+   "kind": "hinge",
+   "parent": "l_link5",
+   "child": "l_link6",
+   "anchor": [
+    110.0,
+    195.0,
+    -5.0
+   ],
+   "axis": [
+    0,
+    0,
+    1
+   ],
+   "range": [
+    -2.8,
+    2.8
+   ],
+   "actuator": "sts3215",
+   "mimic": ""
+  },
+  {
+   "name": "l_gripper",
+   "kind": "slide",
+   "parent": "l_link6",
+   "child": "l_link7",
+   "anchor": [
+    110.0,
+    195.0,
+    -58.0
+   ],
+   "axis": [
+    0,
+    1.0,
+    0
+   ],
+   "range": [
+    0.0,
+    0.04
+   ],
+   "actuator": "sts3215g",
+   "mimic": ""
+  },
+  {
+   "name": "l_gripper_b",
+   "kind": "slide",
+   "parent": "l_link6",
+   "child": "l_link8",
+   "anchor": [
+    110.0,
+    195.0,
+    -58.0
+   ],
+   "axis": [
+    0,
+    -1.0,
+    0
+   ],
+   "range": [
+    0.0,
+    0.04
+   ],
+   "actuator": "sts3215g",
+   "mimic": "l_gripper"
+  },
+  {
+   "name": "r_shoulder_pitch",
+   "kind": "hinge",
+   "parent": "lift",
+   "child": "r_link1",
+   "anchor": [
+    110.0,
+    -152.0,
+    520.0
+   ],
+   "axis": [
+    0,
+    1,
+    0
+   ],
+   "range": [
+    -3.1,
+    1.0
+   ],
+   "actuator": "dm4340",
+   "mimic": ""
+  },
+  {
+   "name": "r_shoulder_roll",
+   "kind": "hinge",
+   "parent": "r_link1",
+   "child": "r_link2",
+   "anchor": [
+    110.0,
+    -195.0,
+    520.0
+   ],
+   "axis": [
+    -1,
+    0,
+    0
+   ],
+   "range": [
+    -0.2,
+    1.75
+   ],
+   "actuator": "dm4340",
+   "mimic": ""
+  },
+  {
+   "name": "r_upper_arm_yaw",
+   "kind": "hinge",
+   "parent": "r_link2",
+   "child": "r_link3",
+   "anchor": [
+    110.0,
+    -195.0,
+    428.0
+   ],
+   "axis": [
+    0,
+    0,
+    -1
+   ],
+   "range": [
+    -1.6,
+    1.6
+   ],
+   "actuator": "dm4310",
+   "mimic": ""
+  },
+  {
+   "name": "r_elbow",
+   "kind": "hinge",
+   "parent": "r_link3",
+   "child": "r_link4",
+   "anchor": [
+    110.0,
+    -195.0,
+    280.0
+   ],
+   "axis": [
+    0,
+    1,
+    0
+   ],
+   "range": [
+    -2.35,
+    0.0
+   ],
+   "actuator": "dm4310",
+   "mimic": ""
+  },
+  {
+   "name": "r_wrist_pitch",
+   "kind": "hinge",
+   "parent": "r_link4",
+   "child": "r_link5",
+   "anchor": [
+    110.0,
+    -195.0,
+    80.0
+   ],
+   "axis": [
+    0,
+    1,
+    0
+   ],
+   "range": [
+    -2.3,
+    2.3
+   ],
+   "actuator": "sts3215",
+   "mimic": ""
+  },
+  {
+   "name": "r_wrist_roll",
+   "kind": "hinge",
+   "parent": "r_link5",
+   "child": "r_link6",
+   "anchor": [
+    110.0,
+    -195.0,
+    -5.0
+   ],
+   "axis": [
+    0,
+    0,
+    -1
+   ],
+   "range": [
+    -2.8,
+    2.8
+   ],
+   "actuator": "sts3215",
+   "mimic": ""
+  },
+  {
+   "name": "r_gripper",
+   "kind": "slide",
+   "parent": "r_link6",
+   "child": "r_link7",
+   "anchor": [
+    110.0,
+    -195.0,
+    -58.0
+   ],
+   "axis": [
+    0,
+    -1.0,
+    0
+   ],
+   "range": [
+    0.0,
+    0.04
+   ],
+   "actuator": "sts3215g",
+   "mimic": ""
+  },
+  {
+   "name": "r_gripper_b",
+   "kind": "slide",
+   "parent": "r_link6",
+   "child": "r_link8",
+   "anchor": [
+    110.0,
+    -195.0,
+    -58.0
+   ],
+   "axis": [
+    0,
+    1.0,
+    0
+   ],
+   "range": [
+    0.0,
+    0.04
+   ],
+   "actuator": "sts3215g",
+   "mimic": "r_gripper"
+  }
+ ],
+ "poses": {
+  "zero": {
+   "lift": 0.4
+  },
+  "home": {
+   "lift": 0.1,
+   "head_tilt": 0.25,
+   "l_shoulder_pitch": -0.35,
+   "l_shoulder_roll": 0.1,
+   "l_elbow": -1.55,
+   "l_wrist_pitch": 0.35,
+   "l_gripper": 0.012,
+   "l_gripper_b": 0.012,
+   "r_shoulder_pitch": -0.35,
+   "r_shoulder_roll": 0.1,
+   "r_elbow": -1.55,
+   "r_wrist_pitch": 0.35,
+   "r_gripper": 0.012,
+   "r_gripper_b": 0.012
+  },
+  "counter": {
+   "lift": 0.35,
+   "head_tilt": 0.55,
+   "l_shoulder_pitch": -1.492,
+   "l_shoulder_roll": -0.008,
+   "l_elbow": -1.403,
+   "l_wrist_pitch": 1.894,
+   "l_gripper": 0.03,
+   "l_gripper_b": 0.03,
+   "r_shoulder_pitch": -1.492,
+   "r_shoulder_roll": -0.008,
+   "r_elbow": -1.403,
+   "r_wrist_pitch": 1.894,
+   "r_gripper": 0.03,
+   "r_gripper_b": 0.03,
+   "l_upper_arm_yaw": -0.015,
+   "l_wrist_roll": 0.016,
+   "r_upper_arm_yaw": -0.015,
+   "r_wrist_roll": 0.016
+  },
+  "floor": {
+   "lift": 0.0,
+   "head_tilt": 0.95,
+   "l_shoulder_pitch": -0.278,
+   "l_shoulder_roll": 0.006,
+   "l_elbow": -0.879,
+   "l_wrist_pitch": 1.156,
+   "l_gripper": 0.03,
+   "l_gripper_b": 0.03,
+   "r_shoulder_pitch": -0.278,
+   "r_shoulder_roll": 0.006,
+   "r_elbow": -0.879,
+   "r_wrist_pitch": 1.156,
+   "r_gripper": 0.03,
+   "r_gripper_b": 0.03,
+   "l_upper_arm_yaw": 0.019,
+   "l_wrist_roll": -0.02,
+   "r_upper_arm_yaw": 0.019,
+   "r_wrist_roll": -0.02
+  },
+  "shelf": {
+   "lift": 0.65,
+   "head_tilt": -0.5,
+   "l_shoulder_pitch": -2.614,
+   "l_shoulder_roll": 0.011,
+   "l_elbow": -0.472,
+   "l_wrist_pitch": 1.682,
+   "l_gripper": 0.03,
+   "l_gripper_b": 0.03,
+   "r_shoulder_pitch": -2.614,
+   "r_shoulder_roll": 0.011,
+   "r_elbow": -0.472,
+   "r_wrist_pitch": 1.682,
+   "r_gripper": 0.03,
+   "r_gripper_b": 0.03,
+   "l_upper_arm_yaw": 0.004,
+   "l_wrist_roll": -0.012,
+   "r_upper_arm_yaw": 0.004,
+   "r_wrist_roll": -0.012
+  },
+  "wave": {
+   "lift": 0.3,
+   "head_tilt": 0.25,
+   "l_shoulder_pitch": -0.25,
+   "l_shoulder_roll": 1.45,
+   "l_elbow": -1.4,
+   "l_wrist_pitch": 0.0,
+   "l_gripper": 0.012,
+   "l_gripper_b": 0.012,
+   "r_shoulder_pitch": -0.35,
+   "r_shoulder_roll": 0.1,
+   "r_elbow": -1.55,
+   "r_wrist_pitch": 0.35,
+   "r_gripper": 0.012,
+   "r_gripper_b": 0.012,
+   "head_pan": 0.35,
+   "l_upper_arm_yaw": 0.0
+  }
+ },
+ "items": [
+  {
+   "name": "base_shell_rear_r",
+   "file": "base_shell_rear_r.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "print",
+   "color": "shell",
+   "material": "PETG",
+   "mass_g": 143.5,
+   "print": "base_shell_rear_r",
+   "note": "Print top-down. Heat-set inserts in the seam bosses."
+  },
+  {
+   "name": "base_shell_rear_c",
+   "file": "base_shell_rear_c.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "print",
+   "color": "shell",
+   "material": "PETG",
+   "mass_g": 142.2,
+   "print": "base_shell_rear_c",
+   "note": "Print top-down. Heat-set inserts in the seam bosses."
+  },
+  {
+   "name": "base_shell_rear_l",
+   "file": "base_shell_rear_l.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "print",
+   "color": "shell",
+   "material": "PETG",
+   "mass_g": 143.5,
+   "print": "base_shell_rear_l",
+   "note": "Print top-down. Heat-set inserts in the seam bosses."
+  },
+  {
+   "name": "base_shell_mid_r",
+   "file": "base_shell_mid_r.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "print",
+   "color": "shell",
+   "material": "PETG",
+   "mass_g": 82.7,
+   "print": "base_shell_mid_r",
+   "note": "Print top-down. Heat-set inserts in the seam bosses."
+  },
+  {
+   "name": "base_shell_mid_c",
+   "file": "base_shell_mid_c.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "print",
+   "color": "shell",
+   "material": "PETG",
+   "mass_g": 44.4,
+   "print": "base_shell_mid_c",
+   "note": "Print top-down. Heat-set inserts in the seam bosses."
+  },
+  {
+   "name": "base_shell_mid_l",
+   "file": "base_shell_mid_l.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "print",
+   "color": "shell",
+   "material": "PETG",
+   "mass_g": 82.7,
+   "print": "base_shell_mid_l",
+   "note": "Print top-down. Heat-set inserts in the seam bosses."
+  },
+  {
+   "name": "base_shell_front_r",
+   "file": "base_shell_front_r.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "print",
+   "color": "shell",
+   "material": "PETG",
+   "mass_g": 147.8,
+   "print": "base_shell_front_r",
+   "note": "Print top-down. Heat-set inserts in the seam bosses."
+  },
+  {
+   "name": "base_shell_front_c",
+   "file": "base_shell_front_c.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "print",
+   "color": "shell",
+   "material": "PETG",
+   "mass_g": 143.2,
+   "print": "base_shell_front_c",
+   "note": "Print top-down. Heat-set inserts in the seam bosses."
+  },
+  {
+   "name": "base_shell_front_l",
+   "file": "base_shell_front_l.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "print",
+   "color": "shell",
+   "material": "PETG",
+   "mass_g": 147.8,
+   "print": "base_shell_front_l",
+   "note": "Print top-down. Heat-set inserts in the seam bosses."
+  },
+  {
+   "name": "base_pan_rear_r",
+   "file": "base_pan_rear_r.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "print",
+   "color": "frame",
+   "material": "PETG",
+   "mass_g": 77.5,
+   "print": "base_pan_rear_r",
+   "note": "Structure. Skin down on the bed, ribs up. 4 walls."
+  },
+  {
+   "name": "base_pan_rear_c",
+   "file": "base_pan_rear_c.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "print",
+   "color": "frame",
+   "material": "PETG",
+   "mass_g": 113.3,
+   "print": "base_pan_rear_c",
+   "note": "Structure. Skin down on the bed, ribs up. 4 walls."
+  },
+  {
+   "name": "base_pan_rear_l",
+   "file": "base_pan_rear_l.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "print",
+   "color": "frame",
+   "material": "PETG",
+   "mass_g": 77.5,
+   "print": "base_pan_rear_l",
+   "note": "Structure. Skin down on the bed, ribs up. 4 walls."
+  },
+  {
+   "name": "base_pan_mid_r",
+   "file": "base_pan_mid_r.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "print",
+   "color": "frame",
+   "material": "PETG",
+   "mass_g": 60.0,
+   "print": "base_pan_mid_r",
+   "note": "Structure. Skin down on the bed, ribs up. 4 walls."
+  },
+  {
+   "name": "base_pan_mid_c",
+   "file": "base_pan_mid_c.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "print",
+   "color": "frame",
+   "material": "PETG",
+   "mass_g": 135.6,
+   "print": "base_pan_mid_c",
+   "note": "Structure. Skin down on the bed, ribs up. 4 walls."
+  },
+  {
+   "name": "base_pan_mid_l",
+   "file": "base_pan_mid_l.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "print",
+   "color": "frame",
+   "material": "PETG",
+   "mass_g": 60.0,
+   "print": "base_pan_mid_l",
+   "note": "Structure. Skin down on the bed, ribs up. 4 walls."
+  },
+  {
+   "name": "base_pan_front_r",
+   "file": "base_pan_front_r.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "print",
+   "color": "frame",
+   "material": "PETG",
+   "mass_g": 81.7,
+   "print": "base_pan_front_r",
+   "note": "Structure. Skin down on the bed, ribs up. 4 walls."
+  },
+  {
+   "name": "base_pan_front_c",
+   "file": "base_pan_front_c.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "print",
+   "color": "frame",
+   "material": "PETG",
+   "mass_g": 121.6,
+   "print": "base_pan_front_c",
+   "note": "Structure. Skin down on the bed, ribs up. 4 walls."
+  },
+  {
+   "name": "base_pan_front_l",
+   "file": "base_pan_front_l.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "print",
+   "color": "frame",
+   "material": "PETG",
+   "mass_g": 81.7,
+   "print": "base_pan_front_l",
+   "note": "Structure. Skin down on the bed, ribs up. 4 walls."
+  },
+  {
+   "name": "axle_block_l",
+   "file": "axle_block_l.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "print",
+   "color": "frame",
+   "material": "PETG",
+   "mass_g": 62.5,
+   "print": "axle_block_l",
+   "note": "Clamps the hub axle on its flats. MEASURE the axle first."
+  },
+  {
+   "name": "axle_cap_l",
+   "file": "axle_cap_l.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "print",
+   "color": "frame",
+   "material": "PETG",
+   "mass_g": 44.5,
+   "print": "axle_cap_l",
+   "note": ""
+  },
+  {
+   "name": "axle_block_r",
+   "file": "axle_block_r.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "print",
+   "color": "frame",
+   "material": "PETG",
+   "mass_g": 62.5,
+   "print": "axle_block_r",
+   "note": "Clamps the hub axle on its flats. MEASURE the axle first."
+  },
+  {
+   "name": "axle_cap_r",
+   "file": "axle_cap_r.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "print",
+   "color": "frame",
+   "material": "PETG",
+   "mass_g": 44.5,
+   "print": "axle_cap_r",
+   "note": ""
+  },
+  {
+   "name": "caster_bridge_front",
+   "file": "caster_bridge_front.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "print",
+   "color": "frame",
+   "material": "PETG",
+   "mass_g": 80.4,
+   "print": "caster_bridge_front",
+   "note": "Swivel 608ZZ pocket underneath. Inserts on top for the lidar mount."
+  },
+  {
+   "name": "caster_bridge_rear",
+   "file": "caster_bridge_rear.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "print",
+   "color": "frame",
+   "material": "PETG",
+   "mass_g": 80.6,
+   "print": "caster_bridge_rear",
+   "note": ""
+  },
+  {
+   "name": "lidar_mount",
+   "file": "lidar_mount.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "print",
+   "color": "dark",
+   "material": "PETG",
+   "mass_g": 27.5,
+   "print": "lidar_mount",
+   "note": "Lifts the RPLIDAR C1 to the slot in the shell."
+  },
+  {
+   "name": "caster_fork_front",
+   "file": "caster_fork_front.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "print",
+   "color": "dark",
+   "material": "PETG",
+   "mass_g": 19.8,
+   "print": "caster_fork_front",
+   "note": ""
+  },
+  {
+   "name": "caster_wheel_front",
+   "file": "caster_wheel_front.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "print",
+   "color": "dark",
+   "material": "PETG",
+   "mass_g": 25.8,
+   "print": "caster_wheel_front",
+   "note": "Two 608ZZ pressed in. TPU 95A if your printer does it, PETG otherwise."
+  },
+  {
+   "name": "caster_fork_rear",
+   "file": "caster_fork_rear.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "print",
+   "color": "dark",
+   "material": "PETG",
+   "mass_g": 19.8,
+   "print": "caster_fork_rear",
+   "note": ""
+  },
+  {
+   "name": "caster_wheel_rear",
+   "file": "caster_wheel_rear.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "print",
+   "color": "dark",
+   "material": "PETG",
+   "mass_g": 25.8,
+   "print": "caster_wheel_rear",
+   "note": "Two 608ZZ pressed in. TPU 95A if your printer does it, PETG otherwise."
+  },
+  {
+   "name": "battery_cradle_l",
+   "file": "battery_cradle_l.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "print",
+   "color": "frame",
+   "material": "PETG",
+   "mass_g": 33.3,
+   "print": "battery_cradle_l",
+   "note": "Two halves meet under the pack; the strap holds them together."
+  },
+  {
+   "name": "battery_cradle_r",
+   "file": "battery_cradle_r.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "print",
+   "color": "frame",
+   "material": "PETG",
+   "mass_g": 33.3,
+   "print": "battery_cradle_r",
+   "note": "Two halves meet under the pack; the strap holds them together."
+  },
+  {
+   "name": "shelf_front_l",
+   "file": "shelf_front_l.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "print",
+   "color": "frame",
+   "material": "PETG",
+   "mass_g": 51.9,
+   "print": "shelf_front_l",
+   "note": "Motor drivers and the ESP32 on the 20 mm grid."
+  },
+  {
+   "name": "shelf_rear_l",
+   "file": "shelf_rear_l.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "print",
+   "color": "frame",
+   "material": "PETG",
+   "mass_g": 68.9,
+   "print": "shelf_rear_l",
+   "note": "Bucks, fuse block, contactor."
+  },
+  {
+   "name": "shelf_front_r",
+   "file": "shelf_front_r.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "print",
+   "color": "frame",
+   "material": "PETG",
+   "mass_g": 51.9,
+   "print": "shelf_front_r",
+   "note": "Motor drivers and the ESP32 on the 20 mm grid."
+  },
+  {
+   "name": "shelf_rear_r",
+   "file": "shelf_rear_r.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "print",
+   "color": "frame",
+   "material": "PETG",
+   "mass_g": 68.9,
+   "print": "shelf_rear_r",
+   "note": "Bucks, fuse block, contactor."
+  },
+  {
+   "name": "mast_0",
+   "file": "mast_0.stl",
+   "link": "base",
+   "group": "mast",
+   "kind": "print",
+   "color": "shell",
+   "material": "PETG",
+   "mass_g": 229.9,
+   "print": "mast_0",
+   "note": "Foot flange, rod sockets, screw bushing, homing pad."
+  },
+  {
+   "name": "mast_1",
+   "file": "mast_1.stl",
+   "link": "base",
+   "group": "mast",
+   "kind": "print",
+   "color": "shell",
+   "material": "PETG",
+   "mass_g": 159.4,
+   "print": "mast_1",
+   "note": "Prints standing. Inserts in the top bosses."
+  },
+  {
+   "name": "mast_2",
+   "file": "mast_2.stl",
+   "link": "base",
+   "group": "mast",
+   "kind": "print",
+   "color": "shell",
+   "material": "PETG",
+   "mass_g": 159.4,
+   "print": "mast_2",
+   "note": "Prints standing. Inserts in the top bosses."
+  },
+  {
+   "name": "mast_3",
+   "file": "mast_3.stl",
+   "link": "base",
+   "group": "mast",
+   "kind": "print",
+   "color": "shell",
+   "material": "PETG",
+   "mass_g": 159.4,
+   "print": "mast_3",
+   "note": "Prints standing. Inserts in the top bosses."
+  },
+  {
+   "name": "mast_4",
+   "file": "mast_4.stl",
+   "link": "base",
+   "group": "mast",
+   "kind": "print",
+   "color": "shell",
+   "material": "PETG",
+   "mass_g": 159.4,
+   "print": "mast_4",
+   "note": "Prints standing. Inserts in the top bosses."
+  },
+  {
+   "name": "mast_5",
+   "file": "mast_5.stl",
+   "link": "base",
+   "group": "mast",
+   "kind": "print",
+   "color": "shell",
+   "material": "PETG",
+   "mass_g": 158.8,
+   "print": "mast_5",
+   "note": "Prints standing. Inserts in the top bosses."
+  },
+  {
+   "name": "mast_cap",
+   "file": "mast_cap.stl",
+   "link": "base",
+   "group": "mast",
+   "kind": "print",
+   "color": "dark",
+   "material": "PETG",
+   "mass_g": 198.3,
+   "print": "mast_cap",
+   "note": "NEMA 17 plate, rod tops, light ring groove. Prints upside down."
+  },
+  {
+   "name": "carriage",
+   "file": "carriage.stl",
+   "link": "lift",
+   "group": "mast",
+   "kind": "print",
+   "color": "frame",
+   "material": "PETG",
+   "mass_g": 310.6,
+   "print": "carriage",
+   "note": "Four LM12UU press in. T8 nut from below. Tongue nuts drop into the slots."
+  },
+  {
+   "name": "torso_back_plate",
+   "file": "torso_back_plate.stl",
+   "link": "lift",
+   "group": "torso",
+   "kind": "print",
+   "color": "frame",
+   "material": "PETG",
+   "mass_g": 145.3,
+   "print": "torso_back_plate",
+   "note": "Takes the lift tongue, the yokes and the Jetson grid."
+  },
+  {
+   "name": "yoke_l",
+   "file": "yoke_l.stl",
+   "link": "lift",
+   "group": "torso",
+   "kind": "print",
+   "color": "frame",
+   "material": "PETG",
+   "mass_g": 301.9,
+   "print": "yoke_l",
+   "note": "Holds the left DM-J4340 (J1). Prints on its centre face, cup up. 5 walls, 30% infill."
+  },
+  {
+   "name": "yoke_r",
+   "file": "yoke_r.stl",
+   "link": "lift",
+   "group": "torso",
+   "kind": "print",
+   "color": "frame",
+   "material": "PETG",
+   "mass_g": 301.9,
+   "print": "yoke_r",
+   "note": "Mirror of yoke_l."
+  },
+  {
+   "name": "neck_mount",
+   "file": "neck_mount.stl",
+   "link": "lift",
+   "group": "torso",
+   "kind": "print",
+   "color": "frame",
+   "material": "PETG",
+   "mass_g": 42.1,
+   "print": "neck_mount",
+   "note": "Pan servo cradle, bridges the yokes."
+  },
+  {
+   "name": "torso_lower_l",
+   "file": "torso_lower_l.stl",
+   "link": "lift",
+   "group": "torso",
+   "kind": "print",
+   "color": "shell",
+   "material": "PETG",
+   "mass_g": 169.5,
+   "print": "torso_lower_l",
+   "note": "Lower tier prints floor-down; upper tier prints top-down."
+  },
+  {
+   "name": "torso_lower_r",
+   "file": "torso_lower_r.stl",
+   "link": "lift",
+   "group": "torso",
+   "kind": "print",
+   "color": "shell",
+   "material": "PETG",
+   "mass_g": 169.5,
+   "print": "torso_lower_r",
+   "note": "Lower tier prints floor-down; upper tier prints top-down."
+  },
+  {
+   "name": "torso_upper_l",
+   "file": "torso_upper_l.stl",
+   "link": "lift",
+   "group": "torso",
+   "kind": "print",
+   "color": "shell",
+   "material": "PETG",
+   "mass_g": 161.2,
+   "print": "torso_upper_l",
+   "note": "Lower tier prints floor-down; upper tier prints top-down."
+  },
+  {
+   "name": "torso_upper_r",
+   "file": "torso_upper_r.stl",
+   "link": "lift",
+   "group": "torso",
+   "kind": "print",
+   "color": "shell",
+   "material": "PETG",
+   "mass_g": 161.2,
+   "print": "torso_upper_r",
+   "note": "Lower tier prints floor-down; upper tier prints top-down."
+  },
+  {
+   "name": "neck_yoke",
+   "file": "neck_yoke.stl",
+   "link": "head_pan",
+   "group": "head",
+   "kind": "print",
+   "color": "dark",
+   "material": "PETG",
+   "mass_g": 27.8,
+   "print": "neck_yoke",
+   "note": "Pan horn below, tilt servo cradle above."
+  },
+  {
+   "name": "head_frame",
+   "file": "head_frame.stl",
+   "link": "head_tilt",
+   "group": "head",
+   "kind": "print",
+   "color": "frame",
+   "material": "PETG",
+   "mass_g": 80.9,
+   "print": "head_frame",
+   "note": "Tilt horn and idler, camera post, eye plate."
+  },
+  {
+   "name": "eye_plate",
+   "file": "eye_plate.stl",
+   "link": "head_tilt",
+   "group": "head",
+   "kind": "print",
+   "color": "frame",
+   "material": "PETG",
+   "mass_g": 17.6,
+   "print": "eye_plate",
+   "note": "Two GC9A01 round TFTs."
+  },
+  {
+   "name": "visor",
+   "file": "visor.stl",
+   "link": "head_tilt",
+   "group": "head",
+   "kind": "print",
+   "color": "dark",
+   "material": "PETG",
+   "mass_g": 30.5,
+   "print": "visor",
+   "note": "Black PETG, face down. Eye and camera windows."
+  },
+  {
+   "name": "head_lower",
+   "file": "head_lower.stl",
+   "link": "head_tilt",
+   "group": "head",
+   "kind": "print",
+   "color": "shell",
+   "material": "PETG",
+   "mass_g": 76.3,
+   "print": "head_lower",
+   "note": "Floor down."
+  },
+  {
+   "name": "head_upper",
+   "file": "head_upper.stl",
+   "link": "head_tilt",
+   "group": "head",
+   "kind": "print",
+   "color": "shell",
+   "material": "PETG",
+   "mass_g": 184.9,
+   "print": "head_upper",
+   "note": "Top down. Visor fits from inside."
+  },
+  {
+   "name": "shoulder_l",
+   "file": "shoulder_l.stl",
+   "link": "l_link1",
+   "group": "arm",
+   "kind": "print",
+   "color": "shell",
+   "material": "PETG",
+   "mass_g": 49.1,
+   "print": "shoulder_l",
+   "note": "J1 output to the J2 cup. Screw it to J1 before J2 goes in."
+  },
+  {
+   "name": "clevis_l",
+   "file": "clevis_l.stl",
+   "link": "l_link2",
+   "group": "arm",
+   "kind": "print",
+   "color": "frame",
+   "material": "PETG",
+   "mass_g": 45.4,
+   "print": "clevis_l",
+   "note": "J2 output, holds J3."
+  },
+  {
+   "name": "upper_arm_a_l",
+   "file": "upper_arm_a_l.stl",
+   "link": "l_link3",
+   "group": "arm",
+   "kind": "print",
+   "color": "shell",
+   "material": "PETG",
+   "mass_g": 44.6,
+   "print": "upper_arm_a_l",
+   "note": "Clamshell half. Prints on the split face."
+  },
+  {
+   "name": "upper_arm_b_l",
+   "file": "upper_arm_b_l.stl",
+   "link": "l_link3",
+   "group": "arm",
+   "kind": "print",
+   "color": "shell",
+   "material": "PETG",
+   "mass_g": 44.6,
+   "print": "upper_arm_b_l",
+   "note": "Clamshell half with the nut traps."
+  },
+  {
+   "name": "elbow_l",
+   "file": "elbow_l.stl",
+   "link": "l_link4",
+   "group": "arm",
+   "kind": "print",
+   "color": "frame",
+   "material": "PETG",
+   "mass_g": 30.9,
+   "print": "elbow_l",
+   "note": "J4 output to the forearm flange."
+  },
+  {
+   "name": "forearm_a_l",
+   "file": "forearm_a_l.stl",
+   "link": "l_link4",
+   "group": "arm",
+   "kind": "print",
+   "color": "shell",
+   "material": "PETG",
+   "mass_g": 51.2,
+   "print": "forearm_a_l",
+   "note": ""
+  },
+  {
+   "name": "forearm_b_l",
+   "file": "forearm_b_l.stl",
+   "link": "l_link4",
+   "group": "arm",
+   "kind": "print",
+   "color": "shell",
+   "material": "PETG",
+   "mass_g": 51.2,
+   "print": "forearm_b_l",
+   "note": ""
+  },
+  {
+   "name": "wrist_l",
+   "file": "wrist_l.stl",
+   "link": "l_link5",
+   "group": "arm",
+   "kind": "print",
+   "color": "dark",
+   "material": "PETG",
+   "mass_g": 38.7,
+   "print": "wrist_l",
+   "note": "J5 horn and idler, holds J6."
+  },
+  {
+   "name": "palm_l",
+   "file": "palm_l.stl",
+   "link": "l_link6",
+   "group": "arm",
+   "kind": "print",
+   "color": "dark",
+   "material": "PETG",
+   "mass_g": 52.1,
+   "print": "palm_l",
+   "note": "J6 horn on top, J7 inside, rack channels underneath."
+  },
+  {
+   "name": "pinion_l",
+   "file": "pinion_l.stl",
+   "link": "l_link6",
+   "group": "arm",
+   "kind": "print",
+   "color": "frame",
+   "material": "PETG",
+   "mass_g": 2.4,
+   "print": "pinion_l",
+   "note": "16T module 1.5 on the J7 horn. 100% infill."
+  },
+  {
+   "name": "finger_a_l",
+   "file": "finger_a_l.stl",
+   "link": "l_link7",
+   "group": "arm",
+   "kind": "print",
+   "color": "dark",
+   "material": "PETG",
+   "mass_g": 10.4,
+   "print": "finger_a_l",
+   "note": "Rack, drop and finger in one piece. Slides in from the +y end."
+  },
+  {
+   "name": "finger_b_l",
+   "file": "finger_b_l.stl",
+   "link": "l_link8",
+   "group": "arm",
+   "kind": "print",
+   "color": "dark",
+   "material": "PETG",
+   "mass_g": 10.4,
+   "print": "finger_b_l",
+   "note": "Rack, drop and finger. Slides in from the -y end."
+  },
+  {
+   "name": "pad_a_l",
+   "file": "pad_a_l.stl",
+   "link": "l_link7",
+   "group": "arm",
+   "kind": "print",
+   "color": "accent",
+   "material": "TPU",
+   "mass_g": 2.1,
+   "print": "pad_a_l",
+   "note": "TPU 95A."
+  },
+  {
+   "name": "pad_b_l",
+   "file": "pad_b_l.stl",
+   "link": "l_link8",
+   "group": "arm",
+   "kind": "print",
+   "color": "accent",
+   "material": "TPU",
+   "mass_g": 2.1,
+   "print": "pad_b_l",
+   "note": "TPU 95A."
+  },
+  {
+   "name": "shoulder_r",
+   "file": "shoulder_r.stl",
+   "link": "r_link1",
+   "group": "arm",
+   "kind": "print",
+   "color": "shell",
+   "material": "PETG",
+   "mass_g": 49.1,
+   "print": "shoulder_r",
+   "note": "J1 output to the J2 cup. Screw it to J1 before J2 goes in."
+  },
+  {
+   "name": "clevis_r",
+   "file": "clevis_r.stl",
+   "link": "r_link2",
+   "group": "arm",
+   "kind": "print",
+   "color": "frame",
+   "material": "PETG",
+   "mass_g": 45.4,
+   "print": "clevis_r",
+   "note": "J2 output, holds J3."
+  },
+  {
+   "name": "upper_arm_a_r",
+   "file": "upper_arm_a_r.stl",
+   "link": "r_link3",
+   "group": "arm",
+   "kind": "print",
+   "color": "shell",
+   "material": "PETG",
+   "mass_g": 44.6,
+   "print": "upper_arm_a_r",
+   "note": "Clamshell half. Prints on the split face."
+  },
+  {
+   "name": "upper_arm_b_r",
+   "file": "upper_arm_b_r.stl",
+   "link": "r_link3",
+   "group": "arm",
+   "kind": "print",
+   "color": "shell",
+   "material": "PETG",
+   "mass_g": 44.6,
+   "print": "upper_arm_b_r",
+   "note": "Clamshell half with the nut traps."
+  },
+  {
+   "name": "elbow_r",
+   "file": "elbow_r.stl",
+   "link": "r_link4",
+   "group": "arm",
+   "kind": "print",
+   "color": "frame",
+   "material": "PETG",
+   "mass_g": 30.9,
+   "print": "elbow_r",
+   "note": "J4 output to the forearm flange."
+  },
+  {
+   "name": "forearm_a_r",
+   "file": "forearm_a_r.stl",
+   "link": "r_link4",
+   "group": "arm",
+   "kind": "print",
+   "color": "shell",
+   "material": "PETG",
+   "mass_g": 51.2,
+   "print": "forearm_a_r",
+   "note": ""
+  },
+  {
+   "name": "forearm_b_r",
+   "file": "forearm_b_r.stl",
+   "link": "r_link4",
+   "group": "arm",
+   "kind": "print",
+   "color": "shell",
+   "material": "PETG",
+   "mass_g": 51.2,
+   "print": "forearm_b_r",
+   "note": ""
+  },
+  {
+   "name": "wrist_r",
+   "file": "wrist_r.stl",
+   "link": "r_link5",
+   "group": "arm",
+   "kind": "print",
+   "color": "dark",
+   "material": "PETG",
+   "mass_g": 38.7,
+   "print": "wrist_r",
+   "note": "J5 horn and idler, holds J6."
+  },
+  {
+   "name": "palm_r",
+   "file": "palm_r.stl",
+   "link": "r_link6",
+   "group": "arm",
+   "kind": "print",
+   "color": "dark",
+   "material": "PETG",
+   "mass_g": 52.1,
+   "print": "palm_r",
+   "note": "J6 horn on top, J7 inside, rack channels underneath."
+  },
+  {
+   "name": "pinion_r",
+   "file": "pinion_r.stl",
+   "link": "r_link6",
+   "group": "arm",
+   "kind": "print",
+   "color": "frame",
+   "material": "PETG",
+   "mass_g": 2.4,
+   "print": "pinion_r",
+   "note": "16T module 1.5 on the J7 horn. 100% infill."
+  },
+  {
+   "name": "finger_a_r",
+   "file": "finger_a_r.stl",
+   "link": "r_link7",
+   "group": "arm",
+   "kind": "print",
+   "color": "dark",
+   "material": "PETG",
+   "mass_g": 10.4,
+   "print": "finger_a_r",
+   "note": "Rack, drop and finger in one piece. Slides in from the +y end."
+  },
+  {
+   "name": "finger_b_r",
+   "file": "finger_b_r.stl",
+   "link": "r_link8",
+   "group": "arm",
+   "kind": "print",
+   "color": "dark",
+   "material": "PETG",
+   "mass_g": 10.4,
+   "print": "finger_b_r",
+   "note": "Rack, drop and finger. Slides in from the -y end."
+  },
+  {
+   "name": "pad_a_r",
+   "file": "pad_a_r.stl",
+   "link": "r_link7",
+   "group": "arm",
+   "kind": "print",
+   "color": "accent",
+   "material": "TPU",
+   "mass_g": 2.1,
+   "print": "pad_a_r",
+   "note": "TPU 95A."
+  },
+  {
+   "name": "pad_b_r",
+   "file": "pad_b_r.stl",
+   "link": "r_link8",
+   "group": "arm",
+   "kind": "print",
+   "color": "accent",
+   "material": "TPU",
+   "mass_g": 2.1,
+   "print": "pad_b_r",
+   "note": "TPU 95A."
+  },
+  {
+   "name": "joiner_00",
+   "file": "joiner_00.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "print",
+   "color": "frame",
+   "material": "PETG",
+   "mass_g": 1.6,
+   "print": "joiner_tab",
+   "note": "Joiner tab"
+  },
+  {
+   "name": "joiner_01",
+   "file": "joiner_01.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "print",
+   "color": "frame",
+   "material": "PETG",
+   "mass_g": 1.6,
+   "print": "joiner_tab",
+   "note": "Joiner tab"
+  },
+  {
+   "name": "joiner_02",
+   "file": "joiner_02.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "print",
+   "color": "frame",
+   "material": "PETG",
+   "mass_g": 1.6,
+   "print": "joiner_tab",
+   "note": "Joiner tab"
+  },
+  {
+   "name": "joiner_03",
+   "file": "joiner_03.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "print",
+   "color": "frame",
+   "material": "PETG",
+   "mass_g": 1.6,
+   "print": "joiner_tab",
+   "note": "Joiner tab"
+  },
+  {
+   "name": "joiner_04",
+   "file": "joiner_04.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "print",
+   "color": "frame",
+   "material": "PETG",
+   "mass_g": 1.6,
+   "print": "joiner_tab",
+   "note": "Joiner tab"
+  },
+  {
+   "name": "joiner_05",
+   "file": "joiner_05.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "print",
+   "color": "frame",
+   "material": "PETG",
+   "mass_g": 1.6,
+   "print": "joiner_tab",
+   "note": "Joiner tab"
+  },
+  {
+   "name": "joiner_06",
+   "file": "joiner_06.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "print",
+   "color": "frame",
+   "material": "PETG",
+   "mass_g": 1.6,
+   "print": "joiner_tab",
+   "note": "Joiner tab"
+  },
+  {
+   "name": "joiner_07",
+   "file": "joiner_07.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "print",
+   "color": "frame",
+   "material": "PETG",
+   "mass_g": 1.6,
+   "print": "joiner_tab",
+   "note": "Joiner tab"
+  },
+  {
+   "name": "joiner_08",
+   "file": "joiner_08.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "print",
+   "color": "frame",
+   "material": "PETG",
+   "mass_g": 1.6,
+   "print": "joiner_tab",
+   "note": "Joiner tab"
+  },
+  {
+   "name": "joiner_09",
+   "file": "joiner_09.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "print",
+   "color": "frame",
+   "material": "PETG",
+   "mass_g": 1.6,
+   "print": "joiner_tab",
+   "note": "Joiner tab"
+  },
+  {
+   "name": "joiner_10",
+   "file": "joiner_10.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "print",
+   "color": "frame",
+   "material": "PETG",
+   "mass_g": 1.6,
+   "print": "joiner_tab",
+   "note": "Joiner tab"
+  },
+  {
+   "name": "joiner_11",
+   "file": "joiner_11.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "print",
+   "color": "frame",
+   "material": "PETG",
+   "mass_g": 1.6,
+   "print": "joiner_tab",
+   "note": "Joiner tab"
+  },
+  {
+   "name": "joiner_12",
+   "file": "joiner_12.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "print",
+   "color": "frame",
+   "material": "PETG",
+   "mass_g": 1.6,
+   "print": "joiner_tab",
+   "note": "Joiner tab"
+  },
+  {
+   "name": "joiner_13",
+   "file": "joiner_13.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "print",
+   "color": "frame",
+   "material": "PETG",
+   "mass_g": 1.6,
+   "print": "joiner_tab",
+   "note": "Joiner tab"
+  },
+  {
+   "name": "joiner_14",
+   "file": "joiner_14.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "print",
+   "color": "frame",
+   "material": "PETG",
+   "mass_g": 1.6,
+   "print": "joiner_tab",
+   "note": "Joiner tab"
+  },
+  {
+   "name": "joiner_15",
+   "file": "joiner_15.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "print",
+   "color": "frame",
+   "material": "PETG",
+   "mass_g": 1.6,
+   "print": "joiner_tab",
+   "note": "Joiner tab"
+  },
+  {
+   "name": "joiner_16",
+   "file": "joiner_16.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "print",
+   "color": "frame",
+   "material": "PETG",
+   "mass_g": 1.6,
+   "print": "joiner_tab",
+   "note": "Joiner tab"
+  },
+  {
+   "name": "joiner_17",
+   "file": "joiner_17.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "print",
+   "color": "frame",
+   "material": "PETG",
+   "mass_g": 1.6,
+   "print": "joiner_tab",
+   "note": "Joiner tab"
+  },
+  {
+   "name": "joiner_18",
+   "file": "joiner_18.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "print",
+   "color": "frame",
+   "material": "PETG",
+   "mass_g": 1.6,
+   "print": "joiner_tab",
+   "note": "Joiner tab"
+  },
+  {
+   "name": "joiner_19",
+   "file": "joiner_19.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "print",
+   "color": "frame",
+   "material": "PETG",
+   "mass_g": 1.6,
+   "print": "joiner_tab",
+   "note": "Joiner tab"
+  },
+  {
+   "name": "joiner_20",
+   "file": "joiner_20.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "print",
+   "color": "frame",
+   "material": "PETG",
+   "mass_g": 1.6,
+   "print": "joiner_tab",
+   "note": "Joiner tab"
+  },
+  {
+   "name": "joiner_21",
+   "file": "joiner_21.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "print",
+   "color": "frame",
+   "material": "PETG",
+   "mass_g": 1.6,
+   "print": "joiner_tab",
+   "note": "Joiner tab"
+  },
+  {
+   "name": "joiner_22",
+   "file": "joiner_22.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "print",
+   "color": "frame",
+   "material": "PETG",
+   "mass_g": 1.6,
+   "print": "joiner_tab",
+   "note": "Joiner tab"
+  },
+  {
+   "name": "joiner_23",
+   "file": "joiner_23.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "print",
+   "color": "frame",
+   "material": "PETG",
+   "mass_g": 1.6,
+   "print": "joiner_tab",
+   "note": "Joiner tab"
+  },
+  {
+   "name": "joiner_24",
+   "file": "joiner_24.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "print",
+   "color": "frame",
+   "material": "PETG",
+   "mass_g": 1.5,
+   "print": "joiner_tab",
+   "note": "Joiner tab"
+  },
+  {
+   "name": "joiner_25",
+   "file": "joiner_25.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "print",
+   "color": "frame",
+   "material": "PETG",
+   "mass_g": 1.5,
+   "print": "joiner_tab",
+   "note": "Joiner tab"
+  },
+  {
+   "name": "joiner_26",
+   "file": "joiner_26.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "print",
+   "color": "frame",
+   "material": "PETG",
+   "mass_g": 1.5,
+   "print": "joiner_tab",
+   "note": "Joiner tab"
+  },
+  {
+   "name": "joiner_27",
+   "file": "joiner_27.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "print",
+   "color": "frame",
+   "material": "PETG",
+   "mass_g": 1.5,
+   "print": "joiner_tab",
+   "note": "Joiner tab"
+  },
+  {
+   "name": "joiner_28",
+   "file": "joiner_28.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "print",
+   "color": "frame",
+   "material": "PETG",
+   "mass_g": 1.5,
+   "print": "joiner_tab",
+   "note": "Joiner tab"
+  },
+  {
+   "name": "joiner_29",
+   "file": "joiner_29.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "print",
+   "color": "frame",
+   "material": "PETG",
+   "mass_g": 1.5,
+   "print": "joiner_tab",
+   "note": "Joiner tab"
+  },
+  {
+   "name": "joiner_30",
+   "file": "joiner_30.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "print",
+   "color": "frame",
+   "material": "PETG",
+   "mass_g": 1.5,
+   "print": "joiner_tab",
+   "note": "Joiner tab"
+  },
+  {
+   "name": "joiner_31",
+   "file": "joiner_31.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "print",
+   "color": "frame",
+   "material": "PETG",
+   "mass_g": 1.5,
+   "print": "joiner_tab",
+   "note": "Joiner tab"
+  },
+  {
+   "name": "joiner_32",
+   "file": "joiner_32.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "print",
+   "color": "frame",
+   "material": "PETG",
+   "mass_g": 1.7,
+   "print": "joiner_tab",
+   "note": "Joiner tab"
+  },
+  {
+   "name": "joiner_33",
+   "file": "joiner_33.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "print",
+   "color": "frame",
+   "material": "PETG",
+   "mass_g": 1.7,
+   "print": "joiner_tab",
+   "note": "Joiner tab"
+  },
+  {
+   "name": "joiner_34",
+   "file": "joiner_34.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "print",
+   "color": "frame",
+   "material": "PETG",
+   "mass_g": 1.7,
+   "print": "joiner_tab",
+   "note": "Joiner tab"
+  },
+  {
+   "name": "joiner_35",
+   "file": "joiner_35.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "print",
+   "color": "frame",
+   "material": "PETG",
+   "mass_g": 1.7,
+   "print": "joiner_tab",
+   "note": "Joiner tab"
+  },
+  {
+   "name": "joiner_36",
+   "file": "joiner_36.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "print",
+   "color": "frame",
+   "material": "PETG",
+   "mass_g": 1.7,
+   "print": "joiner_tab",
+   "note": "Joiner tab"
+  },
+  {
+   "name": "joiner_37",
+   "file": "joiner_37.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "print",
+   "color": "frame",
+   "material": "PETG",
+   "mass_g": 1.7,
+   "print": "joiner_tab",
+   "note": "Joiner tab"
+  },
+  {
+   "name": "joiner_38",
+   "file": "joiner_38.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "print",
+   "color": "frame",
+   "material": "PETG",
+   "mass_g": 1.7,
+   "print": "joiner_tab",
+   "note": "Joiner tab"
+  },
+  {
+   "name": "joiner_39",
+   "file": "joiner_39.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "print",
+   "color": "frame",
+   "material": "PETG",
+   "mass_g": 1.7,
+   "print": "joiner_tab",
+   "note": "Joiner tab"
+  },
+  {
+   "name": "joiner_40",
+   "file": "joiner_40.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "print",
+   "color": "frame",
+   "material": "PETG",
+   "mass_g": 1.7,
+   "print": "joiner_tab",
+   "note": "Joiner tab"
+  },
+  {
+   "name": "joiner_41",
+   "file": "joiner_41.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "print",
+   "color": "frame",
+   "material": "PETG",
+   "mass_g": 1.7,
+   "print": "joiner_tab",
+   "note": "Joiner tab"
+  },
+  {
+   "name": "joiner_42",
+   "file": "joiner_42.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "print",
+   "color": "frame",
+   "material": "PETG",
+   "mass_g": 1.7,
+   "print": "joiner_tab",
+   "note": "Joiner tab"
+  },
+  {
+   "name": "joiner_43",
+   "file": "joiner_43.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "print",
+   "color": "frame",
+   "material": "PETG",
+   "mass_g": 1.7,
+   "print": "joiner_tab",
+   "note": "Joiner tab"
+  },
+  {
+   "name": "joiner_44",
+   "file": "joiner_44.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "print",
+   "color": "frame",
+   "material": "PETG",
+   "mass_g": 1.6,
+   "print": "joiner_tab",
+   "note": "Joiner tab"
+  },
+  {
+   "name": "joiner_45",
+   "file": "joiner_45.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "print",
+   "color": "frame",
+   "material": "PETG",
+   "mass_g": 1.6,
+   "print": "joiner_tab",
+   "note": "Joiner tab"
+  },
+  {
+   "name": "joiner_46",
+   "file": "joiner_46.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "print",
+   "color": "frame",
+   "material": "PETG",
+   "mass_g": 1.6,
+   "print": "joiner_tab",
+   "note": "Joiner tab"
+  },
+  {
+   "name": "joiner_47",
+   "file": "joiner_47.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "print",
+   "color": "frame",
+   "material": "PETG",
+   "mass_g": 1.6,
+   "print": "joiner_tab",
+   "note": "Joiner tab"
+  },
+  {
+   "name": "joiner_48",
+   "file": "joiner_48.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "print",
+   "color": "frame",
+   "material": "PETG",
+   "mass_g": 1.6,
+   "print": "joiner_tab",
+   "note": "Joiner tab"
+  },
+  {
+   "name": "joiner_49",
+   "file": "joiner_49.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "print",
+   "color": "frame",
+   "material": "PETG",
+   "mass_g": 1.6,
+   "print": "joiner_tab",
+   "note": "Joiner tab"
+  },
+  {
+   "name": "joiner_50",
+   "file": "joiner_50.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "print",
+   "color": "frame",
+   "material": "PETG",
+   "mass_g": 1.6,
+   "print": "joiner_tab",
+   "note": "Joiner tab"
+  },
+  {
+   "name": "joiner_51",
+   "file": "joiner_51.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "print",
+   "color": "frame",
+   "material": "PETG",
+   "mass_g": 1.6,
+   "print": "joiner_tab",
+   "note": "Joiner tab"
+  },
+  {
+   "name": "joiner_52",
+   "file": "joiner_52.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "print",
+   "color": "frame",
+   "material": "PETG",
+   "mass_g": 1.6,
+   "print": "joiner_tab",
+   "note": "Joiner tab"
+  },
+  {
+   "name": "joiner_53",
+   "file": "joiner_53.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "print",
+   "color": "frame",
+   "material": "PETG",
+   "mass_g": 1.6,
+   "print": "joiner_tab",
+   "note": "Joiner tab"
+  },
+  {
+   "name": "joiner_54",
+   "file": "joiner_54.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "print",
+   "color": "frame",
+   "material": "PETG",
+   "mass_g": 1.6,
+   "print": "joiner_tab",
+   "note": "Joiner tab"
+  },
+  {
+   "name": "joiner_55",
+   "file": "joiner_55.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "print",
+   "color": "frame",
+   "material": "PETG",
+   "mass_g": 1.6,
+   "print": "joiner_tab",
+   "note": "Joiner tab"
+  },
+  {
+   "name": "joiner_56",
+   "file": "joiner_56.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "print",
+   "color": "frame",
+   "material": "PETG",
+   "mass_g": 1.6,
+   "print": "joiner_tab",
+   "note": "Joiner tab"
+  },
+  {
+   "name": "joiner_57",
+   "file": "joiner_57.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "print",
+   "color": "frame",
+   "material": "PETG",
+   "mass_g": 1.6,
+   "print": "joiner_tab",
+   "note": "Joiner tab"
+  },
+  {
+   "name": "joiner_58",
+   "file": "joiner_58.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "print",
+   "color": "frame",
+   "material": "PETG",
+   "mass_g": 1.6,
+   "print": "joiner_tab",
+   "note": "Joiner tab"
+  },
+  {
+   "name": "joiner_59",
+   "file": "joiner_59.stl",
+   "link": "lift",
+   "group": "torso",
+   "kind": "print",
+   "color": "frame",
+   "material": "PETG",
+   "mass_g": 1.7,
+   "print": "joiner_tab",
+   "note": "Joiner tab"
+  },
+  {
+   "name": "joiner_60",
+   "file": "joiner_60.stl",
+   "link": "lift",
+   "group": "torso",
+   "kind": "print",
+   "color": "frame",
+   "material": "PETG",
+   "mass_g": 1.7,
+   "print": "joiner_tab",
+   "note": "Joiner tab"
+  },
+  {
+   "name": "joiner_61",
+   "file": "joiner_61.stl",
+   "link": "lift",
+   "group": "torso",
+   "kind": "print",
+   "color": "frame",
+   "material": "PETG",
+   "mass_g": 1.7,
+   "print": "joiner_tab",
+   "note": "Joiner tab"
+  },
+  {
+   "name": "joiner_62",
+   "file": "joiner_62.stl",
+   "link": "lift",
+   "group": "torso",
+   "kind": "print",
+   "color": "frame",
+   "material": "PETG",
+   "mass_g": 1.7,
+   "print": "joiner_tab",
+   "note": "Joiner tab"
+  },
+  {
+   "name": "joiner_63",
+   "file": "joiner_63.stl",
+   "link": "lift",
+   "group": "torso",
+   "kind": "print",
+   "color": "frame",
+   "material": "PETG",
+   "mass_g": 1.7,
+   "print": "joiner_tab",
+   "note": "Joiner tab"
+  },
+  {
+   "name": "joiner_64",
+   "file": "joiner_64.stl",
+   "link": "lift",
+   "group": "torso",
+   "kind": "print",
+   "color": "frame",
+   "material": "PETG",
+   "mass_g": 1.7,
+   "print": "joiner_tab",
+   "note": "Joiner tab"
+  },
+  {
+   "name": "joiner_65",
+   "file": "joiner_65.stl",
+   "link": "lift",
+   "group": "torso",
+   "kind": "print",
+   "color": "frame",
+   "material": "PETG",
+   "mass_g": 1.7,
+   "print": "joiner_tab",
+   "note": "Joiner tab"
+  },
+  {
+   "name": "joiner_66",
+   "file": "joiner_66.stl",
+   "link": "lift",
+   "group": "torso",
+   "kind": "print",
+   "color": "frame",
+   "material": "PETG",
+   "mass_g": 1.7,
+   "print": "joiner_tab",
+   "note": "Joiner tab"
+  },
+  {
+   "name": "joiner_67",
+   "file": "joiner_67.stl",
+   "link": "lift",
+   "group": "torso",
+   "kind": "print",
+   "color": "frame",
+   "material": "PETG",
+   "mass_g": 1.6,
+   "print": "joiner_tab",
+   "note": "Joiner tab"
+  },
+  {
+   "name": "joiner_68",
+   "file": "joiner_68.stl",
+   "link": "lift",
+   "group": "torso",
+   "kind": "print",
+   "color": "frame",
+   "material": "PETG",
+   "mass_g": 1.6,
+   "print": "joiner_tab",
+   "note": "Joiner tab"
+  },
+  {
+   "name": "joiner_69",
+   "file": "joiner_69.stl",
+   "link": "lift",
+   "group": "torso",
+   "kind": "print",
+   "color": "frame",
+   "material": "PETG",
+   "mass_g": 1.6,
+   "print": "joiner_tab",
+   "note": "Joiner tab"
+  },
+  {
+   "name": "joiner_70",
+   "file": "joiner_70.stl",
+   "link": "lift",
+   "group": "torso",
+   "kind": "print",
+   "color": "frame",
+   "material": "PETG",
+   "mass_g": 1.6,
+   "print": "joiner_tab",
+   "note": "Joiner tab"
+  },
+  {
+   "name": "joiner_71",
+   "file": "joiner_71.stl",
+   "link": "lift",
+   "group": "torso",
+   "kind": "print",
+   "color": "frame",
+   "material": "PETG",
+   "mass_g": 1.6,
+   "print": "joiner_tab",
+   "note": "Joiner tab"
+  },
+  {
+   "name": "joiner_72",
+   "file": "joiner_72.stl",
+   "link": "lift",
+   "group": "torso",
+   "kind": "print",
+   "color": "frame",
+   "material": "PETG",
+   "mass_g": 1.6,
+   "print": "joiner_tab",
+   "note": "Joiner tab"
+  },
+  {
+   "name": "joiner_73",
+   "file": "joiner_73.stl",
+   "link": "head_tilt",
+   "group": "head",
+   "kind": "print",
+   "color": "frame",
+   "material": "PETG",
+   "mass_g": 1.6,
+   "print": "joiner_tab",
+   "note": "Joiner tab"
+  },
+  {
+   "name": "joiner_74",
+   "file": "joiner_74.stl",
+   "link": "head_tilt",
+   "group": "head",
+   "kind": "print",
+   "color": "frame",
+   "material": "PETG",
+   "mass_g": 1.6,
+   "print": "joiner_tab",
+   "note": "Joiner tab"
+  },
+  {
+   "name": "joiner_75",
+   "file": "joiner_75.stl",
+   "link": "head_tilt",
+   "group": "head",
+   "kind": "print",
+   "color": "frame",
+   "material": "PETG",
+   "mass_g": 1.6,
+   "print": "joiner_tab",
+   "note": "Joiner tab"
+  },
+  {
+   "name": "joiner_76",
+   "file": "joiner_76.stl",
+   "link": "head_tilt",
+   "group": "head",
+   "kind": "print",
+   "color": "frame",
+   "material": "PETG",
+   "mass_g": 1.6,
+   "print": "joiner_tab",
+   "note": "Joiner tab"
+  },
+  {
+   "name": "joiner_77",
+   "file": "joiner_77.stl",
+   "link": "head_tilt",
+   "group": "head",
+   "kind": "print",
+   "color": "frame",
+   "material": "PETG",
+   "mass_g": 1.7,
+   "print": "joiner_tab",
+   "note": "Joiner tab"
+  },
+  {
+   "name": "joiner_78",
+   "file": "joiner_78.stl",
+   "link": "head_tilt",
+   "group": "head",
+   "kind": "print",
+   "color": "frame",
+   "material": "PETG",
+   "mass_g": 1.7,
+   "print": "joiner_tab",
+   "note": "Joiner tab"
+  },
+  {
+   "name": "hub_l",
+   "file": "hub_l.stl",
+   "link": "wheel_l",
+   "group": "base",
+   "kind": "wheel",
+   "color": "wheel",
+   "material": "bought",
+   "mass_g": 2800.0,
+   "bom": "hub"
+  },
+  {
+   "name": "hub_r",
+   "file": "hub_r.stl",
+   "link": "wheel_r",
+   "group": "base",
+   "kind": "wheel",
+   "color": "wheel",
+   "material": "bought",
+   "mass_g": 2800.0,
+   "bom": "hub"
+  },
+  {
+   "name": "battery",
+   "file": "battery.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "battery",
+   "color": "battery",
+   "material": "bought",
+   "mass_g": 1200.0,
+   "bom": "battery"
+  },
+  {
+   "name": "lidar",
+   "file": "lidar.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "electronics",
+   "color": "electronics",
+   "material": "bought",
+   "mass_g": 110,
+   "bom": "lidar"
+  },
+  {
+   "name": "zsx11h_l",
+   "file": "zsx11h_l.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "electronics",
+   "color": "electronics",
+   "material": "bought",
+   "mass_g": 60,
+   "bom": "zsx"
+  },
+  {
+   "name": "zsx11h_r",
+   "file": "zsx11h_r.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "electronics",
+   "color": "electronics",
+   "material": "bought",
+   "mass_g": 60,
+   "bom": "zsx"
+  },
+  {
+   "name": "esp32",
+   "file": "esp32.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "electronics",
+   "color": "electronics",
+   "material": "bought",
+   "mass_g": 10,
+   "bom": "esp32"
+  },
+  {
+   "name": "imu",
+   "file": "imu.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "electronics",
+   "color": "electronics",
+   "material": "bought",
+   "mass_g": 5,
+   "bom": "imu"
+  },
+  {
+   "name": "buck_24v",
+   "file": "buck_24v.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "electronics",
+   "color": "electronics",
+   "material": "bought",
+   "mass_g": 260,
+   "bom": "buck24"
+  },
+  {
+   "name": "buck_12v",
+   "file": "buck_12v.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "electronics",
+   "color": "electronics",
+   "material": "bought",
+   "mass_g": 150,
+   "bom": "buck12"
+  },
+  {
+   "name": "buck_19v",
+   "file": "buck_19v.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "electronics",
+   "color": "electronics",
+   "material": "bought",
+   "mass_g": 70,
+   "bom": "buck19"
+  },
+  {
+   "name": "fuse_block",
+   "file": "fuse_block.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "electronics",
+   "color": "electronics",
+   "material": "bought",
+   "mass_g": 40,
+   "bom": "fuse"
+  },
+  {
+   "name": "contactor_relay",
+   "file": "contactor_relay.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "electronics",
+   "color": "electronics",
+   "material": "bought",
+   "mass_g": 60,
+   "bom": "relay"
+  },
+  {
+   "name": "estop",
+   "file": "estop.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "electronics",
+   "color": "electronics",
+   "material": "bought",
+   "mass_g": 80,
+   "bom": "estop"
+  },
+  {
+   "name": "caster_bolt_f",
+   "file": "caster_bolt_f.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "metal",
+   "color": "metal",
+   "material": "bought",
+   "mass_g": 30,
+   "bom": "m8"
+  },
+  {
+   "name": "caster_bolt_r",
+   "file": "caster_bolt_r.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "metal",
+   "color": "metal",
+   "material": "bought",
+   "mass_g": 30,
+   "bom": "m8"
+  },
+  {
+   "name": "rod_l",
+   "file": "rod_l.stl",
+   "link": "base",
+   "group": "mast",
+   "kind": "metal",
+   "color": "metal",
+   "material": "bought",
+   "mass_g": 888,
+   "bom": "rod"
+  },
+  {
+   "name": "rod_r",
+   "file": "rod_r.stl",
+   "link": "base",
+   "group": "mast",
+   "kind": "metal",
+   "color": "metal",
+   "material": "bought",
+   "mass_g": 888,
+   "bom": "rod"
+  },
+  {
+   "name": "leadscrew",
+   "file": "leadscrew.stl",
+   "link": "base",
+   "group": "mast",
+   "kind": "metal",
+   "color": "metal",
+   "material": "bought",
+   "mass_g": 350,
+   "bom": "screw"
+  },
+  {
+   "name": "lift_motor",
+   "file": "lift_motor.stl",
+   "link": "base",
+   "group": "mast",
+   "kind": "actuator",
+   "color": "actuator",
+   "material": "bought",
+   "mass_g": 360.0,
+   "bom": "nema"
+  },
+  {
+   "name": "coupler",
+   "file": "coupler.stl",
+   "link": "base",
+   "group": "mast",
+   "kind": "metal",
+   "color": "metal",
+   "material": "bought",
+   "mass_g": 20,
+   "bom": "coupler"
+  },
+  {
+   "name": "lm12_l_239",
+   "file": "lm12_l_239.stl",
+   "link": "lift",
+   "group": "mast",
+   "kind": "metal",
+   "color": "metal",
+   "material": "bought",
+   "mass_g": 60,
+   "bom": "lm12"
+  },
+  {
+   "name": "lm12_l_349",
+   "file": "lm12_l_349.stl",
+   "link": "lift",
+   "group": "mast",
+   "kind": "metal",
+   "color": "metal",
+   "material": "bought",
+   "mass_g": 60,
+   "bom": "lm12"
+  },
+  {
+   "name": "lm12_r_239",
+   "file": "lm12_r_239.stl",
+   "link": "lift",
+   "group": "mast",
+   "kind": "metal",
+   "color": "metal",
+   "material": "bought",
+   "mass_g": 60,
+   "bom": "lm12"
+  },
+  {
+   "name": "lm12_r_349",
+   "file": "lm12_r_349.stl",
+   "link": "lift",
+   "group": "mast",
+   "kind": "metal",
+   "color": "metal",
+   "material": "bought",
+   "mass_g": 60,
+   "bom": "lm12"
+  },
+  {
+   "name": "t8_nut",
+   "file": "t8_nut.stl",
+   "link": "lift",
+   "group": "mast",
+   "kind": "metal",
+   "color": "metal",
+   "material": "bought",
+   "mass_g": 30,
+   "bom": "t8nut"
+  },
+  {
+   "name": "j1_l",
+   "file": "j1_l.stl",
+   "link": "lift",
+   "group": "torso",
+   "kind": "actuator",
+   "color": "actuator",
+   "material": "bought",
+   "mass_g": 362.0,
+   "bom": "dm4340"
+  },
+  {
+   "name": "j1_r",
+   "file": "j1_r.stl",
+   "link": "lift",
+   "group": "torso",
+   "kind": "actuator",
+   "color": "actuator",
+   "material": "bought",
+   "mass_g": 362.0,
+   "bom": "dm4340"
+  },
+  {
+   "name": "jetson",
+   "file": "jetson.stl",
+   "link": "lift",
+   "group": "torso",
+   "kind": "electronics",
+   "color": "electronics",
+   "material": "bought",
+   "mass_g": 280,
+   "bom": "jetson"
+  },
+  {
+   "name": "usb_hub",
+   "file": "usb_hub.stl",
+   "link": "lift",
+   "group": "torso",
+   "kind": "electronics",
+   "color": "electronics",
+   "material": "bought",
+   "mass_g": 60,
+   "bom": "usbhub"
+  },
+  {
+   "name": "can_l",
+   "file": "can_l.stl",
+   "link": "lift",
+   "group": "torso",
+   "kind": "electronics",
+   "color": "electronics",
+   "material": "bought",
+   "mass_g": 25,
+   "bom": "usbcan"
+  },
+  {
+   "name": "can_r",
+   "file": "can_r.stl",
+   "link": "lift",
+   "group": "torso",
+   "kind": "electronics",
+   "color": "electronics",
+   "material": "bought",
+   "mass_g": 25,
+   "bom": "usbcan"
+  },
+  {
+   "name": "servo_bus",
+   "file": "servo_bus.stl",
+   "link": "lift",
+   "group": "torso",
+   "kind": "electronics",
+   "color": "electronics",
+   "material": "bought",
+   "mass_g": 25,
+   "bom": "busadapter"
+  },
+  {
+   "name": "speaker",
+   "file": "speaker.stl",
+   "link": "lift",
+   "group": "torso",
+   "kind": "electronics",
+   "color": "electronics",
+   "material": "bought",
+   "mass_g": 40,
+   "bom": "speaker"
+  },
+  {
+   "name": "pan_servo",
+   "file": "pan_servo.stl",
+   "link": "lift",
+   "group": "torso",
+   "kind": "actuator",
+   "color": "actuator",
+   "material": "bought",
+   "mass_g": 55.0,
+   "bom": "sts3215"
+  },
+  {
+   "name": "tilt_servo",
+   "file": "tilt_servo.stl",
+   "link": "head_pan",
+   "group": "head",
+   "kind": "actuator",
+   "color": "actuator",
+   "material": "bought",
+   "mass_g": 55.0,
+   "bom": "sts3215"
+  },
+  {
+   "name": "d435",
+   "file": "d435.stl",
+   "link": "head_tilt",
+   "group": "head",
+   "kind": "electronics",
+   "color": "electronics",
+   "material": "bought",
+   "mass_g": 72,
+   "bom": "d435"
+  },
+  {
+   "name": "esp32s3_head",
+   "file": "esp32s3_head.stl",
+   "link": "head_tilt",
+   "group": "head",
+   "kind": "electronics",
+   "color": "electronics",
+   "material": "bought",
+   "mass_g": 10,
+   "bom": "esp32s3"
+  },
+  {
+   "name": "mic_array",
+   "file": "mic_array.stl",
+   "link": "head_tilt",
+   "group": "head",
+   "kind": "electronics",
+   "color": "electronics",
+   "material": "bought",
+   "mass_g": 20,
+   "bom": "mic"
+  },
+  {
+   "name": "eye_r",
+   "file": "eye_r.stl",
+   "link": "head_tilt",
+   "group": "head",
+   "kind": "electronics",
+   "color": "electronics",
+   "material": "bought",
+   "mass_g": 8,
+   "bom": "eye"
+  },
+  {
+   "name": "eye_l",
+   "file": "eye_l.stl",
+   "link": "head_tilt",
+   "group": "head",
+   "kind": "electronics",
+   "color": "electronics",
+   "material": "bought",
+   "mass_g": 8,
+   "bom": "eye"
+  },
+  {
+   "name": "j2_l",
+   "file": "j2_l.stl",
+   "link": "l_link1",
+   "group": "arm",
+   "kind": "actuator",
+   "color": "actuator",
+   "material": "bought",
+   "mass_g": 362.0,
+   "bom": "dm4340"
+  },
+  {
+   "name": "j3_l",
+   "file": "j3_l.stl",
+   "link": "l_link2",
+   "group": "arm",
+   "kind": "actuator",
+   "color": "actuator",
+   "material": "bought",
+   "mass_g": 300.0,
+   "bom": "dm4310"
+  },
+  {
+   "name": "j4_l",
+   "file": "j4_l.stl",
+   "link": "l_link3",
+   "group": "arm",
+   "kind": "actuator",
+   "color": "actuator",
+   "material": "bought",
+   "mass_g": 300.0,
+   "bom": "dm4310"
+  },
+  {
+   "name": "j5_l",
+   "file": "j5_l.stl",
+   "link": "l_link4",
+   "group": "arm",
+   "kind": "actuator",
+   "color": "actuator",
+   "material": "bought",
+   "mass_g": 55.0,
+   "bom": "sts3215"
+  },
+  {
+   "name": "j6_l",
+   "file": "j6_l.stl",
+   "link": "l_link5",
+   "group": "arm",
+   "kind": "actuator",
+   "color": "actuator",
+   "material": "bought",
+   "mass_g": 55.0,
+   "bom": "sts3215"
+  },
+  {
+   "name": "j7_l",
+   "file": "j7_l.stl",
+   "link": "l_link6",
+   "group": "arm",
+   "kind": "actuator",
+   "color": "actuator",
+   "material": "bought",
+   "mass_g": 55.0,
+   "bom": "sts3215"
+  },
+  {
+   "name": "wrist_cam_l",
+   "file": "wrist_cam_l.stl",
+   "link": "l_link6",
+   "group": "arm",
+   "kind": "electronics",
+   "color": "electronics",
+   "material": "bought",
+   "mass_g": 15,
+   "bom": "wristcam"
+  },
+  {
+   "name": "j2_r",
+   "file": "j2_r.stl",
+   "link": "r_link1",
+   "group": "arm",
+   "kind": "actuator",
+   "color": "actuator",
+   "material": "bought",
+   "mass_g": 362.0,
+   "bom": "dm4340"
+  },
+  {
+   "name": "j3_r",
+   "file": "j3_r.stl",
+   "link": "r_link2",
+   "group": "arm",
+   "kind": "actuator",
+   "color": "actuator",
+   "material": "bought",
+   "mass_g": 300.0,
+   "bom": "dm4310"
+  },
+  {
+   "name": "j4_r",
+   "file": "j4_r.stl",
+   "link": "r_link3",
+   "group": "arm",
+   "kind": "actuator",
+   "color": "actuator",
+   "material": "bought",
+   "mass_g": 300.0,
+   "bom": "dm4310"
+  },
+  {
+   "name": "j5_r",
+   "file": "j5_r.stl",
+   "link": "r_link4",
+   "group": "arm",
+   "kind": "actuator",
+   "color": "actuator",
+   "material": "bought",
+   "mass_g": 55.0,
+   "bom": "sts3215"
+  },
+  {
+   "name": "j6_r",
+   "file": "j6_r.stl",
+   "link": "r_link5",
+   "group": "arm",
+   "kind": "actuator",
+   "color": "actuator",
+   "material": "bought",
+   "mass_g": 55.0,
+   "bom": "sts3215"
+  },
+  {
+   "name": "j7_r",
+   "file": "j7_r.stl",
+   "link": "r_link6",
+   "group": "arm",
+   "kind": "actuator",
+   "color": "actuator",
+   "material": "bought",
+   "mass_g": 55.0,
+   "bom": "sts3215"
+  },
+  {
+   "name": "wrist_cam_r",
+   "file": "wrist_cam_r.stl",
+   "link": "r_link6",
+   "group": "arm",
+   "kind": "electronics",
+   "color": "electronics",
+   "material": "bought",
+   "mass_g": 15,
+   "bom": "wristcam"
+  }
+ ],
+ "dims": {
+  "shoulder_z0": 520.0,
+  "lift_travel": 650.0,
+  "base": [
+   560.0,
+   440.0,
+   238.0
+  ],
+  "wheel_od": 165.0,
+  "wheel_w": 45.0,
+  "wheel_y": 185.0,
+  "caster_x": 215.0,
+  "caster_trail": 15.0,
+  "caster_wheel": 50.0,
+  "mast_top": 1127.0
+ }
+}

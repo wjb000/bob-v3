@@ -1,0 +1,8 @@
+mujoco>=3.2
+numpy
+trimesh
+gymnasium
+pillow
+imageio
+torch
+stable-baselines3

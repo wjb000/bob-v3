@@ -1,192 +1,239 @@
-"""Bob v3 chassis parameters. Millimetres.
+"""Bob v3 parameters. Millimetres, degrees, grams.
 
-Frame: ground is z = 0, +X is the nose, +Y is left, origin is the deck centre.
-Edit this file and rerun export.py. Do not copy SO-101 link meshes into this repo.
+Robot frame: ground z = 0, +X forward (nose), +Y left, +Z up.
+Origin is on the floor, midway between the two hub-motor centres.
+The zero pose is arms hanging straight down, lift at the bottom, head level.
 
-Measured from the upstream files (TheRobotStudio/SO-ARM100, Nov 2026):
-  Base_SO101.stl bbox 110.93 x 72.0 x 87.0 mm, bottom face has no bolt circle
-  we could lock down. The foot is the wide part, about 16 mm tall, then a
-  narrower servo tower. The arm is clamped by straps, not by invented holes.
-  Seeed mounting plate holes (not used here): Ø3.6 on a 16.5 x 21.0 mm
-  rectangle. WaveShare plate: Ø5.0 on (±18.5, ±14.0).
+Every printed part must fit BED x BED x BED_Z. That is a 200 mm cube, which
+fits a Prusa MK4 (250 x 210), an Ender-3 (220), a Bambu A1/P1/X1 (256) and
+a Prusa Core One. export.py fails the build if a part does not fit.
 
-Not measured on the real Bob, so they stay parameters:
-  WHEEL_OD, AXLE_D, WHEEL_WIDTH, and the T8 nut pocket.
+Values marked VERIFY come from datasheets or listings, not from a part on the
+bench. Each one only touches a small adapter part, so a wrong guess costs a
+reprint of that adapter, not of the robot. See VERIFY.md.
 """
 
 from __future__ import annotations
 
 import math
 
-# --- deck ---
-# 480 x 340, not 780. The SO-101 reaches about 400 mm. On a 780 mm deck the
-# nose sat past the hand, so the robot could not pick up what was in front of it.
-# Three 160 mm tiles fit a 220 mm bed (208 mm usable). The tower is on the
-# rear tile so the hand clears the nose. Width stays 340 mm: the hubs hang
-# outside that, and the whole base still fits a doorway.
-DECK_L = 480.0
-DECK_W = 340.0
-NX = 3
-NY = 2
-CELL_X = DECK_L / NX  # 160
-CELL_Y = DECK_W / NY  # 170
-GAP = 0.40  # saw-fit gap between tiles
+# ---------------------------------------------------------------- printer
+BED = 200.0
+BED_Z = 200.0
+DENSITY = 1.27  # PETG g/cm^3
+FILL = 0.55  # effective solid fraction at 4 walls, 20% gyroid. Used for mass.
 
-SKIN = 2.6
-RIB_H = 10.0
-RIB_T = 3.4
-GROUND_CLEAR = 22.0  # underside of the ribs
-DECK_TOP = GROUND_CLEAR + RIB_H + SKIN  # 34.6
-BOSS_EXTRA = 6.0
-BOSS_D = 16.0
+# ---------------------------------------------------------------- fasteners
+M3 = 3.4  # clearance
+M3_HEAD = 6.2  # socket head counterbore
+M3_INSERT = 4.0  # hole for an M3 x 5.7 heat-set insert
+M3_INSERT_DEPTH = 6.5
+NUT_AF = 5.9  # M3 nut pocket across flats (nut is 5.5)
+NUT_T = 2.8
+M5 = 5.5
+M5_NUT_AF = 8.4
+M8 = 8.4
 
-# A 220 mm bed. 208 leaves a brim.
-BED = 208.0
-SEG_Z_MAX = 175.0
+# ---------------------------------------------------------------- bought parts
+# Hoverboard 6.5 in hub motor (the Bob v2 wheels). MEASURE before printing axle clamps.
+WHEEL_OD = 165.0  # MEASURE tire
+WHEEL_W = 45.0  # MEASURE hub width
+AXLE_D = 12.0  # VERIFY: most 6.5 in hubs are 12 mm with two flats
+AXLE_FLATS = 10.0  # VERIFY: across the flats
+HUB_MASS = 2800.0
 
-# --- fasteners ---
-M3 = 3.4
-M3_CLOSE = 3.2
-NUT_AF = 5.5  # M3 hex nut across flats
-NUT_T = 2.4
-NUT_POCKET_AF = 5.9
-NUT_POCKET_T = 2.7
-M25 = 2.9  # M2.5 clearance
-M25_NUT_AF = 5.2
-M25_NUT_T = 2.2
+# Damiao DM-J4340-2EC (24 V, 40:1, CAN). 9 N·m rated, 27 N·m peak, 362 g.
+DM4340_D = 57.0
+DM4340_H = 53.3
+DM4340_MASS = 362.0
+DM4340_TAU_RATED = 9.0
+DM4340_TAU_PEAK = 27.0
+# Damiao DM-J4310-2EC V1.1 (24 V, 10:1, CAN). 3 N·m rated, 7 N·m peak, 300 g.
+DM4310_D = 56.0
+DM4310_H = 46.0
+DM4310_MASS = 300.0
+DM4310_TAU_RATED = 3.0
+DM4310_TAU_PEAK = 7.0
+# Output flange and rear face bolt patterns. VERIFY against the Damiao drawing.
+# Only the hub adapters and the motor cups carry these holes.
+DM_OUT_D = 44.0  # rotating output disc diameter
+DM_OUT_PCD = 32.0  # VERIFY
+DM_OUT_N = 6  # VERIFY
+DM_REAR_PCD = 44.0  # VERIFY
+DM_REAR_N = 4  # VERIFY
 
-# --- wheels, unmeasured ---
-WHEEL_OD = 165.0  # MEASURE the hub tire
-AXLE_Z = WHEEL_OD / 2.0  # assumes the tire sits on the ground
-AXLE_D = 8.5  # MEASURE. 8.5 is an M8 clearance; drill to the real axle
-WHEEL_WIDTH = 45.0  # MEASURE
-POD_T = 6.0
+# Feetech STS3215 C018 (12 V, 1/345). 45.2 x 24.7 x 35 mm, 55 g, 30 kg·cm stall.
+STS_L = 45.2
+STS_W = 24.7
+STS_H = 35.0
+STS_SHAFT_FROM_END = 11.5  # shaft centre from the near end along L. VERIFY
+STS_HORN_D = 22.0  # VERIFY with the horn in the box
+STS_HORN_PCD = 14.0  # VERIFY
+STS_MASS = 55.0
+STS_TAU_STALL = 2.94  # N·m at 12 V
+STS_TAU_RATED = 0.98
 
-# --- lift ---
-# 700 mm so the hand can work a counter. The base has no tray and no vac,
-# so the arm is the only way up there. 500 mm leaves the shoulder near 570.
-ROD_LEN = 700.0
-ROD_D = 8.0
-ROD_HOLE = 8.4
-ROD_PITCH = 70.0
-ROD_X = -6.0  # rod/screw x relative to the tower centre
-TW = 140.0  # tower outer width (Y)
-TD = 80.0  # tower outer depth (X)
-WALL = 3.6
-TOWER_COL = 0  # rear tile
-TOWER_X = -DECK_L / 2 + (TOWER_COL + 0.5) * CELL_X  # -160
-TOWER_Y = 0.0
-# Nose tile, right side. The tray is 140 x 104 and sits inside the 160 mm tile.
-ELEC_X = -DECK_L / 2 + ((NX - 1) + 0.5) * CELL_X  # 160
-ELEC_Y = -90.0
-# Just behind the nose, left of centre, clear of the caster bolts.
-CAM_X = DECK_L / 2 - 54.0  # 186
-CAM_Y = 55.0
-CASTER_BOLT_X = DECK_L / 2 - 22.0  # 218
-BOTTOM_H = 172.0
-
-MOTOR_SIZE = 42.3
-MOTOR_BOLT = 31.0  # NEMA 17 hole square
-MOTOR_PILOT = 22.2
-MOTOR_LEN = 40.0
-# Face points up. Body hangs through a deck window. Bottom of the body is 12 mm up.
-MOTOR_FACE_Z = MOTOR_LEN + 12.0
-COUPLER_LEN = 20.0
-COUPLER_OD = 20.0
-
-# Round-flange brass TR8 nut is Ø22 x ~15, 4x M3 on a 16 mm circle.
-# A 22 mm square flange also drops into this pocket. Measure before printing
-# the carriage; it is the one part the nut depends on.
-T8_POCKET = 24.0
-T8_POCKET_D = 4.5
-T8_HOLE = 12.0  # screw clearance through the carriage
+# NEMA 17 48 mm for the lift. TR8x2 leadscrew 900 mm. 12 mm rods 1000 mm, LM12UU.
+NEMA_SIZE = 42.3
+NEMA_LEN = 48.0
+NEMA_BOLT = 31.0
+NEMA_PILOT = 22.2
+NEMA_MASS = 360.0
+NEMA_HOLD = 0.55  # N·m holding torque, 17HS19-2004S1
+ROD_D = 12.0
+ROD_HOLE = 12.3
+LM12_OD = 21.0
+LM12_LEN = 30.0
+T8_FLANGE = 22.0
 T8_PCD = 16.0
-T8_LEAD = 2.0  # buy TR8x2 (2 mm lead). TR8x8 creeps down under the arm.
-SW_PITCH = 9.5
+T8_LEAD = 2.0
 
-BEARING_OD = 15.0  # LM8UU
-BEARING_LEN = 24.0
-BEARING_BORE = 15.6
-BEARING_SPAN = 46.0  # lower-centre to upper-centre
-HOUSING = 32.0
+# Electronics envelopes (bought). MEASURE the battery.
+BATT = (80.0, 200.0, 70.0)  # x, y, z. 36 V 10S2P hoverboard pack
+BATT_MASS = 1200.0
+JETSON = (103.0, 90.5, 34.8)  # Jetson Orin Nano Super dev kit with heatsink
+D435 = (90.0, 25.0, 25.0)  # Intel RealSense D435i
+EYE_PCB = 39.0  # GC9A01 1.28 in round TFT module
+EYE_GLASS = 32.4
+LIDAR_D = 55.6  # Slamtec RPLIDAR C1
+LIDAR_H = 41.3
+ESTOP_HOLE = 22.5  # 22 mm panel e-stop
 
-SHOULDER_ABOVE_PLATE = 62.4  # SO-101 MJCF shoulder z, metres -> mm
-CARRIAGE_ABOVE_LOWER = 36.0  # lower bearing centre to the top of the arm plate
-PLATE_T = 4.0
-PLATE_L = 172.0
-PLATE_W = 120.0
-PLATE_DX = 96.0  # arm-plate centre, forward of the tower centre. Clears the rods.
+# ---------------------------------------------------------------- base
+BASE_L = 560.0  # x. 560 puts the front caster far enough out for 10+ degrees of forward tip margin.
+BASE_W = 440.0  # y
+BASE_R = 140.0  # plan corner radius
+BASE_TOP = 238.0  # top surface of the shell
+BASE_WALL = 3.0
+SHELL_BOTTOM = 42.0
+GRID_X = (-100.0, 87.0)  # tile cut lines, shell and pan. Clear of the mast hole.
+GRID_Y = (-90.0, 90.0)
 
-STRAP_Y = 34.0
-STRAP_W = 12.0
-STRAP_LEN = 156.0
-STRAP_CLEAR = 16.2  # underside of the strap above the plate
-STRAP_T = 4.0
+PAN_INSET = 8.0  # pan outline sits this far inside the shell
+PAN_BOTTOM = 34.0  # rib bottoms (ground clearance)
+PAN_TOP = 49.0
+PAN_SKIN = 4.0
 
-# Printed nose/tail roller. It lives ahead of the deck so it can touch the floor.
-CASTER_ROLLER_OD = 30.0
-CASTER_ROLLER_W = 14.0
-CASTER_AXLE_Z = CASTER_ROLLER_OD / 2.0
+WHEEL_Y = 185.0  # wheel centre, each side
+AXLE_Z = WHEEL_OD / 2.0
+WHEEL_ARCH_R = 96.0
+WHEEL_CUT_X = 96.0  # pan cutout half-length around the tire
+WHEEL_CUT_Y = 156.0  # pan cutout starts here
+CASTER_X = 215.0  # front and rear
+CASTER_WHEEL = 50.0
+CASTER_WHEEL_W = 22.0
+CASTER_TRAIL = 15.0
+CASTER_HOLE = 100.0  # pan cutout the fork swings in
+CASTER_PLATE_Z = 66.0  # bottom of the swivel bridge plate
 
-# --- derived, do not edit ---
-ROD_Z0 = DECK_TOP + 4.0
-ROD_Z1 = DECK_TOP + ROD_LEN - 12.0
-LOWER_BEARING_MIN = MOTOR_FACE_Z + COUPLER_LEN + 16.0
-# 20 mm keeps the upper LM8UU and its housing on the rod at full height.
-LOWER_BEARING_MAX = ROD_Z1 - 20.0 - BEARING_SPAN
-PLATE_TOP_LO = LOWER_BEARING_MIN + CARRIAGE_ABOVE_LOWER
-PLATE_TOP_HI = LOWER_BEARING_MAX + CARRIAGE_ABOVE_LOWER
-SHOULDER_LO = PLATE_TOP_LO + SHOULDER_ABOVE_PLATE
-SHOULDER_HI = PLATE_TOP_HI + SHOULDER_ABOVE_PLATE
-TRAVEL = LOWER_BEARING_MAX - LOWER_BEARING_MIN
+LIDAR_X = 215.0  # on the front caster bridge
+LIDAR_Z0 = 108.0  # bottom of the lidar
+LIDAR_SCAN_Z = 134.0  # optical plane, roughly
 
-M3_NUT_AF_POCKET = NUT_POCKET_AF
-JOINT_OFF = 8.0  # splice bolt, each side of a tile joint
+# ---------------------------------------------------------------- mast / lift
+MAST_X = -30.0  # mast centre
+MAST_DX = 100.0  # depth (x)
+MAST_DY = 132.0  # width (y)
+MAST_R = 30.0
+MAST_WALL = 4.0
+MAST_SLOT = 64.0  # front slot width the carriage tongue rides in
+ROD_X = MAST_X - 12.0
+ROD_Y = 45.0
+SCREW_X = ROD_X
+MAST_Z0 = PAN_TOP
+MAST_TOP = 1035.0  # top of the segment stack, bottom of the cap
+CAP_H = 92.0
+ROD_Z0 = MAST_Z0 + 6.0
+ROD_LEN = 1000.0
+SCREW_LEN = 900.0
+SCREW_Z1 = 1060.0  # top end of the screw, inside the coupler
+NEMA_FACE_Z = 1070.0  # motor face, pointing down, body above
+
+LIFT_TRAVEL = 650.0
+SHOULDER_Z0 = 520.0  # shoulder axis at lift = 0
+CARRIAGE_BELOW = 300.0  # carriage bottom, below the shoulder axis
+CARRIAGE_H = 150.0
+BEARING_SPAN = 110.0  # lower to upper LM12UU centres
+
+# ---------------------------------------------------------------- torso (relative to the shoulder axis in z)
+TORSO_X0 = MAST_X + MAST_DX / 2 + 6.0  # back face, 6 mm in front of the mast
+TORSO_D = 170.0
+TORSO_HW = 155.0  # half width
+TORSO_BELOW = 230.0
+TORSO_ABOVE = 50.0
+TORSO_SPLIT = -80.0  # upper / lower tier
+TORSO_R = 34.0
+TORSO_WALL = 3.0
+SHOULDER_X = TORSO_X0 + 84.0
+SHOULDER_Y = 195.0  # J2/J3 axis line, each side
+
+# ---------------------------------------------------------------- arm (left; right mirrors y)
+UPPER_ARM = 240.0  # shoulder axis to elbow axis
+FOREARM = 200.0  # elbow axis to wrist-pitch axis
+HAND = 196.0  # wrist-pitch axis to fingertip (arm.py derives the exact value from the gripper stack)
+J1_FACE_Y = TORSO_HW - 3.0  # DM4340 output face
+J3_TOP = -46.0  # J3 body top, relative to the shoulder axis
+ARM_TUBE_D = 64.0
+FOREARM_TUBE_D = 52.0
+GRIP_OPEN = 80.0  # max jaw gap
+
+# ---------------------------------------------------------------- head (relative to the shoulder axis in z)
+NECK_Z = TORSO_ABOVE
+TILT_Z = 100.0
+HEAD_W = 196.0
+HEAD_D = 150.0
+HEAD_H = 144.0
+HEAD_CZ = 168.0
+HEAD_CX = SHOULDER_X - 4.0
+
+# ---------------------------------------------------------------- joints, rad (lift in m)
+LIMITS = {
+    "lift": (0.0, LIFT_TRAVEL / 1000.0),
+    "head_pan": (-1.57, 1.57),
+    "head_tilt": (-0.60, 0.95),  # positive looks down
+    "shoulder_pitch": (-3.1, 1.0),  # negative swings the arm forward and up
+    "shoulder_roll": (-0.20, 1.75),  # positive raises the arm out to the side
+    "upper_arm_yaw": (-1.6, 1.6),
+    "elbow": (-2.35, 0.0),  # negative bends the forearm forward
+    "wrist_pitch": (-2.3, 2.3),  # the J6 sleeve clears the forearm tube to about 2.4 rad
+    "wrist_roll": (-2.8, 2.8),
+    "gripper": (0.0, 0.040),  # metres per finger, 0 = closed
+}
 
 
-def segment_heights() -> list[float]:
-    """Stack that sums to ROD_LEN. No piece taller than SEG_Z_MAX."""
-    rest = ROD_LEN - BOTTOM_H
-    if rest <= 0:
-        raise ValueError("ROD_LEN shorter than the motor segment")
-    n = max(1, math.ceil(rest / SEG_Z_MAX))
-    step = rest / n
-    return [BOTTOM_H] + [step] * n
+def shoulder_z(lift_mm: float = 0.0) -> float:
+    return SHOULDER_Z0 + lift_mm
 
 
-def segment_zs() -> list[tuple[float, float]]:
-    z = DECK_TOP
-    out = []
-    for h in segment_heights():
-        out.append((z, z + h))
-        z += h
-    return out
-
-
-def plate_center() -> tuple[float, float]:
-    return (TOWER_X + PLATE_DX, TOWER_Y)
+def mast_segments() -> list[tuple[float, float]]:
+    """Segment z ranges from the pan to the cap. No piece taller than the bed."""
+    h = MAST_TOP - MAST_Z0
+    n = math.ceil(h / (BED_Z - 20.0))
+    step = h / n
+    return [(MAST_Z0 + i * step, MAST_Z0 + (i + 1) * step) for i in range(n)]
 
 
 def check() -> None:
-    motor = MOTOR_SIZE
-    gap = ROD_PITCH / 2 - ROD_D / 2 - motor / 2
-    if gap < 4:
-        raise ValueError(f"rods collide with the NEMA 17 (gap {gap:.1f} mm)")
-    inner_y = TW / 2 - WALL
-    if ROD_PITCH / 2 + HOUSING / 2 + 2 > inner_y:
-        raise ValueError("bearing housing hits the tower wall")
-    back = -TD / 2 + WALL
-    if ROD_X - motor / 2 < back + 3:
-        raise ValueError("motor hits the back wall")
-    if LOWER_BEARING_MAX <= LOWER_BEARING_MIN + 50:
-        raise ValueError("lift travel collapsed; check ROD_LEN and the coupler")
-    heights = segment_heights()
-    if abs(sum(heights) - ROD_LEN) > 0.1:
-        raise ValueError("segment stack does not match ROD_LEN")
-    if max(heights) > SEG_Z_MAX + 0.1:
-        raise ValueError("a tower segment is taller than the print limit")
-    if CELL_X > BED or CELL_Y > BED:
-        raise ValueError("a deck tile does not fit the bed")
+    errs = []
+    if ROD_Y - ROD_D / 2 - NEMA_SIZE / 2 < 3:
+        errs.append("rods hit the NEMA 17")
+    if ROD_Y + LM12_OD / 2 + 5 > MAST_DY / 2 - MAST_WALL:
+        errs.append("bearing housings hit the mast wall")
+    car_top_max = SHOULDER_Z0 + LIFT_TRAVEL - CARRIAGE_BELOW + CARRIAGE_H
+    if car_top_max > MAST_TOP - 10:
+        errs.append(f"carriage top {car_top_max} runs into the cap")
+    if SHOULDER_Z0 - CARRIAGE_BELOW < SCREW_Z1 - SCREW_LEN + 30:
+        errs.append("carriage nut runs off the bottom of the screw")
+    if SHOULDER_Z0 - TORSO_BELOW < BASE_TOP + 40:
+        errs.append("torso hits the base at the bottom of travel")
+    if ROD_Z0 + ROD_LEN > MAST_TOP + CAP_H - 20:
+        errs.append("rods poke through the cap")
+    if WHEEL_Y + WHEEL_W / 2 > BASE_W / 2 - 4:
+        errs.append("tire rubs the shell")
+    if any(b - a > BED_Z for a, b in mast_segments()):
+        errs.append("mast segment too tall")
+    if errs:
+        raise ValueError("; ".join(errs))
 
 
 check()
