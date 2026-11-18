@@ -28,6 +28,7 @@ TOP_CHAMFER = 20.0
 MAST_HOLE = (P.MAST_X - P.MAST_DX / 2 - 4, P.MAST_X + P.MAST_DX / 2 + 4, P.MAST_DY / 2 + 4)
 MAST_FLANGE = 14.0  # mast foot overhang on the pan
 ESTOP_XY = (-205.0, 0.0)
+LIGHT_Z = (196.0, 202.0)
 
 BATT_C = (90.0, 0.0)
 BATT_Z0 = P.PAN_TOP + 4.0  # sits on the joiner tabs
@@ -240,13 +241,15 @@ def _shell_full() -> cq.Shape:
     tools.append(rrect((mx0 + mx1) / 2, 0, P.BASE_TOP - 30, P.BASE_TOP + 5, mx1 - mx0, 2 * my, P.MAST_R + 4))
     # lidar window: a 200 degree band, with four thin pillars so the lower band stays attached
     tools.append(lidar_window())
+    # light line: a groove around the shell for an LED strip under a diffuser
+    tools.append(rrect_shell(0, 0, LIGHT_Z[0], LIGHT_Z[1], SHELL_LX + 2, SHELL_LY + 2, P.BASE_R + 1, 2.5, open_top=True, open_bot=True))
     # e-stop, charge port, main switch, vents
     tools.append(cyl((ESTOP_XY[0], ESTOP_XY[1], P.BASE_TOP - 10), "z", P.ESTOP_HOLE, 20))
     tools.append(cyl((-SHELL_LX / 2 - 5, -40, 100), "x", 12.2, 20))
     tools.append(cyl((-SHELL_LX / 2 - 5, 40, 100), "x", 20.2, 20))
     for i in range(7):
         y = -36 + 12 * i
-        tools.append(rrect(-SHELL_LX / 2, y, 160, 205, 20, 5, 2.4))
+        tools.append(rrect(-SHELL_LX / 2, y, 150, 188, 20, 5, 2.4))
     return cut(s, *tools)
 
 
@@ -614,9 +617,8 @@ def bought() -> list[Bought]:
         ("esp32", (130, 60), V.esp32_devkit(), 10, "esp32"),
         ("imu", (130, -40), V.small_board(25, 20, (5, 5, 1)), 5, "imu"),
         ("tmc2209", (132, -92), V.small_board(15, 20, (5, 5, 1), look="pcb_black"), 5, "tmc"),
-        ("buck_24v", (-175, 88), V.finned_buck(110, 62, 33), 260, "buck24"),
-        ("buck_12v", (-195, -85), V.finned_buck(63, 53, 30), 150, "buck12"),
-        ("buck_19v", (-125, -100), V.open_buck(60, 40, 22), 70, "buck19"),
+        ("buck_12v", (-175, 88), V.finned_buck(110, 62, 33), 260, "buck12"),
+        ("buck_5v", (-125, -100), V.open_buck(60, 40, 22), 70, "buck5"),
         ("fuse_block", (-118, 38), V.fuse_block(40, 30, 25), 40, "fuse"),
         ("contactor_relay", (-212, 38), V.contactor(40, 30, 30), 60, "relay"),
     ]
@@ -624,6 +626,8 @@ def bought() -> list[Bought]:
         zz = z + (8.5 if name == "esp32" else 0.0)  # the devkit stands on its pin headers
         out += V.boughts(name, V.place(pcs, (x, y, zz)), "base", "base", "electronics", m, key)
     out += V.boughts("estop", V.place(V.estop(), (ESTOP_XY[0], ESTOP_XY[1], P.BASE_TOP)), "base", "base", "electronics", 80, "estop")
+    glow = rrect_shell(0, 0, LIGHT_Z[0] + 0.5, LIGHT_Z[1] - 0.5, SHELL_LX - 0.6, SHELL_LY - 0.6, P.BASE_R - 0.3, 1.2, open_top=True, open_bot=True)
+    out.append(Bought("light_base", glow, "base", "base", "electronics", 15, "ledstrip", look="glow"))
     for cx in (P.CASTER_X, -P.CASTER_X):
         out.append(Bought(f"caster_bolt_{'f' if cx > 0 else 'r'}", cyl((cx, 0, P.CASTER_PLATE_Z - 12), "z", 8, 30), "base", "base", "metal", 30, "m8",
                           look="steel"))

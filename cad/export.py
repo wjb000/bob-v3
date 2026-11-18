@@ -204,7 +204,17 @@ def main() -> int:
             None, "base", "base")
         solid = tab_solid
 
-    print_list = [(p.name, p.solid, p) for p in parts] + [("joiner_tab", tab_solid, _Tab)]
+    # identical prints (print_as) collapse to one file with a quantity
+    from types import SimpleNamespace
+    groups = {}
+    for p in parts:
+        key = p.print_as or p.name
+        if key in groups:
+            groups[key].qty += p.qty
+            continue
+        shp = p.print_solid if p.print_solid is not None else p.solid
+        groups[key] = SimpleNamespace(**{**p.__dict__, "name": key, "solid": shp})
+    print_list = [(k, g.solid, g) for k, g in groups.items()] + [("joiner_tab", tab_solid, _Tab)]
     total_g = 0.0
     for name, solid, p in print_list:
         n = len(solid.Solids())
@@ -233,7 +243,7 @@ def main() -> int:
     for p in parts:
         items.append(dict(name=p.name, file=f"{p.name}.stl", link=p.link, group=p.group, kind="print",
                           color=p.color, material=p.material, mass_g=round(p.solid.Volume() / 1000 * P.DENSITY * P.FILL, 1),
-                          print=p.name, note=p.note))
+                          print=p.print_as or p.name, note=p.note))
         solids.append(p.solid)
         cq.exporters.export(p.solid, str(PLACED / f"{p.name}.stl"), tolerance=TOL, angularTolerance=ANG)
         cq.exporters.export(p.solid, str(VIEW / f"{p.name}.stl"), tolerance=0.35, angularTolerance=0.5)
@@ -272,11 +282,26 @@ def main() -> int:
 
     log("checks: interference at the home and zero poses")
     report_overlap = {}
-    for pose_name in ("home", "zero"):
-        T = robot.link_transforms(robot.POSES[pose_name], joints)
+    extra = {"look_down": {**robot.HOME, "head_tilt": robot.joints and P.LIMITS["head_tilt"][1]},
+             "look_up": {**robot.HOME, "head_tilt": P.LIMITS["head_tilt"][0]},
+             # full pan at level gaze; looking up while turned is interlocked in software below 0.51 m of lift
+             "pan_left": {**robot.HOME, "head_pan": P.LIMITS["head_pan"][1]},
+             "pan_right": {**robot.HOME, "head_pan": P.LIMITS["head_pan"][0]},
+             "pan_down": {**robot.HOME, "head_pan": P.LIMITS["head_pan"][1], "head_tilt": P.LIMITS["head_tilt"][1]}}
+    for pose_name in ("home", "zero", "look_down", "look_up", "pan_left", "pan_right", "pan_down"):
+        T = robot.link_transforms(robot.POSES.get(pose_name) or extra[pose_name], joints)
         pool = [(it["name"], it["link"], placed_at(s, T[it["link"]])) for it, s in zip(items, solids)]
         # The pinion turns with the fingers on the real gripper; here it is frozen, so its mesh with the racks is expected.
-        hits = [h for h in overlaps(pool) if not (h[0].startswith("pinion_") and h[1].startswith("finger_"))]
+        def meshing(a, b):
+            if a.startswith("pinion_") and b.startswith("finger_"):
+                return True
+            # GM-5 gears: the planets spin as they orbit; frozen here, their teeth cross the sun's and the ring's
+            if a.startswith("gm_") and a.rsplit("_", 1)[0] == b.rsplit("_", 1)[0]:
+                kinds = {a.rsplit("_", 1)[1], b.rsplit("_", 1)[1]}
+                return any(k.startswith("planet") for k in kinds) and kinds & {"housing", "sun", "planet0", "planet1", "planet2"} == kinds
+            return False
+
+        hits = [h for h in overlaps(pool) if not meshing(h[0], h[1])]
         report_overlap[pose_name] = hits
         for a, b, v in hits:
             errors.append(f"{pose_name}: {a} intersects {b} by {v} mm3")

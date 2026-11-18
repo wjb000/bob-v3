@@ -247,41 +247,55 @@ def _dm_rear_holes(center, axis, face, pcd=P.DM_REAR_PCD, n=P.DM_REAR_N, depth=1
     return out
 
 
+J1_FRAME = lambda sz: ((P.SHOULDER_X, P.J1_FACE_Y, sz), (0, 1, 0), (-1, 0, 0))  # noqa: E731  GM-5 J1, servo toward the back
+
+
 def yoke(side, sz=S0) -> cq.Shape:
-    """Left yoke (side=1). Carries J1 and bolts to the back plate. Right is mirrored."""
+    """Left yoke (side=1). Holds the J1 GM-5 module and bolts to the back plate. Right is mirrored."""
+    import gearbox as G
+
     cx, cz = P.SHOULDER_X, sz
-    face = P.J1_FACE_Y
-    body0 = face - P.DM4340_H
-    rear = body0 - 4.0
-    cup = tube_between("y", (cx, cz), rear, face - 4.0, P.DM4340_D + 9, P.DM4340_D + 0.6)
-    rear_wall = cyl_between("y", (cx, cz), rear, body0, P.DM4340_D + 9)
-    beam = box(YOKE_FACE_X, cx, 0.3, body0 - 0.5, cz - 30, cz + 30)
+    cup, inserts, keep = G.mount(*J1_FRAME(sz))
+    upper = box(YOKE_FACE_X, cx + 10, 0.3, 140, cz + 18, cz + 30)
+    lower = box(YOKE_FACE_X, cx + 10, 0.3, 140, cz - 30, cz - 18)
+    side_plate = box(YOKE_FACE_X + 6, 62, 40, 140, cz - 30, cz + 30)
     web = box(YOKE_FACE_X, YOKE_FACE_X + 6, 0.3, 70, cz - 110, cz + 30)
     gusset = box(YOKE_FACE_X, cx - 20, 0.3, 8, cz - 110, cz + 30)
-    s = fuse(cup, rear_wall, beam, web, gusset)
-    tools = [cyl_between("y", (cx, cz), rear - 14, body0 + 0.5, 22)]  # cable exit, deep enough for the XT30 and CAN plugs
-    tools += _dm_rear_holes((cx, 0, cz), "y", body0 + 0.5, depth=-6)
+    s = fuse(cup, upper, lower, side_plate, web, gusset)
+    tools = [keep, inserts]
     for y, z in _yoke_web_pts(sz):
         if y > 0:
             tools.append(cyl_between("x", (y, z), YOKE_FACE_X - 1, YOKE_FACE_X + P.M3_INSERT_DEPTH, P.M3_INSERT))
     for x, y in _neck_pts():
         if y > 0:
             tools.append(cyl((x, y, cz + 30 - P.M3_INSERT_DEPTH), "z", P.M3_INSERT, P.M3_INSERT_DEPTH + 1))
-    # lighten the beam, and leave room for the pan-servo cradle
-    tools.append(box(YOKE_FACE_X + 10, cx - 36, 14, body0 - 8, cz - 22, cz + 22))
     tools.append(box(NECK_X - P.STS_SHAFT_FROM_END - 5, NECK_X - P.STS_SHAFT_FROM_END + P.STS_L + 5, -20, 20, cz + 4, cz + 31))
-    hw("M3 heat-set insert", 6 + 2)
+    hw("M3 heat-set insert", 6 + 2 + 4)
     hw("M3x12 socket head", 6)
-    hw("M3x12 socket head (DM rear)", P.DM_REAR_N)
+    hw("M3x8 socket head (module flange)", 4)
     s = cut(s, *tools)
+    # stay inside the torso's rounded back corners
+    s = s.intersect(_torso_solid(sz, P.TORSO_WALL + 1.0))
     return s if side > 0 else s.mirror("XZ", (0, 0, 0))
+
+
+def j1_modules(sz=S0):
+    import gearbox as G
+
+    parts, buys = [], []
+    for side in ("l", "r"):
+        fr = J1_FRAME(sz) if side == "l" else G.mirror_frame(*J1_FRAME(sz))
+        p, b = G.instance(f"gm_{side}_j1", *fr, "lift", f"{side}_link1", "torso")
+        parts += p
+        buys += b
+    return parts, buys
 
 
 def _neck_pts():
     return [(48.0, 24.0), (72.0, 24.0), (48.0, -24.0), (72.0, -24.0)]
 
 
-NECK_X = P.HEAD_CX
+NECK_X = P.NECK_X
 
 
 def neck_mount(sz=S0) -> cq.Shape:
@@ -404,11 +418,12 @@ def torso_parts() -> list[Part]:
     out = [Part("carriage", carriage(), "lift", "mast", color="frame", rot=(0, 0, 0),
                 note="Four LM12UU press in. T8 nut from below. Tongue nuts drop into the slots.")]
     out.append(Part("torso_back_plate", back_plate(), "lift", "torso", color="frame",
-                    note="Takes the lift tongue, the yokes and the Jetson grid."))
+                    note="Takes the lift tongue, the yokes and the Pi and USB grid."))
     out.append(Part("yoke_l", yoke(1), "lift", "torso", color="frame", rot=(90, 0, 0),
                     note="Holds the left DM-J4340 (J1). Prints on its centre face, cup up. 5 walls, 30% infill."))
     out.append(Part("yoke_r", yoke(-1), "lift", "torso", color="frame", rot=(-90, 0, 0), note="Mirror of yoke_l."))
     out.append(Part("neck_mount", neck_mount(), "lift", "torso", color="frame", note="Pan servo cradle, bridges the yokes."))
+    out += j1_modules()[0]
     full = torso_shell()
     zs = S0 + P.TORSO_SPLIT
     for tier, (z0, z1), rot in (("lower", (0, zs), (0, 0, 0)), ("upper", (zs, 2000), (180, 0, 0))):
@@ -440,19 +455,21 @@ def bought(sz=S0) -> list[Bought]:
     out.append(Bought("t8_nut", cut(fuse(cyl((P.SCREW_X, 0, nz), "z", 22, 3.5), cyl((P.SCREW_X, 0, nz - 11.5), "z", 10.2, 11.6)),
                                     cyl((P.SCREW_X, 0, nz - 20), "z", 8.2, 40)),
                       "lift", "mast", "metal", 30, "t8nut", look="brass"))
-    for sy, j in ((1, "l"), (-1, "r")):
-        pcs = V.place(V.damiao("dm4340"), (P.SHOULDER_X, sy * P.J1_FACE_Y, sz), xdir=(1, 0, 0), zdir=(0, sy, 0))
-        out += V.boughts(f"j1_{j}", pcs, "lift", "torso", "actuator", P.DM4340_MASS, "dm4340")
+    out += j1_modules(sz)[1]
     jx0 = BP_X1 + 4
-    out += V.boughts("jetson", V.place(V.jetson(), (jx0, 0, sz - 165), xdir=(0, 1, 0), zdir=(1, 0, 0)), "lift", "torso", "electronics", 280, "jetson")
+    out += V.boughts("pi5", V.place(V.pi5(), (jx0, 0, sz - 165), xdir=(0, 1, 0), zdir=(1, 0, 0)), "lift", "torso", "electronics", 75, "pi5")
     for name, (x, y, z), pcs, m, key in (
         ("usb_hub", (110 - 12.5, -95, sz - 170), V.usb_board(70, 50, 25, ports=4), 60, "usbhub"),
-        ("can_l", (100 - 10, 80, sz - 170), V.usb_board(30, 50, 20, ports=1), 25, "usbcan"),
-        ("can_r", (100 - 10, 80, sz - 210), V.usb_board(30, 50, 20, ports=1), 25, "usbcan"),
+        ("arm_io", (100 - 10, 80, sz - 190), V.usb_board(30, 22, 12, ports=1), 5, "esp32c3"),
         ("servo_bus", (150 - 10, 60, sz - 120), V.usb_board(40, 65, 20, ports=2), 25, "busadapter"),
         ("servo_bus_r", (150 - 10, -60, sz - 120), V.usb_board(40, 65, 20, ports=2), 25, "busadapter"),
     ):
         out += V.boughts(name, V.place(pcs, (x, y, z), xdir=(0, 0, 1), zdir=(1, 0, 0)), "lift", "torso", "electronics", m, key)
     out += V.boughts("speaker", V.place(V.speaker(), (TX1 - 10, 0, sz - 156), xdir=(0, 1, 0), zdir=(1, 0, 0)), "lift", "torso", "electronics", 40, "speaker")
     out += V.boughts("pan_servo", V.place(V.sts3215(), (NECK_X, 0, sz + 47)), "lift", "torso", "actuator", P.STS_MASS, "sts3215")
+    out.append(Bought("light_chest", rrect(TX1 - 2.2, 0, sz - 63.5, sz - 58.5, 3.0, 148, 2.5), "lift", "torso", "electronics", 5, "ledstrip", look="glow"))
+    z0 = P.MAST_TOP
+    ring = rrect(P.MAST_X, 0, z0 + 50.5, z0 + 57.5, P.MAST_DX - 0.6, P.MAST_DY - 0.6, P.MAST_R - 0.3).cut(
+        rrect(P.MAST_X, 0, z0 + 49, z0 + 59, P.MAST_DX - 2.6, P.MAST_DY - 2.6, P.MAST_R - 1.3))
+    out.append(Bought("light_mast", ring, "base", "mast", "electronics", 5, "ledstrip", look="glow"))
     return out

@@ -92,8 +92,8 @@ def test_stand():
 # ---------------------------------------------------------------- 2 torque
 
 ARM_J = ["shoulder_pitch", "shoulder_roll", "upper_arm_yaw", "elbow", "wrist_pitch", "wrist_roll", "gripper"]
-RATING = {"shoulder_pitch": (9, 27), "shoulder_roll": (9, 27), "upper_arm_yaw": (3, 7), "elbow": (3, 7),
-          "wrist_pitch": (0.98, 2.94), "wrist_roll": (0.98, 2.94), "gripper": (0.98, 2.94)}
+RATING = {"shoulder_pitch": (6.7, 20.8), "shoulder_roll": (6.7, 20.8), "upper_arm_yaw": (6.7, 20.8), "elbow": (6.7, 20.8),
+          "wrist_pitch": (1.57, 4.9), "wrist_roll": (0.98, 2.94), "gripper": (0.98, 2.94)}
 
 
 def gravity_torques(m, d, pose):

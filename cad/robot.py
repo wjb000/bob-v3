@@ -65,11 +65,11 @@ POSES = {
                 **{f"{s}_{k}": v for s in ("l", "r") for k, v in {
                     "shoulder_pitch": -1.492, "shoulder_roll": -0.008, "upper_arm_yaw": -0.015, "elbow": -1.403,
                     "wrist_pitch": 1.894, "wrist_roll": 0.016, "gripper": 0.03, "gripper_b": 0.03}.items()}},
-    "floor": {**HOME, "lift": 0.0, "head_tilt": 0.95,
+    "floor": {**HOME, "lift": 0.0, "head_tilt": 0.55,
               **{f"{s}_{k}": v for s in ("l", "r") for k, v in {
                   "shoulder_pitch": -0.278, "shoulder_roll": 0.006, "upper_arm_yaw": 0.019, "elbow": -0.879,
                   "wrist_pitch": 1.156, "wrist_roll": -0.02, "gripper": 0.03, "gripper_b": 0.03}.items()}},
-    "shelf": {**HOME, "lift": 0.65, "head_tilt": -0.5,
+    "shelf": {**HOME, "lift": 0.65, "head_tilt": -0.35,
               **{f"{s}_{k}": v for s in ("l", "r") for k, v in {
                   "shoulder_pitch": -2.614, "shoulder_roll": 0.011, "upper_arm_yaw": 0.004, "elbow": -0.472,
                   "wrist_pitch": 1.682, "wrist_roll": -0.012, "gripper": 0.03, "gripper_b": 0.03}.items()}},

@@ -13,8 +13,8 @@ python check.py                                 # the physics checks
 - **Links:** the printed meshes, with mass from the CAD volume at 4 walls and 20% infill, plus the bought parts at their listed mass, plus 1.7 kg of wiring and screws. Each link gets full inertia from its meshes.
 - **Joints:** the CAD axes and limits. The second gripper finger follows the first through an equality constraint, as the shared pinion does.
 - **Actuators:** position control with datasheet torque limits:
-  - DM-J4340: 27 N·m
-  - DM-J4310: 7 N·m
+  - GM-5 modules (J1–J4): 20.8 N·m
+  - STS3250 wrist pitch: 4.9 N·m
   - STS3215: 2.94 N·m
   - gripper: 40 N
   - lift: 380 N
@@ -22,7 +22,7 @@ python check.py                                 # the physics checks
 - **Armature:** an estimate of reflected rotor inertia.
 - **Contacts:** convex hulls of the printed parts. The finger blades are boxes with high-friction pads. The tires are spheres of the tire radius, and the casters are frictionless spheres.
 - **Sensors:** joint positions, an IMU in the base, and touch sensors on both pads.
-- **Cameras:** `head_cam` (the D435i position), `wrist_cam_l`, `wrist_cam_r`.
+- **Cameras:** `head_cam` (behind the visor window), `wrist_cam_l`, `wrist_cam_r`.
 
 The real lift runs at 25 mm/s, and the base controller ramps at 1 m/s². The checks and the environment use the same limits.
 
@@ -49,5 +49,7 @@ python train.py bc --steps 30000                                   # behaviour c
 python train.py eval-bc --episodes 50                              # 39/50 on unseen placements here
 python train.py ppo --task reach --steps 500000                    # PPO with Stable-Baselines3
 ```
+
+`tools/viewer_tasks.py` records the tasks the website viewer plays back: pick by the expert and by the learned policy, floor pick, shelf reach, holding 0.5 kg in each hand, drive and stop, a shove at the head, and a wave. The viewer plays the recorded joint values, base pose, objects and forces.
 
 For a policy that runs from cameras on the real robot, record with `--images`. That stores the head and wrist frames. Then train an ACT or diffusion policy on them, for example with LeRobot. The real robot's joint names, order and units match this model.

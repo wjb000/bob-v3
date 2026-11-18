@@ -162,17 +162,17 @@ TORSO_HW = 155.0  # half width
 TORSO_BELOW = 230.0
 TORSO_ABOVE = 50.0
 TORSO_SPLIT = -80.0  # upper / lower tier
-TORSO_R = 34.0
+TORSO_R = 48.0
 TORSO_WALL = 3.0
 SHOULDER_X = TORSO_X0 + 84.0
 SHOULDER_Y = 195.0  # J2/J3 axis line, each side
 
 # ---------------------------------------------------------------- arm (left; right mirrors y)
-UPPER_ARM = 240.0  # shoulder axis to elbow axis
+UPPER_ARM = 252.0  # shoulder axis to elbow axis
 FOREARM = 200.0  # elbow axis to wrist-pitch axis
 HAND = 196.0  # wrist-pitch axis to fingertip (arm.py derives the exact value from the gripper stack)
 J1_FACE_Y = TORSO_HW - 3.0  # DM4340 output face
-J3_TOP = -46.0  # J3 body top, relative to the shoulder axis
+J3_FACE = -113.0  # J3 module output face, relative to the shoulder axis
 ARM_TUBE_D = 64.0
 FOREARM_TUBE_D = 52.0
 GRIP_OPEN = 80.0  # max jaw gap
@@ -181,16 +181,17 @@ GRIP_OPEN = 80.0  # max jaw gap
 NECK_Z = TORSO_ABOVE
 TILT_Z = 100.0
 HEAD_W = 196.0
-HEAD_D = 150.0
+HEAD_D = 120.0
 HEAD_H = 144.0
 HEAD_CZ = 168.0
-HEAD_CX = SHOULDER_X - 4.0
+HEAD_CX = SHOULDER_X + 18.0  # head centre, ahead of the neck so it clears the mast
+NECK_X = SHOULDER_X - 4.0  # pan axis
 
 # ---------------------------------------------------------------- joints, rad (lift in m)
 LIMITS = {
     "lift": (0.0, LIFT_TRAVEL / 1000.0),
-    "head_pan": (-1.57, 1.57),
-    "head_tilt": (-0.60, 0.95),  # positive looks down
+    "head_pan": (-0.6, 0.6),  # below 0.51 m of lift, wider and the head's back corners reach the mast
+    "head_tilt": (-0.35, 0.55),  # positive looks down; the chin meets the torso top past 0.55, the back meets the mast past -0.35
     "shoulder_pitch": (-3.1, 1.0),  # negative swings the arm forward and up
     "shoulder_roll": (-0.20, 1.75),  # positive raises the arm out to the side
     "upper_arm_yaw": (-1.6, 1.6),

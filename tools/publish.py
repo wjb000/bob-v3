@@ -162,6 +162,7 @@ def main():
         for f in sorted((ROOT / "sim" / "assets").glob("*.stl")):
             z.write(f, f"bob-v3-sim/assets/{f.name}")
         z.write(ROOT / "requirements-sim.txt", "bob-v3-sim/requirements.txt")
+    shutil.copy(ROOT / "docs" / "sim_tasks.json", dst / "sim_tasks.json")
     print("img")
     (dst / "img").mkdir(exist_ok=True)
     for f in (ROOT / "docs" / "img").glob("*"):
@@ -174,7 +175,6 @@ def main():
                 bom=dict(rows=rows, total=total, have=have), checks=checks,
                 wiring=dict(nodes={k: dict(label=v[0], item=v[4]) for k, v in WIRING.NODES.items()},
                             wires=[dict(a=a, b=b, kind=k, what=w) for a, b, k, w, *_ in WIRING.WIRES], colors=WIRING.COLORS),
-                sim=json.loads((ROOT / "docs" / "sim_pick.json").read_text()),
                 mass_kg=round(manifest["robot_mass_g"] / 1000, 1), print_kg=round(manifest["print_mass_g"] / 1000, 2))
     (dst / "data.json").write_text(json.dumps(data, separators=(",", ":")))
 

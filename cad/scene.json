@@ -3,67 +3,75 @@
  "frame": "x forward, y left, z up, origin on the floor between the wheels",
  "links": {
   "base": {
-   "mass_g": 8684.0,
+   "mass_g": 8543.5,
    "com": [
-    -15.1,
-    0.8,
-    334.8
+    -12.0,
+    2.3,
+    338.5
    ]
   },
   "lift": {
-   "mass_g": 3311.8,
+   "mass_g": 2606.6,
    "com": [
-    72.5,
-    -0.5,
-    433.9
-   ]
-  },
-  "head_pan": {
-   "mass_g": 82.8,
-   "com": [
-    115.1,
-    -5.0,
-    614.2
-   ]
-  },
-  "head_tilt": {
-   "mass_g": 518.0,
-   "com": [
-    124.3,
-    0.1,
-    692.2
+    65.6,
+    -2.0,
+    427.3
    ]
   },
   "l_link1": {
-   "mass_g": 411.1,
+   "mass_g": 188.2,
    "com": [
-    110.6,
-    193.8,
+    117.8,
+    192.5,
     520.0
    ]
   },
-  "l_link2": {
-   "mass_g": 345.4,
+  "r_link1": {
+   "mass_g": 188.2,
    "com": [
-    108.5,
+    117.8,
+    -192.5,
+    520.0
+   ]
+  },
+  "head_tilt": {
+   "mass_g": 441.6,
+   "com": [
+    139.6,
+    0.1,
+    690.0
+   ]
+  },
+  "head_pan": {
+   "mass_g": 90.1,
+   "com": [
+    115.2,
+    -4.9,
+    611.7
+   ]
+  },
+  "l_link2": {
+   "mass_g": 195.7,
+   "com": [
+    100.8,
     195.0,
-    453.7
+    453.9
    ]
   },
   "l_link3": {
-   "mass_g": 389.2,
+   "mass_g": 240.0,
    "com": [
     110.0,
-    194.5,
-    294.4
+    186.0,
+    296.4
    ]
   },
   "l_link4": {
-   "mass_g": 188.3,
+   "mass_g": 226.2,
    "com": [
     110.0,
-    196.7,
-    131.2
+    197.2,
+    127.5
    ]
   },
   "l_link5": {
@@ -71,7 +79,7 @@
    "com": [
     118.2,
     195.4,
-    28.8
+    16.8
    ]
   },
   "l_link6": {
@@ -79,7 +87,7 @@
    "com": [
     112.9,
     195.0,
-    -39.5
+    -51.5
    ]
   },
   "l_link7": {
@@ -87,7 +95,7 @@
    "com": [
     113.9,
     197.4,
-    -82.9
+    -94.9
    ]
   },
   "l_link8": {
@@ -95,39 +103,31 @@
    "com": [
     106.1,
     192.6,
-    -82.9
-   ]
-  },
-  "r_link1": {
-   "mass_g": 411.1,
-   "com": [
-    110.6,
-    -193.8,
-    520.0
+    -94.9
    ]
   },
   "r_link2": {
-   "mass_g": 345.4,
+   "mass_g": 195.7,
    "com": [
-    108.5,
+    100.8,
     -195.0,
-    453.7
+    453.9
    ]
   },
   "r_link3": {
-   "mass_g": 389.2,
+   "mass_g": 240.0,
    "com": [
     110.0,
-    -194.5,
-    294.4
+    -186.0,
+    296.4
    ]
   },
   "r_link4": {
-   "mass_g": 188.3,
+   "mass_g": 226.2,
    "com": [
     110.0,
-    -196.7,
-    131.2
+    -197.2,
+    127.5
    ]
   },
   "r_link5": {
@@ -135,7 +135,7 @@
    "com": [
     118.2,
     -195.4,
-    28.8
+    16.8
    ]
   },
   "r_link6": {
@@ -143,7 +143,7 @@
    "com": [
     112.9,
     -195.0,
-    -39.5
+    -51.5
    ]
   },
   "r_link7": {
@@ -151,7 +151,7 @@
    "com": [
     113.9,
     -197.4,
-    -82.9
+    -94.9
    ]
   },
   "r_link8": {
@@ -159,7 +159,7 @@
    "com": [
     106.1,
     -192.6,
-    -82.9
+    -94.9
    ]
   },
   "wheel_l": {
@@ -179,7 +179,7 @@
    ]
   }
  },
- "total_mass_g": 21351.0,
+ "total_mass_g": 19468.4,
  "joints": [
   {
    "name": "lift",
@@ -263,8 +263,8 @@
     1
    ],
    "range": [
-    -1.57,
-    1.57
+    -0.6,
+    0.6
    ],
    "actuator": "sts3215",
    "mimic": ""
@@ -285,8 +285,8 @@
     0
    ],
    "range": [
-    -0.6,
-    0.95
+    -0.35,
+    0.55
    ],
    "actuator": "sts3215",
    "mimic": ""
@@ -310,7 +310,7 @@
     -3.1,
     1.0
    ],
-   "actuator": "dm4340",
+   "actuator": "gm5",
    "mimic": ""
   },
   {
@@ -332,7 +332,7 @@
     -0.2,
     1.75
    ],
-   "actuator": "dm4340",
+   "actuator": "gm5",
    "mimic": ""
   },
   {
@@ -343,7 +343,7 @@
    "anchor": [
     110.0,
     195.0,
-    428.0
+    407.0
    ],
    "axis": [
     0,
@@ -354,7 +354,7 @@
     -1.6,
     1.6
    ],
-   "actuator": "dm4310",
+   "actuator": "gm5",
    "mimic": ""
   },
   {
@@ -365,7 +365,7 @@
    "anchor": [
     110.0,
     195.0,
-    280.0
+    268.0
    ],
    "axis": [
     0,
@@ -376,7 +376,7 @@
     -2.35,
     0.0
    ],
-   "actuator": "dm4310",
+   "actuator": "gm5",
    "mimic": ""
   },
   {
@@ -387,7 +387,7 @@
    "anchor": [
     110.0,
     195.0,
-    80.0
+    68.0
    ],
    "axis": [
     0,
@@ -398,7 +398,7 @@
     -2.3,
     2.3
    ],
-   "actuator": "sts3215",
+   "actuator": "sts3250",
    "mimic": ""
   },
   {
@@ -409,7 +409,7 @@
    "anchor": [
     110.0,
     195.0,
-    -5.0
+    -17.0
    ],
    "axis": [
     0,
@@ -431,7 +431,7 @@
    "anchor": [
     110.0,
     195.0,
-    -58.0
+    -70.0
    ],
    "axis": [
     0,
@@ -453,7 +453,7 @@
    "anchor": [
     110.0,
     195.0,
-    -58.0
+    -70.0
    ],
    "axis": [
     0,
@@ -486,7 +486,7 @@
     -3.1,
     1.0
    ],
-   "actuator": "dm4340",
+   "actuator": "gm5",
    "mimic": ""
   },
   {
@@ -508,7 +508,7 @@
     -0.2,
     1.75
    ],
-   "actuator": "dm4340",
+   "actuator": "gm5",
    "mimic": ""
   },
   {
@@ -519,7 +519,7 @@
    "anchor": [
     110.0,
     -195.0,
-    428.0
+    407.0
    ],
    "axis": [
     0,
@@ -530,7 +530,7 @@
     -1.6,
     1.6
    ],
-   "actuator": "dm4310",
+   "actuator": "gm5",
    "mimic": ""
   },
   {
@@ -541,7 +541,7 @@
    "anchor": [
     110.0,
     -195.0,
-    280.0
+    268.0
    ],
    "axis": [
     0,
@@ -552,7 +552,7 @@
     -2.35,
     0.0
    ],
-   "actuator": "dm4310",
+   "actuator": "gm5",
    "mimic": ""
   },
   {
@@ -563,7 +563,7 @@
    "anchor": [
     110.0,
     -195.0,
-    80.0
+    68.0
    ],
    "axis": [
     0,
@@ -574,7 +574,7 @@
     -2.3,
     2.3
    ],
-   "actuator": "sts3215",
+   "actuator": "sts3250",
    "mimic": ""
   },
   {
@@ -585,7 +585,7 @@
    "anchor": [
     110.0,
     -195.0,
-    -5.0
+    -17.0
    ],
    "axis": [
     0,
@@ -607,7 +607,7 @@
    "anchor": [
     110.0,
     -195.0,
-    -58.0
+    -70.0
    ],
    "axis": [
     0,
@@ -629,7 +629,7 @@
    "anchor": [
     110.0,
     -195.0,
-    -58.0
+    -70.0
    ],
    "axis": [
     0,
@@ -686,7 +686,7 @@
   },
   "floor": {
    "lift": 0.0,
-   "head_tilt": 0.95,
+   "head_tilt": 0.55,
    "l_shoulder_pitch": -0.278,
    "l_shoulder_roll": 0.006,
    "l_elbow": -0.879,
@@ -706,7 +706,7 @@
   },
   "shelf": {
    "lift": 0.65,
-   "head_tilt": -0.5,
+   "head_tilt": -0.35,
    "l_shoulder_pitch": -2.614,
    "l_shoulder_roll": 0.011,
    "l_elbow": -0.472,
@@ -752,7 +752,7 @@
    "kind": "print",
    "color": "shell",
    "material": "PETG",
-   "mass_g": 143.5,
+   "mass_g": 141.9,
    "print": "base_shell_rear_r",
    "note": "Print top-down. Heat-set inserts in the seam bosses."
   },
@@ -764,7 +764,7 @@
    "kind": "print",
    "color": "shell",
    "material": "PETG",
-   "mass_g": 142.2,
+   "mass_g": 141.6,
    "print": "base_shell_rear_c",
    "note": "Print top-down. Heat-set inserts in the seam bosses."
   },
@@ -776,7 +776,7 @@
    "kind": "print",
    "color": "shell",
    "material": "PETG",
-   "mass_g": 143.5,
+   "mass_g": 141.9,
    "print": "base_shell_rear_l",
    "note": "Print top-down. Heat-set inserts in the seam bosses."
   },
@@ -788,7 +788,7 @@
    "kind": "print",
    "color": "shell",
    "material": "PETG",
-   "mass_g": 82.7,
+   "mass_g": 81.5,
    "print": "base_shell_mid_r",
    "note": "Print top-down. Heat-set inserts in the seam bosses."
   },
@@ -812,7 +812,7 @@
    "kind": "print",
    "color": "shell",
    "material": "PETG",
-   "mass_g": 82.7,
+   "mass_g": 81.5,
    "print": "base_shell_mid_l",
    "note": "Print top-down. Heat-set inserts in the seam bosses."
   },
@@ -824,7 +824,7 @@
    "kind": "print",
    "color": "shell",
    "material": "PETG",
-   "mass_g": 147.8,
+   "mass_g": 146.2,
    "print": "base_shell_front_r",
    "note": "Print top-down. Heat-set inserts in the seam bosses."
   },
@@ -836,7 +836,7 @@
    "kind": "print",
    "color": "shell",
    "material": "PETG",
-   "mass_g": 143.2,
+   "mass_g": 142.1,
    "print": "base_shell_front_c",
    "note": "Print top-down. Heat-set inserts in the seam bosses."
   },
@@ -848,7 +848,7 @@
    "kind": "print",
    "color": "shell",
    "material": "PETG",
-   "mass_g": 147.8,
+   "mass_g": 146.2,
    "print": "base_shell_front_l",
    "note": "Print top-down. Heat-set inserts in the seam bosses."
   },
@@ -1270,7 +1270,7 @@
    "material": "PETG",
    "mass_g": 145.3,
    "print": "torso_back_plate",
-   "note": "Takes the lift tongue, the yokes and the Jetson grid."
+   "note": "Takes the lift tongue, the yokes and the Pi and USB grid."
   },
   {
    "name": "yoke_l",
@@ -1280,7 +1280,7 @@
    "kind": "print",
    "color": "frame",
    "material": "PETG",
-   "mass_g": 300.1,
+   "mass_g": 298.6,
    "print": "yoke_l",
    "note": "Holds the left DM-J4340 (J1). Prints on its centre face, cup up. 5 walls, 30% infill."
   },
@@ -1292,7 +1292,7 @@
    "kind": "print",
    "color": "frame",
    "material": "PETG",
-   "mass_g": 300.1,
+   "mass_g": 298.6,
    "print": "yoke_r",
    "note": "Mirror of yoke_l."
   },
@@ -1309,6 +1309,198 @@
    "note": "Pan servo cradle, bridges the yokes."
   },
   {
+   "name": "gm_l_j1_housing",
+   "file": "gm_l_j1_housing.stl",
+   "link": "lift",
+   "group": "torso",
+   "kind": "print",
+   "color": "shell",
+   "material": "PETG",
+   "mass_g": 34.3,
+   "print": "gm_housing",
+   "note": "Ring gear inside. Prints flange-down; PETG-CF or nylon if you have it."
+  },
+  {
+   "name": "gm_l_j1_cap",
+   "file": "gm_l_j1_cap.stl",
+   "link": "lift",
+   "group": "torso",
+   "kind": "print",
+   "color": "shell",
+   "material": "PETG",
+   "mass_g": 3.2,
+   "print": "gm_cap",
+   "note": "Closes the servo sleeve."
+  },
+  {
+   "name": "gm_l_j1_carrier",
+   "file": "gm_l_j1_carrier.stl",
+   "link": "l_link1",
+   "group": "torso",
+   "kind": "print",
+   "color": "dark",
+   "material": "PETG",
+   "mass_g": 8.9,
+   "print": "gm_carrier",
+   "note": "Output: hub runs in the 6807, disc takes the link's 6 x M3."
+  },
+  {
+   "name": "gm_l_j1_carrier_back",
+   "file": "gm_l_j1_carrier_back.stl",
+   "link": "l_link1",
+   "group": "torso",
+   "kind": "print",
+   "color": "dark",
+   "material": "PETG",
+   "mass_g": 2.1,
+   "print": "gm_carrier_back",
+   "note": "Back plate; the three M3 x 20 pins screw through it."
+  },
+  {
+   "name": "gm_l_j1_sun",
+   "file": "gm_l_j1_sun.stl",
+   "link": "lift",
+   "group": "torso",
+   "kind": "print",
+   "color": "accent",
+   "material": "PETG",
+   "mass_g": 2.0,
+   "print": "gm_sun",
+   "note": "12 T on the servo horn. 100% infill."
+  },
+  {
+   "name": "gm_l_j1_planet0",
+   "file": "gm_l_j1_planet0.stl",
+   "link": "l_link1",
+   "group": "torso",
+   "kind": "print",
+   "color": "accent",
+   "material": "PETG",
+   "mass_g": 2.3,
+   "print": "gm_planet",
+   "note": "18 T planet. Print 3 per module, 100% infill."
+  },
+  {
+   "name": "gm_l_j1_planet1",
+   "file": "gm_l_j1_planet1.stl",
+   "link": "l_link1",
+   "group": "torso",
+   "kind": "print",
+   "color": "accent",
+   "material": "PETG",
+   "mass_g": 2.3,
+   "print": "gm_planet",
+   "note": ""
+  },
+  {
+   "name": "gm_l_j1_planet2",
+   "file": "gm_l_j1_planet2.stl",
+   "link": "l_link1",
+   "group": "torso",
+   "kind": "print",
+   "color": "accent",
+   "material": "PETG",
+   "mass_g": 2.3,
+   "print": "gm_planet",
+   "note": ""
+  },
+  {
+   "name": "gm_r_j1_housing",
+   "file": "gm_r_j1_housing.stl",
+   "link": "lift",
+   "group": "torso",
+   "kind": "print",
+   "color": "shell",
+   "material": "PETG",
+   "mass_g": 34.3,
+   "print": "gm_housing",
+   "note": "Ring gear inside. Prints flange-down; PETG-CF or nylon if you have it."
+  },
+  {
+   "name": "gm_r_j1_cap",
+   "file": "gm_r_j1_cap.stl",
+   "link": "lift",
+   "group": "torso",
+   "kind": "print",
+   "color": "shell",
+   "material": "PETG",
+   "mass_g": 3.2,
+   "print": "gm_cap",
+   "note": "Closes the servo sleeve."
+  },
+  {
+   "name": "gm_r_j1_carrier",
+   "file": "gm_r_j1_carrier.stl",
+   "link": "r_link1",
+   "group": "torso",
+   "kind": "print",
+   "color": "dark",
+   "material": "PETG",
+   "mass_g": 8.9,
+   "print": "gm_carrier",
+   "note": "Output: hub runs in the 6807, disc takes the link's 6 x M3."
+  },
+  {
+   "name": "gm_r_j1_carrier_back",
+   "file": "gm_r_j1_carrier_back.stl",
+   "link": "r_link1",
+   "group": "torso",
+   "kind": "print",
+   "color": "dark",
+   "material": "PETG",
+   "mass_g": 2.1,
+   "print": "gm_carrier_back",
+   "note": "Back plate; the three M3 x 20 pins screw through it."
+  },
+  {
+   "name": "gm_r_j1_sun",
+   "file": "gm_r_j1_sun.stl",
+   "link": "lift",
+   "group": "torso",
+   "kind": "print",
+   "color": "accent",
+   "material": "PETG",
+   "mass_g": 2.0,
+   "print": "gm_sun",
+   "note": "12 T on the servo horn. 100% infill."
+  },
+  {
+   "name": "gm_r_j1_planet0",
+   "file": "gm_r_j1_planet0.stl",
+   "link": "r_link1",
+   "group": "torso",
+   "kind": "print",
+   "color": "accent",
+   "material": "PETG",
+   "mass_g": 2.3,
+   "print": "gm_planet",
+   "note": "18 T planet. Print 3 per module, 100% infill."
+  },
+  {
+   "name": "gm_r_j1_planet1",
+   "file": "gm_r_j1_planet1.stl",
+   "link": "r_link1",
+   "group": "torso",
+   "kind": "print",
+   "color": "accent",
+   "material": "PETG",
+   "mass_g": 2.3,
+   "print": "gm_planet",
+   "note": ""
+  },
+  {
+   "name": "gm_r_j1_planet2",
+   "file": "gm_r_j1_planet2.stl",
+   "link": "r_link1",
+   "group": "torso",
+   "kind": "print",
+   "color": "accent",
+   "material": "PETG",
+   "mass_g": 2.3,
+   "print": "gm_planet",
+   "note": ""
+  },
+  {
    "name": "torso_lower_l",
    "file": "torso_lower_l.stl",
    "link": "lift",
@@ -1316,7 +1508,7 @@
    "kind": "print",
    "color": "shell",
    "material": "PETG",
-   "mass_g": 169.5,
+   "mass_g": 164.6,
    "print": "torso_lower_l",
    "note": "Lower tier prints floor-down; upper tier prints top-down."
   },
@@ -1328,7 +1520,7 @@
    "kind": "print",
    "color": "shell",
    "material": "PETG",
-   "mass_g": 169.5,
+   "mass_g": 164.6,
    "print": "torso_lower_r",
    "note": "Lower tier prints floor-down; upper tier prints top-down."
   },
@@ -1340,7 +1532,7 @@
    "kind": "print",
    "color": "shell",
    "material": "PETG",
-   "mass_g": 161.2,
+   "mass_g": 157.0,
    "print": "torso_upper_l",
    "note": "Lower tier prints floor-down; upper tier prints top-down."
   },
@@ -1352,9 +1544,45 @@
    "kind": "print",
    "color": "shell",
    "material": "PETG",
-   "mass_g": 161.2,
+   "mass_g": 157.0,
    "print": "torso_upper_r",
    "note": "Lower tier prints floor-down; upper tier prints top-down."
+  },
+  {
+   "name": "ear_l",
+   "file": "ear_l.stl",
+   "link": "head_tilt",
+   "group": "head",
+   "kind": "print",
+   "color": "dark",
+   "material": "PETG",
+   "mass_g": 9.6,
+   "print": "ear_l",
+   "note": "Press-fits into the head's left side. Speaker grille."
+  },
+  {
+   "name": "ear_r",
+   "file": "ear_r.stl",
+   "link": "head_tilt",
+   "group": "head",
+   "kind": "print",
+   "color": "dark",
+   "material": "PETG",
+   "mass_g": 9.8,
+   "print": "ear_r",
+   "note": "Mic grille."
+  },
+  {
+   "name": "neck_collar",
+   "file": "neck_collar.stl",
+   "link": "head_pan",
+   "group": "head",
+   "kind": "print",
+   "color": "dark",
+   "material": "PETG",
+   "mass_g": 7.3,
+   "print": "neck_collar",
+   "note": "Clips around the neck yoke and hides the pan servo."
   },
   {
    "name": "neck_yoke",
@@ -1376,7 +1604,7 @@
    "kind": "print",
    "color": "frame",
    "material": "PETG",
-   "mass_g": 80.9,
+   "mass_g": 73.9,
    "print": "head_frame",
    "note": "Tilt horn and idler, camera post, eye plate."
   },
@@ -1412,7 +1640,7 @@
    "kind": "print",
    "color": "shell",
    "material": "PETG",
-   "mass_g": 76.3,
+   "mass_g": 63.3,
    "print": "head_lower",
    "note": "Floor down."
   },
@@ -1424,7 +1652,7 @@
    "kind": "print",
    "color": "shell",
    "material": "PETG",
-   "mass_g": 184.9,
+   "mass_g": 156.1,
    "print": "head_upper",
    "note": "Top down. Visor fits from inside."
   },
@@ -1436,7 +1664,7 @@
    "kind": "print",
    "color": "shell",
    "material": "PETG",
-   "mass_g": 49.1,
+   "mass_g": 27.8,
    "print": "shoulder_l",
    "note": "J1 output to the J2 cup. Screw it to J1 before J2 goes in."
   },
@@ -1448,7 +1676,7 @@
    "kind": "print",
    "color": "frame",
    "material": "PETG",
-   "mass_g": 45.4,
+   "mass_g": 35.3,
    "print": "clevis_l",
    "note": "J2 output, holds J3."
   },
@@ -1460,7 +1688,7 @@
    "kind": "print",
    "color": "shell",
    "material": "PETG",
-   "mass_g": 44.6,
+   "mass_g": 39.8,
    "print": "upper_arm_a_l",
    "note": "Clamshell half. Prints on the split face."
   },
@@ -1472,7 +1700,7 @@
    "kind": "print",
    "color": "shell",
    "material": "PETG",
-   "mass_g": 44.6,
+   "mass_g": 39.8,
    "print": "upper_arm_b_l",
    "note": "Clamshell half with the nut traps."
   },
@@ -1597,6 +1825,294 @@
    "note": "TPU 95A."
   },
   {
+   "name": "gm_l_j2_housing",
+   "file": "gm_l_j2_housing.stl",
+   "link": "l_link1",
+   "group": "arm",
+   "kind": "print",
+   "color": "shell",
+   "material": "PETG",
+   "mass_g": 34.3,
+   "print": "gm_housing",
+   "note": "Ring gear inside. Prints flange-down; PETG-CF or nylon if you have it."
+  },
+  {
+   "name": "gm_l_j2_cap",
+   "file": "gm_l_j2_cap.stl",
+   "link": "l_link1",
+   "group": "arm",
+   "kind": "print",
+   "color": "shell",
+   "material": "PETG",
+   "mass_g": 3.2,
+   "print": "gm_cap",
+   "note": "Closes the servo sleeve."
+  },
+  {
+   "name": "gm_l_j2_carrier",
+   "file": "gm_l_j2_carrier.stl",
+   "link": "l_link2",
+   "group": "arm",
+   "kind": "print",
+   "color": "dark",
+   "material": "PETG",
+   "mass_g": 8.9,
+   "print": "gm_carrier",
+   "note": "Output: hub runs in the 6807, disc takes the link's 6 x M3."
+  },
+  {
+   "name": "gm_l_j2_carrier_back",
+   "file": "gm_l_j2_carrier_back.stl",
+   "link": "l_link2",
+   "group": "arm",
+   "kind": "print",
+   "color": "dark",
+   "material": "PETG",
+   "mass_g": 2.1,
+   "print": "gm_carrier_back",
+   "note": "Back plate; the three M3 x 20 pins screw through it."
+  },
+  {
+   "name": "gm_l_j2_sun",
+   "file": "gm_l_j2_sun.stl",
+   "link": "l_link1",
+   "group": "arm",
+   "kind": "print",
+   "color": "accent",
+   "material": "PETG",
+   "mass_g": 2.0,
+   "print": "gm_sun",
+   "note": "12 T on the servo horn. 100% infill."
+  },
+  {
+   "name": "gm_l_j2_planet0",
+   "file": "gm_l_j2_planet0.stl",
+   "link": "l_link2",
+   "group": "arm",
+   "kind": "print",
+   "color": "accent",
+   "material": "PETG",
+   "mass_g": 2.3,
+   "print": "gm_planet",
+   "note": "18 T planet. Print 3 per module, 100% infill."
+  },
+  {
+   "name": "gm_l_j2_planet1",
+   "file": "gm_l_j2_planet1.stl",
+   "link": "l_link2",
+   "group": "arm",
+   "kind": "print",
+   "color": "accent",
+   "material": "PETG",
+   "mass_g": 2.3,
+   "print": "gm_planet",
+   "note": ""
+  },
+  {
+   "name": "gm_l_j2_planet2",
+   "file": "gm_l_j2_planet2.stl",
+   "link": "l_link2",
+   "group": "arm",
+   "kind": "print",
+   "color": "accent",
+   "material": "PETG",
+   "mass_g": 2.3,
+   "print": "gm_planet",
+   "note": ""
+  },
+  {
+   "name": "gm_l_j3_housing",
+   "file": "gm_l_j3_housing.stl",
+   "link": "l_link2",
+   "group": "arm",
+   "kind": "print",
+   "color": "shell",
+   "material": "PETG",
+   "mass_g": 34.3,
+   "print": "gm_housing",
+   "note": "Ring gear inside. Prints flange-down; PETG-CF or nylon if you have it."
+  },
+  {
+   "name": "gm_l_j3_cap",
+   "file": "gm_l_j3_cap.stl",
+   "link": "l_link2",
+   "group": "arm",
+   "kind": "print",
+   "color": "shell",
+   "material": "PETG",
+   "mass_g": 3.2,
+   "print": "gm_cap",
+   "note": "Closes the servo sleeve."
+  },
+  {
+   "name": "gm_l_j3_carrier",
+   "file": "gm_l_j3_carrier.stl",
+   "link": "l_link3",
+   "group": "arm",
+   "kind": "print",
+   "color": "dark",
+   "material": "PETG",
+   "mass_g": 8.9,
+   "print": "gm_carrier",
+   "note": "Output: hub runs in the 6807, disc takes the link's 6 x M3."
+  },
+  {
+   "name": "gm_l_j3_carrier_back",
+   "file": "gm_l_j3_carrier_back.stl",
+   "link": "l_link3",
+   "group": "arm",
+   "kind": "print",
+   "color": "dark",
+   "material": "PETG",
+   "mass_g": 2.1,
+   "print": "gm_carrier_back",
+   "note": "Back plate; the three M3 x 20 pins screw through it."
+  },
+  {
+   "name": "gm_l_j3_sun",
+   "file": "gm_l_j3_sun.stl",
+   "link": "l_link2",
+   "group": "arm",
+   "kind": "print",
+   "color": "accent",
+   "material": "PETG",
+   "mass_g": 2.0,
+   "print": "gm_sun",
+   "note": "12 T on the servo horn. 100% infill."
+  },
+  {
+   "name": "gm_l_j3_planet0",
+   "file": "gm_l_j3_planet0.stl",
+   "link": "l_link3",
+   "group": "arm",
+   "kind": "print",
+   "color": "accent",
+   "material": "PETG",
+   "mass_g": 2.3,
+   "print": "gm_planet",
+   "note": "18 T planet. Print 3 per module, 100% infill."
+  },
+  {
+   "name": "gm_l_j3_planet1",
+   "file": "gm_l_j3_planet1.stl",
+   "link": "l_link3",
+   "group": "arm",
+   "kind": "print",
+   "color": "accent",
+   "material": "PETG",
+   "mass_g": 2.3,
+   "print": "gm_planet",
+   "note": ""
+  },
+  {
+   "name": "gm_l_j3_planet2",
+   "file": "gm_l_j3_planet2.stl",
+   "link": "l_link3",
+   "group": "arm",
+   "kind": "print",
+   "color": "accent",
+   "material": "PETG",
+   "mass_g": 2.3,
+   "print": "gm_planet",
+   "note": ""
+  },
+  {
+   "name": "gm_l_j4_housing",
+   "file": "gm_l_j4_housing.stl",
+   "link": "l_link3",
+   "group": "arm",
+   "kind": "print",
+   "color": "shell",
+   "material": "PETG",
+   "mass_g": 34.3,
+   "print": "gm_housing",
+   "note": "Ring gear inside. Prints flange-down; PETG-CF or nylon if you have it."
+  },
+  {
+   "name": "gm_l_j4_cap",
+   "file": "gm_l_j4_cap.stl",
+   "link": "l_link3",
+   "group": "arm",
+   "kind": "print",
+   "color": "shell",
+   "material": "PETG",
+   "mass_g": 3.2,
+   "print": "gm_cap",
+   "note": "Closes the servo sleeve."
+  },
+  {
+   "name": "gm_l_j4_carrier",
+   "file": "gm_l_j4_carrier.stl",
+   "link": "l_link4",
+   "group": "arm",
+   "kind": "print",
+   "color": "dark",
+   "material": "PETG",
+   "mass_g": 8.9,
+   "print": "gm_carrier",
+   "note": "Output: hub runs in the 6807, disc takes the link's 6 x M3."
+  },
+  {
+   "name": "gm_l_j4_carrier_back",
+   "file": "gm_l_j4_carrier_back.stl",
+   "link": "l_link4",
+   "group": "arm",
+   "kind": "print",
+   "color": "dark",
+   "material": "PETG",
+   "mass_g": 2.1,
+   "print": "gm_carrier_back",
+   "note": "Back plate; the three M3 x 20 pins screw through it."
+  },
+  {
+   "name": "gm_l_j4_sun",
+   "file": "gm_l_j4_sun.stl",
+   "link": "l_link3",
+   "group": "arm",
+   "kind": "print",
+   "color": "accent",
+   "material": "PETG",
+   "mass_g": 2.0,
+   "print": "gm_sun",
+   "note": "12 T on the servo horn. 100% infill."
+  },
+  {
+   "name": "gm_l_j4_planet0",
+   "file": "gm_l_j4_planet0.stl",
+   "link": "l_link4",
+   "group": "arm",
+   "kind": "print",
+   "color": "accent",
+   "material": "PETG",
+   "mass_g": 2.3,
+   "print": "gm_planet",
+   "note": "18 T planet. Print 3 per module, 100% infill."
+  },
+  {
+   "name": "gm_l_j4_planet1",
+   "file": "gm_l_j4_planet1.stl",
+   "link": "l_link4",
+   "group": "arm",
+   "kind": "print",
+   "color": "accent",
+   "material": "PETG",
+   "mass_g": 2.3,
+   "print": "gm_planet",
+   "note": ""
+  },
+  {
+   "name": "gm_l_j4_planet2",
+   "file": "gm_l_j4_planet2.stl",
+   "link": "l_link4",
+   "group": "arm",
+   "kind": "print",
+   "color": "accent",
+   "material": "PETG",
+   "mass_g": 2.3,
+   "print": "gm_planet",
+   "note": ""
+  },
+  {
    "name": "shoulder_r",
    "file": "shoulder_r.stl",
    "link": "r_link1",
@@ -1604,7 +2120,7 @@
    "kind": "print",
    "color": "shell",
    "material": "PETG",
-   "mass_g": 49.1,
+   "mass_g": 27.8,
    "print": "shoulder_r",
    "note": "J1 output to the J2 cup. Screw it to J1 before J2 goes in."
   },
@@ -1616,7 +2132,7 @@
    "kind": "print",
    "color": "frame",
    "material": "PETG",
-   "mass_g": 45.4,
+   "mass_g": 35.3,
    "print": "clevis_r",
    "note": "J2 output, holds J3."
   },
@@ -1628,7 +2144,7 @@
    "kind": "print",
    "color": "shell",
    "material": "PETG",
-   "mass_g": 44.6,
+   "mass_g": 39.8,
    "print": "upper_arm_a_r",
    "note": "Clamshell half. Prints on the split face."
   },
@@ -1640,7 +2156,7 @@
    "kind": "print",
    "color": "shell",
    "material": "PETG",
-   "mass_g": 44.6,
+   "mass_g": 39.8,
    "print": "upper_arm_b_r",
    "note": "Clamshell half with the nut traps."
   },
@@ -1763,6 +2279,294 @@
    "mass_g": 2.1,
    "print": "pad_b_r",
    "note": "TPU 95A."
+  },
+  {
+   "name": "gm_r_j2_housing",
+   "file": "gm_r_j2_housing.stl",
+   "link": "r_link1",
+   "group": "arm",
+   "kind": "print",
+   "color": "shell",
+   "material": "PETG",
+   "mass_g": 34.3,
+   "print": "gm_housing",
+   "note": "Ring gear inside. Prints flange-down; PETG-CF or nylon if you have it."
+  },
+  {
+   "name": "gm_r_j2_cap",
+   "file": "gm_r_j2_cap.stl",
+   "link": "r_link1",
+   "group": "arm",
+   "kind": "print",
+   "color": "shell",
+   "material": "PETG",
+   "mass_g": 3.2,
+   "print": "gm_cap",
+   "note": "Closes the servo sleeve."
+  },
+  {
+   "name": "gm_r_j2_carrier",
+   "file": "gm_r_j2_carrier.stl",
+   "link": "r_link2",
+   "group": "arm",
+   "kind": "print",
+   "color": "dark",
+   "material": "PETG",
+   "mass_g": 8.9,
+   "print": "gm_carrier",
+   "note": "Output: hub runs in the 6807, disc takes the link's 6 x M3."
+  },
+  {
+   "name": "gm_r_j2_carrier_back",
+   "file": "gm_r_j2_carrier_back.stl",
+   "link": "r_link2",
+   "group": "arm",
+   "kind": "print",
+   "color": "dark",
+   "material": "PETG",
+   "mass_g": 2.1,
+   "print": "gm_carrier_back",
+   "note": "Back plate; the three M3 x 20 pins screw through it."
+  },
+  {
+   "name": "gm_r_j2_sun",
+   "file": "gm_r_j2_sun.stl",
+   "link": "r_link1",
+   "group": "arm",
+   "kind": "print",
+   "color": "accent",
+   "material": "PETG",
+   "mass_g": 2.0,
+   "print": "gm_sun",
+   "note": "12 T on the servo horn. 100% infill."
+  },
+  {
+   "name": "gm_r_j2_planet0",
+   "file": "gm_r_j2_planet0.stl",
+   "link": "r_link2",
+   "group": "arm",
+   "kind": "print",
+   "color": "accent",
+   "material": "PETG",
+   "mass_g": 2.3,
+   "print": "gm_planet",
+   "note": "18 T planet. Print 3 per module, 100% infill."
+  },
+  {
+   "name": "gm_r_j2_planet1",
+   "file": "gm_r_j2_planet1.stl",
+   "link": "r_link2",
+   "group": "arm",
+   "kind": "print",
+   "color": "accent",
+   "material": "PETG",
+   "mass_g": 2.3,
+   "print": "gm_planet",
+   "note": ""
+  },
+  {
+   "name": "gm_r_j2_planet2",
+   "file": "gm_r_j2_planet2.stl",
+   "link": "r_link2",
+   "group": "arm",
+   "kind": "print",
+   "color": "accent",
+   "material": "PETG",
+   "mass_g": 2.3,
+   "print": "gm_planet",
+   "note": ""
+  },
+  {
+   "name": "gm_r_j3_housing",
+   "file": "gm_r_j3_housing.stl",
+   "link": "r_link2",
+   "group": "arm",
+   "kind": "print",
+   "color": "shell",
+   "material": "PETG",
+   "mass_g": 34.3,
+   "print": "gm_housing",
+   "note": "Ring gear inside. Prints flange-down; PETG-CF or nylon if you have it."
+  },
+  {
+   "name": "gm_r_j3_cap",
+   "file": "gm_r_j3_cap.stl",
+   "link": "r_link2",
+   "group": "arm",
+   "kind": "print",
+   "color": "shell",
+   "material": "PETG",
+   "mass_g": 3.2,
+   "print": "gm_cap",
+   "note": "Closes the servo sleeve."
+  },
+  {
+   "name": "gm_r_j3_carrier",
+   "file": "gm_r_j3_carrier.stl",
+   "link": "r_link3",
+   "group": "arm",
+   "kind": "print",
+   "color": "dark",
+   "material": "PETG",
+   "mass_g": 8.9,
+   "print": "gm_carrier",
+   "note": "Output: hub runs in the 6807, disc takes the link's 6 x M3."
+  },
+  {
+   "name": "gm_r_j3_carrier_back",
+   "file": "gm_r_j3_carrier_back.stl",
+   "link": "r_link3",
+   "group": "arm",
+   "kind": "print",
+   "color": "dark",
+   "material": "PETG",
+   "mass_g": 2.1,
+   "print": "gm_carrier_back",
+   "note": "Back plate; the three M3 x 20 pins screw through it."
+  },
+  {
+   "name": "gm_r_j3_sun",
+   "file": "gm_r_j3_sun.stl",
+   "link": "r_link2",
+   "group": "arm",
+   "kind": "print",
+   "color": "accent",
+   "material": "PETG",
+   "mass_g": 2.0,
+   "print": "gm_sun",
+   "note": "12 T on the servo horn. 100% infill."
+  },
+  {
+   "name": "gm_r_j3_planet0",
+   "file": "gm_r_j3_planet0.stl",
+   "link": "r_link3",
+   "group": "arm",
+   "kind": "print",
+   "color": "accent",
+   "material": "PETG",
+   "mass_g": 2.3,
+   "print": "gm_planet",
+   "note": "18 T planet. Print 3 per module, 100% infill."
+  },
+  {
+   "name": "gm_r_j3_planet1",
+   "file": "gm_r_j3_planet1.stl",
+   "link": "r_link3",
+   "group": "arm",
+   "kind": "print",
+   "color": "accent",
+   "material": "PETG",
+   "mass_g": 2.3,
+   "print": "gm_planet",
+   "note": ""
+  },
+  {
+   "name": "gm_r_j3_planet2",
+   "file": "gm_r_j3_planet2.stl",
+   "link": "r_link3",
+   "group": "arm",
+   "kind": "print",
+   "color": "accent",
+   "material": "PETG",
+   "mass_g": 2.3,
+   "print": "gm_planet",
+   "note": ""
+  },
+  {
+   "name": "gm_r_j4_housing",
+   "file": "gm_r_j4_housing.stl",
+   "link": "r_link3",
+   "group": "arm",
+   "kind": "print",
+   "color": "shell",
+   "material": "PETG",
+   "mass_g": 34.3,
+   "print": "gm_housing",
+   "note": "Ring gear inside. Prints flange-down; PETG-CF or nylon if you have it."
+  },
+  {
+   "name": "gm_r_j4_cap",
+   "file": "gm_r_j4_cap.stl",
+   "link": "r_link3",
+   "group": "arm",
+   "kind": "print",
+   "color": "shell",
+   "material": "PETG",
+   "mass_g": 3.2,
+   "print": "gm_cap",
+   "note": "Closes the servo sleeve."
+  },
+  {
+   "name": "gm_r_j4_carrier",
+   "file": "gm_r_j4_carrier.stl",
+   "link": "r_link4",
+   "group": "arm",
+   "kind": "print",
+   "color": "dark",
+   "material": "PETG",
+   "mass_g": 8.9,
+   "print": "gm_carrier",
+   "note": "Output: hub runs in the 6807, disc takes the link's 6 x M3."
+  },
+  {
+   "name": "gm_r_j4_carrier_back",
+   "file": "gm_r_j4_carrier_back.stl",
+   "link": "r_link4",
+   "group": "arm",
+   "kind": "print",
+   "color": "dark",
+   "material": "PETG",
+   "mass_g": 2.1,
+   "print": "gm_carrier_back",
+   "note": "Back plate; the three M3 x 20 pins screw through it."
+  },
+  {
+   "name": "gm_r_j4_sun",
+   "file": "gm_r_j4_sun.stl",
+   "link": "r_link3",
+   "group": "arm",
+   "kind": "print",
+   "color": "accent",
+   "material": "PETG",
+   "mass_g": 2.0,
+   "print": "gm_sun",
+   "note": "12 T on the servo horn. 100% infill."
+  },
+  {
+   "name": "gm_r_j4_planet0",
+   "file": "gm_r_j4_planet0.stl",
+   "link": "r_link4",
+   "group": "arm",
+   "kind": "print",
+   "color": "accent",
+   "material": "PETG",
+   "mass_g": 2.3,
+   "print": "gm_planet",
+   "note": "18 T planet. Print 3 per module, 100% infill."
+  },
+  {
+   "name": "gm_r_j4_planet1",
+   "file": "gm_r_j4_planet1.stl",
+   "link": "r_link4",
+   "group": "arm",
+   "kind": "print",
+   "color": "accent",
+   "material": "PETG",
+   "mass_g": 2.3,
+   "print": "gm_planet",
+   "note": ""
+  },
+  {
+   "name": "gm_r_j4_planet2",
+   "file": "gm_r_j4_planet2.stl",
+   "link": "r_link4",
+   "group": "arm",
+   "kind": "print",
+   "color": "accent",
+   "material": "PETG",
+   "mass_g": 2.3,
+   "print": "gm_planet",
+   "note": ""
   },
   {
    "name": "joiner_00",
@@ -3032,28 +3836,6 @@
    "bom": "tmc"
   },
   {
-   "name": "buck_24v",
-   "file": "buck_24v.stl",
-   "link": "base",
-   "group": "base",
-   "kind": "electronics",
-   "color": "alu",
-   "material": "bought",
-   "mass_g": 260,
-   "bom": "buck24"
-  },
-  {
-   "name": "buck_24v_terms",
-   "file": "buck_24v_terms.stl",
-   "link": "base",
-   "group": "base",
-   "kind": "electronics",
-   "color": "black",
-   "material": "bought",
-   "mass_g": 0.0,
-   "bom": "buck24"
-  },
-  {
    "name": "buck_12v",
    "file": "buck_12v.stl",
    "link": "base",
@@ -3061,7 +3843,7 @@
    "kind": "electronics",
    "color": "alu",
    "material": "bought",
-   "mass_g": 150,
+   "mass_g": 260,
    "bom": "buck12"
   },
   {
@@ -3076,59 +3858,59 @@
    "bom": "buck12"
   },
   {
-   "name": "buck_19v",
-   "file": "buck_19v.stl",
+   "name": "buck_5v",
+   "file": "buck_5v.stl",
    "link": "base",
    "group": "base",
    "kind": "electronics",
    "color": "pcb_blue",
    "material": "bought",
    "mass_g": 70,
-   "bom": "buck19"
+   "bom": "buck5"
   },
   {
-   "name": "buck_19v_sink",
-   "file": "buck_19v_sink.stl",
+   "name": "buck_5v_sink",
+   "file": "buck_5v_sink.stl",
    "link": "base",
    "group": "base",
    "kind": "electronics",
    "color": "alu",
    "material": "bought",
    "mass_g": 0.0,
-   "bom": "buck19"
+   "bom": "buck5"
   },
   {
-   "name": "buck_19v_ind",
-   "file": "buck_19v_ind.stl",
+   "name": "buck_5v_ind",
+   "file": "buck_5v_ind.stl",
    "link": "base",
    "group": "base",
    "kind": "electronics",
    "color": "copper",
    "material": "bought",
    "mass_g": 0.0,
-   "bom": "buck19"
+   "bom": "buck5"
   },
   {
-   "name": "buck_19v_cap",
-   "file": "buck_19v_cap.stl",
+   "name": "buck_5v_cap",
+   "file": "buck_5v_cap.stl",
    "link": "base",
    "group": "base",
    "kind": "electronics",
    "color": "black",
    "material": "bought",
    "mass_g": 0.0,
-   "bom": "buck19"
+   "bom": "buck5"
   },
   {
-   "name": "buck_19v_terms",
-   "file": "buck_19v_terms.stl",
+   "name": "buck_5v_terms",
+   "file": "buck_5v_terms.stl",
    "link": "base",
    "group": "base",
    "kind": "electronics",
    "color": "green",
    "material": "bought",
    "mass_g": 0.0,
-   "bom": "buck19"
+   "bom": "buck5"
   },
   {
    "name": "fuse_block",
@@ -3217,6 +3999,17 @@
    "material": "bought",
    "mass_g": 0.0,
    "bom": "estop"
+  },
+  {
+   "name": "light_base",
+   "file": "light_base.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "electronics",
+   "color": "glow",
+   "material": "bought",
+   "mass_g": 15,
+   "bom": "ledstrip"
   },
   {
    "name": "caster_bolt_f",
@@ -3384,136 +4177,169 @@
    "bom": "t8nut"
   },
   {
-   "name": "j1_l",
-   "file": "j1_l.stl",
-   "link": "lift",
-   "group": "torso",
-   "kind": "actuator",
-   "color": "anodised",
-   "material": "bought",
-   "mass_g": 362.0,
-   "bom": "dm4340"
-  },
-  {
-   "name": "j1_l_out",
-   "file": "j1_l_out.stl",
+   "name": "gm_l_j1_servo",
+   "file": "gm_l_j1_servo.stl",
    "link": "lift",
    "group": "torso",
    "kind": "actuator",
    "color": "alu",
    "material": "bought",
-   "mass_g": 0.0,
-   "bom": "dm4340"
+   "mass_g": 75.0,
+   "bom": "sts3250"
   },
   {
-   "name": "j1_l_conn",
-   "file": "j1_l_conn.stl",
+   "name": "gm_l_j1_servo_horn",
+   "file": "gm_l_j1_servo_horn.stl",
    "link": "lift",
    "group": "torso",
    "kind": "actuator",
-   "color": "yellow",
+   "color": "white",
    "material": "bought",
    "mass_g": 0.0,
-   "bom": "dm4340"
+   "bom": ""
   },
   {
-   "name": "j1_r",
-   "file": "j1_r.stl",
+   "name": "gm_l_j1_bearing",
+   "file": "gm_l_j1_bearing.stl",
    "link": "lift",
    "group": "torso",
-   "kind": "actuator",
-   "color": "anodised",
+   "kind": "metal",
+   "color": "steel",
    "material": "bought",
-   "mass_g": 362.0,
-   "bom": "dm4340"
+   "mass_g": 28.0,
+   "bom": "b6807"
   },
   {
-   "name": "j1_r_out",
-   "file": "j1_r_out.stl",
-   "link": "lift",
+   "name": "gm_l_j1_pins",
+   "file": "gm_l_j1_pins.stl",
+   "link": "l_link1",
    "group": "torso",
-   "kind": "actuator",
-   "color": "alu",
-   "material": "bought",
-   "mass_g": 0.0,
-   "bom": "dm4340"
-  },
-  {
-   "name": "j1_r_conn",
-   "file": "j1_r_conn.stl",
-   "link": "lift",
-   "group": "torso",
-   "kind": "actuator",
-   "color": "yellow",
-   "material": "bought",
-   "mass_g": 0.0,
-   "bom": "dm4340"
-  },
-  {
-   "name": "jetson",
-   "file": "jetson.stl",
-   "link": "lift",
-   "group": "torso",
-   "kind": "electronics",
-   "color": "pcb_black",
-   "material": "bought",
-   "mass_g": 280,
-   "bom": "jetson"
-  },
-  {
-   "name": "jetson_feet",
-   "file": "jetson_feet.stl",
-   "link": "lift",
-   "group": "torso",
-   "kind": "electronics",
+   "kind": "metal",
    "color": "steel",
    "material": "bought",
    "mass_g": 0.0,
-   "bom": "jetson"
+   "bom": ""
   },
   {
-   "name": "jetson_module",
-   "file": "jetson_module.stl",
-   "link": "lift",
-   "group": "torso",
-   "kind": "electronics",
-   "color": "pcb",
-   "material": "bought",
-   "mass_g": 0.0,
-   "bom": "jetson"
-  },
-  {
-   "name": "jetson_sink",
-   "file": "jetson_sink.stl",
-   "link": "lift",
-   "group": "torso",
-   "kind": "electronics",
-   "color": "alu",
-   "material": "bought",
-   "mass_g": 0.0,
-   "bom": "jetson"
-  },
-  {
-   "name": "jetson_fan",
-   "file": "jetson_fan.stl",
+   "name": "gm_l_j1_hall",
+   "file": "gm_l_j1_hall.stl",
    "link": "lift",
    "group": "torso",
    "kind": "electronics",
    "color": "black",
    "material": "bought",
    "mass_g": 0.0,
-   "bom": "jetson"
+   "bom": "hall"
   },
   {
-   "name": "jetson_ports",
-   "file": "jetson_ports.stl",
+   "name": "gm_r_j1_servo",
+   "file": "gm_r_j1_servo.stl",
+   "link": "lift",
+   "group": "torso",
+   "kind": "actuator",
+   "color": "alu",
+   "material": "bought",
+   "mass_g": 75.0,
+   "bom": "sts3250"
+  },
+  {
+   "name": "gm_r_j1_servo_horn",
+   "file": "gm_r_j1_servo_horn.stl",
+   "link": "lift",
+   "group": "torso",
+   "kind": "actuator",
+   "color": "white",
+   "material": "bought",
+   "mass_g": 0.0,
+   "bom": ""
+  },
+  {
+   "name": "gm_r_j1_bearing",
+   "file": "gm_r_j1_bearing.stl",
+   "link": "lift",
+   "group": "torso",
+   "kind": "metal",
+   "color": "steel",
+   "material": "bought",
+   "mass_g": 28.0,
+   "bom": "b6807"
+  },
+  {
+   "name": "gm_r_j1_pins",
+   "file": "gm_r_j1_pins.stl",
+   "link": "r_link1",
+   "group": "torso",
+   "kind": "metal",
+   "color": "steel",
+   "material": "bought",
+   "mass_g": 0.0,
+   "bom": ""
+  },
+  {
+   "name": "gm_r_j1_hall",
+   "file": "gm_r_j1_hall.stl",
+   "link": "lift",
+   "group": "torso",
+   "kind": "electronics",
+   "color": "black",
+   "material": "bought",
+   "mass_g": 0.0,
+   "bom": "hall"
+  },
+  {
+   "name": "pi5",
+   "file": "pi5.stl",
+   "link": "lift",
+   "group": "torso",
+   "kind": "electronics",
+   "color": "pcb",
+   "material": "bought",
+   "mass_g": 75,
+   "bom": "pi5"
+  },
+  {
+   "name": "pi5_feet",
+   "file": "pi5_feet.stl",
    "link": "lift",
    "group": "torso",
    "kind": "electronics",
    "color": "steel",
    "material": "bought",
    "mass_g": 0.0,
-   "bom": "jetson"
+   "bom": "pi5"
+  },
+  {
+   "name": "pi5_cooler",
+   "file": "pi5_cooler.stl",
+   "link": "lift",
+   "group": "torso",
+   "kind": "electronics",
+   "color": "alu",
+   "material": "bought",
+   "mass_g": 0.0,
+   "bom": "pi5"
+  },
+  {
+   "name": "pi5_fan",
+   "file": "pi5_fan.stl",
+   "link": "lift",
+   "group": "torso",
+   "kind": "electronics",
+   "color": "black",
+   "material": "bought",
+   "mass_g": 0.0,
+   "bom": "pi5"
+  },
+  {
+   "name": "pi5_ports",
+   "file": "pi5_ports.stl",
+   "link": "lift",
+   "group": "torso",
+   "kind": "electronics",
+   "color": "steel",
+   "material": "bought",
+   "mass_g": 0.0,
+   "bom": "pi5"
   },
   {
    "name": "usb_hub",
@@ -3538,48 +4364,26 @@
    "bom": "usbhub"
   },
   {
-   "name": "can_l",
-   "file": "can_l.stl",
+   "name": "arm_io",
+   "file": "arm_io.stl",
    "link": "lift",
    "group": "torso",
    "kind": "electronics",
    "color": "pcb",
    "material": "bought",
-   "mass_g": 25,
-   "bom": "usbcan"
+   "mass_g": 5,
+   "bom": "esp32c3"
   },
   {
-   "name": "can_l_ports",
-   "file": "can_l_ports.stl",
+   "name": "arm_io_ports",
+   "file": "arm_io_ports.stl",
    "link": "lift",
    "group": "torso",
    "kind": "electronics",
    "color": "steel",
    "material": "bought",
    "mass_g": 0.0,
-   "bom": "usbcan"
-  },
-  {
-   "name": "can_r",
-   "file": "can_r.stl",
-   "link": "lift",
-   "group": "torso",
-   "kind": "electronics",
-   "color": "pcb",
-   "material": "bought",
-   "mass_g": 25,
-   "bom": "usbcan"
-  },
-  {
-   "name": "can_r_ports",
-   "file": "can_r_ports.stl",
-   "link": "lift",
-   "group": "torso",
-   "kind": "electronics",
-   "color": "steel",
-   "material": "bought",
-   "mass_g": 0.0,
-   "bom": "usbcan"
+   "bom": "esp32c3"
   },
   {
    "name": "servo_bus",
@@ -3670,6 +4474,28 @@
    "bom": "sts3215"
   },
   {
+   "name": "light_chest",
+   "file": "light_chest.stl",
+   "link": "lift",
+   "group": "torso",
+   "kind": "electronics",
+   "color": "glow",
+   "material": "bought",
+   "mass_g": 5,
+   "bom": "ledstrip"
+  },
+  {
+   "name": "light_mast",
+   "file": "light_mast.stl",
+   "link": "base",
+   "group": "mast",
+   "kind": "electronics",
+   "color": "glow",
+   "material": "bought",
+   "mass_g": 5,
+   "bom": "ledstrip"
+  },
+  {
    "name": "tilt_servo",
    "file": "tilt_servo.stl",
    "link": "head_pan",
@@ -3692,37 +4518,48 @@
    "bom": "sts3215"
   },
   {
-   "name": "d435",
-   "file": "d435.stl",
+   "name": "head_cam",
+   "file": "head_cam.stl",
    "link": "head_tilt",
    "group": "head",
    "kind": "electronics",
-   "color": "alu",
+   "color": "pcb",
    "material": "bought",
-   "mass_g": 72,
-   "bom": "d435"
+   "mass_g": 25,
+   "bom": "headcam"
   },
   {
-   "name": "d435_glass",
-   "file": "d435_glass.stl",
+   "name": "head_cam_holder",
+   "file": "head_cam_holder.stl",
    "link": "head_tilt",
    "group": "head",
    "kind": "electronics",
-   "color": "glass",
+   "color": "black",
    "material": "bought",
    "mass_g": 0.0,
-   "bom": "d435"
+   "bom": "headcam"
   },
   {
-   "name": "d435_lens",
-   "file": "d435_lens.stl",
+   "name": "head_cam_lens",
+   "file": "head_cam_lens.stl",
+   "link": "head_tilt",
+   "group": "head",
+   "kind": "electronics",
+   "color": "black",
+   "material": "bought",
+   "mass_g": 0.0,
+   "bom": "headcam"
+  },
+  {
+   "name": "head_cam_glass",
+   "file": "head_cam_glass.stl",
    "link": "head_tilt",
    "group": "head",
    "kind": "electronics",
    "color": "lens",
    "material": "bought",
    "mass_g": 0.0,
-   "bom": "d435"
+   "bom": "headcam"
   },
   {
    "name": "esp32s3_head",
@@ -3846,103 +4683,169 @@
    "bom": "eye"
   },
   {
-   "name": "j2_l",
-   "file": "j2_l.stl",
-   "link": "l_link1",
-   "group": "arm",
-   "kind": "actuator",
-   "color": "anodised",
-   "material": "bought",
-   "mass_g": 362.0,
-   "bom": "dm4340"
-  },
-  {
-   "name": "j2_l_out",
-   "file": "j2_l_out.stl",
+   "name": "gm_l_j2_servo",
+   "file": "gm_l_j2_servo.stl",
    "link": "l_link1",
    "group": "arm",
    "kind": "actuator",
    "color": "alu",
    "material": "bought",
-   "mass_g": 0.0,
-   "bom": "dm4340"
+   "mass_g": 75.0,
+   "bom": "sts3250"
   },
   {
-   "name": "j2_l_conn",
-   "file": "j2_l_conn.stl",
+   "name": "gm_l_j2_servo_horn",
+   "file": "gm_l_j2_servo_horn.stl",
    "link": "l_link1",
    "group": "arm",
    "kind": "actuator",
-   "color": "yellow",
+   "color": "white",
    "material": "bought",
    "mass_g": 0.0,
-   "bom": "dm4340"
+   "bom": ""
   },
   {
-   "name": "j3_l",
-   "file": "j3_l.stl",
+   "name": "gm_l_j2_bearing",
+   "file": "gm_l_j2_bearing.stl",
+   "link": "l_link1",
+   "group": "arm",
+   "kind": "metal",
+   "color": "steel",
+   "material": "bought",
+   "mass_g": 28.0,
+   "bom": "b6807"
+  },
+  {
+   "name": "gm_l_j2_pins",
+   "file": "gm_l_j2_pins.stl",
    "link": "l_link2",
    "group": "arm",
-   "kind": "actuator",
-   "color": "anodised",
+   "kind": "metal",
+   "color": "steel",
    "material": "bought",
-   "mass_g": 300.0,
-   "bom": "dm4310"
+   "mass_g": 0.0,
+   "bom": ""
   },
   {
-   "name": "j3_l_out",
-   "file": "j3_l_out.stl",
+   "name": "gm_l_j2_hall",
+   "file": "gm_l_j2_hall.stl",
+   "link": "l_link1",
+   "group": "arm",
+   "kind": "electronics",
+   "color": "black",
+   "material": "bought",
+   "mass_g": 0.0,
+   "bom": "hall"
+  },
+  {
+   "name": "gm_l_j3_servo",
+   "file": "gm_l_j3_servo.stl",
    "link": "l_link2",
    "group": "arm",
    "kind": "actuator",
    "color": "alu",
    "material": "bought",
-   "mass_g": 0.0,
-   "bom": "dm4310"
+   "mass_g": 75.0,
+   "bom": "sts3250"
   },
   {
-   "name": "j3_l_conn",
-   "file": "j3_l_conn.stl",
+   "name": "gm_l_j3_servo_horn",
+   "file": "gm_l_j3_servo_horn.stl",
    "link": "l_link2",
    "group": "arm",
    "kind": "actuator",
-   "color": "yellow",
+   "color": "white",
    "material": "bought",
    "mass_g": 0.0,
-   "bom": "dm4310"
+   "bom": ""
   },
   {
-   "name": "j4_l",
-   "file": "j4_l.stl",
+   "name": "gm_l_j3_bearing",
+   "file": "gm_l_j3_bearing.stl",
+   "link": "l_link2",
+   "group": "arm",
+   "kind": "metal",
+   "color": "steel",
+   "material": "bought",
+   "mass_g": 28.0,
+   "bom": "b6807"
+  },
+  {
+   "name": "gm_l_j3_pins",
+   "file": "gm_l_j3_pins.stl",
    "link": "l_link3",
    "group": "arm",
-   "kind": "actuator",
-   "color": "anodised",
+   "kind": "metal",
+   "color": "steel",
    "material": "bought",
-   "mass_g": 300.0,
-   "bom": "dm4310"
+   "mass_g": 0.0,
+   "bom": ""
   },
   {
-   "name": "j4_l_out",
-   "file": "j4_l_out.stl",
+   "name": "gm_l_j3_hall",
+   "file": "gm_l_j3_hall.stl",
+   "link": "l_link2",
+   "group": "arm",
+   "kind": "electronics",
+   "color": "black",
+   "material": "bought",
+   "mass_g": 0.0,
+   "bom": "hall"
+  },
+  {
+   "name": "gm_l_j4_servo",
+   "file": "gm_l_j4_servo.stl",
    "link": "l_link3",
    "group": "arm",
    "kind": "actuator",
    "color": "alu",
    "material": "bought",
-   "mass_g": 0.0,
-   "bom": "dm4310"
+   "mass_g": 75.0,
+   "bom": "sts3250"
   },
   {
-   "name": "j4_l_conn",
-   "file": "j4_l_conn.stl",
+   "name": "gm_l_j4_servo_horn",
+   "file": "gm_l_j4_servo_horn.stl",
    "link": "l_link3",
    "group": "arm",
    "kind": "actuator",
-   "color": "yellow",
+   "color": "white",
    "material": "bought",
    "mass_g": 0.0,
-   "bom": "dm4310"
+   "bom": ""
+  },
+  {
+   "name": "gm_l_j4_bearing",
+   "file": "gm_l_j4_bearing.stl",
+   "link": "l_link3",
+   "group": "arm",
+   "kind": "metal",
+   "color": "steel",
+   "material": "bought",
+   "mass_g": 28.0,
+   "bom": "b6807"
+  },
+  {
+   "name": "gm_l_j4_pins",
+   "file": "gm_l_j4_pins.stl",
+   "link": "l_link4",
+   "group": "arm",
+   "kind": "metal",
+   "color": "steel",
+   "material": "bought",
+   "mass_g": 0.0,
+   "bom": ""
+  },
+  {
+   "name": "gm_l_j4_hall",
+   "file": "gm_l_j4_hall.stl",
+   "link": "l_link3",
+   "group": "arm",
+   "kind": "electronics",
+   "color": "black",
+   "material": "bought",
+   "mass_g": 0.0,
+   "bom": "hall"
   },
   {
    "name": "j5_l",
@@ -3950,10 +4853,10 @@
    "link": "l_link4",
    "group": "arm",
    "kind": "actuator",
-   "color": "black",
+   "color": "alu",
    "material": "bought",
-   "mass_g": 55.0,
-   "bom": "sts3215"
+   "mass_g": 75.0,
+   "bom": "sts3250"
   },
   {
    "name": "j5_l_horn",
@@ -3964,7 +4867,7 @@
    "color": "white",
    "material": "bought",
    "mass_g": 0.0,
-   "bom": "sts3215"
+   "bom": "sts3250"
   },
   {
    "name": "j6_l",
@@ -4044,103 +4947,169 @@
    "bom": "wristcam"
   },
   {
-   "name": "j2_r",
-   "file": "j2_r.stl",
-   "link": "r_link1",
-   "group": "arm",
-   "kind": "actuator",
-   "color": "anodised",
-   "material": "bought",
-   "mass_g": 362.0,
-   "bom": "dm4340"
-  },
-  {
-   "name": "j2_r_out",
-   "file": "j2_r_out.stl",
+   "name": "gm_r_j2_servo",
+   "file": "gm_r_j2_servo.stl",
    "link": "r_link1",
    "group": "arm",
    "kind": "actuator",
    "color": "alu",
    "material": "bought",
-   "mass_g": 0.0,
-   "bom": "dm4340"
+   "mass_g": 75.0,
+   "bom": "sts3250"
   },
   {
-   "name": "j2_r_conn",
-   "file": "j2_r_conn.stl",
+   "name": "gm_r_j2_servo_horn",
+   "file": "gm_r_j2_servo_horn.stl",
    "link": "r_link1",
    "group": "arm",
    "kind": "actuator",
-   "color": "yellow",
+   "color": "white",
    "material": "bought",
    "mass_g": 0.0,
-   "bom": "dm4340"
+   "bom": ""
   },
   {
-   "name": "j3_r",
-   "file": "j3_r.stl",
+   "name": "gm_r_j2_bearing",
+   "file": "gm_r_j2_bearing.stl",
+   "link": "r_link1",
+   "group": "arm",
+   "kind": "metal",
+   "color": "steel",
+   "material": "bought",
+   "mass_g": 28.0,
+   "bom": "b6807"
+  },
+  {
+   "name": "gm_r_j2_pins",
+   "file": "gm_r_j2_pins.stl",
    "link": "r_link2",
    "group": "arm",
-   "kind": "actuator",
-   "color": "anodised",
+   "kind": "metal",
+   "color": "steel",
    "material": "bought",
-   "mass_g": 300.0,
-   "bom": "dm4310"
+   "mass_g": 0.0,
+   "bom": ""
   },
   {
-   "name": "j3_r_out",
-   "file": "j3_r_out.stl",
+   "name": "gm_r_j2_hall",
+   "file": "gm_r_j2_hall.stl",
+   "link": "r_link1",
+   "group": "arm",
+   "kind": "electronics",
+   "color": "black",
+   "material": "bought",
+   "mass_g": 0.0,
+   "bom": "hall"
+  },
+  {
+   "name": "gm_r_j3_servo",
+   "file": "gm_r_j3_servo.stl",
    "link": "r_link2",
    "group": "arm",
    "kind": "actuator",
    "color": "alu",
    "material": "bought",
-   "mass_g": 0.0,
-   "bom": "dm4310"
+   "mass_g": 75.0,
+   "bom": "sts3250"
   },
   {
-   "name": "j3_r_conn",
-   "file": "j3_r_conn.stl",
+   "name": "gm_r_j3_servo_horn",
+   "file": "gm_r_j3_servo_horn.stl",
    "link": "r_link2",
    "group": "arm",
    "kind": "actuator",
-   "color": "yellow",
+   "color": "white",
    "material": "bought",
    "mass_g": 0.0,
-   "bom": "dm4310"
+   "bom": ""
   },
   {
-   "name": "j4_r",
-   "file": "j4_r.stl",
+   "name": "gm_r_j3_bearing",
+   "file": "gm_r_j3_bearing.stl",
+   "link": "r_link2",
+   "group": "arm",
+   "kind": "metal",
+   "color": "steel",
+   "material": "bought",
+   "mass_g": 28.0,
+   "bom": "b6807"
+  },
+  {
+   "name": "gm_r_j3_pins",
+   "file": "gm_r_j3_pins.stl",
    "link": "r_link3",
    "group": "arm",
-   "kind": "actuator",
-   "color": "anodised",
+   "kind": "metal",
+   "color": "steel",
    "material": "bought",
-   "mass_g": 300.0,
-   "bom": "dm4310"
+   "mass_g": 0.0,
+   "bom": ""
   },
   {
-   "name": "j4_r_out",
-   "file": "j4_r_out.stl",
+   "name": "gm_r_j3_hall",
+   "file": "gm_r_j3_hall.stl",
+   "link": "r_link2",
+   "group": "arm",
+   "kind": "electronics",
+   "color": "black",
+   "material": "bought",
+   "mass_g": 0.0,
+   "bom": "hall"
+  },
+  {
+   "name": "gm_r_j4_servo",
+   "file": "gm_r_j4_servo.stl",
    "link": "r_link3",
    "group": "arm",
    "kind": "actuator",
    "color": "alu",
    "material": "bought",
-   "mass_g": 0.0,
-   "bom": "dm4310"
+   "mass_g": 75.0,
+   "bom": "sts3250"
   },
   {
-   "name": "j4_r_conn",
-   "file": "j4_r_conn.stl",
+   "name": "gm_r_j4_servo_horn",
+   "file": "gm_r_j4_servo_horn.stl",
    "link": "r_link3",
    "group": "arm",
    "kind": "actuator",
-   "color": "yellow",
+   "color": "white",
    "material": "bought",
    "mass_g": 0.0,
-   "bom": "dm4310"
+   "bom": ""
+  },
+  {
+   "name": "gm_r_j4_bearing",
+   "file": "gm_r_j4_bearing.stl",
+   "link": "r_link3",
+   "group": "arm",
+   "kind": "metal",
+   "color": "steel",
+   "material": "bought",
+   "mass_g": 28.0,
+   "bom": "b6807"
+  },
+  {
+   "name": "gm_r_j4_pins",
+   "file": "gm_r_j4_pins.stl",
+   "link": "r_link4",
+   "group": "arm",
+   "kind": "metal",
+   "color": "steel",
+   "material": "bought",
+   "mass_g": 0.0,
+   "bom": ""
+  },
+  {
+   "name": "gm_r_j4_hall",
+   "file": "gm_r_j4_hall.stl",
+   "link": "r_link3",
+   "group": "arm",
+   "kind": "electronics",
+   "color": "black",
+   "material": "bought",
+   "mass_g": 0.0,
+   "bom": "hall"
   },
   {
    "name": "j5_r",
@@ -4148,10 +5117,10 @@
    "link": "r_link4",
    "group": "arm",
    "kind": "actuator",
-   "color": "black",
+   "color": "alu",
    "material": "bought",
-   "mass_g": 55.0,
-   "bom": "sts3215"
+   "mass_g": 75.0,
+   "bom": "sts3250"
   },
   {
    "name": "j5_r_horn",
@@ -4162,7 +5131,7 @@
    "color": "white",
    "material": "bought",
    "mass_g": 0.0,
-   "bom": "sts3215"
+   "bom": "sts3250"
   },
   {
    "name": "j6_r",

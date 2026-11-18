@@ -27,9 +27,15 @@ Y0 = P.SHOULDER_Y
 S = P.SHOULDER_Z0
 E = S - P.UPPER_ARM
 W = E - P.FOREARM
-J3_BODY = (S + P.J3_TOP - P.DM4310_H, S + P.J3_TOP)  # z range
-J2_FACE_X = X0 - P.DM4340_H / 2
-J4_FACE_Y = Y0 + P.DM4310_H / 2
+J3_FACE_Z = S + P.J3_FACE
+J2_FACE_X = X0 - 26.65
+J4_FACE_Y = Y0 + 23.0
+# GM-5 module frames: (origin, output direction, servo-offset direction), left arm
+GM = {
+    "j2": ((J2_FACE_X, Y0, S), (-1, 0, 0), (0, 1, 0)),
+    "j3": ((X0, Y0, J3_FACE_Z), (0, 0, -1), (-1, 0, 0)),
+    "j4": ((X0, J4_FACE_Y, E), (0, 1, 0), (0, 0, -1)),
+}
 
 # wrist-roll servo, shaft down on the arm axis
 J6_BODY_Z = (W - 81.0, W - 46.0)
@@ -115,64 +121,66 @@ def _hex_x(x0, x1, y, z):
 # ---------------------------------------------------------------- link 1: shoulder cap (J1 out, J2 cup)
 
 def shoulder() -> cq.Shape:
+    import gearbox as G
+
     hub = cyl_between("y", (X0, S), P.J1_FACE_Y + 2, P.J1_FACE_Y + 8, 52)
-    j2_rear = X0 + P.DM4340_H / 2
-    cup = tube_between("x", (Y0, S), J2_FACE_X + 3, j2_rear, P.DM4340_D + 9, P.DM4340_D + 0.6)
-    wall = cyl_between("x", (Y0, S), j2_rear, j2_rear + 4, P.DM4340_D + 9)
-    bridge = box(J2_FACE_X + 5, j2_rear - 2, P.J1_FACE_Y + 5, Y0 - (P.DM4340_D + 0.6) / 2 - 0.2, S - 24, S + 24)
-    s = fuse(hub, cup, wall, bridge)
-    tools = [cyl_between("y", (X0, S), P.J1_FACE_Y, Y0 + 40, 14)]
+    cup, inserts, keep = G.mount(*GM["j2"])
+    bridge = box(J2_FACE_X + 4, X0 + 8, P.J1_FACE_Y + 5, Y0 - (G.D + 0.6) / 2 + 1.0, S - 24, S + 24)
+    s = fuse(hub, cup, bridge)
+    tools = [cyl_between("y", (X0, S), P.J1_FACE_Y, Y0 + 40, 14), keep, inserts]
     # J1 output screws: heads reached straight through the empty J2 cup, so drill on through
     tools += _out_holes((X0, 0, S), "y", P.J1_FACE_Y + 2, (0, 1, 0), depth=12, head_from=6)
     for i in range(P.DM_OUT_N):
         a = 2 * math.pi * i / P.DM_OUT_N
         u, v = P.DM_OUT_PCD / 2 * math.cos(a), P.DM_OUT_PCD / 2 * math.sin(a)
         tools.append(cyl_between("y", (X0 + u, S + v), P.J1_FACE_Y + 8, Y0 + 40, 7.0))
-    tools += _rear_holes((0, Y0, S), "x", j2_rear, (1, 0, 0))
-    tools.append(cyl_between("x", (Y0, S), j2_rear - 1, j2_rear + 6, 20))
+    hw("M3 heat-set insert", 4)
+    hw("M3x8 socket head (module flange)", 4)
     return cut(s, *tools)
 
 
 # ---------------------------------------------------------------- link 2: clevis (J2 out, J3 cup)
 
 def clevis() -> cq.Shape:
+    import gearbox as G
+
     x0, x1 = J2_FACE_X - 2 - 6, J2_FACE_X - 2
     disc = cyl_between("x", (Y0, S), x0, x1, 52)
-    plate = box(x0, x1, Y0 - 24, Y0 + 24, S - 70, S)
-    b0, b1 = J3_BODY
-    cup = tube_between("z", (X0, Y0), b0 + 3, b1, P.DM4310_D + 8, P.DM4310_D + 0.6)
-    top = cyl_between("z", (X0, Y0), b1, b1 + 4, P.DM4310_D + 8)
-    s = fuse(disc, plate, cup, top)
+    cup, inserts, keep = G.mount(*GM["j3"])
+    plate = box(x0, x1, Y0 - 24, Y0 + 24, J3_FACE_Z + 3.5, S)
+    s = fuse(disc, plate, cup)
     tools = _out_holes((0, Y0, S), "x", x1, (-1, 0, 0), depth=10, head_from=4)
-    tools.append(cyl_between("x", (Y0, S), x0 - 1, x1 + 1, 14))
-    tools += _rear_holes((X0, Y0, 0), "z", b1, (0, 0, 1))
-    tools.append(cyl_between("z", (X0, Y0), b1 - 1, b1 + 6, 20))
+    tools += [cyl_between("x", (Y0, S), x0 - 1, x1 + 1, 14), keep, inserts]
+    hw("M3 heat-set insert", 4)
+    hw("M3x8 socket head (module flange)", 4)
     return cut(s, *tools)
 
 
 # ---------------------------------------------------------------- link 3: upper arm (J3 out, J4 cup), clamshell
 
 def upper_arm() -> cq.Shape:
-    b0 = J3_BODY[0]
-    d0, d1 = b0 - 2 - 6, b0 - 2
+    import gearbox as G
+
+    d1 = J3_FACE_Z - 2
+    d0 = d1 - 6
     disc = cyl_between("z", (X0, Y0), d0, d1, P.ARM_TUBE_D)
     tube = tube_between("z", (X0, Y0), E + 28, d0 + 0.5, P.ARM_TUBE_D, P.ARM_TUBE_D - 6)  # starts above the elbow disc
-    rear = Y0 - P.DM4310_H / 2
-    cup = tube_between("y", (X0, E), rear, J4_FACE_Y - 3, P.DM4310_D + 8, P.DM4310_D + 0.6)
-    rwall = cyl_between("y", (X0, E), rear - 4, rear, P.DM4310_D + 8)
-    s = fuse(disc, tube, cup, rwall)
+    cup, inserts, keep = G.mount(*GM["j4"])
+    # carry the tube down past the elbow axis to tie into the cup, short of the elbow disc's swing
+    tie = tube_between("z", (X0, Y0), E - 12, E + 28.5, P.ARM_TUBE_D, P.ARM_TUBE_D - 6).intersect(box(0, 300, 0, J4_FACE_Y - 5, E - 20, E + 30))
+    s = fuse(disc, tube, cup, tie)
     tools = []
     adds = []
     for y, z in ((Y0 - 26, d0 - 14), (Y0 + 26, d0 - 14), (Y0 - 26, E + 44), (Y0 + 26, E + 44),
-                 (Y0 - 12, E - 35), (Y0 + 12, E - 35)):
+                 (Y0 + 4, E - 37), (Y0 + 16, E - 37)):
         b, t = _clam_bolt(y, z)
         adds.append(b)
         tools += t
     s = fuse(s, *adds)
     tools += _out_holes((X0, Y0, 0), "z", d1, (0, 0, -1), depth=10, head_from=4)
-    tools.append(cyl_between("z", (X0, Y0), d0 - 1, d1 + 1, 14))
-    tools += _rear_holes((X0, 0, E), "y", rear, (0, -1, 0))
-    tools.append(cyl_between("y", (X0, E), rear - 6, rear + 1, 20))
+    tools += [cyl_between("z", (X0, Y0), d0 - 1, d1 + 1, 14), keep, inserts]
+    hw("M3 heat-set insert", 4)
+    hw("M3x8 socket head (module flange)", 4)
     return cut(s, *tools)
 
 
@@ -416,6 +424,7 @@ def parts(side: str) -> list[Part]:
     add("finger_b", finger(-1), "link8", color="dark", note="Rack, drop and finger. Slides in from the -y end.")
     add("pad_a", pad(1), "link7", color="accent", material="TPU", note="TPU 95A.")
     add("pad_b", pad(-1), "link8", color="accent", material="TPU", note="TPU 95A.")
+    out += gm_instances(side)[0]
     return out
 
 
@@ -429,15 +438,29 @@ def bought(side: str) -> list[Bought]:
         mirrored = [(sfx, m(shp), look) for sfx, shp, look in pieces]
         out.extend(V.boughts(f"{name}_{side}", mirrored, f"{side}_{link}", "arm", kind, mass, key))
 
-    add("j2", V.place(V.damiao("dm4340"), (J2_FACE_X, Y0, S), xdir=(0, 0, 1), zdir=(-1, 0, 0)), "link1", "actuator", P.DM4340_MASS, "dm4340")
-    add("j3", V.place(V.damiao("dm4310"), (X0, Y0, J3_BODY[0]), xdir=(1, 0, 0), zdir=(0, 0, -1)), "link2", "actuator", P.DM4310_MASS, "dm4310")
-    add("j4", V.place(V.damiao("dm4310"), (X0, J4_FACE_Y, E), xdir=(1, 0, 0), zdir=(0, 1, 0)), "link3", "actuator", P.DM4310_MASS, "dm4310")
-    add("j5", V.place(V.sts3215(), (X0, J5_BODY["y"][1], W), xdir=(0, 0, 1), zdir=(0, 1, 0)), "link4", "actuator", P.STS_MASS, "sts3215")
+    out.extend(gm_instances(side)[1])
+    j5 = [(sfx, shp, "alu" if not sfx else look) for sfx, shp, look in V.sts3215()]  # STS3250: same case, aluminium middle
+    add("j5", V.place(j5, (X0, J5_BODY["y"][1], W), xdir=(0, 0, 1), zdir=(0, 1, 0)), "link4", "actuator", 75.0, "sts3250")
     add("j6", V.place(V.sts3215(), (X0, Y0, J6_BODY_Z[0]), xdir=(1, 0, 0), zdir=(0, 0, -1)), "link5", "actuator", P.STS_MASS, "sts3215")
     add("j7", V.place(V.sts3215(), (X0, Y0, J7_BODY_Z[0]), xdir=(1, 0, 0), zdir=(0, 0, -1)), "link6", "actuator", P.STS_MASS, "sts3215")
     add("wrist_cam", V.place(V.usb_cam(), (WRIST_CAM_X, Y0, (HOUSING_Z[0] + HOUSING_Z[1]) / 2), xdir=(-1, 0, 0), zdir=(0, 0, 1)),
         "link6", "electronics", 15, "wristcam")
     return out
+
+
+def gm_instances(side: str):
+    """GM-5 modules J2..J4 of one arm: (parts, boughts)."""
+    import gearbox as G
+
+    parts, buys = [], []
+    links = {"j2": ("link1", "link2"), "j3": ("link2", "link3"), "j4": ("link3", "link4")}
+    for j, frame in GM.items():
+        fr = frame if side == "l" else G.mirror_frame(*frame)
+        pa, ch = links[j]
+        p, b = G.instance(f"gm_{side}_{j}", *fr, f"{side}_{pa}", f"{side}_{ch}", "arm")
+        parts += p
+        buys += b
+    return parts, buys
 
 
 def _mir_axis(a):
@@ -448,11 +471,11 @@ def joints(side: str) -> list[Joint]:
     sy = 1 if side == "l" else -1
     L = P.LIMITS
     raw = [
-        ("shoulder_pitch", "lift", "link1", (X0, P.J1_FACE_Y, S), (0, 1, 0), "dm4340"),
-        ("shoulder_roll", "link1", "link2", (X0, Y0, S), (1, 0, 0), "dm4340"),
-        ("upper_arm_yaw", "link2", "link3", (X0, Y0, J3_BODY[0]), (0, 0, 1), "dm4310"),
-        ("elbow", "link3", "link4", (X0, Y0, E), (0, 1, 0), "dm4310"),
-        ("wrist_pitch", "link4", "link5", (X0, Y0, W), (0, 1, 0), "sts3215"),
+        ("shoulder_pitch", "lift", "link1", (X0, P.J1_FACE_Y, S), (0, 1, 0), "gm5"),
+        ("shoulder_roll", "link1", "link2", (X0, Y0, S), (1, 0, 0), "gm5"),
+        ("upper_arm_yaw", "link2", "link3", (X0, Y0, J3_FACE_Z), (0, 0, 1), "gm5"),
+        ("elbow", "link3", "link4", (X0, Y0, E), (0, 1, 0), "gm5"),
+        ("wrist_pitch", "link4", "link5", (X0, Y0, W), (0, 1, 0), "sts3250"),
         ("wrist_roll", "link5", "link6", (X0, Y0, J6_HORN_Z), (0, 0, 1), "sts3215"),
     ]
     out = []

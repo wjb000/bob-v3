@@ -39,6 +39,8 @@ class Part:
     rot: tuple | None = None  # print orientation override (deg about x, y, z)
     walls: int = 4
     infill: int = 20
+    print_as: str = ""  # identical prints share one STL and a quantity
+    print_solid: object = None  # canonical shape to orient and export for print_as (defaults to solid)
 
 
 @dataclass

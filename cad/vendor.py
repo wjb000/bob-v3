@@ -319,3 +319,22 @@ def coupler():
     s = cut(s, *[tube_between("z", (0, 0), z, z + 0.8, 20, 12).intersect(box(-12, 12, -12, 3, z - 1, z + 2))
                  for z in (7.0, 10.0, 13.0, 16.0)])
     return [("", s, "alu")]
+
+
+def pi5():
+    """Raspberry Pi 5 with the active cooler. Local: board in XY (85 x 56), parts up +z."""
+    b = pcb(85, 56, holes=[(sx * 29, sy * 24.5) for sx in (-1, 1) for sy in (-1, 1)]).translate((0, 0, 3))
+    feet = fuse(*[cyl((sx * 29, sy * 24.5, 0), "z", 5, 3) for sx in (-1, 1) for sy in (-1, 1)])
+    cooler = fuse(box(-30, 12, -24, 18, 4.6, 8.0), *[box(-30 + i * 3.0, -29 + i * 3.0, -24, 18, 8.0, 14.0) for i in range(14)])
+    fan = cut(cyl((-9, -3, 14), "z", 30, 4), cyl((-9, -3, 17), "z", 10, 2))
+    ports = fuse(box(28, 42.5, -27, -12, 4.6, 20.6), box(28, 42.5, -9, 6, 4.6, 20.6), box(26, 42.5, 10, 26, 4.6, 18))
+    return [("", b, "pcb"), ("feet", feet, "steel"), ("cooler", fuse(cooler), "alu"), ("fan", fan, "black"), ("ports", ports, "steel")]
+
+
+def rgb_cam():
+    """Wide-angle USB RGB camera module (38 x 38 board, M12 lens). Local: x forward through the lens, origin at the board."""
+    b = box(-1.6, 0, -19, 19, -19, 19)
+    holder = box(0, 8, -8, 8, -8, 8)
+    lens = cyl((8, 0, 0), "x", 14, 12)
+    glass = cyl((20, 0, 0), "x", 10, 0.5)
+    return [("", b, "pcb"), ("holder", holder, "black"), ("lens", lens, "black"), ("glass", glass, "lens")]

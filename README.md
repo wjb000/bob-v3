@@ -10,23 +10,31 @@ This is a design that has been checked in CAD and in physics simulation. It has 
 | --- | --- |
 | Size | 560 × 440 mm base, 1.13 m mast. The head top goes from 0.77 m to 1.42 m. |
 | Reach | Floor 0.32–0.45 m in front of the nose, a 0.91 m counter, a 1.55 m shelf. The hand reaches 1.74 m up and 0.81 m to the side. |
-| Payload | 0.5 kg per hand at full reach for short holds. About 0.4 kg continuous; the wrist servo is the limit. |
+| Payload | About 0.7 kg per hand held continuously, about 2 kg for a short lift (80% of peak torque). |
 | Joints | 19 driven: 2 hub wheels, lift, head pan and tilt, and 7 per arm (six joints plus the gripper). |
 | Gripper | Rack and pinion parallel jaw, 0–80 mm, about 40 N per finger. |
-| Mass | 21.3 kg (printed parts at 4 walls / 20%, bought parts at listed mass, 1.7 kg of wiring and screws). |
-| Prints | 164 prints from 86 files, about 7 kg of PETG, all inside 200 × 200 × 200 mm. |
-| Cost | About $3,000 for everything, or $2,830 if you reuse the Bob v2 hubs, pack and drivers. See [BOM.md](BOM.md). |
-| Compute | Jetson Orin Nano Super. RealSense D435i in the head, a USB camera on each wrist, RPLIDAR C1 in the base. |
+| Mass | 19.5 kg (printed parts at 4 walls / 20%, bought parts at listed mass, 1.7 kg of wiring and screws). |
+| Prints | 231 prints from 95 files, about 7.4 kg of filament, all inside 200 × 200 × 200 mm. |
+| Cost | About $1,650 for everything, or about $1,310 if you reuse the Bob v2 hubs, Pi 5, pack and drivers. See [BOM.md](BOM.md). |
+| Compute | Raspberry Pi 5 on the robot; big models run on a desktop GPU over Wi-Fi. A wide RGB camera in the head, a USB camera on each wrist, RPLIDAR C1 in the base. |
+
+## GM-5 joint module
+
+The four big joints in each arm use the same printed module. A Feetech STS3250 drives a 12-tooth sun, three 18-tooth planets and a 48-tooth ring cut into the housing (module 1.0, 5:1). The carrier runs in a 6807 bearing and carries the same 6 × M3 output flange as the arm links. A hall sensor in the housing and a magnet in the carrier home each joint at power-up, because the servo's own encoder repeats every 72° of output. Print the gears in PETG-CF or nylon if you can. `cad/gearbox.py` has the geometry and `cad/stl/gm_*.stl` the files.
+
+## Head limits
+
+The head pans ±0.6 rad and tilts −0.35 to +0.55 rad. Below 0.51 m of lift, the software must not combine full pan with looking up, because the back of the head would reach the mast. The CAD check tests full pan at level gaze, full tilt up and down, and pan with tilt down.
 
 ## Actuators
 
 | Joint | Actuator | Rated / peak | Worst gravity load, 0.5 kg in the hand |
 | --- | --- | --- | --- |
-| Shoulder pitch (J1) | Damiao DM-J4340-2EC | 9 / 27 N·m | 6.1 N·m (68% of rated) |
-| Shoulder roll (J2) | Damiao DM-J4340-2EC | 9 / 27 N·m | 5.7 N·m (63%) |
-| Upper-arm yaw (J3) | Damiao DM-J4310-2EC V1.1 | 3 / 7 N·m | 2.8 N·m (93%) |
-| Elbow (J4) | Damiao DM-J4310-2EC V1.1 | 3 / 7 N·m | 2.8 N·m (95%) |
-| Wrist pitch (J5) | Feetech STS3215 12 V | 0.98 / 2.94 N·m | 1.1 N·m (113%, 38% of stall) |
+| Shoulder pitch (J1) | GM-5: STS3250 + printed 5:1 planetary | 6.7 / 20.8 N·m | 5.8 N·m (87% of rated) |
+| Shoulder roll (J2) | GM-5 | 6.7 / 20.8 N·m | 5.4 N·m (81%) |
+| Upper-arm yaw (J3) | GM-5 | 6.7 / 20.8 N·m | 2.8 N·m (41%) |
+| Elbow (J4) | GM-5 | 6.7 / 20.8 N·m | 2.8 N·m (42%) |
+| Wrist pitch (J5) | Feetech STS3250 12 V | 1.57 / 4.9 N·m | 1.1 N·m (71%) |
 | Wrist roll (J6) | Feetech STS3215 12 V | 0.98 / 2.94 N·m | ~0 |
 | Gripper (J7) | Feetech STS3215 12 V, 12 mm pinion | about 40 N per finger | |
 | Head pan, tilt | Feetech STS3215 12 V | | |
@@ -89,7 +97,7 @@ To train your own policy, see [sim/README.md](sim/README.md).
 
 ## Safety
 
-The base drives a 21 kg robot on 36 V. The e-stop on the base drops a contactor in series with the 24 V arm rail, the 12 V servo and stepper rail, and the hub controllers. The Jetson stays up. The leadscrew is self-locking, so the torso stays where it is with the power off. The Damiao motors go limp when they lose power. The arms fall but the torso doesn't. Keep the arms in the home pose when you are working near the robot.
+The base drives a 20 kg robot on 36 V. The e-stop on the base drops a contactor in series with the 12 V motor rail and the hub controllers. The Pi stays up. The leadscrew is self-locking, so the torso stays where it is with the power off. The arm servos go limp when they lose power; the 5:1 gearboxes slow the fall but do not stop it. The torso does not move. Keep the arms in the home pose when you are working near the robot.
 
 ## Older versions
 

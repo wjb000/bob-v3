@@ -34,7 +34,7 @@ Follow the wiring diagram on the page.
 1. Strap the 36 V pack into the two `battery_cradle` halves.
 2. Front shelves (`shelf_front_l/r`): the two ZS-X11H, the ESP32 and the BNO085.
 3. Rear shelves (`shelf_rear_l/r`): the three bucks, the fuse block and the contactor.
-4. Wire the power path: pack → main fuse → main switch → fuse block. The 19 V buck is always on and feeds the Jetson. The contactor sits between the fuse block and the 24 V buck and the ZS-X11H. The e-stop's NC contacts are in series with the contactor coil. A 12 V relay on the same loop cuts the servo and stepper branch.
+4. Wire the power path: pack → main fuse → main switch → fuse block. The 5 V buck is always on and feeds the Pi and the USB hub. The contactor sits between the fuse block and the 12 V buck and the ZS-X11H. The e-stop's NC contacts are in series with the contactor coil.
 5. First power-up on a current-limited bench supply at 36 V, 1 A. Check each rail before connecting any load.
 
 ## 4. Mast and lift
@@ -54,9 +54,10 @@ Follow the wiring diagram on the page.
 
 ## 6. Torso
 
-1. Yokes: put a DM-J4340 into each `yoke` cup, rear face first. Fit the 4 rear screws. Bolt both yokes to `torso_back_plate` (6 × M3×12 each, from behind).
+1. Build eight GM-5 modules: STS3250 into the housing sleeve, cap on; sun onto the horn (4 × M2); planets on the M3 × 20 pins between the carrier plates; 6807 into the housing; magnet into the carrier rim; hall sensor into its pocket. Turn each one by hand: it should run smoothly at 5:1.
+2. Yokes: a GM-5 into each `yoke` cup, flange screwed to the rim (4 × M3 × 8). Bolt both yokes to `torso_back_plate` (6 × M3×12 each, from behind).
 2. `neck_mount` bridges the two yoke beams. Put the pan STS3215 in its cradle.
-3. On the back plate grid: Jetson, USB hub, two USB-CAN adapters, two Waveshare bus adapters.
+3. On the back plate grid: Pi 5, USB hub, ESP32-C3 for the hall sensors, two Waveshare bus adapters.
 4. Bolt the back plate to the carriage tongue with 4 × M5×30.
 5. Shells: the lower halves, then the upper halves. Join them from inside with joiner tabs, then screw them through the back wall into the plate. Run the umbilical (36 V pair, CAN ×2, servo bus, USB) down the mast with a service loop.
 
@@ -69,16 +70,16 @@ Follow the wiring diagram on the page.
 5. `wrist` clevis onto the J5 horn, with the idler screw on the other side. Put J6 in the wrist sleeve.
 6. `palm` onto the J6 horn, with J7 inside it. Centre J7 at mid-travel, press the `pinion` onto the horn, and slide `finger_a` and `finger_b` into their channels so they meet when the servo is at the "closed" end. Screw on the TPU `pad`s.
 7. Wiring: CAN runs down the hollow upper arm. The Feetech bus runs down the forearm. Leave slack at every joint.
-8. Set the Damiao CAN IDs: J1–J4 are 0x01–0x04 on each arm's bus. Set the Feetech IDs: J5–J7 are 1–3, and the head pan and tilt are 7 and 8 on the left bus.
+8. Set the Feetech IDs on each arm's bus: J1–J4 modules are 1–4, J5–J7 are 5–7; the head pan and tilt are 8 and 9 on the left bus. Put the module servos in multi-turn mode.
 
 ## 8. Head
 
 1. `neck_yoke` onto the pan horn. Put the tilt STS3215 in its cradle.
-2. `head_frame` onto the tilt horn and the idler. Bolt the D435i to the post (2 × M3×6). Fit the `eye_plate` with both GC9A01 and the ESP32-S3.
+2. `head_frame` onto the tilt horn and the idler. Bolt the head camera to the post. Press the ears into the side walls. Fit the `eye_plate` with both GC9A01 and the ESP32-S3.
 3. Put the `visor` in the front opening of `head_upper`. The eye plate clamps its lip. Close `head_lower` to `head_upper` with joiner tabs, then screw the floor to the frame from below.
 
 ## 9. Bring-up
 
 1. Home the lift and check every joint's direction and zero against the viewer (`sim/bob_v3.xml` uses the same conventions).
-2. Set torque limits: Damiao at peak, STS3215 gripper at about 0.5 N·m.
+2. Home every GM-5 to its hall index. Set torque limits: modules at 80% of stall, STS3215 gripper at about 0.5 N·m.
 3. Run the pick in sim with `sim/expert.py`. Then teleoperate the real robot and record your own demonstrations.

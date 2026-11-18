@@ -34,8 +34,10 @@ MISC_G = {"base": 1200.0, "lift": 500.0}
 # Actuator models. Torques from the datasheets; armature is the reflected rotor
 # inertia (an estimate); kp/kv are the gains used for position control.
 ACT = {
-    "dm4340": dict(force=27.0, rated=9.0, kp=250.0, kv=8.0, armature=0.030, damping=0.4, frictionloss=0.25, vel=5.4),
-    "dm4310": dict(force=7.0, rated=3.0, kp=100.0, kv=2.0, armature=0.006, damping=0.15, frictionloss=0.08, vel=20.9),
+    # GM-5: STS3250 (4.9 N·m stall, 1.57 rated) through the printed 5:1 planetary at 85%. The servo's reflected
+    # inertia grows by 25; printed gears add friction.
+    "gm5": dict(force=20.8, rated=6.7, kp=160.0, kv=6.0, armature=0.10, damping=0.5, frictionloss=0.35, vel=1.57),
+    "sts3250": dict(force=4.9, rated=1.57, kp=60.0, kv=0.8, armature=0.005, damping=0.05, frictionloss=0.04, vel=7.8),
     "sts3215": dict(force=2.94, rated=0.98, kp=40.0, kv=0.6, armature=0.004, damping=0.05, frictionloss=0.03, vel=4.8),
     # gripper: STS3215 through a 12 mm pitch-radius pinion, torque limit set to ~0.5 N·m -> ~40 N per finger
     "sts3215g": dict(force=40.0, rated=25.0, kp=2500.0, kv=60.0, armature=0.4, damping=5.0, frictionloss=0.8, vel=0.06),
@@ -59,7 +61,7 @@ COLORS = {
     "brass": "0.80 0.62 0.28 1", "copper": "0.78 0.45 0.25 1", "black": "0.08 0.08 0.09 1", "white": "0.93 0.93 0.92 1",
     "grey": "0.40 0.40 0.42 1", "yellow": "0.95 0.75 0.10 1", "red": "0.82 0.10 0.10 1", "green": "0.15 0.55 0.25 1",
     "rubber": "0.07 0.07 0.07 1", "pcb": "0.10 0.40 0.20 1", "pcb_black": "0.06 0.07 0.07 1", "pcb_blue": "0.10 0.25 0.60 1",
-    "glass": "0.05 0.06 0.08 1", "lens": "0.10 0.12 0.30 1", "smoke": "0.20 0.20 0.22 1", "eye": "0.25 0.85 1.0 1",
+    "glass": "0.05 0.06 0.08 1", "lens": "0.10 0.12 0.30 1", "smoke": "0.20 0.20 0.22 1", "eye": "0.25 0.85 1.0 1", "glow": "0.30 0.85 1.0 1",
 }
 
 
@@ -154,7 +156,7 @@ def main():
     w("  </default>")
     w("  <asset>")
     for c, rgba in COLORS.items():
-        extra = ' emission="1.2"' if c == "eye" else ' reflectance="0.15"' if c in ("alu", "chrome", "steel") else ""
+        extra = ' emission="1.2"' if c in ("eye", "glow") else ' reflectance="0.15"' if c in ("alu", "chrome", "steel") else ""
         w(f'    <material name="m_{c}" rgba="{rgba}" specular="0.4" shininess="0.5"{extra}/>')
     w('    <texture name="sky" type="skybox" builtin="gradient" rgb1="0.93 0.94 0.96" rgb2="0.62 0.66 0.72" width="512" height="512"/>')
     w('    <texture name="grid" type="2d" builtin="checker" rgb1="0.82 0.80 0.76" rgb2="0.76 0.74 0.70" width="512" height="512"/>')
@@ -237,11 +239,11 @@ def main():
                 w(f'{pad}  <geom name="caster_{nm}" class="col" type="sphere" size="{r:.4f}" pos="{x:.4f} 0 {r:.4f}" '
                   f'contype="{ct}" conaffinity="{ca}" condim="1" priority="1" friction="0 0 0" mass="0"/>')  # swivel casters: no drag
         if link == "head_tilt":
-            cam = next(i for i in SCENE["items"] if i["name"] == "d435")
+            cam = next(i for i in SCENE["items"] if i["name"] == "head_cam_glass")
             mesh = trimesh.load_mesh(PLACED / cam["file"])
             c = mesh.bounds.mean(0) / 1000 - org[link]
             front = mesh.bounds[1][0] / 1000 - org[link][0]
-            w(f'{pad}  <camera name="head_cam" pos="{front:.4f} {c[1]:.4f} {c[2]:.4f}" xyaxes="0 -1 0 0 0 1" fovy="58"/>')
+            w(f'{pad}  <camera name="head_cam" pos="{front:.4f} {c[1]:.4f} {c[2]:.4f}" xyaxes="0 -1 0 0 0 1" fovy="70"/>')
         if link in ("l_link6", "r_link6"):
             side = link[0]
             cam = next(i for i in SCENE["items"] if i["name"] == f"wrist_cam_{side}")
