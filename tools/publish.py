@@ -151,7 +151,7 @@ def wiring_table() -> str:
                     f'<td>{html.escape(conn)}</td><td>{html.escape(fuse)}</td></tr>')
     return "\n".join(rows)
 
-COLORS = {"shell": [235, 235, 230], "dark": [34, 34, 37], "frame": [140, 146, 156], "accent": [0, 127, 255],
+COLORS = {"shell": [22, 23, 26], "dark": [13, 13, 14], "frame": [41, 43, 48], "accent": [0, 127, 255],
           "actuator": [52, 52, 58], "electronics": [40, 110, 70], "battery": [90, 140, 50], "metal": [190, 192, 198],
           "wheel": [24, 24, 24]}
 

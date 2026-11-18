@@ -9,9 +9,9 @@
     <default class="col"><geom group="3" rgba="0.9 0.2 0.2 0.25"/></default>
   </default>
   <asset>
-    <material name="m_shell" rgba="0.92 0.92 0.90 1" specular="0.4" shininess="0.5"/>
-    <material name="m_dark" rgba="0.13 0.13 0.14 1" specular="0.4" shininess="0.5"/>
-    <material name="m_frame" rgba="0.56 0.58 0.62 1" specular="0.4" shininess="0.5"/>
+    <material name="m_shell" rgba="0.085 0.09 0.10 1" specular="0.4" shininess="0.5"/>
+    <material name="m_dark" rgba="0.05 0.05 0.055 1" specular="0.4" shininess="0.5"/>
+    <material name="m_frame" rgba="0.16 0.17 0.19 1" specular="0.4" shininess="0.5"/>
     <material name="m_accent" rgba="0.0 0.5 1.0 1" specular="0.4" shininess="0.5"/>
     <material name="m_actuator" rgba="0.20 0.20 0.22 1" specular="0.4" shininess="0.5"/>
     <material name="m_electronics" rgba="0.20 0.45 0.30 1" specular="0.4" shininess="0.5"/>
@@ -24,8 +24,8 @@
     <material name="m_chrome" rgba="0.85 0.86 0.88 1" specular="0.4" shininess="0.5" reflectance="0.15"/>
     <material name="m_brass" rgba="0.80 0.62 0.28 1" specular="0.4" shininess="0.5"/>
     <material name="m_copper" rgba="0.78 0.45 0.25 1" specular="0.4" shininess="0.5"/>
-    <material name="m_black" rgba="0.08 0.08 0.09 1" specular="0.4" shininess="0.5"/>
-    <material name="m_white" rgba="0.93 0.93 0.92 1" specular="0.4" shininess="0.5"/>
+    <material name="m_black" rgba="0.05 0.05 0.055 1" specular="0.4" shininess="0.5"/>
+    <material name="m_white" rgba="0.085 0.09 0.10 1" specular="0.4" shininess="0.5"/>
     <material name="m_grey" rgba="0.40 0.40 0.42 1" specular="0.4" shininess="0.5"/>
     <material name="m_yellow" rgba="0.95 0.75 0.10 1" specular="0.4" shininess="0.5"/>
     <material name="m_red" rgba="0.82 0.10 0.10 1" specular="0.4" shininess="0.5"/>

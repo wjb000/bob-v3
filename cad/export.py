@@ -332,7 +332,7 @@ def main() -> int:
         log("assembly step")
         T = robot.link_transforms(robot.HOME, joints)
         asm = cq.Assembly(name="bob_v3")
-        colors = {"shell": (0.93, 0.93, 0.91), "dark": (0.12, 0.12, 0.13), "frame": (0.55, 0.57, 0.6), "accent": (0.0, 0.5, 1.0)}
+        colors = {"shell": (0.085, 0.09, 0.1), "dark": (0.05, 0.05, 0.055), "frame": (0.16, 0.17, 0.19), "accent": (0.0, 0.5, 1.0)}
         for p in parts:
             asm.add(placed_at(p.solid, T[p.link]), name=p.name, color=cq.Color(*colors.get(p.color, (0.7, 0.7, 0.7))))
         for b in buys:
