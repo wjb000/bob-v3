@@ -200,7 +200,6 @@ def main():
         out.append(f'<tr><td><a href="{html.escape(r["link"])}" rel="noopener" target="_blank">{html.escape(r["item"])}</a>{tag}{note}</td>'
                    f'<td class="n">{r["qty"]}</td><td class="n">{money(r["each"])}</td><td class="n">{money(r["line"])}</td></tr>')
     out.append(f'<tr class="sum"><td colspan="3">Everything</td><td class="n">{money(total)}</td></tr>')
-    out.append(f'<tr class="sum2"><td colspan="3">To buy, if you already have the Bob v2 hubs, pack, charger and drivers</td><td class="n">{money(total - have)}</td></tr>')
     t = fill(t, "BOM", "\n".join(out))
     # prints
     out = []
@@ -254,7 +253,7 @@ def main():
     fills = {
         "mass": f"{data['mass_kg']} kg", "nprints": str(manifest["total_prints"]), "total": money(total),
         "printcount": f"{manifest['unique_prints']} files · {manifest['total_prints']} prints · {manifest['print_mass_g'] / 1000:.1f} kg",
-        "bomcount": f"{money(total)} · {money(total - have)} to buy (you already have the battery and charger)",
+        "bomcount": money(total),
         "printline": f"{manifest['total_prints']} prints from {manifest['unique_prints']} files, about {manifest['print_mass_g'] / 1000:.1f} kg of filament.",
     }
     for k, v in fills.items():
