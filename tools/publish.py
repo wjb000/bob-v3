@@ -34,54 +34,93 @@ NW, NH, CW, RH, PAD = 150, 46, 176, 64, 16
 
 
 def wiring_svg() -> str:
-    """Lay the wiring out on the grid in docs/wiring.py and route every wire with right angles."""
-    pos = {k: (PAD + c * CW, PAD + 30 + r * RH) for k, (_, _, c, r, _) in WIRING.NODES.items()}
-    cols = max(v[2] for v in WIRING.NODES.values()) + 1
-    rows = max(v[3] for v in WIRING.NODES.values()) + 1
-    W, H = PAD * 2 + (cols - 1) * CW + NW, PAD * 2 + 30 + rows * RH + 30
-    lanes = {}
+    """Lay the nodes out on the grid in docs/wiring.py and route every wire on its own lane, with right angles."""
+    NW_, NH_, CW_, RH_, P_ = 172, 42, 232, 58, 24
+    N = WIRING.NODES
+    xy = {k: (P_ + c * CW_, P_ + 34 + r * RH_) for k, (_, _, c, r, _) in N.items()}
+    cols = max(v[2] for v in N.values()) + 1
+    rows = max(v[3] for v in N.values()) + 1
+    W, H = P_ * 2 + (cols - 1) * CW_ + NW_, P_ + 34 + rows * RH_ + 44
+    rects = {k: (x, y, x + NW_, y + NH_) for k, (x, y) in xy.items()}
+    # which side of each node every wire end uses
+    ends = []
+    for i, (a, b, *_ ) in enumerate(WIRING.WIRES):
+        ca, cb = N[a][2], N[b][2]
+        if ca == cb:
+            ends.append(((a, "r"), (b, "r")))
+        elif ca < cb:
+            ends.append(((a, "r"), (b, "l")))
+        else:
+            ends.append(((a, "l"), (b, "r")))
+    side = {}
+    for i, ((a, sa), (b, sb)) in enumerate(ends):
+        side.setdefault((a, sa), []).append((xy[b][1], i, 0))
+        side.setdefault((b, sb), []).append((xy[a][1], i, 1))
+    port = {}
+    for (k, sd), lst in side.items():
+        lst.sort()
+        for j, (_, i, e) in enumerate(lst):
+            y = xy[k][1] + NH_ * (j + 1) / (len(lst) + 1)
+            x = xy[k][0] + (NW_ if sd == "r" else 0)
+            port[(i, e)] = (x, y)
+    gapn, rown = {}, {}
+
+    def lane(store, key, base, step=6):
+        k = store.get(key, 0)
+        store[key] = k + 1
+        return base + ((k + 1) // 2) * step * (1 if k % 2 else -1)
+
+    def gx(g):  # centre of the gap right of column g
+        return P_ + g * CW_ + NW_ + (CW_ - NW_) / 2
+
+    def ry(r):  # centre of the gap above row r
+        return P_ + 34 + r * RH_ - (RH_ - NH_) / 2
+
+    def clear(x1, x2, y, skip):
+        lo, hi = sorted((x1, x2))
+        return not any(k not in skip and r[0] - 4 < hi and r[2] + 4 > lo and r[1] - 3 < y < r[3] + 3 for k, r in rects.items())
+
     paths = []
     for i, (a, b, kind, what, wire, conn, fuse) in enumerate(WIRING.WIRES):
-        (xa, ya), (xb, yb) = pos[a], pos[b]
-        ca, cb = WIRING.NODES[a][2], WIRING.NODES[b][2]
-        key = (min(ca, cb), max(ca, cb))
-        lane = lanes.get(key, 0)
-        lanes[key] = lane + 1
-        off = (lane % 7 - 3) * 5
-        ya_, yb_ = ya + NH / 2 + (lane % 3 - 1) * 6, yb + NH / 2 + (lane % 3 - 1) * 6
-        gap = (CW - NW) / 2
-        if cb == ca + 1:  # neighbours: one elbow in the column gap
-            mx = xa + NW + gap + off * 0.6
-            pts = [(xa + NW, ya_), (mx, ya_), (mx, yb_), (xb, yb_)]
-        elif cb > ca:  # run along the row gap above B so no box is crossed
-            gy = yb - (RH - NH) / 2 + (lane % 3 - 1) * 4
-            x1, x2 = xa + NW + gap + off * 0.6, xb - gap + off * 0.6
-            pts = [(xa + NW, ya_), (x1, ya_), (x1, gy), (x2, gy), (x2, yb_), (xb, yb_)]
-        elif cb < ca:
-            gy = yb - (RH - NH) / 2 + (lane % 3 - 1) * 4
-            x1, x2 = xa - gap + off * 0.6, xb + NW + gap + off * 0.6
-            pts = [(xa, ya_), (x1, ya_), (x1, gy), (x2, gy), (x2, yb_), (xb + NW, yb_)]
+        (xa, ya), (xb, yb) = port[(i, 0)], port[(i, 1)]
+        ca, cb = N[a][2], N[b][2]
+        sk = {a, b}
+        if ca == cb:
+            x = lane(gapn, ca, gx(ca) - 12)
+            pts = [(xa, ya), (x, ya), (x, yb), (xb, yb)]
         else:
-            x = xa + NW + 8 + (lane % 4) * 4
-            pts = [(xa + NW, ya_), (x, ya_), (x, yb_), (xa + NW, yb_)]
-        d = " ".join(f"{x:.0f},{y:.0f}" for x, y in pts)
+            d = 1 if cb > ca else -1
+            ga, gb = (ca if d > 0 else ca - 1), (cb - 1 if d > 0 else cb)
+            if clear(xa, gx(gb), ya, sk):
+                x = lane(gapn, gb, gx(gb))
+                pts = [(xa, ya), (x, ya), (x, yb), (xb, yb)]
+            elif clear(gx(ga), xb, yb, sk):
+                x = lane(gapn, ga, gx(ga))
+                pts = [(xa, ya), (x, ya), (x, yb), (xb, yb)]
+            else:
+                rb = N[b][3]
+                y = lane(rown, rb, ry(rb), 5)
+                x1, x2 = lane(gapn, ga, gx(ga)), lane(gapn, gb, gx(gb))
+                pts = [(xa, ya), (x1, ya), (x1, y), (x2, y), (x2, yb), (xb, yb)]
+        dd = " ".join(f"{x:.0f},{y:.0f}" for x, y in pts)
         col = WIRING.COLORS[kind]
         dash = ' stroke-dasharray="5 4"' if kind == "estop" else ""
-        tip = html.escape(f"{WIRING.NODES[a][0]} → {WIRING.NODES[b][0]}: {what}. {wire} {conn} {fuse}".strip())
-        paths.append(f'<polyline class="w" data-kind="{kind}" points="{d}" stroke="{col}"{dash}><title>{tip}</title></polyline>')
+        tip = html.escape(f"{N[a][0]} → {N[b][0]}: {what}. {wire} {conn} {fuse}".strip())
+        paths.append(f'<polyline class="w" data-kind="{kind}" points="{dd}" stroke="{col}"{dash}><title>{tip}</title></polyline>'
+                     f'<circle cx="{xa:.0f}" cy="{ya:.0f}" r="2.5" fill="{col}"/><circle cx="{xb:.0f}" cy="{yb:.0f}" r="2.5" fill="{col}"/>')
     nodes = []
-    for k, (label, sub, c, r, item) in WIRING.NODES.items():
-        x, y = pos[k]
-        nodes.append(f'<g class="wn" data-node="{k}"><rect x="{x}" y="{y}" width="{NW}" height="{NH}" rx="8"/>'
-                     f'<text class="t" x="{x + NW / 2}" y="{y + 20}">{html.escape(label)}</text>'
-                     f'<text class="ts" x="{x + NW / 2}" y="{y + 36}">{html.escape(sub)}</text></g>')
-    heads = ["Power in", "Distribution", "Conversion", "Compute, rails", "Buses", "Motors, sensors", "More devices"]
-    hdr = "".join(f'<text class="hd" x="{PAD + i * CW + NW / 2}" y="{PAD + 4}">{h.upper()}</text>' for i, h in enumerate(heads[:cols]))
-    lx = PAD
+    for k, (label, sub, c, r, item) in N.items():
+        x, y = xy[k]
+        nodes.append(f'<g class="wn" data-node="{k}"><rect x="{x}" y="{y}" width="{NW_}" height="{NH_}" rx="8"/>'
+                     f'<text class="t" x="{x + NW_ / 2}" y="{y + 18}">{html.escape(label)}</text>'
+                     f'<text class="ts" x="{x + NW_ / 2}" y="{y + 33}">{html.escape(sub)}</text></g>')
+    heads = ["Power in", "Safety", "Regulators", "Computer", "Controllers", "Devices", "Sensors"]
+    hdr = "".join(f'<text class="hd" x="{P_ + i * CW_ + NW_ / 2}" y="{P_ + 6}">{h.upper()}</text>' for i, h in enumerate(heads[:cols]))
+    lx = P_
     legend = []
     for k, lab in WIRING.LABELS.items():
-        legend.append(f'<g><line x1="{lx}" y1="{H - 14}" x2="{lx + 22}" y2="{H - 14}" stroke="{WIRING.COLORS[k]}" stroke-width="3"'
-                      f'{" stroke-dasharray=\"5 4\"" if k == "estop" else ""}/><text class="lg" x="{lx + 28}" y="{H - 10}">{lab}</text></g>')
+        legend.append(f'<g><line x1="{lx}" y1="{H - 18}" x2="{lx + 22}" y2="{H - 18}" stroke="{WIRING.COLORS[k]}" stroke-width="3"'
+                      + (' stroke-dasharray="5 4"' if k == "estop" else "") + f'/><text class="lg" x="{lx + 28}" y="{H - 14}">{lab}</text></g>')
         lx += 28 + 8 * len(lab) + 26
     return (f'<svg class="wiresvg" viewBox="0 0 {W} {H}" role="img" aria-label="Bob v3 wiring: every power, bus and signal wire">'
             f'{hdr}<g class="ws">{"".join(paths)}</g><g>{"".join(nodes)}</g>{"".join(legend)}</svg>')
