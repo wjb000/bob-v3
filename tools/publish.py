@@ -187,6 +187,81 @@ def money(v):
     return f"${v:,.0f}" if v >= 10 else f"${v:,.2f}"
 
 
+
+def us_units(t: str) -> str:
+    """Show the robot's numbers in US units: lb, in, ft, lb·ft, lbf, mph. Part names (M3, 12 mm rod, TR8) stay as sold."""
+    import re as R
+
+    def num(v, d=1):
+        x = f"{v:,.{d}f}"
+        return x.rstrip("0").rstrip(".") if "." in x else x
+
+    def ftin(m):
+        inch = m / 0.0254
+        if inch < 24:
+            return f"{num(inch)} in"
+        ft, i = divmod(round(inch), 12)
+        return f"{ft} ft {i} in" if i else f"{ft} ft"
+
+    def rng(f, unit_out=None):
+        def g(mo):
+            a = mo.group(1).replace(",", "")
+            b = mo.group(2)
+            if b:
+                return f"{f(float(a), bare=True)}–{f(float(b.replace(',', '')))}"
+            return f(float(a))
+        return g
+
+    def kg(v, bare=False):
+        return num(v * 2.20462, 1) + ("" if bare else " lb")
+
+    def nm(v, bare=False):
+        return num(v * 0.73756, 1) + ("" if bare else " lb·ft")
+
+    def newton(v, bare=False):
+        return num(v * 0.224809, 0 if v > 40 else 1) + ("" if bare else " lbf")
+
+    def ms(v, bare=False):
+        return num(v * 2.23694, 1) + ("" if bare else " mph")
+
+    def mms(v, bare=False):
+        return num(v / 25.4, 1) + ("" if bare else " in/s")
+
+    def mss(v, bare=False):
+        return num(v * 3.28084, 0) + ("" if bare else " ft/s²")
+
+    def mm(v, bare=False):
+        i = v / 25.4
+        return (num(i, 2 if i < 1 else 1)) + ("" if bare else " in")
+
+    def m(v, bare=False):
+        return (num(v / 0.0254, 1) if bare and v < 0.6 else ftin(v) if not bare else ftin(v)) if not bare else ftin(v).replace(" in", "").replace(" ft", " ft") if False else ftin(v)
+
+    N_ = r"(\d[\d,]*(?:\.\d+)?)(?:\s?[–-]\s?(\d[\d,]*(?:\.\d+)?))?"
+    t = R.sub(N_ + r"\s?N·m\b", rng(nm), t)
+    t = R.sub(N_ + r"\s?kg\b", rng(kg), t)
+    t = R.sub(N_ + r"\s?m/s²", rng(mss), t)
+    t = R.sub(N_ + r"\s?mm/s\b", rng(mms), t)
+    t = R.sub(N_ + r"\s?m/s\b", rng(ms), t)
+    t = R.sub(N_ + r"\s?N\b(?!·)", rng(newton), t)
+
+    def mm_sub(mo):
+        a, b = mo.group(1), mo.group(2)
+        if not b and a in ("12", "5", "8", "22", "48"):  # rod, shaft, bearing and motor sizes are part names
+            return mo.group(0)
+        if b:
+            return f"{mm(float(a.replace(',', '')), True)}–{mm(float(b.replace(',', '')))}"
+        return mm(float(a.replace(",", "")))
+    t = R.sub(N_ + r"\s?mm\b(?!/)", mm_sub, t)
+
+    def m_sub(mo):
+        a, b = mo.group(1), mo.group(2)
+        if b:
+            return f"{ftin(float(a))} – {ftin(float(b))}"
+        return ftin(float(a.replace(",", "")))
+    t = R.sub(N_ + r"\s?m\b(?![/²·])", m_sub, t)
+    return t
+
 def main():
     dst = Path(sys.argv[1]).expanduser().resolve()
     dst.mkdir(parents=True, exist_ok=True)
@@ -316,6 +391,8 @@ def main():
         t, n = _re.subn(r'(<[^>]*data-k="%s"[^>]*>)[^<]*(<)' % k, lambda m, v=v: m.group(1) + html.escape(v) + m.group(2), t)
         if not n:
             print("warning: no data-k", k)
+    a, b = t.index("<body"), t.index('<section class="section" id="prints"')
+    t = t[:a] + us_units(t[a:b]) + t[b:]
     page.write_text(t)
     print("done ->", dst)
 
