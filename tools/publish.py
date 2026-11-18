@@ -304,7 +304,7 @@ def main():
         f = dst / m.group(2)
         return f'{m.group(1)}/bob-v3/{m.group(2)}?v={ver(f)}"' if f.exists() else m.group(0)
 
-    t = _re.sub(r'((?:src|href)=")/bob-v3/(img/[^"?]+|bob-v3-[a-z-]+\.zip)(?:\?v=[0-9a-f]+)?"', bust, t)
+    t = _re.sub(r'((?:src|href|poster)=")/bob-v3/(img/[^"?]+|bob-v3-[a-z-]+\.zip)(?:\?v=[0-9a-f]+)?"', bust, t)
     # numbers tagged data-k are refilled on every publish
     fills = {
         "mass": f"{data['mass_kg']} kg", "nprints": str(manifest["total_prints"]), "total": money(total),
