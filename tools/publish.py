@@ -176,6 +176,13 @@ def main():
                 wiring=dict(nodes={k: dict(label=v[0], item=v[4]) for k, v in WIRING.NODES.items()},
                             wires=[dict(a=a, b=b, kind=k, what=w) for a, b, k, w, *_ in WIRING.WIRES], colors=WIRING.COLORS),
                 mass_kg=round(manifest["robot_mass_g"] / 1000, 1), print_kg=round(manifest["print_mass_g"] / 1000, 2))
+    # The site caches .glb and images for a year (vercel.json), so every URL carries a content hash.
+    import hashlib
+
+    def ver(path):
+        return hashlib.sha1(path.read_bytes()).hexdigest()[:10]
+
+    data["glb"] = f"bob_v3.glb?v={ver(dst / 'bob_v3.glb')}"
     (dst / "data.json").write_text(json.dumps(data, separators=(",", ":")))
 
     # ---- tables in index.html
@@ -236,6 +243,24 @@ def main():
     t = t.replace("{{TOTAL}}", money(total)).replace("{{TOBUY}}", money(total - have)).replace("{{MASS}}", f"{data['mass_kg']}") \
          .replace("{{PRINTKG}}", f"{manifest['print_mass_g'] / 1000:.1f}").replace("{{NPRINTS}}", str(manifest["total_prints"])) \
          .replace("{{NUNIQUE}}", str(manifest["unique_prints"]))
+    import re as _re
+
+    def bust(m):
+        f = dst / m.group(2)
+        return f'{m.group(1)}/bob-v3/{m.group(2)}?v={ver(f)}"' if f.exists() else m.group(0)
+
+    t = _re.sub(r'((?:src|href)=")/bob-v3/(img/[^"?]+|bob-v3-[a-z-]+\.zip)(?:\?v=[0-9a-f]+)?"', bust, t)
+    # numbers tagged data-k are refilled on every publish
+    fills = {
+        "mass": f"{data['mass_kg']} kg", "nprints": str(manifest["total_prints"]), "total": money(total),
+        "printcount": f"{manifest['unique_prints']} files · {manifest['total_prints']} prints · {manifest['print_mass_g'] / 1000:.1f} kg",
+        "bomcount": f"{money(total)} · {money(total - have)} new",
+        "printline": f"{manifest['total_prints']} prints from {manifest['unique_prints']} files, about {manifest['print_mass_g'] / 1000:.1f} kg of filament.",
+    }
+    for k, v in fills.items():
+        t, n = _re.subn(r'(<[^>]*data-k="%s"[^>]*>)[^<]*(<)' % k, lambda m, v=v: m.group(1) + html.escape(v) + m.group(2), t)
+        if not n:
+            print("warning: no data-k", k)
     page.write_text(t)
     print("done ->", dst)
 
