@@ -40,7 +40,7 @@ def wiring_svg() -> str:
     xy = {k: (P_ + c * CW_, P_ + 34 + r * RH_) for k, (_, _, c, r, _) in N.items()}
     cols = max(v[2] for v in N.values()) + 1
     rows = max(v[3] for v in N.values()) + 1
-    W, H = P_ * 2 + (cols - 1) * CW_ + NW_, P_ + 34 + rows * RH_ + 44
+    W, H = P_ * 2 + (cols - 1) * CW_ + NW_, P_ + 34 + rows * RH_ + 64
     rects = {k: (x, y, x + NW_, y + NH_) for k, (x, y) in xy.items()}
     # which side of each node every wire end uses
     ends = []
@@ -106,12 +106,23 @@ def wiring_svg() -> str:
         col = WIRING.COLORS[kind]
         dash = ' stroke-dasharray="5 4"' if kind == "estop" else ""
         tip = html.escape(f"{N[a][0]} → {N[b][0]}: {what}. {wire} {conn} {fuse}".strip())
-        paths.append(f'<polyline class="w" data-kind="{kind}" points="{dd}" stroke="{col}"{dash}><title>{tip}</title></polyline>'
-                     f'<circle cx="{xa:.0f}" cy="{ya:.0f}" r="2.5" fill="{col}"/><circle cx="{xb:.0f}" cy="{yb:.0f}" r="2.5" fill="{col}"/>')
+        lab = ""
+        if kind.startswith("power") and wire:
+            seg = max(zip(pts, pts[1:]), key=lambda s2: abs(s2[1][0] - s2[0][0]))
+            if abs(seg[1][0] - seg[0][0]) > 60:
+                lab = f'<text class="wl" x="{(seg[0][0] + seg[1][0]) / 2:.0f}" y="{seg[0][1] - 4:.0f}" fill="{col}">{html.escape(wire)}</text>'
+        paths.append(f'<g class="wg" data-kind="{kind}" data-a="{a}" data-b="{b}"><polyline class="w" points="{dd}" stroke="{col}"{dash}><title>{tip}</title></polyline>{lab}'
+                     f'<circle cx="{xa:.0f}" cy="{ya:.0f}" r="2.5" fill="{col}"/><circle cx="{xb:.0f}" cy="{yb:.0f}" r="2.5" fill="{col}"/></g>')
     nodes = []
+    feed = {}
+    for a, b, kind, *_ in WIRING.WIRES:
+        feed.setdefault(b, kind)
+        feed.setdefault(a, kind)
     for k, (label, sub, c, r, item) in N.items():
         x, y = xy[k]
-        nodes.append(f'<g class="wn" data-node="{k}"><rect x="{x}" y="{y}" width="{NW_}" height="{NH_}" rx="8"/>'
+        acc = WIRING.COLORS[feed.get(k, "usb")]
+        nodes.append(f'<g class="wn" data-node="{k}" tabindex="0"><rect x="{x}" y="{y}" width="{NW_}" height="{NH_}" rx="8"/>'
+                     f'<rect class="acc" x="{x}" y="{y + 8}" width="3" height="{NH_ - 16}" rx="1.5" fill="{acc}"/>'
                      f'<text class="t" x="{x + NW_ / 2}" y="{y + 18}">{html.escape(label)}</text>'
                      f'<text class="ts" x="{x + NW_ / 2}" y="{y + 33}">{html.escape(sub)}</text></g>')
     heads = ["Power in", "Safety", "Regulators", "Computer", "Controllers", "Devices", "Sensors"]
@@ -122,8 +133,14 @@ def wiring_svg() -> str:
         legend.append(f'<g><line x1="{lx}" y1="{H - 18}" x2="{lx + 22}" y2="{H - 18}" stroke="{WIRING.COLORS[k]}" stroke-width="3"'
                       + (' stroke-dasharray="5 4"' if k == "estop" else "") + f'/><text class="lg" x="{lx + 28}" y="{H - 14}">{lab}</text></g>')
         lx += 28 + 8 * len(lab) + 26
+    zones = []
+    for c0, c1, name in ((0, 2, "POWER"), (3, 4, "CONTROL"), (5, 6, "DEVICES")):
+        x0, x1 = P_ + c0 * CW_ - 10, P_ + c1 * CW_ + NW_ + 10
+        zones.append(f'<rect class="zone" x="{x0}" y="{P_ + 16}" width="{x1 - x0}" height="{rows * RH_ + 26}" rx="12"/>'
+                     f'<text class="zt" x="{x0 + 12}" y="{P_ + 16 + rows * RH_ + 18}">{name}</text>')
+    legend = [g.replace("<g>", f'<g class="lgi" data-kind="{k}" tabindex="0">', 1) for g, k in zip(legend, WIRING.LABELS)]
     return (f'<svg class="wiresvg" viewBox="0 0 {W} {H}" role="img" aria-label="Bob v3 wiring: every power, bus and signal wire">'
-            f'{hdr}<g class="ws">{"".join(paths)}</g><g>{"".join(nodes)}</g>{"".join(legend)}</svg>')
+            f'{"".join(zones)}{hdr}<g class="ws">{"".join(paths)}</g><g>{"".join(nodes)}</g>{"".join(legend)}</svg>')
 
 
 def wiring_table() -> str:
