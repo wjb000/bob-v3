@@ -420,7 +420,7 @@ def torso_parts() -> list[Part]:
     out.append(Part("torso_back_plate", back_plate(), "lift", "torso", color="frame",
                     note="Takes the lift tongue, the yokes and the Pi and USB grid."))
     out.append(Part("yoke_l", yoke(1), "lift", "torso", color="frame", rot=(90, 0, 0),
-                    note="Holds the left DM-J4340 (J1). Prints on its centre face, cup up. 5 walls, 30% infill."))
+                    note="Holds the left J1 GM-5 module. Prints on its centre face, cup up. 5 walls, 30% infill."))
     out.append(Part("yoke_r", yoke(-1), "lift", "torso", color="frame", rot=(-90, 0, 0), note="Mirror of yoke_l."))
     out.append(Part("neck_mount", neck_mount(), "lift", "torso", color="frame", note="Pan servo cradle, bridges the yokes."))
     out += j1_modules()[0]

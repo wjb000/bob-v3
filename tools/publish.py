@@ -219,7 +219,7 @@ def main():
     t = fill(t, "PRINTS", "\n".join(out))
     # checks
     names = {"stand": "Stands still at home", "torque": "Arm torque, 0.5 kg in the hand", "hold": "Holds both arms straight out with 0.5 kg",
-             "lift": "Lift 0 → 650 mm at 25 mm/s", "brake": "Drives 0.8 m/s, stops at up to 6 m/s²", "push": "Shove at the head, torso up, arms out",
+             "lift": "Lift 0 → 650 mm at 25 mm/s", "brake": "Drives 0.6 m/s, stops at up to 6 m/s²", "push": "Shove at the head, torso up, arms out",
              "slope": "Steepest ramp, worst pose", "reach": "Workspace sampling", "tasks": "Floor, counter and top shelf by IK",
              "pick": "Scripted pick off a 0.75 m table"}
     out = []
