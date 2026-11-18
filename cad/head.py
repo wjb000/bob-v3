@@ -24,17 +24,17 @@ SPLIT_Z = S + 128.0
 HR = 22.0
 HWALL = 3.0
 FRAME_Z = (S + 112.0, S + 116.0)
-VISOR = dict(w=150.0, h=84.0, zc=S + 176.0, r=24.0)
+VISOR = dict(w=128.0, h=80.0, zc=S + 176.0, r=24.0)
 EYE_Z = S + 158.0
-EYE_Y = 36.0
-EYE_ARM_Y = 17.0  # eye plate arms, inboard of the eye pin holes
+EYE_Y = 31.0
+EYE_ARM_Y = 13.0  # eye plate arms, inboard of the eye pin holes
 CAM_Z = S + 196.0
 # tilt servo: shaft along +Y at (NX, TILT_Z), body forward of the shaft
 TILT_BODY = dict(x=(NX - P.STS_SHAFT_FROM_END, NX - P.STS_SHAFT_FROM_END + P.STS_L), y=(-22.0, 13.0),
                  z=(TILT_Z - P.STS_W / 2, TILT_Z + P.STS_W / 2))
 TILT_HORN_Y = 13.0 + 4.0
 POST_X = (HX1 - 38.0, HX1 - 30.0)
-EAR_X, EAR_Z, EAR_D, EAR_T, EAR_SPIGOT = HCX, S + 178.0, 56.0, 7.0, 22.0
+EAR_X, EAR_Z, EAR_D, EAR_T, EAR_SPIGOT = HCX, S + 176.0, 50.0, 6.0, 20.0
 COLLAR = dict(cx=NX + 10.0, cy=-4.0, lx=70.0, ly=58.0, r=24.0, z0=S + 53.0, z1=S + 74.0)
 
 
@@ -55,7 +55,7 @@ def neck_yoke() -> cq.Shape:
 
 def head_frame() -> cq.Shape:
     tb = TILT_BODY
-    plate = rrect(HX0 + 20 + 46, 0, FRAME_Z[0], FRAME_Z[1], 92, 144, 16)
+    plate = rrect(HX0 + 20 + 46, 0, FRAME_Z[0], FRAME_Z[1], 92, 128, 16)
     cheek_h = box(NX - 14, NX + 14, TILT_HORN_Y, TILT_HORN_Y + 5, TILT_Z - 14, FRAME_Z[1])
     cheek_i = box(NX - 14, NX + 14, tb["y"][0] - 3 - 6, tb["y"][0] - 3 - 1, TILT_Z - 14, FRAME_Z[1])
     rounds = [cyl_between("y", (NX, TILT_Z), TILT_HORN_Y, TILT_HORN_Y + 5, 28),
@@ -146,7 +146,7 @@ EYE_PLATE_X = (HX1 - HWALL - 2 - 4, HX1 - HWALL - 2)
 
 def eye_plate() -> cq.Shape:
     x0, x1 = EYE_PLATE_X
-    plate = cq.Workplane("YZ").workplane(offset=x0).center(0, EYE_Z).sketch().rect(126, 48).vertices().fillet(10) \
+    plate = cq.Workplane("YZ").workplane(offset=x0).center(0, EYE_Z).sketch().rect(110, 46).vertices().fillet(10) \
         .finalize().extrude(x1 - x0).val()
     arms = [box(POST_X[1], x0 + 0.5, y - 7, y + 7, EYE_Z - 7, EYE_Z + 7) for y in (-EYE_ARM_Y, EYE_ARM_Y)]
     s = fuse(plate, *arms)

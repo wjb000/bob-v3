@@ -8,14 +8,14 @@ This is a design that has been checked in CAD and in physics simulation. It has 
 
 | | |
 | --- | --- |
-| Size | 560 × 440 mm base, 1.13 m mast. The head top goes from 0.77 m to 1.42 m. |
+| Size | Ø480 mm round base (turns in its own footprint), 240 mm wide torso, 1.11 m mast. The head top goes from 0.76 m to 1.41 m. |
 | Reach | Floor 0.32–0.45 m in front of the nose, a 0.91 m counter, a 1.55 m shelf. The hand reaches 1.74 m up and 0.81 m to the side. |
 | Payload | About 0.7 kg per hand held continuously, about 2 kg for a short lift (80% of peak torque). |
 | Joints | 19 driven: 2 hub wheels, lift, head pan and tilt, and 7 per arm (six joints plus the gripper). |
 | Gripper | Rack and pinion parallel jaw, 0–80 mm, about 40 N per finger. |
 | Mass | 19.5 kg (printed parts at 4 walls / 20%, bought parts at listed mass, 1.7 kg of wiring and screws). |
 | Prints | 231 prints from 95 files, about 7.4 kg of filament, all inside 200 × 200 × 200 mm. |
-| Cost | About $1,650 for everything, or about $1,310 if you reuse the Bob v2 hubs, Pi 5, pack and drivers. See [BOM.md](BOM.md). |
+| Cost | About $2,900 for every part at the linked stores, or $2,600 if you reuse the Bob v2 Pi 5, battery and charger. Every BOM line links to a specific product. See [BOM.md](BOM.md). |
 | Compute | Raspberry Pi 5 on the robot; big models run on a desktop GPU over Wi-Fi. A wide RGB camera in the head, a USB camera on each wrist, RPLIDAR C1 in the base. |
 
 ## GM-5 joint module
@@ -32,14 +32,14 @@ The head pans ±0.6 rad and tilts −0.35 to +0.55 rad. Below 0.51 m of lift, th
 | --- | --- | --- | --- |
 | Shoulder pitch (J1) | GM-5: STS3250 + printed 5:1 planetary | 6.7 / 20.8 N·m | 5.8 N·m (87% of rated) |
 | Shoulder roll (J2) | GM-5 | 6.7 / 20.8 N·m | 5.4 N·m (81%) |
-| Upper-arm yaw (J3) | GM-5 | 6.7 / 20.8 N·m | 2.8 N·m (41%) |
-| Elbow (J4) | GM-5 | 6.7 / 20.8 N·m | 2.8 N·m (42%) |
+| Upper-arm yaw (J3) | GM-5 with an STS3215 | 4.2 / 12.5 N·m | 2.8 N·m |
+| Elbow (J4) | GM-5 with an STS3215 | 4.2 / 12.5 N·m | 2.8 N·m |
 | Wrist pitch (J5) | Feetech STS3250 12 V | 1.57 / 4.9 N·m | 1.1 N·m (71%) |
 | Wrist roll (J6) | Feetech STS3215 12 V | 0.98 / 2.94 N·m | ~0 |
 | Gripper (J7) | Feetech STS3215 12 V, 12 mm pinion | about 40 N per finger | |
 | Head pan, tilt | Feetech STS3215 12 V | | |
 | Lift | NEMA 17 48 mm, TR8×2 leadscrew | about 380 N, 25 mm/s | 84 N |
-| Wheels | 6.5 in hoverboard hubs, ZS-X11H | 0.8 m/s | |
+| Wheels | 2 × Waveshare DDSM115 direct-drive hub motor, 12 V | 0.96 / 2.0 N·m | about 0.6 m/s |
 
 The torques come from `sim/check.py`. It runs MuJoCo inverse dynamics on the CAD masses at the worst pose for each joint.
 
@@ -97,7 +97,7 @@ To train your own policy, see [sim/README.md](sim/README.md).
 
 ## Safety
 
-The base drives a 20 kg robot on 36 V. The e-stop on the base drops a contactor in series with the 12 V motor rail and the hub controllers. The Pi stays up. The leadscrew is self-locking, so the torso stays where it is with the power off. The arm servos go limp when they lose power; the 5:1 gearboxes slow the fall but do not stop it. The torso does not move. Keep the arms in the home pose when you are working near the robot.
+The 36 V pack charges through a GX16 socket on top of the base; Bob can plug his own charger in. The e-stop drops a contactor in series with every motor converter. The Pi stays up. The leadscrew is self-locking, so the torso stays where it is with the power off. The arm servos go limp when they lose power; the 5:1 gearboxes slow the fall but do not stop it. The torso does not move. Keep the arms in the home pose when you are working near the robot.
 
 ## Older versions
 

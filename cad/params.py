@@ -36,11 +36,17 @@ M8 = 8.4
 
 # ---------------------------------------------------------------- bought parts
 # Hoverboard 6.5 in hub motor (the Bob v2 wheels). MEASURE before printing axle clamps.
-WHEEL_OD = 165.0  # MEASURE tire
-WHEEL_W = 45.0  # MEASURE hub width
+# Waveshare DDSM115 direct-drive hub motor, dimensions from Waveshare's STEP model:
+# tire 100.7 x 43, hub 67, stationary stub 19 mm with 3 x M2.5 on a 15.2 circle, 65.5 mm overall.
+WHEEL_OD = 100.7
+WHEEL_W = 43.0
 AXLE_D = 12.0  # VERIFY: most 6.5 in hubs are 12 mm with two flats
 AXLE_FLATS = 10.0  # VERIFY: across the flats
-HUB_MASS = 2800.0
+HUB_MASS = 765.0
+DDSM_STUB_D = 19.0
+DDSM_PCD = 15.2
+DDSM_STUB_END = 36.5  # stub end face, inboard of the tire centre
+DDSM_ROTOR_IN = 21.5  # rotating hub starts this far inboard of the tire centre
 
 # Damiao DM-J4340-2EC (24 V, 40:1, CAN). 9 N·m rated, 27 N·m peak, 362 g.
 DM4340_D = 57.0
@@ -89,7 +95,7 @@ T8_PCD = 16.0
 T8_LEAD = 2.0
 
 # Electronics envelopes (bought). MEASURE the battery.
-BATT = (80.0, 200.0, 70.0)  # x, y, z. 36 V 10S2P hoverboard pack
+BATT = (80.0, 200.0, 70.0)  # x, y, z. The 36 V 10S2P hoverboard pack Bob v2 already has. MEASURE yours.
 BATT_MASS = 1200.0
 JETSON = (103.0, 90.5, 34.8)  # Jetson Orin Nano Super dev kit with heatsink
 D435 = (90.0, 25.0, 25.0)  # Intel RealSense D435i
@@ -98,47 +104,49 @@ EYE_GLASS = 32.4
 LIDAR_D = 55.6  # Slamtec RPLIDAR C1
 LIDAR_H = 41.3
 ESTOP_HOLE = 22.5  # 22 mm panel e-stop
+CHARGE_XY = (150.0, -125.0)  # GX16 charge socket in the base top, where the right hand can reach it
+CHARGE_HOLE = 16.2
 
 # ---------------------------------------------------------------- base
-BASE_L = 560.0  # x. 560 puts the front caster far enough out for 10+ degrees of forward tip margin.
-BASE_W = 440.0  # y
-BASE_R = 140.0  # plan corner radius
-BASE_TOP = 238.0  # top surface of the shell
+BASE_L = 480.0  # round: a 480 mm circle turns in its own footprint
+BASE_W = 480.0  # y
+BASE_R = 240.0  # plan corner radius (half the width: a circle)
+BASE_TOP = 212.0  # top surface of the shell
 BASE_WALL = 3.0
-SHELL_BOTTOM = 42.0
+SHELL_BOTTOM = 30.0
 GRID_X = (-100.0, 87.0)  # tile cut lines, shell and pan. Clear of the mast hole.
 GRID_Y = (-90.0, 90.0)
 
 PAN_INSET = 8.0  # pan outline sits this far inside the shell
-PAN_BOTTOM = 34.0  # rib bottoms (ground clearance)
-PAN_TOP = 49.0
+PAN_BOTTOM = 22.0  # rib bottoms (ground clearance)
+PAN_TOP = 37.0
 PAN_SKIN = 4.0
 
 WHEEL_Y = 185.0  # wheel centre, each side
 AXLE_Z = WHEEL_OD / 2.0
-WHEEL_ARCH_R = 96.0
-WHEEL_CUT_X = 96.0  # pan cutout half-length around the tire
-WHEEL_CUT_Y = 156.0  # pan cutout starts here
-CASTER_X = 215.0  # front and rear
-CASTER_WHEEL = 50.0
+WHEEL_ARCH_R = 60.0
+WHEEL_CUT_X = 58.0  # pan cutout half-length around the tire
+WHEEL_CUT_Y = 160.0  # pan cutout starts here
+CASTER_X = 185.0  # front and rear
+CASTER_WHEEL = 40.0
 CASTER_WHEEL_W = 22.0
-CASTER_TRAIL = 15.0
-CASTER_HOLE = 100.0  # pan cutout the fork swings in
-CASTER_PLATE_Z = 66.0  # bottom of the swivel bridge plate
+CASTER_TRAIL = 12.0
+CASTER_HOLE = 84.0  # pan cutout the fork swings in
+CASTER_PLATE_Z = 56.0  # bottom of the swivel bridge plate
 
-LIDAR_X = 215.0  # on the front caster bridge
+LIDAR_X = 185.0  # on the front caster bridge
 LIDAR_Z0 = 108.0  # bottom of the lidar
 LIDAR_SCAN_Z = 134.0  # optical plane, roughly
 
 # ---------------------------------------------------------------- mast / lift
 MAST_X = -30.0  # mast centre
-MAST_DX = 100.0  # depth (x)
-MAST_DY = 132.0  # width (y)
-MAST_R = 30.0
+MAST_DX = 92.0  # depth (x)
+MAST_DY = 120.0  # width (y)
+MAST_R = 34.0
 MAST_WALL = 4.0
-MAST_SLOT = 64.0  # front slot width the carriage tongue rides in
+MAST_SLOT = 60.0  # front slot width the carriage tongue rides in
 ROD_X = MAST_X - 12.0
-ROD_Y = 45.0
+ROD_Y = 36.0
 SCREW_X = ROD_X
 MAST_Z0 = PAN_TOP
 MAST_TOP = 1035.0  # top of the segment stack, bottom of the cap
@@ -157,15 +165,15 @@ BEARING_SPAN = 110.0  # lower to upper LM12UU centres
 
 # ---------------------------------------------------------------- torso (relative to the shoulder axis in z)
 TORSO_X0 = MAST_X + MAST_DX / 2 + 6.0  # back face, 6 mm in front of the mast
-TORSO_D = 170.0
-TORSO_HW = 155.0  # half width
-TORSO_BELOW = 230.0
+TORSO_D = 150.0
+TORSO_HW = 120.0  # half width
+TORSO_BELOW = 200.0
 TORSO_ABOVE = 50.0
 TORSO_SPLIT = -80.0  # upper / lower tier
-TORSO_R = 48.0
+TORSO_R = 32.0
 TORSO_WALL = 3.0
 SHOULDER_X = TORSO_X0 + 84.0
-SHOULDER_Y = 195.0  # J2/J3 axis line, each side
+SHOULDER_Y = 157.0  # J2/J3 axis line, each side
 
 # ---------------------------------------------------------------- arm (left; right mirrors y)
 UPPER_ARM = 252.0  # shoulder axis to elbow axis
@@ -180,7 +188,7 @@ GRIP_OPEN = 80.0  # max jaw gap
 # ---------------------------------------------------------------- head (relative to the shoulder axis in z)
 NECK_Z = TORSO_ABOVE
 TILT_Z = 100.0
-HEAD_W = 196.0
+HEAD_W = 176.0
 HEAD_D = 120.0
 HEAD_H = 144.0
 HEAD_CZ = 168.0

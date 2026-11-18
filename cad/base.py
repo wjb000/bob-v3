@@ -23,16 +23,16 @@ SHELL_LX, SHELL_LY = P.BASE_L, P.BASE_W
 INNER_LX, INNER_LY = SHELL_LX - 2 * P.BASE_WALL, SHELL_LY - 2 * P.BASE_WALL
 PAN_LX, PAN_LY = SHELL_LX - 2 * P.PAN_INSET, SHELL_LY - 2 * P.PAN_INSET
 PAN_R = P.BASE_R - P.PAN_INSET
-TOP_CHAMFER = 20.0
+TOP_CHAMFER = 24.0
 
 MAST_HOLE = (P.MAST_X - P.MAST_DX / 2 - 4, P.MAST_X + P.MAST_DX / 2 + 4, P.MAST_DY / 2 + 4)
 MAST_FLANGE = 14.0  # mast foot overhang on the pan
 ESTOP_XY = (-205.0, 0.0)
-LIGHT_Z = (196.0, 202.0)
+LIGHT_Z = (172.0, 178.0)
 
 BATT_C = (90.0, 0.0)
 BATT_Z0 = P.PAN_TOP + 4.0  # sits on the joiner tabs
-SHELF_Z = 130.0
+SHELF_Z = 142.0
 SHELF_T = 4.0
 
 # Every M3 insert in the pan, named, so parts and seams can avoid each other.
@@ -49,35 +49,27 @@ def _mast_foot_pts():
 
 def _axle_pts(side):
     y = side
-    return [(-24, y * 118), (24, y * 118), (-24, y * 150), (24, y * 150)]
+    return [(-20, y * 122), (20, y * 122), (-20, y * 140), (20, y * 140)]
 
 
 def _caster_pts(cx):
-    return [(cx - 30, -66), (cx - 30, 66), (cx + 30, -66), (cx + 30, 66)]
+    return [(cx - 25, -60), (cx - 25, 60), (cx + 25, -60), (cx + 25, 60)]
 
 
 FRONT_SHELF_PTS = [(40, 110), (146, 110), (146, 14)]
-REAR_SHELF_PTS = [(-106, 30), (-106, 130), (-160, 125), (-250, 125)]
+REAR_SHELF_PTS = [(-106, 30), (-106, 130), (-160, 125), (-185, 100)]
 CRADLE_PTS = [(62, 114), (118, 114), (62, -114), (118, -114)]
 LUG_PTS = []
 
 
 def _lug_points():
+    """Eight lugs around the round shell, clear of the seams, the wheel cuts and the caster holes."""
+    r = PAN_R - 6
     pts = []
-    # front / rear, clear of the caster holes
-    for sx in (1, -1):
+    for deg in (20.0, 55.0, 125.0, 160.0):
         for sy in (1, -1):
-            pts.append((sx * (PAN_LX / 2 - 6), sy * 70.0))
-    # corner arcs at 45 degrees
-    cx0, cy0 = PAN_LX / 2 - PAN_R, PAN_LY / 2 - PAN_R
-    for sx in (1, -1):
-        for sy in (1, -1):
-            r = PAN_R - 6
-            pts.append((sx * (cx0 + r * math.cos(math.pi / 4)), sy * (cy0 + r * math.sin(math.pi / 4))))
-    # sides, outside the wheel cut
-    for x in (140.0, -150.0):
-        for sy in (1, -1):
-            pts.append((x, sy * (rr_boundary("x", x, PAN_LX, PAN_LY, PAN_R) - 6)))
+            a = math.radians(deg)
+            pts.append((r * math.cos(a), sy * r * math.sin(a)))
     return pts
 
 
@@ -129,6 +121,8 @@ def _top_seam_pairs():
                 continue
             if any(abs(y - gy) < 16 for gy in P.GRID_Y):
                 continue
+            if max(math.hypot(*a), math.hypot(*b)) > P.BASE_R - TOP_CHAMFER - 14:
+                continue
             pairs.append(("x", a, b))
     for gy in P.GRID_Y:
         for x in (-232.0, -165.0, -40.0, 30.0, 140.0, 222.0):
@@ -137,6 +131,8 @@ def _top_seam_pairs():
             if any(abs(x - gx) < 16 for gx in P.GRID_X):
                 continue
             a, b = (x, gy - JOIN_OFF), (x, gy + JOIN_OFF)
+            if max(math.hypot(*a), math.hypot(*b)) > P.BASE_R - TOP_CHAMFER - 14:
+                continue
             pairs.append(("y", a, b))
     return pairs
 
@@ -148,28 +144,36 @@ def _arch_top(x):
 
 
 def _wall_seam_pairs():
-    """(kind, p_a, p_b, inward normal) on the inner wall face at each seam."""
+    """(kind, p_a, p_b, inward normal) on the inner wall face at each seam. The normal is radial."""
     out = []
-    zs = (95.0, 160.0, 210.0)
-    # side walls, seams at x = GRID_X
+    zs = (75.0, 120.0)
+    rin = P.BASE_R - P.BASE_WALL
+
+    def wall_y(x):
+        return rr_boundary("x", x, INNER_LX, INNER_LY, rin)
+
+    def wall_x(y):
+        return rr_boundary("y", y, INNER_LX, INNER_LY, rin)
+
+    def pair(a, b, kind):
+        c = ((a[0] + b[0]) / 2, (a[1] + b[1]) / 2)
+        r = math.hypot(*c)
+        return (kind, a, b, (-c[0] / r, -c[1] / r, 0.0))
+
     for gx in P.GRID_X:
         for sy in (1, -1):
             for z in zs:
-                a = (gx - JOIN_OFF, sy * INNER_LY / 2, z)
-                b = (gx + JOIN_OFF, sy * INNER_LY / 2, z)
-                if z < max(_arch_top(a[0]), _arch_top(b[0])) + 14:
+                xa, xb = gx - JOIN_OFF, gx + JOIN_OFF
+                if z < max(_arch_top(xa), _arch_top(xb)) + 14:
                     continue
-                out.append(("side", a, b, (0, -sy, 0)))
-    # front / rear walls, seams at y = GRID_Y
+                out.append(pair((xa, sy * wall_y(xa), z), (xb, sy * wall_y(xb), z), "side"))
     for gy in P.GRID_Y:
         for sx in (1, -1):
             for z in zs:
                 if sx > 0 and 112 < z < 160:
                     continue  # lidar slot
                 ya, yb = gy - JOIN_OFF, gy + JOIN_OFF
-                xa = sx * rr_boundary("y", ya, INNER_LX, INNER_LY, P.BASE_R - P.BASE_WALL)
-                xb = sx * rr_boundary("y", yb, INNER_LX, INNER_LY, P.BASE_R - P.BASE_WALL)
-                out.append(("end", (xa, ya, z), (xb, yb, z), (-sx, 0, 0)))
+                out.append(pair((sx * wall_x(ya), ya, z), (sx * wall_x(yb), yb, z), "end"))
     return out
 
 
@@ -245,11 +249,11 @@ def _shell_full() -> cq.Shape:
     tools.append(rrect_shell(0, 0, LIGHT_Z[0], LIGHT_Z[1], SHELL_LX + 2, SHELL_LY + 2, P.BASE_R + 1, 2.5, open_top=True, open_bot=True))
     # e-stop, charge port, main switch, vents
     tools.append(cyl((ESTOP_XY[0], ESTOP_XY[1], P.BASE_TOP - 10), "z", P.ESTOP_HOLE, 20))
-    tools.append(cyl((-SHELL_LX / 2 - 5, -40, 100), "x", 12.2, 20))
-    tools.append(cyl((-SHELL_LX / 2 - 5, 40, 100), "x", 20.2, 20))
+    tools.append(cyl((P.CHARGE_XY[0], P.CHARGE_XY[1], P.BASE_TOP - 10), "z", P.CHARGE_HOLE, 20))  # charge socket, top
+    tools.append(cyl((-SHELL_LX / 2 - 5, 40, 95), "x", 20.2, 20))
     for i in range(7):
         y = -36 + 12 * i
-        tools.append(rrect(-SHELL_LX / 2, y, 150, 188, 20, 5, 2.4))
+        tools.append(rrect(-SHELL_LX / 2, y, 125, 160, 20, 5, 2.4))
     return cut(s, *tools)
 
 
@@ -339,7 +343,7 @@ def _pan_seam_pairs():
     for gx in P.GRID_X:
         for y in (-190.0, -135.0, -60.0, 0.0, 60.0, 135.0, 190.0):
             a, b = (gx - JOIN_OFF, y), (gx + JOIN_OFF, y)
-            ok = all(_pan_inside(q, 12) for q in (a, b)) and all(_clear(q, taken, 16) for q in (a, b))
+            ok = all(_pan_inside(q, 12) for q in (a, b)) and all(_clear(q, taken, 24) for q in (a, b))
             ok = ok and all(abs(y - gy) > 18 for gy in P.GRID_Y)
             ok = ok and not any(_in_cut(q, 8) for q in (a, b))
             mx0, mx1, my = MAST_HOLE
@@ -349,7 +353,7 @@ def _pan_seam_pairs():
     for gy in P.GRID_Y:
         for x in (-232.0, -170.0, -130.0, -40.0, 30.0, 120.0, 160.0, 225.0):
             a, b = (x, gy - JOIN_OFF), (x, gy + JOIN_OFF)
-            ok = all(_pan_inside(q, 12) for q in (a, b)) and all(_clear(q, taken, 16) for q in (a, b))
+            ok = all(_pan_inside(q, 12) for q in (a, b)) and all(_clear(q, taken, 24) for q in (a, b))
             ok = ok and all(abs(x - gx) > 18 for gx in P.GRID_X)
             ok = ok and not any(_in_cut(q, 8) for q in (a, b))
             mx0, mx1, my = MAST_HOLE
@@ -434,40 +438,24 @@ def pan_parts() -> list[Part]:
 
 # ---------------------------------------------------------------- hub clamps
 
-AXLE_BLOCK = (-32.0, 32.0, 112.0, 157.0)
-
-
-def _axle_bore(y0, y1):
-    bore = cyl_between("y", (0, P.AXLE_Z), y0, y1, P.AXLE_D + 0.3)
-    flats = box(-20, 20, y0, y1, P.AXLE_Z - P.AXLE_FLATS / 2 - 0.15, P.AXLE_Z + P.AXLE_FLATS / 2 + 0.15)
-    return bore.intersect(flats)
-
-
-def axle_block(side) -> tuple[cq.Shape, cq.Shape]:
-    x0, x1, y0, y1 = AXLE_BLOCK
+def wheel_bracket(side) -> cq.Shape:
+    """Holds a DDSM115 by its stub: 3 x M2.5 into the stub end on a 15.2 circle, 4 x M3 into the pan."""
+    yf = P.WHEEL_Y - P.DDSM_STUB_END  # stub end face
     zc = P.AXLE_Z
-    lower = rrect(0, (y0 + y1) / 2, P.PAN_TOP, zc, x1 - x0, y1 - y0, 6)
-    upper = rrect(0, (y0 + y1) / 2, zc, zc + 26, x1 - x0, y1 - y0, 6, chamfer_top=4)
-    tools_l, tools_u = [], []
+    s = rrect(0, (yf - 30 + yf) / 2, P.PAN_TOP, zc + 24, 52, 30, 8, chamfer_top=4)
+    tools = [cyl_between("y", (0, zc), yf - 40, yf + 1, 9.0)]  # motor cable through the middle
+    for deg in (90, 210, 330):
+        a = math.radians(deg)
+        x, z = P.DDSM_PCD / 2 * math.cos(a), zc + P.DDSM_PCD / 2 * math.sin(a)
+        tools.append(cyl_between("y", (x, z), yf - 31, yf + 1, 2.9))
+        tools.append(cyl_between("y", (x, z), yf - 31, yf - 8, 5.2))
     for x, y in _axle_pts(1):
-        tools_l.append(cyl((x, y, P.PAN_TOP - 1), "z", P.M3, 60))
-        tools_l.append(cyl((x, y, P.PAN_TOP + 8), "z", P.M3_HEAD, 60))
-        tools_u.append(cyl((x, y, zc - 1), "z", 8.0, 60))  # screwdriver access
-    for x in (-24.0, 24.0):
-        y = 134.0
-        tools_l.append(cyl((x, y, zc - P.M3_INSERT_DEPTH), "z", P.M3_INSERT, 10))
-        tools_u.append(cyl((x, y, zc - 1), "z", P.M3, 40))
-        tools_u.append(cyl((x, y, zc + 10), "z", P.M3_HEAD, 40))
-    b = _axle_bore(y0 - 1, y1 + 1)
-    lower = cut(lower, b, *tools_l)
-    upper = cut(upper, b, *tools_u)
-    hw("M3 heat-set insert", 2)
-    hw("M3x16 socket head", 2)
+        tools.append(cyl((x, y, P.PAN_TOP - 1), "z", P.M3, 60))
+        tools.append(cyl((x, y, P.PAN_TOP + 8), "z", P.M3_HEAD, 60))
+    hw("M2.5x10 socket head (DDSM115 stub)", 3)
     hw("M3x10 socket head", 4)
-    if side < 0:
-        lower = lower.mirror("XZ", (0, 0, 0))
-        upper = upper.mirror("XZ", (0, 0, 0))
-    return lower, upper
+    s = cut(s, *tools)
+    return s if side > 0 else s.mirror("XZ", (0, 0, 0))
 
 
 # ---------------------------------------------------------------- casters
@@ -475,7 +463,7 @@ def axle_block(side) -> tuple[cq.Shape, cq.Shape]:
 def caster_bridge(cx, lidar=False) -> cq.Shape:
     z0, z1 = P.PAN_TOP, P.CASTER_PLATE_Z
     legs = [cyl((x, y, z0), "z", 16, z1 - z0) for x, y in _caster_pts(cx)]
-    plate = rrect(cx, 0, z1, z1 + 10, 72, 152, 14)
+    plate = rrect(cx, 0, z1, z1 + 10, 62, 136, 14)
     parts = [plate, *legs]
     s = fuse(*parts)
     tools = [cyl((cx, 0, z1 - 1), "z", 22.2, 7 + 1), cyl((cx, 0, z1 - 1), "z", P.M8, 20),
@@ -517,7 +505,7 @@ def lidar_mount(cx) -> cq.Shape:
 def caster_fork(cx) -> cq.Shape:
     ax = cx - P.CASTER_TRAIL
     r = P.CASTER_WHEEL / 2
-    top0, top1 = 53.0, 64.0
+    top0, top1 = P.CASTER_WHEEL + 3.0, P.CASTER_PLATE_Z - 2.0
     disc = cyl((cx, 0, top0), "z", 46, top1 - top0)
     arms = []
     half = P.CASTER_WHEEL_W / 2 + 1.5
@@ -606,21 +594,25 @@ def bought() -> list[Bought]:
 
     out = []
     for sy, name in ((1, "hub_l"), (-1, "hub_r")):
-        pcs = V.place(V.hub_motor(sy), (0, sy * P.WHEEL_Y, P.AXLE_Z), xdir=(1, 0, 0), zdir=(0, sy, 0))
-        out += V.boughts(name, pcs, f"wheel_{'l' if sy > 0 else 'r'}", "base", "wheel", P.HUB_MASS, "hub")
+        link = f"wheel_{'l' if sy > 0 else 'r'}"
+        rot, stat = V.ddsm115()
+        frame = dict(xdir=(1, 0, 0), zdir=(0, sy, 0))
+        out += V.boughts(name, V.place(rot, (0, sy * P.WHEEL_Y, P.AXLE_Z), **frame), link, "base", "wheel", P.HUB_MASS - 300, "ddsm115")
+        out += V.boughts(f"{name}_stator", V.place(stat, (0, sy * P.WHEEL_Y, P.AXLE_Z), **frame), "base", "base", "wheel", 300, "")
     out += V.boughts("battery", V.place(V.battery(), (BATT_C[0], BATT_C[1], BATT_Z0)), "base", "base", "battery", P.BATT_MASS, "battery")
+    out += V.boughts("charge_socket", V.place(V.gx16(), (P.CHARGE_XY[0], P.CHARGE_XY[1], P.BASE_TOP)), "base", "base", "electronics", 20, "gx16")
     out += V.boughts("lidar", V.place(V.rplidar_c1(), (P.LIDAR_X, 0, P.LIDAR_Z0)), "base", "base", "electronics", 110, "lidar")
     z = SHELF_Z + SHELF_T
     boards = [
-        ("zsx11h_l", (70, 60), V.zsx11h(), 60, "zsx"),
-        ("zsx11h_r", (70, -60), V.zsx11h(), 60, "zsx"),
-        ("esp32", (130, 60), V.esp32_devkit(), 10, "esp32"),
+        ("ddsm_driver", (70, 60), V.small_board(65, 30, (18, 25, 3), look="pcb_black"), 20, "ddsmdriver"),
         ("imu", (130, -40), V.small_board(25, 20, (5, 5, 1)), 5, "imu"),
         ("tmc2209", (132, -92), V.small_board(15, 20, (5, 5, 1), look="pcb_black"), 5, "tmc"),
-        ("buck_12v", (-175, 88), V.finned_buck(110, 62, 33), 260, "buck12"),
-        ("buck_5v", (-125, -100), V.open_buck(60, 40, 22), 70, "buck5"),
-        ("fuse_block", (-118, 38), V.fuse_block(40, 30, 25), 40, "fuse"),
-        ("contactor_relay", (-212, 38), V.contactor(40, 30, 30), 60, "relay"),
+        ("reg_5v", (60, -105), V.small_board(25.4, 25.4, (10, 10, 4), look="pcb_blue"), 8, "pololu5"),
+        ("reg_12v", (95, -105), V.small_board(25.4, 25.4, (10, 10, 4), look="pcb_blue"), 8, "pololu12"),
+        ("fuse_block", (70, -55), V.fuse_block(40, 30, 25), 40, "fuse"),
+        ("contactor_relay", (130, 60), V.contactor(40, 30, 30), 60, "relay"),
+        ("buck_12v", (-150, 80), V.finned_buck(74, 74, 32), 220, "buck12"),
+        ("buck_12v_r", (-150, -80), V.finned_buck(74, 74, 32), 220, "buck12"),
     ]
     for name, (x, y), pcs, m, key in boards:
         zz = z + (8.5 if name == "esp32" else 0.0)  # the devkit stands on its pin headers
@@ -639,9 +631,8 @@ def parts() -> list[Part]:
     out += shell_parts()
     out += pan_parts()
     for side, s in ((1, "l"), (-1, "r")):
-        lo, up = axle_block(side)
-        out.append(Part(f"axle_block_{s}", lo, "base", "base", color="frame", note="Clamps the hub axle on its flats. MEASURE the axle first."))
-        out.append(Part(f"axle_cap_{s}", up, "base", "base", color="frame", rot=(180, 0, 0)))
+        out.append(Part(f"wheel_bracket_{s}", wheel_bracket(side), "base", "base", color="frame",
+                        note="Holds a DDSM115 by its stub (3 x M2.5 x 10). 5 walls, 40% infill."))
     out.append(Part("caster_bridge_front", caster_bridge(P.CASTER_X, lidar=True), "base", "base", color="frame", rot=(180, 0, 0),
                     note="Swivel 608ZZ pocket underneath. Inserts on top for the lidar mount."))
     out.append(Part("caster_bridge_rear", caster_bridge(-P.CASTER_X), "base", "base", color="frame", rot=(180, 0, 0)))

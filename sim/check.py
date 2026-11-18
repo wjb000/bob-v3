@@ -92,7 +92,7 @@ def test_stand():
 # ---------------------------------------------------------------- 2 torque
 
 ARM_J = ["shoulder_pitch", "shoulder_roll", "upper_arm_yaw", "elbow", "wrist_pitch", "wrist_roll", "gripper"]
-RATING = {"shoulder_pitch": (6.7, 20.8), "shoulder_roll": (6.7, 20.8), "upper_arm_yaw": (6.7, 20.8), "elbow": (6.7, 20.8),
+RATING = {"shoulder_pitch": (6.7, 20.8), "shoulder_roll": (6.7, 20.8), "upper_arm_yaw": (4.2, 12.5), "elbow": (4.2, 12.5),
           "wrist_pitch": (1.57, 4.9), "wrist_roll": (0.98, 2.94), "gripper": (0.98, 2.94)}
 
 
@@ -161,7 +161,7 @@ def test_hold():
 
 LIFT_SPEED = 0.025  # m/s: NEMA 17 at 750 rpm on a 2 mm lead. The controller ramps the target at this rate.
 DRIVE_ACCEL = 1.0  # m/s^2, the base controller's ramp
-WHEEL_R = 0.0825
+WHEEL_R = 0.05035
 
 
 def ramp_lift(m, d, a, target, dt):
@@ -194,7 +194,7 @@ def test_lift():
 
 # ---------------------------------------------------------------- 5 brake
 
-def _drive(decel, v=0.8):
+def _drive(decel, v=0.6):
     """Raise the torso, arms out, drive at v with the ramp, then stop at `decel`. Returns max tilt and top speed."""
     m, d = load()
     add_payload(m, PAYLOAD)
@@ -227,7 +227,7 @@ def test_brake():
         t, top = _drive(dec)
         rows[str(dec)] = round(t, 2)
     worst = max(rows.values())
-    report("brake", worst < 5.0 and top > 0.75, speed_mps=round(top, 2), max_tilt_deg=worst, tilt_by_decel=rows)
+    report("brake", worst < 5.0 and top > 0.55, speed_mps=round(top, 2), max_tilt_deg=worst, tilt_by_decel=rows)
 
 
 def test_push():
@@ -336,7 +336,8 @@ def test_tasks():
     seeds.append(q3)
     targets = {"floor 40 mm object, 0.36 m ahead": [0.36, -0.2, 0.022],
                "kitchen counter 0.91 m": [0.55, -0.2, 0.93],
-               "top shelf 1.55 m": [0.40, -0.2, 1.55]}
+               "top shelf 1.55 m": [0.40, -0.2, 1.55],
+               "own charge socket, base top": [0.150, -0.125, 0.265]}
     found = {}
     for name, t in targets.items():
         found[name] = None

@@ -36,13 +36,16 @@ MISC_G = {"base": 1200.0, "lift": 500.0}
 ACT = {
     # GM-5: STS3250 (4.9 N·m stall, 1.57 rated) through the printed 5:1 planetary at 85%. The servo's reflected
     # inertia grows by 25; printed gears add friction.
+    # GM-5 with an STS3215 (J3, J4): 2.94 N·m stall, 0.98 rated
+    "gm5s": dict(force=12.5, rated=4.2, kp=120.0, kv=5.0, armature=0.10, damping=0.5, frictionloss=0.35, vel=1.57),
     "gm5": dict(force=20.8, rated=6.7, kp=160.0, kv=6.0, armature=0.10, damping=0.5, frictionloss=0.35, vel=1.57),
     "sts3250": dict(force=4.9, rated=1.57, kp=60.0, kv=0.8, armature=0.005, damping=0.05, frictionloss=0.04, vel=7.8),
     "sts3215": dict(force=2.94, rated=0.98, kp=40.0, kv=0.6, armature=0.004, damping=0.05, frictionloss=0.03, vel=4.8),
     # gripper: STS3215 through a 12 mm pitch-radius pinion, torque limit set to ~0.5 N·m -> ~40 N per finger
     "sts3215g": dict(force=40.0, rated=25.0, kp=2500.0, kv=60.0, armature=0.4, damping=5.0, frictionloss=0.8, vel=0.06),
     "nema": dict(force=380.0, rated=250.0, kp=60000.0, kv=9000.0, armature=0.0, damping=1000.0, frictionloss=15.0, vel=0.03),
-    "hub": dict(force=18.0, rated=8.0, kv=6.0, armature=0.02, damping=0.05, frictionloss=0.05, vel=12.0),
+    # DDSM115: 2.0 N·m locked, 0.96 rated, 200 rpm no-load, direct drive
+    "hub": dict(force=2.0, rated=0.96, kv=1.5, armature=0.004, damping=0.01, frictionloss=0.02, vel=13.9),  # 133 rpm at 12 V
 }
 # Collision classes: bit 1 floor, 2 body shell, 4 arm, 8 objects
 CLS = {

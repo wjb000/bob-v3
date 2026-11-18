@@ -7,10 +7,10 @@
  ],
  "density_g_cm3": 1.27,
  "fill": 0.55,
- "unique_prints": 95,
- "total_prints": 231,
- "print_mass_g": 7369.0,
- "robot_mass_g": 19468.0,
+ "unique_prints": 93,
+ "total_prints": 210,
+ "print_mass_g": 6256.0,
+ "robot_mass_g": 14230.0,
  "parts": [
   {
    "name": "base_shell_rear_r",
@@ -19,7 +19,7 @@
    "link": "base",
    "material": "PETG",
    "color": "shell",
-   "support_cm2": 14.9,
+   "support_cm2": 34.4,
    "walls": 3,
    "infill": 15,
    "note": "Print top-down. Heat-set inserts in the seam bosses.",
@@ -29,12 +29,12 @@
     0
    ],
    "bed_mm": [
-    179.6,
-    130.0,
-    196.0
+    122.5,
+    128.2,
+    182.0
    ],
-   "volume_cm3": 203.2,
-   "grams": 141.9
+   "volume_cm3": 124.8,
+   "grams": 87.2
   },
   {
    "name": "base_shell_rear_c",
@@ -43,7 +43,7 @@
    "link": "base",
    "material": "PETG",
    "color": "shell",
-   "support_cm2": 18.6,
+   "support_cm2": 37.3,
    "walls": 3,
    "infill": 15,
    "note": "Print top-down. Heat-set inserts in the seam bosses.",
@@ -53,12 +53,12 @@
     0
    ],
    "bed_mm": [
+    140.0,
     180.0,
-    180.0,
-    196.0
+    182.0
    ],
-   "volume_cm3": 202.7,
-   "grams": 141.6
+   "volume_cm3": 168.6,
+   "grams": 117.8
   },
   {
    "name": "base_shell_rear_l",
@@ -67,7 +67,7 @@
    "link": "base",
    "material": "PETG",
    "color": "shell",
-   "support_cm2": 15.0,
+   "support_cm2": 34.4,
    "walls": 3,
    "infill": 15,
    "note": "Print top-down. Heat-set inserts in the seam bosses.",
@@ -77,12 +77,12 @@
     0
    ],
    "bed_mm": [
-    179.6,
-    130.0,
-    196.0
+    122.5,
+    128.2,
+    182.0
    ],
-   "volume_cm3": 203.2,
-   "grams": 141.9
+   "volume_cm3": 124.8,
+   "grams": 87.2
   },
   {
    "name": "base_shell_mid_r",
@@ -91,7 +91,7 @@
    "link": "base",
    "material": "PETG",
    "color": "shell",
-   "support_cm2": 6.2,
+   "support_cm2": 27.8,
    "walls": 3,
    "infill": 15,
    "note": "Print top-down. Heat-set inserts in the seam bosses.",
@@ -102,11 +102,11 @@
    ],
    "bed_mm": [
     187.0,
-    130.0,
-    196.0
+    150.0,
+    182.0
    ],
-   "volume_cm3": 116.7,
-   "grams": 81.5
+   "volume_cm3": 157.8,
+   "grams": 110.3
   },
   {
    "name": "base_shell_mid_c",
@@ -129,8 +129,8 @@
     180.0,
     12.0
    ],
-   "volume_cm3": 63.6,
-   "grams": 44.4
+   "volume_cm3": 71.3,
+   "grams": 49.8
   },
   {
    "name": "base_shell_mid_l",
@@ -139,7 +139,7 @@
    "link": "base",
    "material": "PETG",
    "color": "shell",
-   "support_cm2": 6.5,
+   "support_cm2": 27.8,
    "walls": 3,
    "infill": 15,
    "note": "Print top-down. Heat-set inserts in the seam bosses.",
@@ -150,11 +150,11 @@
    ],
    "bed_mm": [
     187.0,
-    130.0,
-    196.0
+    150.0,
+    182.0
    ],
-   "volume_cm3": 116.7,
-   "grams": 81.5
+   "volume_cm3": 157.8,
+   "grams": 110.3
   },
   {
    "name": "base_shell_front_r",
@@ -163,7 +163,7 @@
    "link": "base",
    "material": "PETG",
    "color": "shell",
-   "support_cm2": 17.1,
+   "support_cm2": 38.4,
    "walls": 3,
    "infill": 15,
    "note": "Print top-down. Heat-set inserts in the seam bosses.",
@@ -173,12 +173,12 @@
     0
    ],
    "bed_mm": [
-    192.6,
-    130.0,
-    196.0
+    135.5,
+    133.7,
+    182.0
    ],
-   "volume_cm3": 209.3,
-   "grams": 146.2
+   "volume_cm3": 130.6,
+   "grams": 91.2
   },
   {
    "name": "base_shell_front_c",
@@ -187,7 +187,7 @@
    "link": "base",
    "material": "PETG",
    "color": "shell",
-   "support_cm2": 21.5,
+   "support_cm2": 31.8,
    "walls": 3,
    "infill": 15,
    "note": "Print top-down. Heat-set inserts in the seam bosses.",
@@ -197,12 +197,12 @@
     0
    ],
    "bed_mm": [
-    193.0,
+    153.0,
     180.0,
-    196.0
+    182.0
    ],
-   "volume_cm3": 203.4,
-   "grams": 142.1
+   "volume_cm3": 166.9,
+   "grams": 116.6
   },
   {
    "name": "base_shell_front_l",
@@ -211,7 +211,7 @@
    "link": "base",
    "material": "PETG",
    "color": "shell",
-   "support_cm2": 17.2,
+   "support_cm2": 38.5,
    "walls": 3,
    "infill": 15,
    "note": "Print top-down. Heat-set inserts in the seam bosses.",
@@ -221,12 +221,12 @@
     0
    ],
    "bed_mm": [
-    192.6,
-    130.0,
-    196.0
+    135.5,
+    133.7,
+    182.0
    ],
-   "volume_cm3": 209.3,
-   "grams": 146.2
+   "volume_cm3": 131.2,
+   "grams": 91.6
   },
   {
    "name": "base_pan_rear_r",
@@ -235,7 +235,7 @@
    "link": "base",
    "material": "PETG",
    "color": "frame",
-   "support_cm2": 0.6,
+   "support_cm2": 0.4,
    "walls": 4,
    "infill": 20,
    "note": "Structure. Skin down on the bed, ribs up. 4 walls.",
@@ -245,12 +245,12 @@
     0
    ],
    "bed_mm": [
-    171.6,
-    122.0,
+    113.8,
+    119.3,
     15.0
    ],
-   "volume_cm3": 111.0,
-   "grams": 77.5
+   "volume_cm3": 59.7,
+   "grams": 41.7
   },
   {
    "name": "base_pan_rear_c",
@@ -259,7 +259,7 @@
    "link": "base",
    "material": "PETG",
    "color": "frame",
-   "support_cm2": 1.1,
+   "support_cm2": 0.8,
    "walls": 4,
    "infill": 20,
    "note": "Structure. Skin down on the bed, ribs up. 4 walls.",
@@ -269,12 +269,12 @@
     0
    ],
    "bed_mm": [
-    172.0,
+    132.0,
     180.0,
     15.0
    ],
-   "volume_cm3": 162.3,
-   "grams": 113.3
+   "volume_cm3": 122.5,
+   "grams": 85.6
   },
   {
    "name": "base_pan_rear_l",
@@ -283,7 +283,7 @@
    "link": "base",
    "material": "PETG",
    "color": "frame",
-   "support_cm2": 0.6,
+   "support_cm2": 0.4,
    "walls": 4,
    "infill": 20,
    "note": "Structure. Skin down on the bed, ribs up. 4 walls.",
@@ -293,12 +293,12 @@
     0
    ],
    "bed_mm": [
-    171.6,
-    122.0,
+    113.8,
+    119.3,
     15.0
    ],
-   "volume_cm3": 111.0,
-   "grams": 77.5
+   "volume_cm3": 59.7,
+   "grams": 41.7
   },
   {
    "name": "base_pan_mid_r",
@@ -307,7 +307,7 @@
    "link": "base",
    "material": "PETG",
    "color": "frame",
-   "support_cm2": 0.5,
+   "support_cm2": 0.6,
    "walls": 4,
    "infill": 20,
    "note": "Structure. Skin down on the bed, ribs up. 4 walls.",
@@ -318,11 +318,11 @@
    ],
    "bed_mm": [
     187.0,
-    122.0,
+    134.6,
     15.0
    ],
-   "volume_cm3": 85.9,
-   "grams": 60.0
+   "volume_cm3": 115.0,
+   "grams": 80.4
   },
   {
    "name": "base_pan_mid_c",
@@ -355,7 +355,7 @@
    "link": "base",
    "material": "PETG",
    "color": "frame",
-   "support_cm2": 0.5,
+   "support_cm2": 0.6,
    "walls": 4,
    "infill": 20,
    "note": "Structure. Skin down on the bed, ribs up. 4 walls.",
@@ -366,11 +366,11 @@
    ],
    "bed_mm": [
     187.0,
-    122.0,
+    134.6,
     15.0
    ],
-   "volume_cm3": 85.9,
-   "grams": 60.0
+   "volume_cm3": 115.0,
+   "grams": 80.4
   },
   {
    "name": "base_pan_front_r",
@@ -379,7 +379,7 @@
    "link": "base",
    "material": "PETG",
    "color": "frame",
-   "support_cm2": 0.5,
+   "support_cm2": 0.4,
    "walls": 4,
    "infill": 20,
    "note": "Structure. Skin down on the bed, ribs up. 4 walls.",
@@ -389,12 +389,12 @@
     0
    ],
    "bed_mm": [
-    184.6,
-    122.0,
+    126.8,
+    125.1,
     15.0
    ],
-   "volume_cm3": 116.9,
-   "grams": 81.7
+   "volume_cm3": 68.2,
+   "grams": 47.7
   },
   {
    "name": "base_pan_front_c",
@@ -403,7 +403,7 @@
    "link": "base",
    "material": "PETG",
    "color": "frame",
-   "support_cm2": 1.1,
+   "support_cm2": 0.7,
    "walls": 4,
    "infill": 20,
    "note": "Structure. Skin down on the bed, ribs up. 4 walls.",
@@ -413,12 +413,12 @@
     0
    ],
    "bed_mm": [
-    185.0,
+    145.0,
     180.0,
     15.0
    ],
-   "volume_cm3": 174.0,
-   "grams": 121.6
+   "volume_cm3": 132.9,
+   "grams": 92.9
   },
   {
    "name": "base_pan_front_l",
@@ -427,7 +427,7 @@
    "link": "base",
    "material": "PETG",
    "color": "frame",
-   "support_cm2": 0.5,
+   "support_cm2": 0.4,
    "walls": 4,
    "infill": 20,
    "note": "Structure. Skin down on the bed, ribs up. 4 walls.",
@@ -437,108 +437,60 @@
     0
    ],
    "bed_mm": [
-    184.6,
-    122.0,
+    126.8,
+    125.1,
     15.0
    ],
-   "volume_cm3": 116.9,
-   "grams": 81.7
+   "volume_cm3": 68.2,
+   "grams": 47.7
   },
   {
-   "name": "axle_block_l",
+   "name": "wheel_bracket_l",
    "qty": 1,
    "group": "base",
    "link": "base",
    "material": "PETG",
    "color": "frame",
-   "support_cm2": 0.0,
+   "support_cm2": 5.0,
    "walls": 4,
    "infill": 20,
-   "note": "Clamps the hub axle on its flats. MEASURE the axle first.",
+   "note": "Holds a DDSM115 by its stub (3 x M2.5 x 10). 5 walls, 40% infill.",
    "rot_deg": [
     0,
     0,
     0
    ],
    "bed_mm": [
-    64.0,
-    45.0,
-    33.5
+    52.0,
+    30.0,
+    37.4
    ],
-   "volume_cm3": 89.4,
-   "grams": 62.5
+   "volume_cm3": 47.9,
+   "grams": 33.4
   },
   {
-   "name": "axle_cap_l",
+   "name": "wheel_bracket_r",
    "qty": 1,
    "group": "base",
    "link": "base",
    "material": "PETG",
    "color": "frame",
-   "support_cm2": 0.7,
+   "support_cm2": 5.0,
    "walls": 4,
    "infill": 20,
-   "note": "",
-   "rot_deg": [
-    180,
-    0,
-    0
-   ],
-   "bed_mm": [
-    64.0,
-    45.0,
-    26.0
-   ],
-   "volume_cm3": 63.7,
-   "grams": 44.5
-  },
-  {
-   "name": "axle_block_r",
-   "qty": 1,
-   "group": "base",
-   "link": "base",
-   "material": "PETG",
-   "color": "frame",
-   "support_cm2": 0.0,
-   "walls": 4,
-   "infill": 20,
-   "note": "Clamps the hub axle on its flats. MEASURE the axle first.",
+   "note": "Holds a DDSM115 by its stub (3 x M2.5 x 10). 5 walls, 40% infill.",
    "rot_deg": [
     0,
     0,
     0
    ],
    "bed_mm": [
-    64.0,
-    45.0,
-    33.5
+    52.0,
+    30.0,
+    37.4
    ],
-   "volume_cm3": 89.4,
-   "grams": 62.5
-  },
-  {
-   "name": "axle_cap_r",
-   "qty": 1,
-   "group": "base",
-   "link": "base",
-   "material": "PETG",
-   "color": "frame",
-   "support_cm2": 0.7,
-   "walls": 4,
-   "infill": 20,
-   "note": "",
-   "rot_deg": [
-    180,
-    0,
-    0
-   ],
-   "bed_mm": [
-    64.0,
-    45.0,
-    26.0
-   ],
-   "volume_cm3": 63.7,
-   "grams": 44.5
+   "volume_cm3": 47.9,
+   "grams": 33.4
   },
   {
    "name": "caster_bridge_front",
@@ -547,7 +499,7 @@
    "link": "base",
    "material": "PETG",
    "color": "frame",
-   "support_cm2": 2.6,
+   "support_cm2": 3.2,
    "walls": 4,
    "infill": 20,
    "note": "Swivel 608ZZ pocket underneath. Inserts on top for the lidar mount.",
@@ -557,12 +509,12 @@
     0
    ],
    "bed_mm": [
-    76.0,
-    152.0,
-    27.0
+    66.0,
+    136.0,
+    29.0
    ],
-   "volume_cm3": 115.1,
-   "grams": 80.4
+   "volume_cm3": 91.4,
+   "grams": 63.8
   },
   {
    "name": "caster_bridge_rear",
@@ -571,7 +523,7 @@
    "link": "base",
    "material": "PETG",
    "color": "frame",
-   "support_cm2": 2.2,
+   "support_cm2": 2.8,
    "walls": 4,
    "infill": 20,
    "note": "",
@@ -581,12 +533,12 @@
     0
    ],
    "bed_mm": [
-    76.0,
-    152.0,
-    27.0
+    66.0,
+    136.0,
+    29.0
    ],
-   "volume_cm3": 115.4,
-   "grams": 80.6
+   "volume_cm3": 91.6,
+   "grams": 64.0
   },
   {
    "name": "lidar_mount",
@@ -607,10 +559,10 @@
    "bed_mm": [
     74.0,
     74.0,
-    32.0
+    42.0
    ],
-   "volume_cm3": 39.4,
-   "grams": 27.5
+   "volume_cm3": 48.1,
+   "grams": 33.6
   },
   {
    "name": "caster_fork_front",
@@ -629,12 +581,12 @@
     0
    ],
    "bed_mm": [
-    49.0,
     46.0,
-    41.0
+    46.0,
+    36.0
    ],
-   "volume_cm3": 28.4,
-   "grams": 19.8
+   "volume_cm3": 25.5,
+   "grams": 17.8
   },
   {
    "name": "caster_wheel_front",
@@ -653,12 +605,12 @@
     0
    ],
    "bed_mm": [
-    50.0,
-    50.0,
+    40.0,
+    40.0,
     22.0
    ],
-   "volume_cm3": 36.9,
-   "grams": 25.8
+   "volume_cm3": 21.3,
+   "grams": 14.9
   },
   {
    "name": "caster_fork_rear",
@@ -677,12 +629,12 @@
     0
    ],
    "bed_mm": [
-    49.0,
     46.0,
-    41.0
+    46.0,
+    36.0
    ],
-   "volume_cm3": 28.4,
-   "grams": 19.8
+   "volume_cm3": 25.5,
+   "grams": 17.8
   },
   {
    "name": "caster_wheel_rear",
@@ -701,12 +653,12 @@
     0
    ],
    "bed_mm": [
-    50.0,
-    50.0,
+    40.0,
+    40.0,
     22.0
    ],
-   "volume_cm3": 36.9,
-   "grams": 25.8
+   "volume_cm3": 21.3,
+   "grams": 14.9
   },
   {
    "name": "battery_cradle_l",
@@ -775,10 +727,10 @@
    "bed_mm": [
     128.0,
     118.0,
-    85.0
+    109.0
    ],
-   "volume_cm3": 74.4,
-   "grams": 51.9
+   "volume_cm3": 78.7,
+   "grams": 55.0
   },
   {
    "name": "shelf_rear_l",
@@ -797,12 +749,12 @@
     0
    ],
    "bed_mm": [
-    164.0,
+    131.4,
     122.0,
-    85.0
+    109.0
    ],
-   "volume_cm3": 98.7,
-   "grams": 68.9
+   "volume_cm3": 81.2,
+   "grams": 56.7
   },
   {
    "name": "shelf_front_r",
@@ -823,10 +775,10 @@
    "bed_mm": [
     128.0,
     118.0,
-    85.0
+    109.0
    ],
-   "volume_cm3": 74.4,
-   "grams": 51.9
+   "volume_cm3": 78.7,
+   "grams": 55.0
   },
   {
    "name": "shelf_rear_r",
@@ -845,12 +797,12 @@
     0
    ],
    "bed_mm": [
-    164.0,
+    131.4,
     122.0,
-    85.0
+    109.0
    ],
-   "volume_cm3": 98.7,
-   "grams": 68.9
+   "volume_cm3": 81.2,
+   "grams": 56.7
   },
   {
    "name": "mast_0",
@@ -859,7 +811,7 @@
    "link": "base",
    "material": "PETG",
    "color": "shell",
-   "support_cm2": 18.8,
+   "support_cm2": 17.3,
    "walls": 4,
    "infill": 20,
    "note": "Foot flange, rod sockets, screw bushing, homing pad.",
@@ -869,12 +821,12 @@
     0
    ],
    "bed_mm": [
-    128.0,
-    160.0,
-    164.3
+    120.0,
+    148.0,
+    166.3
    ],
-   "volume_cm3": 329.1,
-   "grams": 229.9
+   "volume_cm3": 294.5,
+   "grams": 205.7
   },
   {
    "name": "mast_1",
@@ -893,12 +845,12 @@
     0
    ],
    "bed_mm": [
-    100.0,
-    132.0,
-    164.3
+    91.8,
+    120.0,
+    166.3
    ],
-   "volume_cm3": 228.2,
-   "grams": 159.4
+   "volume_cm3": 200.8,
+   "grams": 140.3
   },
   {
    "name": "mast_2",
@@ -917,12 +869,12 @@
     0
    ],
    "bed_mm": [
-    100.0,
-    132.0,
-    164.3
+    91.8,
+    120.0,
+    166.3
    ],
-   "volume_cm3": 228.2,
-   "grams": 159.4
+   "volume_cm3": 200.8,
+   "grams": 140.3
   },
   {
    "name": "mast_3",
@@ -941,12 +893,12 @@
     0
    ],
    "bed_mm": [
-    100.0,
-    132.0,
-    164.3
+    91.8,
+    120.0,
+    166.3
    ],
-   "volume_cm3": 228.2,
-   "grams": 159.4
+   "volume_cm3": 200.8,
+   "grams": 140.3
   },
   {
    "name": "mast_4",
@@ -965,12 +917,12 @@
     0
    ],
    "bed_mm": [
-    100.0,
-    132.0,
-    164.3
+    91.8,
+    120.0,
+    166.3
    ],
-   "volume_cm3": 228.2,
-   "grams": 159.4
+   "volume_cm3": 200.8,
+   "grams": 140.3
   },
   {
    "name": "mast_5",
@@ -979,7 +931,7 @@
    "link": "base",
    "material": "PETG",
    "color": "shell",
-   "support_cm2": 3.3,
+   "support_cm2": 3.6,
    "walls": 4,
    "infill": 20,
    "note": "Prints standing. Inserts in the top bosses.",
@@ -989,12 +941,12 @@
     0
    ],
    "bed_mm": [
-    100.0,
-    132.0,
-    164.3
+    91.8,
+    120.0,
+    166.3
    ],
-   "volume_cm3": 227.4,
-   "grams": 158.8
+   "volume_cm3": 200.0,
+   "grams": 139.7
   },
   {
    "name": "mast_cap",
@@ -1003,7 +955,7 @@
    "link": "base",
    "material": "PETG",
    "color": "dark",
-   "support_cm2": 119.9,
+   "support_cm2": 97.5,
    "walls": 4,
    "infill": 20,
    "note": "NEMA 17 plate, rod tops, light ring groove. Prints upside down.",
@@ -1013,12 +965,12 @@
     0
    ],
    "bed_mm": [
-    100.0,
-    132.0,
+    92.0,
+    120.0,
     92.0
    ],
-   "volume_cm3": 283.9,
-   "grams": 198.3
+   "volume_cm3": 243.9,
+   "grams": 170.4
   },
   {
    "name": "carriage",
@@ -1027,7 +979,7 @@
    "link": "lift",
    "material": "PETG",
    "color": "frame",
-   "support_cm2": 66.8,
+   "support_cm2": 60.7,
    "walls": 4,
    "infill": 20,
    "note": "Four LM12UU press in. T8 nut from below. Tongue nuts drop into the slots.",
@@ -1037,12 +989,12 @@
     0
    ],
    "bed_mm": [
-    88.0,
-    120.0,
-    150.0
+    84.0,
+    102.0,
+    172.0
    ],
-   "volume_cm3": 444.6,
-   "grams": 310.6
+   "volume_cm3": 386.8,
+   "grams": 270.2
   },
   {
    "name": "torso_back_plate",
@@ -1051,7 +1003,7 @@
    "link": "lift",
    "material": "PETG",
    "color": "frame",
-   "support_cm2": 3.3,
+   "support_cm2": 2.9,
    "walls": 4,
    "infill": 20,
    "note": "Takes the lift tongue, the yokes and the Pi and USB grid.",
@@ -1061,12 +1013,12 @@
     0
    ],
    "bed_mm": [
-    190.0,
+    163.0,
     140.0,
     8.0
    ],
-   "volume_cm3": 207.9,
-   "grams": 145.3
+   "volume_cm3": 178.0,
+   "grams": 124.3
   },
   {
    "name": "yoke_l",
@@ -1075,7 +1027,7 @@
    "link": "lift",
    "material": "PETG",
    "color": "frame",
-   "support_cm2": 17.5,
+   "support_cm2": 18.9,
    "walls": 4,
    "infill": 20,
    "note": "Holds the left DM-J4340 (J1). Prints on its centre face, cup up. 5 walls, 30% infill.",
@@ -1087,10 +1039,10 @@
    "bed_mm": [
     105.0,
     143.0,
-    147.9
+    115.7
    ],
-   "volume_cm3": 427.5,
-   "grams": 298.6
+   "volume_cm3": 365.8,
+   "grams": 255.5
   },
   {
    "name": "yoke_r",
@@ -1099,7 +1051,7 @@
    "link": "lift",
    "material": "PETG",
    "color": "frame",
-   "support_cm2": 17.5,
+   "support_cm2": 18.9,
    "walls": 4,
    "infill": 20,
    "note": "Mirror of yoke_l.",
@@ -1111,10 +1063,10 @@
    "bed_mm": [
     105.0,
     143.0,
-    147.9
+    115.7
    ],
-   "volume_cm3": 427.5,
-   "grams": 298.6
+   "volume_cm3": 365.8,
+   "grams": 255.5
   },
   {
    "name": "neck_mount",
@@ -1291,7 +1243,7 @@
    "link": "lift",
    "material": "PETG",
    "color": "shell",
-   "support_cm2": 7.5,
+   "support_cm2": 7.1,
    "walls": 3,
    "infill": 15,
    "note": "Lower tier prints floor-down; upper tier prints top-down.",
@@ -1301,12 +1253,12 @@
     0
    ],
    "bed_mm": [
-    170.0,
-    155.0,
-    150.0
+    150.0,
+    120.0,
+    120.0
    ],
-   "volume_cm3": 235.6,
-   "grams": 164.6
+   "volume_cm3": 159.2,
+   "grams": 111.2
   },
   {
    "name": "torso_lower_r",
@@ -1315,7 +1267,7 @@
    "link": "lift",
    "material": "PETG",
    "color": "shell",
-   "support_cm2": 7.6,
+   "support_cm2": 7.1,
    "walls": 3,
    "infill": 15,
    "note": "Lower tier prints floor-down; upper tier prints top-down.",
@@ -1325,12 +1277,12 @@
     0
    ],
    "bed_mm": [
-    170.0,
-    155.0,
-    150.0
+    150.0,
+    120.0,
+    120.0
    ],
-   "volume_cm3": 235.6,
-   "grams": 164.6
+   "volume_cm3": 159.2,
+   "grams": 111.2
   },
   {
    "name": "torso_upper_l",
@@ -1339,7 +1291,7 @@
    "link": "lift",
    "material": "PETG",
    "color": "shell",
-   "support_cm2": 18.1,
+   "support_cm2": 13.2,
    "walls": 3,
    "infill": 15,
    "note": "Lower tier prints floor-down; upper tier prints top-down.",
@@ -1349,12 +1301,12 @@
     0
    ],
    "bed_mm": [
-    170.0,
-    155.0,
+    150.0,
+    120.0,
     130.0
    ],
-   "volume_cm3": 224.8,
-   "grams": 157.0
+   "volume_cm3": 174.3,
+   "grams": 121.7
   },
   {
    "name": "torso_upper_r",
@@ -1363,7 +1315,7 @@
    "link": "lift",
    "material": "PETG",
    "color": "shell",
-   "support_cm2": 18.0,
+   "support_cm2": 13.0,
    "walls": 3,
    "infill": 15,
    "note": "Lower tier prints floor-down; upper tier prints top-down.",
@@ -1373,12 +1325,12 @@
     0
    ],
    "bed_mm": [
-    170.0,
-    155.0,
+    150.0,
+    120.0,
     130.0
    ],
-   "volume_cm3": 224.8,
-   "grams": 157.0
+   "volume_cm3": 174.3,
+   "grams": 121.7
   },
   {
    "name": "ear_l",
@@ -1387,7 +1339,7 @@
    "link": "head_tilt",
    "material": "PETG",
    "color": "dark",
-   "support_cm2": 21.7,
+   "support_cm2": 16.8,
    "walls": 4,
    "infill": 20,
    "note": "Press-fits into the head's left side. Speaker grille.",
@@ -1397,12 +1349,12 @@
     0
    ],
    "bed_mm": [
-    56.0,
-    56.0,
-    13.0
+    50.0,
+    50.0,
+    12.0
    ],
-   "volume_cm3": 13.8,
-   "grams": 9.6
+   "volume_cm3": 9.1,
+   "grams": 6.4
   },
   {
    "name": "ear_r",
@@ -1411,7 +1363,7 @@
    "link": "head_tilt",
    "material": "PETG",
    "color": "dark",
-   "support_cm2": 21.7,
+   "support_cm2": 16.8,
    "walls": 4,
    "infill": 20,
    "note": "Mic grille.",
@@ -1421,12 +1373,12 @@
     0
    ],
    "bed_mm": [
-    56.0,
-    56.0,
-    13.0
+    50.0,
+    50.0,
+    12.0
    ],
-   "volume_cm3": 14.1,
-   "grams": 9.8
+   "volume_cm3": 9.4,
+   "grams": 6.5
   },
   {
    "name": "neck_collar",
@@ -1483,7 +1435,7 @@
    "link": "head_tilt",
    "material": "PETG",
    "color": "frame",
-   "support_cm2": 97.0,
+   "support_cm2": 82.2,
    "walls": 4,
    "infill": 20,
    "note": "Tilt horn and idler, camera post, eye plate.",
@@ -1494,11 +1446,11 @@
    ],
    "bed_mm": [
     92.0,
-    144.0,
+    128.0,
     124.0
    ],
-   "volume_cm3": 105.7,
-   "grams": 73.9
+   "volume_cm3": 99.8,
+   "grams": 69.7
   },
   {
    "name": "eye_plate",
@@ -1517,12 +1469,12 @@
     0
    ],
    "bed_mm": [
-    48.0,
-    126.0,
+    46.0,
+    110.0,
     25.0
    ],
-   "volume_cm3": 25.2,
-   "grams": 17.6
+   "volume_cm3": 21.2,
+   "grams": 14.8
   },
   {
    "name": "visor",
@@ -1541,12 +1493,12 @@
     0
    ],
    "bed_mm": [
-    92.0,
-    158.0,
+    88.0,
+    136.0,
     4.6
    ],
-   "volume_cm3": 43.7,
-   "grams": 30.5
+   "volume_cm3": 32.5,
+   "grams": 22.7
   },
   {
    "name": "head_lower",
@@ -1566,11 +1518,11 @@
    ],
    "bed_mm": [
     120.0,
-    196.0,
+    176.0,
     24.0
    ],
-   "volume_cm3": 90.6,
-   "grams": 63.3
+   "volume_cm3": 81.2,
+   "grams": 56.7
   },
   {
    "name": "head_upper",
@@ -1579,7 +1531,7 @@
    "link": "head_tilt",
    "material": "PETG",
    "color": "shell",
-   "support_cm2": 14.2,
+   "support_cm2": 13.5,
    "walls": 3,
    "infill": 15,
    "note": "Top down. Visor fits from inside.",
@@ -1590,11 +1542,11 @@
    ],
    "bed_mm": [
     120.0,
-    196.0,
+    176.0,
     120.0
    ],
-   "volume_cm3": 223.5,
-   "grams": 156.1
+   "volume_cm3": 210.7,
+   "grams": 147.2
   },
   {
    "name": "shoulder_l",
@@ -1603,7 +1555,7 @@
    "link": "l_link1",
    "material": "PETG",
    "color": "shell",
-   "support_cm2": 17.3,
+   "support_cm2": 16.5,
    "walls": 4,
    "infill": 20,
    "note": "J1 output to the J2 cup. Screw it to J1 before J2 goes in.",
@@ -1615,10 +1567,10 @@
    "bed_mm": [
     52.0,
     66.0,
-    74.0
+    71.0
    ],
-   "volume_cm3": 39.8,
-   "grams": 27.8
+   "volume_cm3": 36.2,
+   "grams": 25.3
   },
   {
    "name": "clevis_l",
@@ -1939,7 +1891,7 @@
    "link": "r_link1",
    "material": "PETG",
    "color": "shell",
-   "support_cm2": 17.3,
+   "support_cm2": 16.5,
    "walls": 4,
    "infill": 20,
    "note": "J1 output to the J2 cup. Screw it to J1 before J2 goes in.",
@@ -1951,10 +1903,10 @@
    "bed_mm": [
     52.0,
     66.0,
-    74.0
+    71.0
    ],
-   "volume_cm3": 39.8,
-   "grams": 27.8
+   "volume_cm3": 36.2,
+   "grams": 25.3
   },
   {
    "name": "clevis_r",
@@ -2270,7 +2222,7 @@
   },
   {
    "name": "joiner_tab",
-   "qty": 79,
+   "qty": 60,
    "group": "base",
    "link": "base",
    "material": "PETG",
@@ -2297,18 +2249,18 @@
   "5 to 8 mm flexible coupler, 25 mm": 1,
   "608ZZ bearing": 6,
   "LM12UU linear bearing": 4,
+  "M2.5x10 socket head (DDSM115 stub)": 6,
   "M2.5x6 screw (lidar)": 4,
   "M2.5x8 screw (finger pad)": 8,
   "M2x6 thread-forming (wrist camera)": 4,
   "M2x8 screw (horn)": 32,
-  "M3 heat-set insert": 312,
-  "M3x10 socket head": 219,
+  "M3 heat-set insert": 266,
+  "M3x10 socket head": 177,
   "M3x10 thread-forming (T8 nut)": 4,
   "M3x12 shoulder screw (idler)": 2,
   "M3x12 socket head": 26,
   "M3x12 thread-forming (eye plate)": 2,
   "M3x14 socket head": 24,
-  "M3x16 socket head": 4,
   "M3x16 socket head + nut (clamshell)": 20,
   "M3x16 socket head + nut (elbow flange)": 8,
   "M3x6 screw (D435 rear)": 2,
@@ -2326,75 +2278,75 @@
  "stability": {
   "zero": {
    "com_mm": [
-    19.7,
-    0.7,
-    386.1
+    24.0,
+    -0.4,
+    459.8
    ],
-   "margin_front_mm": 180.3,
-   "margin_rear_mm": 219.7,
-   "margin_side_mm": 184.3,
-   "tip_deg_front": 25.0,
-   "tip_deg_rear": 29.6
+   "margin_front_mm": 149.0,
+   "margin_rear_mm": 197.0,
+   "margin_side_mm": 184.6,
+   "tip_deg_front": 18.0,
+   "tip_deg_rear": 23.2
   },
   "home": {
    "com_mm": [
-    36.7,
-    0.7,
-    318.4
+    46.9,
+    -0.4,
+    376.7
    ],
-   "margin_front_mm": 163.3,
-   "margin_rear_mm": 236.7,
-   "margin_side_mm": 184.3,
-   "tip_deg_front": 27.2,
-   "tip_deg_rear": 36.6
+   "margin_front_mm": 126.1,
+   "margin_rear_mm": 219.9,
+   "margin_side_mm": 184.6,
+   "tip_deg_front": 18.5,
+   "tip_deg_rear": 30.3
   },
   "counter": {
    "com_mm": [
-    43.4,
-    0.7,
-    406.7
+    55.4,
+    -0.4,
+    488.9
    ],
-   "margin_front_mm": 156.6,
-   "margin_rear_mm": 243.4,
-   "margin_side_mm": 184.3,
-   "tip_deg_front": 21.1,
-   "tip_deg_rear": 30.9
+   "margin_front_mm": 117.6,
+   "margin_rear_mm": 228.4,
+   "margin_side_mm": 184.6,
+   "tip_deg_front": 13.5,
+   "tip_deg_rear": 25.0
   },
   "floor": {
    "com_mm": [
-    33.2,
-    0.7,
-    281.7
+    42.1,
+    -0.4,
+    329.6
    ],
-   "margin_front_mm": 166.8,
-   "margin_rear_mm": 233.2,
-   "margin_side_mm": 184.3,
-   "tip_deg_front": 30.6,
-   "tip_deg_rear": 39.6
+   "margin_front_mm": 130.9,
+   "margin_rear_mm": 215.1,
+   "margin_side_mm": 184.6,
+   "tip_deg_front": 21.7,
+   "tip_deg_rear": 33.1
   },
   "shelf": {
    "com_mm": [
-    31.5,
-    0.7,
-    508.7
+    39.7,
+    -0.4,
+    617.9
    ],
-   "margin_front_mm": 168.5,
-   "margin_rear_mm": 231.5,
-   "margin_side_mm": 184.3,
-   "tip_deg_front": 18.3,
-   "tip_deg_rear": 24.5
+   "margin_front_mm": 133.3,
+   "margin_rear_mm": 212.7,
+   "margin_side_mm": 184.6,
+   "tip_deg_front": 12.2,
+   "tip_deg_rear": 19.0
   },
   "wave": {
    "com_mm": [
-    33.7,
-    10.5,
-    380.7
+    42.9,
+    12.5,
+    455.2
    ],
-   "margin_front_mm": 166.3,
-   "margin_rear_mm": 233.7,
-   "margin_side_mm": 174.5,
-   "tip_deg_front": 23.6,
-   "tip_deg_rear": 31.5
+   "margin_front_mm": 130.1,
+   "margin_rear_mm": 215.9,
+   "margin_side_mm": 172.5,
+   "tip_deg_front": 15.9,
+   "tip_deg_rear": 25.4
   }
  },
  "overlaps": {
@@ -2408,5 +2360,5 @@
  },
  "errors": [],
  "warnings": [],
- "seconds": 389.6
+ "seconds": 384.4
 }

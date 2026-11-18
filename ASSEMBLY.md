@@ -12,13 +12,13 @@ Tools you need:
 ## 0. Before printing
 
 1. Measure everything in [VERIFY.md](VERIFY.md), update `cad/params.py`, run `cad/export.py`.
-2. Print a `joiner_tab` and one `axle_block` first. Check the inserts and the axle fit before you commit 7 kg of filament.
+2. Print a `joiner_tab`, one `wheel_bracket` and one GM-5 module first. Check the inserts, the DDSM115 stub fit and the gear mesh before you commit 6 kg of filament.
 
 ## 1. Floor pan
 
 1. Press inserts into every Ø4.0 hole in the nine `base_pan_*` tiles. That is about 90 inserts.
 2. Lay the tiles ribs-down and join every seam with `joiner_tab`s and M3×10 screws from the top.
-3. Clamp the hub axles: `axle_block_l/r` onto the pan (4 × M3×10 each), axle on its flats, then `axle_cap` (2 × M3×16). Spin the wheels by hand. They must not rub the pan cut-out.
+3. Wheels: screw each DDSM115 to its `wheel_bracket_l/r` through the stub end (3 × M2.5 × 10 on the Ø15.2 circle), then bolt the brackets to the pan (4 × M3×10 each). Spin the wheels by hand; the tire must clear the pan cut-out.
 
 ## 2. Casters and lidar
 
@@ -32,9 +32,9 @@ Tools you need:
 Follow the wiring diagram on the page.
 
 1. Strap the 36 V pack into the two `battery_cradle` halves.
-2. Front shelves (`shelf_front_l/r`): the two ZS-X11H, the ESP32 and the BNO085.
-3. Rear shelves (`shelf_rear_l/r`): the three bucks, the fuse block and the contactor.
-4. Wire the power path: pack → main fuse → main switch → fuse block. The 5 V buck is always on and feeds the Pi and the USB hub. The contactor sits between the fuse block and the 12 V buck and the ZS-X11H. The e-stop's NC contacts are in series with the contactor coil.
+2. Front shelves (`shelf_front_l/r`): the DDSM Driver HAT (A), the TMC2209, the BNO085, the contactor, the fuse block and the two Pololu regulators.
+3. Rear shelves (`shelf_rear_l/r`): the two DROK 12 V 10 A converters, one per arm.
+4. Wire the power path: pack → main fuse → main switch → fuse block. The Pololu 5 V regulator is always on and feeds the Pi. The contactor sits between the fuse block and the two arm converters and the Pololu 12 V regulator (wheels and lift). The e-stop's NC contacts are in series with the contactor coil.
 5. First power-up on a current-limited bench supply at 36 V, 1 A. Check each rail before connecting any load.
 
 ## 4. Mast and lift
@@ -50,14 +50,14 @@ Follow the wiring diagram on the page.
 ## 5. Base shell
 
 1. Fit the eight outer `base_shell_*` tiles around the centre tile. Join every seam from inside with joiner tabs; there are about 60.
-2. Screw the shell lugs down to the pan inserts (12 × M3×10). Fit the e-stop, the charge port and the main switch in their holes.
+2. Screw the shell lugs down to the pan inserts (12 × M3×10). Fit the e-stop and the main switch, and the GX16 charge socket in the top of the base (front right, where the right hand reaches it).
 
 ## 6. Torso
 
 1. Build eight GM-5 modules: STS3250 into the housing sleeve, cap on; sun onto the horn (4 × M2); planets on the M3 × 20 pins between the carrier plates; 6807 into the housing; magnet into the carrier rim; hall sensor into its pocket. Turn each one by hand: it should run smoothly at 5:1.
 2. Yokes: a GM-5 into each `yoke` cup, flange screwed to the rim (4 × M3 × 8). Bolt both yokes to `torso_back_plate` (6 × M3×12 each, from behind).
 2. `neck_mount` bridges the two yoke beams. Put the pan STS3215 in its cradle.
-3. On the back plate grid: Pi 5, USB hub, ESP32-C3 for the hall sensors, two Waveshare bus adapters.
+3. On the back plate grid: Pi 5, USB hub, XIAO ESP32-C3 for the hall sensors, two Waveshare bus adapters.
 4. Bolt the back plate to the carriage tongue with 4 × M5×30.
 5. Shells: the lower halves, then the upper halves. Join them from inside with joiner tabs, then screw them through the back wall into the plate. Run the umbilical (36 V pair, CAN ×2, servo bus, USB) down the mast with a service loop.
 

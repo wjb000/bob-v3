@@ -313,8 +313,8 @@ def task_drive():
             state["v"] += np.clip(v_goal - state["v"], -accel * DT, accel * DT)
             state["w"] += np.clip(w_goal - state["w"], -2.0 * DT, 2.0 * DT)
             half = 0.185
-            d.ctrl[wl] = (state["v"] - state["w"] * half) / 0.0825
-            d.ctrl[wr] = (state["v"] + state["w"] * half) / 0.0825
+            d.ctrl[wl] = (state["v"] - state["w"] * half) / 0.05035
+            d.ctrl[wr] = (state["v"] + state["w"] * half) / 0.05035
             rec.run(DT)
 
     drive(0.6, 0.0, seconds=2.5)

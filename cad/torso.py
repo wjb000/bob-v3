@@ -22,7 +22,7 @@ S0 = P.SHOULDER_Z0  # shoulder axis at the zero pose
 MX0, MX1 = P.MAST_X - P.MAST_DX / 2, P.MAST_X + P.MAST_DX / 2
 MHY = P.MAST_DY / 2
 IN_X0, IN_X1, IN_Y = MX0 + P.MAST_WALL, MX1 - P.MAST_WALL, MHY - P.MAST_WALL
-JOINT_BOSSES = [(MX0 + 10, -52.0), (MX0 + 10, 52.0), (MX1 - 10, -47.0), (MX1 - 10, 47.0)]
+JOINT_BOSSES = [(MX0 + 10, -(MHY - 14)), (MX0 + 10, MHY - 14), (MX1 - 10, -(MHY - 18)), (MX1 - 10, MHY - 18)]
 BOSS_H = 14.0
 
 
@@ -151,7 +151,7 @@ def carriage(sz=S0) -> cq.Shape:
     adds.append(box(P.ROD_X - 16, P.ROD_X + 16, -P.ROD_Y + 8, P.ROD_Y - 8, hi_c - 18, hi_c + 18))
     adds.append(box(P.ROD_X + 6, P.ROD_X + 16, -P.ROD_Y + 8, P.ROD_Y - 8, z0, z1))
     # tongue out through the slot to the torso back plate
-    t0, t1 = sz - 225.0, sz - 155.0
+    t0, t1 = sz - 195.0, sz - 128.0
     plate_x = P.TORSO_X0 + 4.0
     adds.append(box(P.ROD_X + 6, plate_x, -26, 26, t0, t1))
     s = fuse(*adds)
@@ -166,7 +166,7 @@ def carriage(sz=S0) -> cq.Shape:
         tools.append(cyl((P.SCREW_X + dx, dy, z0 - 1), "z", 2.6, 14))
     # M5 to the back plate, nuts dropped into slots from above / below
     for y in (-16.0, 16.0):
-        for zb, up in ((sz - 205.0, False), (sz - 170.0, True)):
+        for zb, up in ((sz - 180.0, False), (sz - 145.0, True)):
             tools.append(cyl_between("x", (y, zb), plate_x - 30, plate_x + 1, P.M5))
             nx = plate_x - 18
             if up:
@@ -186,7 +186,7 @@ TX0 = P.TORSO_X0
 TX1 = TX0 + P.TORSO_D
 TCX = (TX0 + TX1) / 2
 BP_X0, BP_X1 = TX0 + 4.0, TX0 + 12.0  # back plate
-BP_Z = (-212.0, -22.0)
+BP_Z = (-185.0, -22.0)
 YOKE_FACE_X = BP_X1
 
 
@@ -200,7 +200,7 @@ def back_plate(sz=S0) -> cq.Shape:
         .vertices().fillet(8).finalize().extrude(BP_X1 - BP_X0).val()
     tools = []
     for y in (-16.0, 16.0):
-        for zb in (sz - 205.0, sz - 170.0):
+        for zb in (sz - 180.0, sz - 145.0):
             tools.append(cyl_between("x", (y, zb), BP_X0 - 1, BP_X1 + 1, P.M5))
             tools.append(cyl_between("x", (y, zb), BP_X1 - 3, BP_X1 + 1, 9.5))
     # shell screws come in through the back wall into inserts here
@@ -214,14 +214,14 @@ def back_plate(sz=S0) -> cq.Shape:
     for y in range(-60, 61, 20):
         for z in range(int(z0 + 20), int(sz - 115), 20):
             if all(abs(y - p[0]) > 7 or abs(z - p[1]) > 7 for p in _shell_back_pts(sz) + _yoke_web_pts(sz)):
-                if not (abs(abs(y) - 16) < 10 and min(abs(z - (sz - 205)), abs(z - (sz - 170))) < 10):
+                if not (abs(abs(y) - 16) < 10 and min(abs(z - (sz - 180)), abs(z - (sz - 145))) < 10):
                     tools.append(cyl_between("x", (y, z), BP_X1 - 7, BP_X1 + 1, 2.6))
     hw("M3 heat-set insert", len(_shell_back_pts(sz)))
     return cut(s, *tools)
 
 
 def _shell_back_pts(sz):
-    return [(sy * 52.0, sz + dz) for sy in (1, -1) for dz in (-200.0, -125.0, -55.0)]
+    return [(sy * 52.0, sz + dz) for sy in (1, -1) for dz in (-172.0, -110.0, -55.0)]
 
 
 def _yoke_web_pts(sz):
@@ -324,25 +324,25 @@ def _torso_seam_pairs(sz):
     """(a, b, inward normal) for joiner tabs. Vertical seam y=0, horizontal seam at the tier split."""
     out = []
     zf = TX1 - P.TORSO_WALL
-    for dz in (-200.0, -125.0, -40.0, 15.0):
+    for dz in (-125.0, -40.0, 15.0):
         z = sz + dz
         out.append(((zf, -JOIN_OFF, z), (zf, JOIN_OFF, z), (-1, 0, 0)))
     zs = sz + P.TORSO_SPLIT
-    for y in (-110.0, -45.0, 45.0, 110.0):
+    for y in (-75.0, -30.0, 30.0, 75.0):
         out.append(((zf, y, zs - JOIN_OFF), (zf, y, zs + JOIN_OFF), (-1, 0, 0)))
     for sy in (1, -1):
-        for x in (75.0, 165.0):
+        for x in (TX0 + 50.0, TX1 - 46.0):
             za, zb_ = zs - JOIN_OFF, zs + JOIN_OFF
             ya = half_width(za, sz) - P.TORSO_WALL
             yb = half_width(zb_, sz) - P.TORSO_WALL
             out.append(((x, sy * ya, za), (x, sy * yb, zb_), (0, -sy, 0)))
     zb = sz - P.TORSO_BELOW + P.TORSO_WALL
-    for x in (85.0, 165.0):
+    for x in (TX0 + 50.0, TX1 - 30.0):
         out.append(((x, -JOIN_OFF, zb), (x, JOIN_OFF, zb), (0, 0, 1)))
     return out
 
 
-WAIST_HW = 122.0  # half width at the bottom of the torso; the lower tier tapers out to TORSO_HW
+WAIST_HW = 100.0  # half width at the bottom of the torso; the lower tier tapers out to TORSO_HW
 
 
 def half_width(z, sz=S0):
@@ -391,11 +391,11 @@ def torso_shell(sz=S0) -> cq.Shape:
     for sy in (1, -1):
         tools.append(cyl_between("y", (P.SHOULDER_X, sz), sy * (P.TORSO_HW - 10), sy * (P.TORSO_HW + 5), 64))
     # tongue notch and cable gland at the back
-    tools.append(box(TX0 - 1, TX0 + 6, -31, 31, z0 - 1, sz - 148))
+    tools.append(box(TX0 - 1, TX0 + 6, -31, 31, z0 - 1, sz - 122))
     # neck port
     tools.append(cyl((NECK_X, 0, z1 - 10), "z", 36, 20))
     # chest light slot and speaker grille on the front
-    tools.append(rrect(TX1, 0, sz - 64, sz - 58, 12, 150, 3))
+    tools.append(rrect(TX1, 0, sz - 64, sz - 58, 12, 120, 3))
     for r, n in ((0, 1), (7, 6), (14, 12), (21, 18)):
         for i in range(n):
             a = 2 * math.pi * i / n
@@ -404,7 +404,7 @@ def torso_shell(sz=S0) -> cq.Shape:
     for i in range(6):
         for sy in (1, -1):
             y = sy * (40 + 7 * i)
-            tools.append(box(TX0 - 1, TX0 + 5, y - 1.8, y + 1.8, sz - 210, sz - 130))
+            tools.append(box(TX0 - 1, TX0 + 5, y - 1.8, y + 1.8, sz - 185, sz - 125))
     hw("M3x10 socket head", 2 * len(_torso_seam_pairs(sz)) + len(_shell_back_pts(sz)) + len(_torso_top_pts()))
     hw("M3 heat-set insert", 2 * len(_torso_seam_pairs(sz)))
     return cut(s, *tools)
@@ -459,15 +459,15 @@ def bought(sz=S0) -> list[Bought]:
     jx0 = BP_X1 + 4
     out += V.boughts("pi5", V.place(V.pi5(), (jx0, 0, sz - 165), xdir=(0, 1, 0), zdir=(1, 0, 0)), "lift", "torso", "electronics", 75, "pi5")
     for name, (x, y, z), pcs, m, key in (
-        ("usb_hub", (110 - 12.5, -95, sz - 170), V.usb_board(70, 50, 25, ports=4), 60, "usbhub"),
-        ("arm_io", (100 - 10, 80, sz - 190), V.usb_board(30, 22, 12, ports=1), 5, "esp32c3"),
+        ("usb_hub", (110 - 12.5, -68, sz - 150), V.usb_board(70, 50, 25, ports=4), 60, "usbhub"),
+        ("arm_io", (100 - 10, 70, sz - 150), V.usb_board(30, 22, 12, ports=1), 5, "esp32c3"),
         ("servo_bus", (150 - 10, 60, sz - 120), V.usb_board(40, 65, 20, ports=2), 25, "busadapter"),
         ("servo_bus_r", (150 - 10, -60, sz - 120), V.usb_board(40, 65, 20, ports=2), 25, "busadapter"),
     ):
         out += V.boughts(name, V.place(pcs, (x, y, z), xdir=(0, 0, 1), zdir=(1, 0, 0)), "lift", "torso", "electronics", m, key)
     out += V.boughts("speaker", V.place(V.speaker(), (TX1 - 10, 0, sz - 156), xdir=(0, 1, 0), zdir=(1, 0, 0)), "lift", "torso", "electronics", 40, "speaker")
     out += V.boughts("pan_servo", V.place(V.sts3215(), (NECK_X, 0, sz + 47)), "lift", "torso", "actuator", P.STS_MASS, "sts3215")
-    out.append(Bought("light_chest", rrect(TX1 - 2.2, 0, sz - 63.5, sz - 58.5, 3.0, 148, 2.5), "lift", "torso", "electronics", 5, "ledstrip", look="glow"))
+    out.append(Bought("light_chest", rrect(TX1 - 2.2, 0, sz - 63.5, sz - 58.5, 3.0, 118, 2.5), "lift", "torso", "electronics", 5, "ledstrip", look="glow"))
     z0 = P.MAST_TOP
     ring = rrect(P.MAST_X, 0, z0 + 50.5, z0 + 57.5, P.MAST_DX - 0.6, P.MAST_DY - 0.6, P.MAST_R - 0.3).cut(
         rrect(P.MAST_X, 0, z0 + 49, z0 + 59, P.MAST_DX - 2.6, P.MAST_DY - 2.6, P.MAST_R - 1.3))

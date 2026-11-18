@@ -457,7 +457,7 @@ def gm_instances(side: str):
     for j, frame in GM.items():
         fr = frame if side == "l" else G.mirror_frame(*frame)
         pa, ch = links[j]
-        p, b = G.instance(f"gm_{side}_{j}", *fr, f"{side}_{pa}", f"{side}_{ch}", "arm")
+        p, b = G.instance(f"gm_{side}_{j}", *fr, f"{side}_{pa}", f"{side}_{ch}", "arm", servo="sts3250" if j == "j2" else "sts3215")
         parts += p
         buys += b
     return parts, buys
@@ -473,8 +473,8 @@ def joints(side: str) -> list[Joint]:
     raw = [
         ("shoulder_pitch", "lift", "link1", (X0, P.J1_FACE_Y, S), (0, 1, 0), "gm5"),
         ("shoulder_roll", "link1", "link2", (X0, Y0, S), (1, 0, 0), "gm5"),
-        ("upper_arm_yaw", "link2", "link3", (X0, Y0, J3_FACE_Z), (0, 0, 1), "gm5"),
-        ("elbow", "link3", "link4", (X0, Y0, E), (0, 1, 0), "gm5"),
+        ("upper_arm_yaw", "link2", "link3", (X0, Y0, J3_FACE_Z), (0, 0, 1), "gm5s"),
+        ("elbow", "link3", "link4", (X0, Y0, E), (0, 1, 0), "gm5s"),
         ("wrist_pitch", "link4", "link5", (X0, Y0, W), (0, 1, 0), "sts3250"),
         ("wrist_roll", "link5", "link6", (X0, Y0, J6_HORN_Z), (0, 0, 1), "sts3215"),
     ]

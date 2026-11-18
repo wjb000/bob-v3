@@ -302,9 +302,9 @@ def round_tft():
 
 def usb_cam():
     """32 x 32 board camera. Local: board in YZ at x 0..1.6, lens barrel pointing down (-z) at the lower edge."""
-    b = box(0, 1.6, -13, 13, -13, 13)
-    holder = box(1.6, 8.6, -7, 7, -13, -1)
-    glass = cyl((5.1, 0, -13.6), "z", 6, 0.6)
+    b = box(0, 1.6, -16, 16, -16, 16)  # Arducam UB0234: 32 x 32 board, M12 lens
+    holder = box(1.6, 8.6, -7, 7, -15, -1)
+    glass = cyl((5.1, 0, -15.6), "z", 6, 0.6)
     return [("", b, "pcb"), ("holder", holder, "black"), ("lens", glass, "lens")]
 
 
@@ -338,3 +338,40 @@ def rgb_cam():
     lens = cyl((8, 0, 0), "x", 14, 12)
     glass = cyl((20, 0, 0), "x", 10, 0.5)
     return [("", b, "pcb"), ("holder", holder, "black"), ("lens", lens, "black"), ("glass", glass, "lens")]
+
+
+def ddsm115():
+    """Waveshare DDSM115 from its published STEP: (rotating pieces, stationary pieces).
+    Local frame: z along the axle pointing outboard, origin at the tire centre."""
+    R, W = P.WHEEL_OD / 2, P.WHEEL_W
+    tire = cut(tube_between("z", (0, 0), -W / 2, W / 2, 2 * R, 67.0),
+               *[tube_between("z", (0, 0), z - 0.8, z + 0.8, 2 * R + 2, 2 * R - 4) for z in (-14.0, -5.0, 5.0, 14.0)])
+    hub = cyl((0, 0, -P.DDSM_ROTOR_IN), "z", 67.0, P.DDSM_ROTOR_IN + W / 2 + 2.0)
+    cover = cut(cyl((0, 0, W / 2 + 2.0), "z", 67.0, 7.0), *[cyl((10.5 * math.cos(a), 10.5 * math.sin(a), W / 2 + 7.5), "z", 4.5, 2)
+                                                         for a in (0.5, 2.6, 4.7)])
+    stub = cyl((0, 0, -P.DDSM_STUB_END), "z", P.DDSM_STUB_D, P.DDSM_STUB_END - P.DDSM_ROTOR_IN + 0.01)
+    for a in (90, 210, 330):
+        r = math.radians(a)
+        stub = cut(stub, cyl((P.DDSM_PCD / 2 * math.cos(r), P.DDSM_PCD / 2 * math.sin(r), -P.DDSM_STUB_END - 1), "z", 2.05, 7))
+    rot = [("", tire, "rubber"), ("hub", hub, "anodised"), ("cover", cover, "black")]
+    stat = [("", stub, "alu")]
+    return rot, stat
+
+
+def dewalt_pack():
+    """DeWalt 20V MAX pack on a wire adapter, as an envelope with margin. Local: base on z = 0."""
+    bx, by, bz = P.BATT
+    body = _fillet(box(-bx / 2 + 2, bx / 2 - 2, -by / 2 + 4, by / 2 - 4, 0, 62), 5)
+    band = box(-bx / 2 + 2, bx / 2 - 2, -by / 2 + 4, by / 2 - 4, 62, 70)
+    adapter = _fillet(box(-bx / 2 + 8, bx / 2 - 8, -by / 2 + 10, by / 2 - 10, 70, bz - 2), 3)
+    lead = cyl((0, by / 2 - 16, bz - 2), "z", 6, 2)
+    return [("", body, "black"), ("band", band, "yellow"), ("adapter", adapter, "black"), ("lead", lead, "red")]
+
+
+def gx16():
+    """GX16 3-pin panel socket, the hoverboard charge connector. Local: panel top face at z = 0."""
+    flange = cyl((0, 0, 0), "z", 21, 2.5)
+    nut = cyl((0, 0, -12), "z", 19, 3).cut(cyl((0, 0, -13), "z", 16, 5))
+    body = cyl((0, 0, -22), "z", 15.8, 22)
+    face = cyl((0, 0, 2.5), "z", 15, 1.5).cut(cyl((0, 0, 3), "z", 11, 2))
+    return [("", fuse(flange, face), "steel"), ("body", fuse(body, nut), "black")]

@@ -53,6 +53,8 @@ STS3250_RATED = 1.57
 EFF = 0.85
 TAU_PEAK = STS3250_STALL * RATIO * EFF
 TAU_RATED = STS3250_RATED * RATIO * EFF
+TAU_PEAK_S = P.STS_TAU_STALL * RATIO * EFF  # with an STS3215: J3 and J4, which carry less
+TAU_RATED_S = P.STS_TAU_RATED * RATIO * EFF
 SPEED = (2 * math.pi * 75 / 60) / RATIO  # rad/s at no load
 
 
@@ -214,7 +216,7 @@ PRINT_ROT = {"housing": (180, 0, 0), "cap": (0, 0, 0), "carrier": (180, 0, 0), "
 ON_CHILD = {"carrier", "carrier_back", "pins", "planet0", "planet1", "planet2"}  # the planets orbit with the carrier
 
 
-def instance(prefix, origin, zdir, xdir, parent, child, group):
+def instance(prefix, origin, zdir, xdir, parent, child, group, servo="sts3250"):
     """One placed module: (printed Parts, Bought items)."""
     from lib import Bought, Part
     import vendor as V
@@ -227,8 +229,10 @@ def instance(prefix, origin, zdir, xdir, parent, child, group):
                           color=look, note=note, print_as=pa, print_solid=local, rot=PRINT_ROT[sfx],
                           infill=100 if sfx in ("sun",) or sfx.startswith("planet") else 40, walls=4))
     for sfx, shp, look, kind in bought():
-        mass = STS3250_MASS if sfx == "servo" else 28.0 if sfx == "bearing" else 0.0
-        key = "sts3250" if sfx == "servo" else "b6807" if sfx == "bearing" else "hall" if sfx == "hall" else ""
+        mass = (STS3250_MASS if servo == "sts3250" else P.STS_MASS) if sfx == "servo" else 28.0 if sfx == "bearing" else 0.0
+        key = servo if sfx == "servo" else "b6807" if sfx == "bearing" else "hall" if sfx == "hall" else ""
+        if sfx == "servo" and servo == "sts3215":
+            look = "black"
         buys.append(Bought(f"{prefix}_{sfx}", _placed(shp, origin, zdir, xdir), child if sfx in ON_CHILD else parent, group,
                            kind, mass, key, look=look))
     return parts, buys

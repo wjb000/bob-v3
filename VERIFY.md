@@ -9,8 +9,7 @@ These numbers came from datasheets and store listings, not from parts on a bench
 | GM-5 gear backlash | 0.15 mm per flank | `gearbox._teeth` | sun, planets; print one module and turn it by hand first |
 | STS3215 shaft offset from the case end | 11.5 mm | `STS_SHAFT_FROM_END` | forearm halves, wrist, palm, neck parts |
 | STS3215 horn screw circle | 4 × M2 on Ø14 | `STS_HORN_PCD` | wrist, palm, pinion, neck yoke, head frame |
-| Hoverboard axle | Ø12, 10 mm across the flats | `AXLE_D`, `AXLE_FLATS` | axle blocks and caps |
-| Tire diameter and width | 165 × 45 | `WHEEL_OD`, `WHEEL_W` | casters set the ride height: if the tire is smaller, shim the caster bridges |
+| DDSM115 stub | Ø19, 3 × M2.5 on Ø15.2 (from Waveshare's STEP) | `DDSM_*` | wheel brackets |
 | Battery pack | 80 × 200 × 70 | `BATT` | battery cradle halves |
 | Head camera board | 38 × 38 mm, M12 lens | `vendor.rgb_cam` | head_frame post |
 | RPLIDAR C1 base holes | 4 × M2.5 on a 34 mm square | `base.py` `lidar_mount` | lidar_mount |
