@@ -138,7 +138,7 @@ def main():
         for p in ps:
             bed = " × ".join(f"{v:.0f}" for v in p["bed_mm"])
             col = {"shell": "white", "frame": "grey", "dark": "black", "accent": "TPU"}.get(p["color"], p["color"])
-            out.append(f'<tr><td><a href="stl/{p["name"]}.stl" download>{p["name"]}</a><span class="d">{html.escape(p["note"])}</span></td>'
+            out.append(f'<tr><td><a href="/bob-v3/stl/{p["name"]}.stl" download>{p["name"]}</a><span class="d">{html.escape(p["note"])}</span></td>'
                        f'<td class="n">{p["qty"]}</td><td>{col}</td><td class="n">{bed}</td><td class="n">{p["grams"] * p["qty"]:.0f} g</td></tr>')
     t = fill(t, "PRINTS", "\n".join(out))
     # checks
