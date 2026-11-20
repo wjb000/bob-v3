@@ -161,7 +161,8 @@ def mid_segment(i, z0, z1, n) -> cq.Shape:
     if i == n - 1:
         adds.extend(_pads_inside(P.COL_MID_D, z1 - 8 - PAD_L, z1 - 8))
         for sy in (1, -1):
-            adds.append(cbox(P.COL_X, sy * (P.COL_MID_D / 2 - 5), z1 - 16, 14, 8, 14))
+            # Between the inner slide pads (out to 34 mm) and the outer belt anchors (in to 42 mm).
+            adds.append(cbox(P.COL_X, sy * (P.COL_MID_D / 2 - 2.5), z1 - 16, 14, 4, 14))
             tools.append(cyl_between("y", (P.COL_X, z1 - 16), sy * (P.COL_MID_D / 2 - 12), sy * (P.COL_MID_D / 2 + 4), 5.2))
         hw("GT2 20T pulley, 5 mm bore", 2)
         hw("M5x20 shoulder screw (pulley)", 2)

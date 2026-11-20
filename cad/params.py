@@ -161,8 +161,9 @@ LIDAR_SCAN_Z = 134.0  # optical plane, roughly
 # ---------------------------------------------------------------- telescoping column (Nori A3 / Sunday Memo style)
 # Three nested rounded-square tubes. Outer is bolted to the pan. A NEMA 17 in
 # the base turns a short TR8×2 that drives the middle tube. A GT2 cascade on
-# each side makes the inner tube travel twice as far, so the torso rises 650 mm
-# while the nested stack is only ~500 mm tall. No exposed mast, no 1 m rods.
+# each side makes the inner tube travel twice as far. The stack is short enough
+# that at lift = 0 the torso sits just above the base and the hands reach the
+# floor. No exposed mast, no 1 m rods.
 COL_X = 0.0  # under the torso, on the wheel axis
 COL_WALL = 4.0
 COL_PAD = 2.0  # slide pad thickness in the gap between tubes (5 mm gap, pads on both sides)
@@ -174,12 +175,12 @@ COL_INNER_D = 64.0
 COL_INNER_R = 16.0
 COL_Z0 = PAN_TOP  # outer sits on the pan
 COL_MID_Z0 = COL_Z0 + 8.0  # middle tube sits on the motor pedestal, not on the pan
-COL_OUTER_LEN = 504.0  # 3 × 168 mm prints
-COL_INNER_LEN = 420.0  # 3 × 140 mm prints; the cap is the torso seat
-COL_INNER_Z0 = 140.0  # above the motor / coupler / nut
-STAGE_TRAVEL = 325.0  # middle tube travel; inner travels 2× this
-LIFT_TRAVEL = 2 * STAGE_TRAVEL  # 650 mm, same workspace as the old leadscrew
-COL_OVERLAP = COL_OUTER_LEN - STAGE_TRAVEL  # 179 mm at full stretch
+COL_OUTER_LEN = 382.0  # 2 × 191 mm prints. Mid top stays under the cap.
+COL_INNER_LEN = 282.0  # 2 × 141 mm prints; the cap is the torso seat
+COL_INNER_Z0 = 148.0  # nut bridge stays above the coupler when the column is down
+STAGE_TRAVEL = 210.0  # middle tube travel; inner travels 2× this
+LIFT_TRAVEL = 2 * STAGE_TRAVEL  # 420 mm. Longer travel would pull the tubes apart.
+COL_OVERLAP = COL_OUTER_LEN - STAGE_TRAVEL  # 164 mm at full stretch
 
 # Motor stands on the pan inside the outer tube, shaft up.
 NEMA_PEDESTAL = 8.0
@@ -187,7 +188,7 @@ NEMA_FACE_Z = COL_Z0 + NEMA_PEDESTAL + NEMA_LEN  # 93 mm, shaft points +z
 COUPLER_H = 25.0
 SCREW_X = COL_X
 SCREW_Z0 = NEMA_FACE_Z + 2.0
-SCREW_LEN = STAGE_TRAVEL + 80.0  # 405 mm, cut from a 500 mm TR8×2
+SCREW_LEN = STAGE_TRAVEL + 80.0  # 290 mm, cut from a 500 mm TR8×2
 NUT_Z = COL_INNER_Z0 - 18.0  # T8 nut on the middle tube, just under the inner
 
 SHOULDER_Z0 = COL_INNER_Z0 + COL_INNER_LEN + 22.0  # inner cap is the torso mount

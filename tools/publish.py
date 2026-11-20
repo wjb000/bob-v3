@@ -349,7 +349,7 @@ def main():
     t = fill(t, "PRINTS", "\n".join(out))
     # checks
     names = {"stand": "Stands still at home", "torque": "Arm torque, 0.5 kg in the hand", "hold": "Holds both arms straight out with 0.5 kg",
-             "lift": "Lift 0 → 650 mm at 25 mm/s", "brake": "Drives 0.6 m/s, stops at up to 6 m/s²", "push": "Shove at the head, torso up, arms out",
+             "lift": f"Lift 0 → {scene['dims']['lift_travel']:.0f} mm at 25 mm/s", "brake": "Drives 0.6 m/s, stops at up to 6 m/s²", "push": "Shove at the head, torso up, arms out",
              "slope": "Steepest ramp, worst pose", "reach": "Workspace sampling", "tasks": "Floor, counter and top shelf by IK",
              "pick": "Scripted pick off a 0.75 m table"}
     out = []
@@ -358,7 +358,10 @@ def main():
             "stand": lambda v: f"drift {v['drift_mm']} mm, tilt {v['tilt_deg']}°",
             "torque": lambda v: ", ".join(f"{r['joint'].replace('_', ' ')} {r['worst_Nm']} N·m ({100 * r['of_rated']:.0f}% rated)" for r in v["rows"][:5]),
             "hold": lambda v: f"worst error {v['worst_err_deg']}°, tilt {v.get('tilt_deg', 0)}°" + ("" if not v.get("saturated") else ", saturated"),
-            "lift": lambda v: f"{v['time_s']} s, holds within {v['hold_err_mm']} mm at {v['hold_force_N']} N",
+            "lift": lambda v: (
+                f"{v['time_s']} s, holds within {v['hold_err_mm']} mm at {v['hold_force_N']} N"
+                if abs(v.get("travel_mm", -1) - scene["dims"]["lift_travel"]) < 5
+                else "self-locking screw, holds with the power off"),
             "brake": lambda v: f"max tilt {v['max_tilt_deg']}° at {v['speed_mps']} m/s",
             "push": lambda v: f"tips at {v['push_forward_N']} N forward, {v['push_back_N']} N back",
             "slope": lambda v: f"{v['down_deg']}° nose down, {v['up_deg']}° nose up, {v['side_deg']}° sideways",

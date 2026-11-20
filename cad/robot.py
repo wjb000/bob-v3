@@ -61,7 +61,7 @@ HOME = {
         "shoulder_pitch": -0.35, "shoulder_roll": 0.10, "elbow": -1.55, "wrist_pitch": 0.35, "gripper": 0.012, "gripper_b": 0.012}.items()},
 }
 POSES = {
-    "zero": {"lift": 0.40},
+    "zero": {"lift": 0.42},  # arms hang straight; any lower and the fingers meet the base shell
     "home": HOME,
     # counter, floor and shelf are IK solutions to the targets sim/check.py verifies (same values both arms: they mirror)
     "counter": {**HOME, "lift": 0.35, "head_tilt": 0.55,
@@ -70,12 +70,12 @@ POSES = {
                     "wrist_pitch": 1.894, "wrist_roll": 0.016, "gripper": 0.03, "gripper_b": 0.03}.items()}},
     "floor": {**HOME, "lift": 0.0, "head_tilt": 0.55,
               **{f"{s}_{k}": v for s in ("l", "r") for k, v in {
-                  "shoulder_pitch": -0.278, "shoulder_roll": 0.006, "upper_arm_yaw": 0.019, "elbow": -0.879,
-                  "wrist_pitch": 1.156, "wrist_roll": -0.02, "gripper": 0.03, "gripper_b": 0.03}.items()}},
-    "shelf": {**HOME, "lift": 0.65, "head_tilt": -0.35,
+                  "shoulder_pitch": -0.805, "shoulder_roll": 0.0, "upper_arm_yaw": 0.0, "elbow": 0.0,
+                  "wrist_pitch": 0.0, "wrist_roll": 0.0, "gripper": 0.02, "gripper_b": 0.02}.items()}},
+    "shelf": {**HOME, "lift": P.LIFT_TRAVEL / 1000.0, "head_tilt": -0.35,
               **{f"{s}_{k}": v for s in ("l", "r") for k, v in {
-                  "shoulder_pitch": -2.614, "shoulder_roll": 0.011, "upper_arm_yaw": 0.004, "elbow": -0.472,
-                  "wrist_pitch": 1.682, "wrist_roll": -0.012, "gripper": 0.03, "gripper_b": 0.03}.items()}},
+                  "shoulder_pitch": -2.9, "shoulder_roll": 0.0, "upper_arm_yaw": 0.0, "elbow": -0.45,
+                  "wrist_pitch": 0.7, "wrist_roll": 0.0, "gripper": 0.02, "gripper_b": 0.02}.items()}},
     "wave": {**HOME, "lift": 0.30, "head_pan": 0.35, "l_shoulder_pitch": -0.25, "l_shoulder_roll": 1.45,
              "l_upper_arm_yaw": 0.0, "l_elbow": -1.4, "l_wrist_pitch": 0.0},
 }

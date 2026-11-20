@@ -75,7 +75,7 @@ BOM = [
 
     ("Lift hardware", "TR8x2 leadscrew 500 mm with brass nut (Ø22 flange)", 1, 24.99,
      "https://www.omc-stepperonline.com/tr8-trapezoidal-lead-screw-8mm-2mm-lead-500mm-length-with-copper-nut.html",
-     "Cut to 405 mm. Drives the middle tube only. Check the nut's 4 x M3 on Ø16.", False),
+     "Cut to 290 mm. Drives the middle tube only. Check the nut's 4 x M3 on Ø16.", False),
     ("Lift hardware", "5 to 8 mm flexible coupler, 25 x Ø19 mm, 2 pack", 1, 39.99,
      "https://vxb.com/products/two-pack-5mm-to-8mm-aluminum-shaft-coupling-flexib", "", False),
     ("Lift hardware", "GT2 20T pulley, 6 mm belt, 5 mm bore, 2 pack", 1, 8.99,

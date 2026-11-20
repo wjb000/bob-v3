@@ -77,13 +77,10 @@
     <mesh name="shelf_rear_r" file="shelf_rear_r.stl"/>
     <mesh name="col_outer_0" file="col_outer_0.stl"/>
     <mesh name="col_outer_1" file="col_outer_1.stl"/>
-    <mesh name="col_outer_2" file="col_outer_2.stl"/>
     <mesh name="col_mid_0" file="col_mid_0.stl"/>
     <mesh name="col_mid_1" file="col_mid_1.stl"/>
-    <mesh name="col_mid_2" file="col_mid_2.stl"/>
     <mesh name="col_inner_0" file="col_inner_0.stl"/>
     <mesh name="col_inner_1" file="col_inner_1.stl"/>
-    <mesh name="col_inner_2" file="col_inner_2.stl"/>
     <mesh name="col_cap" file="col_cap.stl"/>
     <mesh name="torso_back_plate" file="torso_back_plate.stl"/>
     <mesh name="yoke_l" file="yoke_l.stl"/>
@@ -313,7 +310,7 @@
     <body name="base" pos="0 0 0.002">
       <freejoint name="root"/>
       <site name="imu" pos="0.13 -0.04 0.14" size="0.01"/>
-      <inertial pos="-0.00057 0.00969 0.15512" mass="6.5484" fullinertia="0.132564 0.116528 0.0968653 0.000796571 0.000827906 0.00274282"/>
+      <inertial pos="-0.00058 0.00986 0.13646" mass="6.4337" fullinertia="0.0978735 0.0818494 0.0965453 0.000795926 0.000897571 0.00155933"/>
       <geom name="base_shell_rear_r" type="mesh" mesh="base_shell_rear_r" material="m_shell" group="1" mass="0"/>
       <geom name="c_base_shell_rear_r" class="col" type="mesh" mesh="base_shell_rear_r" contype="2" conaffinity="13" friction="0.8 0.01 0.001" mass="0"/>
       <geom name="base_shell_rear_c" type="mesh" mesh="base_shell_rear_c" material="m_shell" group="1" mass="0"/>
@@ -360,8 +357,6 @@
       <geom name="c_col_outer_0" class="col" type="mesh" mesh="col_outer_0" contype="2" conaffinity="13" friction="0.8 0.01 0.001" mass="0"/>
       <geom name="col_outer_1" type="mesh" mesh="col_outer_1" material="m_shell" group="1" mass="0"/>
       <geom name="c_col_outer_1" class="col" type="mesh" mesh="col_outer_1" contype="2" conaffinity="13" friction="0.8 0.01 0.001" mass="0"/>
-      <geom name="col_outer_2" type="mesh" mesh="col_outer_2" material="m_shell" group="1" mass="0"/>
-      <geom name="c_col_outer_2" class="col" type="mesh" mesh="col_outer_2" contype="2" conaffinity="13" friction="0.8 0.01 0.001" mass="0"/>
       <geom name="joiner_00" type="mesh" mesh="joiner_00" material="m_frame" group="1" mass="0"/>
       <geom name="joiner_01" type="mesh" mesh="joiner_01" material="m_frame" group="1" mass="0"/>
       <geom name="joiner_02" type="mesh" mesh="joiner_02" material="m_frame" group="1" mass="0"/>
@@ -437,14 +432,12 @@
       <geom name="caster_front" class="col" type="sphere" size="0.0200" pos="0.1160 0 0.0200" contype="1" conaffinity="0" condim="1" priority="1" friction="0 0 0" mass="0"/>
       <geom name="caster_rear" class="col" type="sphere" size="0.0200" pos="-0.1400 0 0.0200" contype="1" conaffinity="0" condim="1" priority="1" friction="0 0 0" mass="0"/>
       <body name="lift" pos="0.00000 0.00000 0.00000">
-        <joint name="lift" type="slide" axis="0 0 1" range="0.0 0.65" damping="1000.0" armature="0.0" frictionloss="15.0"/>
-        <inertial pos="-0.00323 0.00052 0.50331" mass="2.6812" fullinertia="0.0416003 0.0335061 0.0158625 -4.55122e-06 0.000110503 -2.63026e-05"/>
+        <joint name="lift" type="slide" axis="0 0 1" range="0.0 0.42" damping="1000.0" armature="0.0" frictionloss="15.0"/>
+        <inertial pos="-0.00334 0.00054 0.39368" mass="2.5967" fullinertia="0.026846 0.0187509 0.0157684 -4.69933e-06 -6.61911e-05 2.3624e-06"/>
         <geom name="col_inner_0" type="mesh" mesh="col_inner_0" material="m_shell" group="1" mass="0"/>
         <geom name="c_col_inner_0" class="col" type="mesh" mesh="col_inner_0" contype="2" conaffinity="13" friction="0.8 0.01 0.001" mass="0"/>
         <geom name="col_inner_1" type="mesh" mesh="col_inner_1" material="m_shell" group="1" mass="0"/>
         <geom name="c_col_inner_1" class="col" type="mesh" mesh="col_inner_1" contype="2" conaffinity="13" friction="0.8 0.01 0.001" mass="0"/>
-        <geom name="col_inner_2" type="mesh" mesh="col_inner_2" material="m_shell" group="1" mass="0"/>
-        <geom name="c_col_inner_2" class="col" type="mesh" mesh="col_inner_2" contype="2" conaffinity="13" friction="0.8 0.01 0.001" mass="0"/>
         <geom name="col_cap" type="mesh" mesh="col_cap" material="m_dark" group="1" mass="0"/>
         <geom name="torso_back_plate" type="mesh" mesh="torso_back_plate" material="m_frame" group="1" mass="0"/>
         <geom name="yoke_l" type="mesh" mesh="yoke_l" material="m_frame" group="1" mass="0"/>
@@ -494,7 +487,7 @@
         <geom name="pan_servo" type="mesh" mesh="pan_servo" material="m_black" group="2" mass="0"/>
         <geom name="pan_servo_horn" type="mesh" mesh="pan_servo_horn" material="m_white" group="2" mass="0"/>
         <geom name="light_chest" type="mesh" mesh="light_chest" material="m_glow" group="2" mass="0"/>
-        <body name="head_pan" pos="0.00500 0.00000 0.63300">
+        <body name="head_pan" pos="0.00500 0.00000 0.50300">
           <joint name="head_pan" type="hinge" axis="0 0 1" range="-0.8 0.8" damping="0.05" armature="0.004" frictionloss="0.03"/>
           <inertial pos="0.00921 -0.00490 0.04063" mass="0.0901" fullinertia="3.79142e-05 4.61121e-05 3.2133e-05 2.84452e-07 -4.2785e-06 1.20627e-06"/>
           <geom name="neck_collar" type="mesh" mesh="neck_collar" material="m_dark" group="1" mass="0"/>
@@ -538,9 +531,9 @@
             <camera name="head_cam" pos="0.0807 0.0000 0.0960" xyaxes="0 -1 0 0 0 1" fovy="70"/>
           </body>
         </body>
-        <body name="l_link1" pos="0.00900 0.11700 0.58200">
+        <body name="l_link1" pos="0.00900 0.11700 0.45200">
           <joint name="l_shoulder_pitch" type="hinge" axis="0 1 0" range="-3.1 1.0" damping="0.08" armature="0.012" frictionloss="0.06"/>
-          <inertial pos="-0.00294 0.05348 -0.00000" mass="0.2073" fullinertia="0.000110187 5.91995e-05 0.000132348 -6.09506e-07 1.87849e-10 -1.28622e-09"/>
+          <inertial pos="-0.00294 0.05348 -0.00000" mass="0.2073" fullinertia="0.000110187 5.91995e-05 0.000132348 -6.09506e-07 1.87917e-10 -1.28591e-09"/>
           <geom name="shoulder_l" type="mesh" mesh="shoulder_l" material="m_shell" group="1" mass="0"/>
           <geom name="c_shoulder_l" class="col" type="mesh" mesh="shoulder_l" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
           <geom name="j2_l" type="mesh" mesh="j2_l" material="m_alu" group="2" mass="0"/>
@@ -548,7 +541,7 @@
           <geom name="j2_l_shaft" type="mesh" mesh="j2_l_shaft" material="m_steel" group="2" mass="0"/>
           <body name="l_link2" pos="0.00000 0.04000 0.00000">
             <joint name="l_shoulder_roll" type="hinge" axis="1 0 0" range="-0.2 1.75" damping="0.08" armature="0.012" frictionloss="0.06"/>
-            <inertial pos="-0.00775 -0.00000 -0.08567" mass="0.1436" fullinertia="0.00010079 0.000124777 6.80341e-05 5.32261e-15 1.72935e-05 -1.9448e-14"/>
+            <inertial pos="-0.00775 -0.00000 -0.08567" mass="0.1436" fullinertia="0.00010079 0.000124777 6.80341e-05 5.32262e-15 1.72935e-05 -1.9448e-14"/>
             <geom name="clevis_l" type="mesh" mesh="clevis_l" material="m_frame" group="1" mass="0"/>
             <geom name="c_clevis_l" class="col" type="mesh" mesh="clevis_l" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
             <geom name="j3_l" type="mesh" mesh="j3_l" material="m_alu" group="2" mass="0"/>
@@ -565,7 +558,7 @@
               <geom name="j4_l_shaft" type="mesh" mesh="j4_l_shaft" material="m_steel" group="2" mass="0"/>
               <body name="l_link4" pos="0.00000 0.00000 -0.13900">
                 <joint name="l_elbow" type="hinge" axis="0 1 0" range="-2.35 0.0" damping="0.08" armature="0.012" frictionloss="0.06"/>
-                <inertial pos="-0.00000 0.00185 -0.15140" mass="0.2103" fullinertia="0.000895371 0.000879993 8.90602e-05 6.26767e-09 6.62866e-09 -7.41492e-05"/>
+                <inertial pos="-0.00000 0.00185 -0.15140" mass="0.2103" fullinertia="0.000895371 0.000879993 8.90602e-05 6.2676e-09 6.62864e-09 -7.41492e-05"/>
                 <geom name="elbow_l" type="mesh" mesh="elbow_l" material="m_frame" group="1" mass="0"/>
                 <geom name="c_elbow_l" class="col" type="mesh" mesh="elbow_l" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
                 <geom name="forearm_a_l" type="mesh" mesh="forearm_a_l" material="m_shell" group="1" mass="0"/>
@@ -583,7 +576,7 @@
                   <geom name="j6_l_horn" type="mesh" mesh="j6_l_horn" material="m_white" group="2" mass="0"/>
                   <body name="l_link6" pos="0.00000 0.00000 -0.08500">
                     <joint name="l_wrist_roll" type="hinge" axis="0 0 1" range="-2.8 2.8" damping="0.05" armature="0.004" frictionloss="0.03"/>
-                    <inertial pos="0.00422 0.00000 -0.02935" mass="0.1245" fullinertia="8.70359e-05 7.28042e-05 9.91759e-05 -1.00723e-21 -1.17128e-05 3.88157e-20"/>
+                    <inertial pos="0.00422 0.00000 -0.02935" mass="0.1245" fullinertia="8.70359e-05 7.28042e-05 9.91759e-05 5.91892e-21 -1.17128e-05 -3.57061e-20"/>
                     <geom name="palm_l" type="mesh" mesh="palm_l" material="m_dark" group="1" mass="0"/>
                     <geom name="c_palm_l" class="col" type="mesh" mesh="palm_l" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
                     <geom name="pinion_l" type="mesh" mesh="pinion_l" material="m_frame" group="1" mass="0"/>
@@ -593,7 +586,7 @@
                     <geom name="wrist_cam_l" type="mesh" mesh="wrist_cam_l" material="m_pcb" group="2" mass="0"/>
                     <geom name="wrist_cam_l_holder" type="mesh" mesh="wrist_cam_l_holder" material="m_black" group="2" mass="0"/>
                     <geom name="wrist_cam_l_lens" type="mesh" mesh="wrist_cam_l_lens" material="m_lens" group="2" mass="0"/>
-                    <camera name="wrist_cam_l" pos="-0.0260 0.0000 -0.0497" xyaxes="0 -1 0 0.94 0 0.34" fovy="80"/>
+                    <camera name="wrist_cam_l" pos="-0.0260 0.0000 -0.0498" xyaxes="0 -1 0 0.94 0 0.34" fovy="80"/>
                     <site name="tcp_l" pos="0.0000 0.0000 -0.0950" size="0.006" rgba="1 0.3 0 1"/>
                     <body name="l_link7" pos="0.00000 0.00000 -0.05300">
                       <joint name="l_gripper" type="slide" axis="0 1.0 0" range="0.0 0.04" damping="5.0" armature="0.4" frictionloss="0.8"/>
@@ -601,7 +594,7 @@
                       <geom name="rack_a_l" type="mesh" mesh="rack_a_l" material="m_dark" group="1" mass="0"/>
                       <geom name="c_rack_a_l" class="col" type="mesh" mesh="rack_a_l" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
                       <geom name="finger_a_l" type="mesh" mesh="finger_a_l" material="m_accent" group="1" mass="0"/>
-                      <geom name="c_finger_a_l" class="col" type="box" pos="0.0000 0.0070 -0.0363" size="0.0120 0.0040 0.0238" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
+                      <geom name="c_finger_a_l" class="col" type="box" pos="0.0000 0.0070 -0.0362" size="0.0120 0.0040 0.0238" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
                       <site name="touch_a_l" type="box" pos="0.0000 0.0070 -0.0362" size="0.0130 0.0070 0.0248" rgba="0 0 0 0"/>
                     </body>
                     <body name="l_link8" pos="0.00000 0.00000 -0.05300">
@@ -610,7 +603,7 @@
                       <geom name="rack_b_l" type="mesh" mesh="rack_b_l" material="m_dark" group="1" mass="0"/>
                       <geom name="c_rack_b_l" class="col" type="mesh" mesh="rack_b_l" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
                       <geom name="finger_b_l" type="mesh" mesh="finger_b_l" material="m_accent" group="1" mass="0"/>
-                      <geom name="c_finger_b_l" class="col" type="box" pos="0.0000 -0.0070 -0.0363" size="0.0120 0.0040 0.0238" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
+                      <geom name="c_finger_b_l" class="col" type="box" pos="0.0000 -0.0070 -0.0362" size="0.0120 0.0040 0.0238" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
                       <site name="touch_b_l" type="box" pos="0.0000 -0.0070 -0.0362" size="0.0130 0.0070 0.0248" rgba="0 0 0 0"/>
                     </body>
                   </body>
@@ -619,9 +612,9 @@
             </body>
           </body>
         </body>
-        <body name="r_link1" pos="0.00900 -0.11700 0.58200">
+        <body name="r_link1" pos="0.00900 -0.11700 0.45200">
           <joint name="r_shoulder_pitch" type="hinge" axis="0 1 0" range="-3.1 1.0" damping="0.08" armature="0.012" frictionloss="0.06"/>
-          <inertial pos="-0.00294 -0.05348 -0.00000" mass="0.2073" fullinertia="0.000110187 5.91995e-05 0.000132348 6.09506e-07 1.87849e-10 1.28622e-09"/>
+          <inertial pos="-0.00294 -0.05348 -0.00000" mass="0.2073" fullinertia="0.000110187 5.91995e-05 0.000132348 6.09506e-07 1.87917e-10 1.28591e-09"/>
           <geom name="shoulder_r" type="mesh" mesh="shoulder_r" material="m_shell" group="1" mass="0"/>
           <geom name="c_shoulder_r" class="col" type="mesh" mesh="shoulder_r" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
           <geom name="j2_r" type="mesh" mesh="j2_r" material="m_alu" group="2" mass="0"/>
@@ -629,7 +622,7 @@
           <geom name="j2_r_shaft" type="mesh" mesh="j2_r_shaft" material="m_steel" group="2" mass="0"/>
           <body name="r_link2" pos="0.00000 -0.04000 0.00000">
             <joint name="r_shoulder_roll" type="hinge" axis="-1 0 0" range="-0.2 1.75" damping="0.08" armature="0.012" frictionloss="0.06"/>
-            <inertial pos="-0.00775 0.00000 -0.08567" mass="0.1436" fullinertia="0.00010079 0.000124777 6.80341e-05 -5.32261e-15 1.72935e-05 1.9448e-14"/>
+            <inertial pos="-0.00775 0.00000 -0.08567" mass="0.1436" fullinertia="0.00010079 0.000124777 6.80341e-05 -5.32262e-15 1.72935e-05 1.9448e-14"/>
             <geom name="clevis_r" type="mesh" mesh="clevis_r" material="m_frame" group="1" mass="0"/>
             <geom name="c_clevis_r" class="col" type="mesh" mesh="clevis_r" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
             <geom name="j3_r" type="mesh" mesh="j3_r" material="m_alu" group="2" mass="0"/>
@@ -646,7 +639,7 @@
               <geom name="j4_r_shaft" type="mesh" mesh="j4_r_shaft" material="m_steel" group="2" mass="0"/>
               <body name="r_link4" pos="0.00000 0.00000 -0.13900">
                 <joint name="r_elbow" type="hinge" axis="0 1 0" range="-2.35 0.0" damping="0.08" armature="0.012" frictionloss="0.06"/>
-                <inertial pos="-0.00000 -0.00185 -0.15140" mass="0.2103" fullinertia="0.000895371 0.000879993 8.90602e-05 -6.26767e-09 6.62866e-09 7.41492e-05"/>
+                <inertial pos="-0.00000 -0.00185 -0.15140" mass="0.2103" fullinertia="0.000895371 0.000879993 8.90602e-05 -6.2676e-09 6.62864e-09 7.41492e-05"/>
                 <geom name="elbow_r" type="mesh" mesh="elbow_r" material="m_frame" group="1" mass="0"/>
                 <geom name="c_elbow_r" class="col" type="mesh" mesh="elbow_r" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
                 <geom name="forearm_a_r" type="mesh" mesh="forearm_a_r" material="m_shell" group="1" mass="0"/>
@@ -664,7 +657,7 @@
                   <geom name="j6_r_horn" type="mesh" mesh="j6_r_horn" material="m_white" group="2" mass="0"/>
                   <body name="r_link6" pos="0.00000 0.00000 -0.08500">
                     <joint name="r_wrist_roll" type="hinge" axis="0 0 -1" range="-2.8 2.8" damping="0.05" armature="0.004" frictionloss="0.03"/>
-                    <inertial pos="0.00422 -0.00000 -0.02935" mass="0.1245" fullinertia="8.70359e-05 7.28042e-05 9.91759e-05 1.00723e-21 -1.17128e-05 -3.88157e-20"/>
+                    <inertial pos="0.00422 -0.00000 -0.02935" mass="0.1245" fullinertia="8.70359e-05 7.28042e-05 9.91759e-05 -5.91892e-21 -1.17128e-05 3.57061e-20"/>
                     <geom name="palm_r" type="mesh" mesh="palm_r" material="m_dark" group="1" mass="0"/>
                     <geom name="c_palm_r" class="col" type="mesh" mesh="palm_r" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
                     <geom name="pinion_r" type="mesh" mesh="pinion_r" material="m_frame" group="1" mass="0"/>
@@ -674,7 +667,7 @@
                     <geom name="wrist_cam_r" type="mesh" mesh="wrist_cam_r" material="m_pcb" group="2" mass="0"/>
                     <geom name="wrist_cam_r_holder" type="mesh" mesh="wrist_cam_r_holder" material="m_black" group="2" mass="0"/>
                     <geom name="wrist_cam_r_lens" type="mesh" mesh="wrist_cam_r_lens" material="m_lens" group="2" mass="0"/>
-                    <camera name="wrist_cam_r" pos="-0.0260 0.0000 -0.0497" xyaxes="0 -1 0 0.94 0 0.34" fovy="80"/>
+                    <camera name="wrist_cam_r" pos="-0.0260 0.0000 -0.0498" xyaxes="0 -1 0 0.94 0 0.34" fovy="80"/>
                     <site name="tcp_r" pos="0.0000 0.0000 -0.0950" size="0.006" rgba="1 0.3 0 1"/>
                     <body name="r_link7" pos="0.00000 0.00000 -0.05300">
                       <joint name="r_gripper" type="slide" axis="0 -1.0 0" range="0.0 0.04" damping="5.0" armature="0.4" frictionloss="0.8"/>
@@ -682,7 +675,7 @@
                       <geom name="rack_a_r" type="mesh" mesh="rack_a_r" material="m_dark" group="1" mass="0"/>
                       <geom name="c_rack_a_r" class="col" type="mesh" mesh="rack_a_r" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
                       <geom name="finger_a_r" type="mesh" mesh="finger_a_r" material="m_accent" group="1" mass="0"/>
-                      <geom name="c_finger_a_r" class="col" type="box" pos="0.0000 -0.0070 -0.0363" size="0.0120 0.0040 0.0238" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
+                      <geom name="c_finger_a_r" class="col" type="box" pos="0.0000 -0.0070 -0.0362" size="0.0120 0.0040 0.0238" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
                       <site name="touch_a_r" type="box" pos="0.0000 -0.0070 -0.0362" size="0.0130 0.0070 0.0248" rgba="0 0 0 0"/>
                     </body>
                     <body name="r_link8" pos="0.00000 0.00000 -0.05300">
@@ -691,7 +684,7 @@
                       <geom name="rack_b_r" type="mesh" mesh="rack_b_r" material="m_dark" group="1" mass="0"/>
                       <geom name="c_rack_b_r" class="col" type="mesh" mesh="rack_b_r" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
                       <geom name="finger_b_r" type="mesh" mesh="finger_b_r" material="m_accent" group="1" mass="0"/>
-                      <geom name="c_finger_b_r" class="col" type="box" pos="0.0000 0.0070 -0.0363" size="0.0120 0.0040 0.0238" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
+                      <geom name="c_finger_b_r" class="col" type="box" pos="0.0000 0.0070 -0.0362" size="0.0120 0.0040 0.0238" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
                       <site name="touch_b_r" type="box" pos="0.0000 0.0070 -0.0362" size="0.0130 0.0070 0.0248" rgba="0 0 0 0"/>
                     </body>
                   </body>
@@ -702,14 +695,12 @@
         </body>
       </body>
       <body name="lift_mid" pos="0.00000 0.00000 0.00000">
-        <joint name="lift_mid" type="slide" axis="0 0 1" range="0.0 0.325" damping="0" armature="0" frictionloss="0"/>
-        <inertial pos="0.00000 0.00000 0.28893" mass="0.5630" fullinertia="0.0123383 0.0122711 0.000837537 -1.48033e-20 1.9467e-14 1.31025e-18"/>
+        <joint name="lift_mid" type="slide" axis="0 0 1" range="0.0 0.21" damping="0" armature="0" frictionloss="0"/>
+        <inertial pos="0.00000 0.00000 0.23093" mass="0.4675" fullinertia="0.00567787 0.00561161 0.000665021 4.44317e-20 1.19071e-14 3.6401e-18"/>
         <geom name="col_mid_0" type="mesh" mesh="col_mid_0" material="m_shell" group="1" mass="0"/>
         <geom name="c_col_mid_0" class="col" type="mesh" mesh="col_mid_0" contype="2" conaffinity="13" friction="0.8 0.01 0.001" mass="0"/>
         <geom name="col_mid_1" type="mesh" mesh="col_mid_1" material="m_shell" group="1" mass="0"/>
         <geom name="c_col_mid_1" class="col" type="mesh" mesh="col_mid_1" contype="2" conaffinity="13" friction="0.8 0.01 0.001" mass="0"/>
-        <geom name="col_mid_2" type="mesh" mesh="col_mid_2" material="m_shell" group="1" mass="0"/>
-        <geom name="c_col_mid_2" class="col" type="mesh" mesh="col_mid_2" contype="2" conaffinity="13" friction="0.8 0.01 0.001" mass="0"/>
         <geom name="t8_nut" type="mesh" mesh="t8_nut" material="m_brass" group="2" mass="0"/>
         <geom name="gt2_pulley_l" type="mesh" mesh="gt2_pulley_l" material="m_alu" group="2" mass="0"/>
         <geom name="gt2_belt_l" type="mesh" mesh="gt2_belt_l" material="m_black" group="2" mass="0"/>
@@ -754,7 +745,7 @@
     <joint joint1="lift_mid" joint2="lift" polycoef="0 0.5 0 0 0" solref="0.005 1"/>
   </equality>
   <actuator>
-    <position name="lift" joint="lift" kp="60000.0" kv="9000.0" ctrlrange="0.0 0.65" forcerange="-380.0 380.0"/>
+    <position name="lift" joint="lift" kp="60000.0" kv="9000.0" ctrlrange="0.0 0.42" forcerange="-380.0 380.0"/>
     <position name="head_pan" joint="head_pan" kp="40.0" kv="0.6" ctrlrange="-0.8 0.8" forcerange="-2.94 2.94"/>
     <position name="head_tilt" joint="head_tilt" kp="40.0" kv="0.6" ctrlrange="-0.45 0.55" forcerange="-2.94 2.94"/>
     <position name="l_shoulder_pitch" joint="l_shoulder_pitch" kp="80.0" kv="1.2" ctrlrange="-3.1 1.0" forcerange="-9.32 9.32"/>
@@ -805,11 +796,11 @@
     <gyro name="imu_gyro" site="imu"/>
   </sensor>
   <keyframe>
-    <key name="zero" qpos="0 0 0.002 1 0 0 0 0.4 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0" ctrl="0.4 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0"/>
+    <key name="zero" qpos="0 0 0.002 1 0 0 0 0.42 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0" ctrl="0.42 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0"/>
     <key name="home" qpos="0 0 0.002 1 0 0 0 0.1 0 0.25 -0.35 0.1 0 -1.55 0.35 0 0.012 0 -0.35 0.1 0 -1.55 0.35 0 0.012 0 0 0 0" ctrl="0.1 0 0.25 -0.35 0.1 0 -1.55 0.35 0 0.012 -0.35 0.1 0 -1.55 0.35 0 0.012 0 0"/>
     <key name="counter" qpos="0 0 0.002 1 0 0 0 0.35 0 0.55 -1.492 -0.008 -0.015 -1.403 1.894 0.016 0.03 0 -1.492 -0.008 -0.015 -1.403 1.894 0.016 0.03 0 0 0 0" ctrl="0.35 0 0.55 -1.492 -0.008 -0.015 -1.403 1.894 0.016 0.03 -1.492 -0.008 -0.015 -1.403 1.894 0.016 0.03 0 0"/>
-    <key name="floor" qpos="0 0 0.002 1 0 0 0 0 0 0.55 -0.278 0.006 0.019 -0.879 1.156 -0.02 0.03 0 -0.278 0.006 0.019 -0.879 1.156 -0.02 0.03 0 0 0 0" ctrl="0 0 0.55 -0.278 0.006 0.019 -0.879 1.156 -0.02 0.03 -0.278 0.006 0.019 -0.879 1.156 -0.02 0.03 0 0"/>
-    <key name="shelf" qpos="0 0 0.002 1 0 0 0 0.65 0 -0.35 -2.614 0.011 0.004 -0.472 1.682 -0.012 0.03 0 -2.614 0.011 0.004 -0.472 1.682 -0.012 0.03 0 0 0 0" ctrl="0.65 0 -0.35 -2.614 0.011 0.004 -0.472 1.682 -0.012 0.03 -2.614 0.011 0.004 -0.472 1.682 -0.012 0.03 0 0"/>
+    <key name="floor" qpos="0 0 0.002 1 0 0 0 0 0 0.55 -0.805 0 0 0 0 0 0.02 0 -0.805 0 0 0 0 0 0.02 0 0 0 0" ctrl="0 0 0.55 -0.805 0 0 0 0 0 0.02 -0.805 0 0 0 0 0 0.02 0 0"/>
+    <key name="shelf" qpos="0 0 0.002 1 0 0 0 0.42 0 -0.35 -2.9 0 0 -0.45 0.7 0 0.02 0 -2.9 0 0 -0.45 0.7 0 0.02 0 0 0 0" ctrl="0.42 0 -0.35 -2.9 0 0 -0.45 0.7 0 0.02 -2.9 0 0 -0.45 0.7 0 0.02 0 0"/>
     <key name="wave" qpos="0 0 0.002 1 0 0 0 0.3 0.35 0.25 -0.25 1.45 0 -1.4 0 0 0.012 0 -0.35 0.1 0 -1.55 0.35 0 0.012 0 0 0 0" ctrl="0.3 0.35 0.25 -0.25 1.45 0 -1.4 0 0 0.012 -0.35 0.1 0 -1.55 0.35 0 0.012 0 0"/>
   </keyframe>
 </mujoco>

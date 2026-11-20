@@ -3,27 +3,27 @@
  "frame": "x forward, y left, z up, origin on the floor between the wheels",
  "links": {
   "base": {
-   "mass_g": 5348.4,
+   "mass_g": 5233.7,
    "com": [
     -0.7,
-    11.8,
-    129.0
+    12.0,
+    119.5
    ]
   },
   "lift_mid": {
-   "mass_g": 483.0,
+   "mass_g": 387.5,
    "com": [
     0.0,
     -0.0,
-    287.6
+    229.9
    ]
   },
   "lift": {
-   "mass_g": 2281.2,
+   "mass_g": 2196.7,
    "com": [
-    -3.6,
+    -3.7,
     0.6,
-    523.0
+    405.3
    ]
   },
   "head_tilt": {
@@ -31,7 +31,7 @@
    "com": [
     38.4,
     0.1,
-    752.3
+    622.3
    ]
   },
   "head_pan": {
@@ -39,7 +39,7 @@
    "com": [
     14.2,
     -4.9,
-    673.7
+    543.7
    ]
   },
   "l_link1": {
@@ -47,7 +47,7 @@
    "com": [
     6.1,
     170.4,
-    582.0
+    452.0
    ]
   },
   "l_link2": {
@@ -55,7 +55,7 @@
    "com": [
     1.3,
     157.0,
-    496.3
+    366.3
    ]
   },
   "l_link3": {
@@ -63,7 +63,7 @@
    "com": [
     9.4,
     156.3,
-    337.5
+    207.5
    ]
   },
   "l_link4": {
@@ -71,7 +71,7 @@
    "com": [
     9.0,
     158.9,
-    178.6
+    48.6
    ]
   },
   "l_link5": {
@@ -79,7 +79,7 @@
    "com": [
     17.2,
     157.4,
-    78.8
+    -51.2
    ]
   },
   "l_link6": {
@@ -87,7 +87,7 @@
    "com": [
     11.9,
     157.0,
-    10.5
+    -119.5
    ]
   },
   "l_link7": {
@@ -95,7 +95,7 @@
    "com": [
     13.7,
     159.7,
-    -29.9
+    -159.9
    ]
   },
   "l_link8": {
@@ -103,7 +103,7 @@
    "com": [
     4.4,
     154.3,
-    -30.0
+    -160.0
    ]
   },
   "r_link1": {
@@ -111,7 +111,7 @@
    "com": [
     6.1,
     -170.4,
-    582.0
+    452.0
    ]
   },
   "r_link2": {
@@ -119,7 +119,7 @@
    "com": [
     1.3,
     -157.0,
-    496.3
+    366.3
    ]
   },
   "r_link3": {
@@ -127,7 +127,7 @@
    "com": [
     9.4,
     -156.3,
-    337.5
+    207.5
    ]
   },
   "r_link4": {
@@ -135,7 +135,7 @@
    "com": [
     9.0,
     -158.9,
-    178.6
+    48.6
    ]
   },
   "r_link5": {
@@ -143,7 +143,7 @@
    "com": [
     17.2,
     -157.4,
-    78.8
+    -51.2
    ]
   },
   "r_link6": {
@@ -151,7 +151,7 @@
    "com": [
     11.9,
     -157.0,
-    10.5
+    -119.5
    ]
   },
   "r_link7": {
@@ -159,7 +159,7 @@
    "com": [
     13.7,
     -159.7,
-    -29.9
+    -159.9
    ]
   },
   "r_link8": {
@@ -167,7 +167,7 @@
    "com": [
     4.4,
     -154.3,
-    -30.0
+    -160.0
    ]
   },
   "wheel_l": {
@@ -187,7 +187,7 @@
    ]
   }
  },
- "total_mass_g": 11655.3,
+ "total_mass_g": 11360.6,
  "joints": [
   {
    "name": "lift",
@@ -206,7 +206,7 @@
    ],
    "range": [
     0.0,
-    0.65
+    0.42
    ],
    "actuator": "nema",
    "mimic": "",
@@ -229,7 +229,7 @@
    ],
    "range": [
     0.0,
-    0.325
+    0.21
    ],
    "actuator": "",
    "mimic": "lift",
@@ -289,7 +289,7 @@
    "anchor": [
     5.0,
     0,
-    633.0
+    503.0
    ],
    "axis": [
     0,
@@ -312,7 +312,7 @@
    "anchor": [
     5.0,
     0,
-    682.0
+    552.0
    ],
    "axis": [
     0,
@@ -335,7 +335,7 @@
    "anchor": [
     9.0,
     117.0,
-    582.0
+    452.0
    ],
    "axis": [
     0,
@@ -358,7 +358,7 @@
    "anchor": [
     9.0,
     157.0,
-    582.0
+    452.0
    ],
    "axis": [
     1,
@@ -381,7 +381,7 @@
    "anchor": [
     9.0,
     157.0,
-    469.0
+    339.0
    ],
    "axis": [
     0,
@@ -404,7 +404,7 @@
    "anchor": [
     9.0,
     157.0,
-    330.0
+    200.0
    ],
    "axis": [
     0,
@@ -427,7 +427,7 @@
    "anchor": [
     9.0,
     157.0,
-    130.0
+    0.0
    ],
    "axis": [
     0,
@@ -450,7 +450,7 @@
    "anchor": [
     9.0,
     157.0,
-    45.0
+    -85.0
    ],
    "axis": [
     0,
@@ -473,7 +473,7 @@
    "anchor": [
     9.0,
     157.0,
-    -8.0
+    -138.0
    ],
    "axis": [
     0,
@@ -496,7 +496,7 @@
    "anchor": [
     9.0,
     157.0,
-    -8.0
+    -138.0
    ],
    "axis": [
     0,
@@ -519,7 +519,7 @@
    "anchor": [
     9.0,
     -117.0,
-    582.0
+    452.0
    ],
    "axis": [
     0,
@@ -542,7 +542,7 @@
    "anchor": [
     9.0,
     -157.0,
-    582.0
+    452.0
    ],
    "axis": [
     -1,
@@ -565,7 +565,7 @@
    "anchor": [
     9.0,
     -157.0,
-    469.0
+    339.0
    ],
    "axis": [
     0,
@@ -588,7 +588,7 @@
    "anchor": [
     9.0,
     -157.0,
-    330.0
+    200.0
    ],
    "axis": [
     0,
@@ -611,7 +611,7 @@
    "anchor": [
     9.0,
     -157.0,
-    130.0
+    0.0
    ],
    "axis": [
     0,
@@ -634,7 +634,7 @@
    "anchor": [
     9.0,
     -157.0,
-    45.0
+    -85.0
    ],
    "axis": [
     0,
@@ -657,7 +657,7 @@
    "anchor": [
     9.0,
     -157.0,
-    -8.0
+    -138.0
    ],
    "axis": [
     0,
@@ -680,7 +680,7 @@
    "anchor": [
     9.0,
     -157.0,
-    -8.0
+    -138.0
    ],
    "axis": [
     0,
@@ -698,7 +698,7 @@
  ],
  "poses": {
   "zero": {
-   "lift": 0.4
+   "lift": 0.42
   },
   "home": {
    "lift": 0.1,
@@ -739,42 +739,42 @@
   "floor": {
    "lift": 0.0,
    "head_tilt": 0.55,
-   "l_shoulder_pitch": -0.278,
-   "l_shoulder_roll": 0.006,
-   "l_elbow": -0.879,
-   "l_wrist_pitch": 1.156,
-   "l_gripper": 0.03,
-   "l_gripper_b": 0.03,
-   "r_shoulder_pitch": -0.278,
-   "r_shoulder_roll": 0.006,
-   "r_elbow": -0.879,
-   "r_wrist_pitch": 1.156,
-   "r_gripper": 0.03,
-   "r_gripper_b": 0.03,
-   "l_upper_arm_yaw": 0.019,
-   "l_wrist_roll": -0.02,
-   "r_upper_arm_yaw": 0.019,
-   "r_wrist_roll": -0.02
+   "l_shoulder_pitch": -0.805,
+   "l_shoulder_roll": 0.0,
+   "l_elbow": 0.0,
+   "l_wrist_pitch": 0.0,
+   "l_gripper": 0.02,
+   "l_gripper_b": 0.02,
+   "r_shoulder_pitch": -0.805,
+   "r_shoulder_roll": 0.0,
+   "r_elbow": 0.0,
+   "r_wrist_pitch": 0.0,
+   "r_gripper": 0.02,
+   "r_gripper_b": 0.02,
+   "l_upper_arm_yaw": 0.0,
+   "l_wrist_roll": 0.0,
+   "r_upper_arm_yaw": 0.0,
+   "r_wrist_roll": 0.0
   },
   "shelf": {
-   "lift": 0.65,
+   "lift": 0.42,
    "head_tilt": -0.35,
-   "l_shoulder_pitch": -2.614,
-   "l_shoulder_roll": 0.011,
-   "l_elbow": -0.472,
-   "l_wrist_pitch": 1.682,
-   "l_gripper": 0.03,
-   "l_gripper_b": 0.03,
-   "r_shoulder_pitch": -2.614,
-   "r_shoulder_roll": 0.011,
-   "r_elbow": -0.472,
-   "r_wrist_pitch": 1.682,
-   "r_gripper": 0.03,
-   "r_gripper_b": 0.03,
-   "l_upper_arm_yaw": 0.004,
-   "l_wrist_roll": -0.012,
-   "r_upper_arm_yaw": 0.004,
-   "r_wrist_roll": -0.012
+   "l_shoulder_pitch": -2.9,
+   "l_shoulder_roll": 0.0,
+   "l_elbow": -0.45,
+   "l_wrist_pitch": 0.7,
+   "l_gripper": 0.02,
+   "l_gripper_b": 0.02,
+   "r_shoulder_pitch": -2.9,
+   "r_shoulder_roll": 0.0,
+   "r_elbow": -0.45,
+   "r_wrist_pitch": 0.7,
+   "r_gripper": 0.02,
+   "r_gripper_b": 0.02,
+   "l_upper_arm_yaw": 0.0,
+   "l_wrist_roll": 0.0,
+   "r_upper_arm_yaw": 0.0,
+   "r_wrist_roll": 0.0
   },
   "wave": {
    "lift": 0.3,
@@ -1200,7 +1200,7 @@
    "kind": "print",
    "color": "shell",
    "material": "PETG",
-   "mass_g": 212.2,
+   "mass_g": 233.5,
    "print": "col_outer_0",
    "note": "Foot flange, motor pedestal, homing pad."
   },
@@ -1212,20 +1212,8 @@
    "kind": "print",
    "color": "shell",
    "material": "PETG",
-   "mass_g": 157.3,
+   "mass_g": 182.1,
    "print": "col_outer_1",
-   "note": "Prints standing. Inserts in the top bosses."
-  },
-  {
-   "name": "col_outer_2",
-   "file": "col_outer_2.stl",
-   "link": "base",
-   "group": "mast",
-   "kind": "print",
-   "color": "shell",
-   "material": "PETG",
-   "mass_g": 160.8,
-   "print": "col_outer_2",
    "note": "Top of the outer tube. Slide pads and belt anchors."
   },
   {
@@ -1236,7 +1224,7 @@
    "kind": "print",
    "color": "shell",
    "material": "PETG",
-   "mass_g": 150.7,
+   "mass_g": 168.3,
    "print": "col_mid_0",
    "note": "T8 nut pocket and outer slide pads."
   },
@@ -1248,20 +1236,8 @@
    "kind": "print",
    "color": "shell",
    "material": "PETG",
-   "mass_g": 129.9,
+   "mass_g": 149.2,
    "print": "col_mid_1",
-   "note": "Prints standing. Inserts in the top bosses."
-  },
-  {
-   "name": "col_mid_2",
-   "file": "col_mid_2.stl",
-   "link": "lift_mid",
-   "group": "mast",
-   "kind": "print",
-   "color": "shell",
-   "material": "PETG",
-   "mass_g": 132.4,
-   "print": "col_mid_2",
    "note": "Pulleys and inner slide pads."
   },
   {
@@ -1272,7 +1248,7 @@
    "kind": "print",
    "color": "shell",
    "material": "PETG",
-   "mass_g": 89.2,
+   "mass_g": 89.8,
    "print": "col_inner_0",
    "note": "Belt clamps and outer slide pads."
   },
@@ -1284,20 +1260,8 @@
    "kind": "print",
    "color": "shell",
    "material": "PETG",
-   "mass_g": 85.7,
+   "mass_g": 86.3,
    "print": "col_inner_1",
-   "note": "Prints standing. Inserts in the top bosses."
-  },
-  {
-   "name": "col_inner_2",
-   "file": "col_inner_2.stl",
-   "link": "lift",
-   "group": "mast",
-   "kind": "print",
-   "color": "shell",
-   "material": "PETG",
-   "mass_g": 85.7,
-   "print": "col_inner_2",
    "note": "Prints standing. Inserts in the top bosses."
   },
   {
@@ -3837,8 +3801,8 @@
   }
  ],
  "dims": {
-  "shoulder_z0": 582.0,
-  "lift_travel": 650.0,
+  "shoulder_z0": 452.0,
+  "lift_travel": 420.0,
   "base": [
    400.0,
    400.0,
@@ -3850,6 +3814,6 @@
   "caster_x": 128.0,
   "caster_trail": 12.0,
   "caster_wheel": 40.0,
-  "mast_top": 541.0
+  "mast_top": 419.0
  }
 }

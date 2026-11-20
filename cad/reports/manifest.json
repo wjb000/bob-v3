@@ -7,10 +7,10 @@
  ],
  "density_g_cm3": 1.27,
  "fill": 0.55,
- "unique_prints": 89,
- "total_prints": 135,
- "print_mass_g": 5291.0,
- "robot_mass_g": 11655.0,
+ "unique_prints": 86,
+ "total_prints": 132,
+ "print_mass_g": 4996.0,
+ "robot_mass_g": 11361.0,
  "parts": [
   {
    "name": "base_shell_rear_r",
@@ -823,37 +823,13 @@
    "bed_mm": [
     124.0,
     124.0,
-    168.0
+    191.0
    ],
-   "volume_cm3": 303.7,
-   "grams": 212.2
+   "volume_cm3": 334.3,
+   "grams": 233.5
   },
   {
    "name": "col_outer_1",
-   "qty": 1,
-   "group": "mast",
-   "link": "base",
-   "material": "PETG",
-   "color": "shell",
-   "support_cm2": 2.4,
-   "walls": 5,
-   "infill": 30,
-   "note": "Prints standing. Inserts in the top bosses.",
-   "rot_deg": [
-    0,
-    0,
-    0
-   ],
-   "bed_mm": [
-    100.6,
-    100.6,
-    168.0
-   ],
-   "volume_cm3": 225.2,
-   "grams": 157.3
-  },
-  {
-   "name": "col_outer_2",
    "qty": 1,
    "group": "mast",
    "link": "base",
@@ -871,10 +847,10 @@
    "bed_mm": [
     100.6,
     108.0,
-    168.0
+    191.0
    ],
-   "volume_cm3": 230.2,
-   "grams": 160.8
+   "volume_cm3": 260.7,
+   "grams": 182.1
   },
   {
    "name": "col_mid_0",
@@ -895,10 +871,10 @@
    "bed_mm": [
     86.0,
     86.0,
-    168.0
+    191.0
    ],
-   "volume_cm3": 215.8,
-   "grams": 150.7
+   "volume_cm3": 241.0,
+   "grams": 168.3
   },
   {
    "name": "col_mid_1",
@@ -907,31 +883,7 @@
    "link": "lift_mid",
    "material": "PETG",
    "color": "shell",
-   "support_cm2": 2.4,
-   "walls": 5,
-   "infill": 30,
-   "note": "Prints standing. Inserts in the top bosses.",
-   "rot_deg": [
-    0,
-    0,
-    0
-   ],
-   "bed_mm": [
-    82.6,
-    82.6,
-    168.0
-   ],
-   "volume_cm3": 186.0,
-   "grams": 129.9
-  },
-  {
-   "name": "col_mid_2",
-   "qty": 1,
-   "group": "mast",
-   "link": "lift_mid",
-   "material": "PETG",
-   "color": "shell",
-   "support_cm2": 3.4,
+   "support_cm2": 2.2,
    "walls": 5,
    "infill": 30,
    "note": "Pulleys and inner slide pads.",
@@ -943,10 +895,10 @@
    "bed_mm": [
     82.6,
     82.6,
-    168.0
+    191.0
    ],
-   "volume_cm3": 189.6,
-   "grams": 132.4
+   "volume_cm3": 213.6,
+   "grams": 149.2
   },
   {
    "name": "col_inner_0",
@@ -967,10 +919,10 @@
    "bed_mm": [
     68.0,
     70.0,
-    140.0
+    141.0
    ],
-   "volume_cm3": 127.8,
-   "grams": 89.2
+   "volume_cm3": 128.6,
+   "grams": 89.8
   },
   {
    "name": "col_inner_1",
@@ -991,34 +943,10 @@
    "bed_mm": [
     64.6,
     64.6,
-    140.0
+    141.0
    ],
-   "volume_cm3": 122.7,
-   "grams": 85.7
-  },
-  {
-   "name": "col_inner_2",
-   "qty": 1,
-   "group": "mast",
-   "link": "lift",
-   "material": "PETG",
-   "color": "shell",
-   "support_cm2": 2.4,
-   "walls": 5,
-   "infill": 30,
-   "note": "Prints standing. Inserts in the top bosses.",
-   "rot_deg": [
-    0,
-    0,
-    0
-   ],
-   "bed_mm": [
-    64.6,
-    64.6,
-    140.0
-   ],
-   "volume_cm3": 122.7,
-   "grams": 85.7
+   "volume_cm3": 123.6,
+   "grams": 86.3
   },
   {
    "name": "col_cap",
@@ -2157,7 +2085,7 @@
   "M2.5x6 screw (lidar)": 4,
   "M2x6 thread-forming (wrist camera)": 4,
   "M2x8 screw (horn)": 40,
-  "M3 heat-set insert": 238,
+  "M3 heat-set insert": 226,
   "M3x10 socket head": 151,
   "M3x10 socket head (belt anchor)": 2,
   "M3x10 socket head (belt clamp)": 2,
@@ -2166,7 +2094,7 @@
   "M3x12 shoulder screw (idler)": 2,
   "M3x12 socket head": 28,
   "M3x12 thread-forming (eye plate)": 2,
-  "M3x14 socket head": 24,
+  "M3x14 socket head": 12,
   "M3x16 socket head + nut (clamshell)": 20,
   "M3x16 socket head + nut (elbow flange)": 8,
   "M3x6 screw (D435 rear)": 2,
@@ -2184,74 +2112,74 @@
   "zero": {
    "com_mm": [
     2.0,
-    5.5,
-    440.8
+    5.6,
+    389.8
    ],
    "margin_front_mm": 114.0,
    "margin_rear_mm": 118.0,
-   "margin_side_mm": 166.5,
-   "tip_deg_front": 14.5,
-   "tip_deg_rear": 15.0
+   "margin_side_mm": 166.4,
+   "tip_deg_front": 16.3,
+   "tip_deg_rear": 16.8
   },
   "home": {
    "com_mm": [
-    30.3,
-    5.5,
-    332.4
+    31.1,
+    5.6,
+    273.3
    ],
-   "margin_front_mm": 85.7,
-   "margin_rear_mm": 146.3,
-   "margin_side_mm": 166.5,
-   "tip_deg_front": 14.5,
-   "tip_deg_rear": 23.8
+   "margin_front_mm": 84.9,
+   "margin_rear_mm": 147.1,
+   "margin_side_mm": 166.4,
+   "tip_deg_front": 17.3,
+   "tip_deg_rear": 28.3
   },
   "counter": {
    "com_mm": [
-    42.2,
-    5.5,
-    476.3
+    43.3,
+    5.6,
+    418.0
    ],
-   "margin_front_mm": 73.8,
-   "margin_rear_mm": 158.2,
-   "margin_side_mm": 166.5,
-   "tip_deg_front": 8.8,
-   "tip_deg_rear": 18.4
+   "margin_front_mm": 72.7,
+   "margin_rear_mm": 159.3,
+   "margin_side_mm": 166.4,
+   "tip_deg_front": 9.9,
+   "tip_deg_rear": 20.9
   },
   "floor": {
    "com_mm": [
-    24.5,
-    5.5,
-    272.9
+    40.2,
+    5.6,
+    219.5
    ],
-   "margin_front_mm": 91.5,
-   "margin_rear_mm": 140.5,
-   "margin_side_mm": 166.5,
-   "tip_deg_front": 18.5,
-   "tip_deg_rear": 27.2
+   "margin_front_mm": 75.8,
+   "margin_rear_mm": 156.2,
+   "margin_side_mm": 166.4,
+   "tip_deg_front": 19.1,
+   "tip_deg_rear": 35.4
   },
   "shelf": {
    "com_mm": [
-    22.4,
-    5.5,
-    642.3
+    8.3,
+    5.6,
+    490.9
    ],
-   "margin_front_mm": 93.6,
-   "margin_rear_mm": 138.4,
-   "margin_side_mm": 166.5,
-   "tip_deg_front": 8.3,
-   "tip_deg_rear": 12.2
+   "margin_front_mm": 107.7,
+   "margin_rear_mm": 124.3,
+   "margin_side_mm": 166.4,
+   "tip_deg_front": 12.4,
+   "tip_deg_rear": 14.2
   },
   "wave": {
    "com_mm": [
-    25.2,
-    21.9,
-    433.6
+    25.8,
+    22.4,
+    374.7
    ],
-   "margin_front_mm": 90.8,
-   "margin_rear_mm": 141.2,
-   "margin_side_mm": 150.1,
-   "tip_deg_front": 11.8,
-   "tip_deg_rear": 18.0
+   "margin_front_mm": 90.2,
+   "margin_rear_mm": 141.8,
+   "margin_side_mm": 149.6,
+   "tip_deg_front": 13.5,
+   "tip_deg_rear": 20.7
   }
  },
  "overlaps": {
@@ -2265,5 +2193,5 @@
  },
  "errors": [],
  "warnings": [],
- "seconds": 146.1
+ "seconds": 143.5
 }

@@ -301,11 +301,12 @@ def bought(sz=S0) -> list[Bought]:
     out += j1_modules(sz)[1]
     # Pi and hub stand on the side walls of the upper chest, thin side toward the wall.
     # Buses lie flat below the yokes, forward of the gusset (that gusset ends at x ≈ −11).
-    out += V.boughts("pi5", V.place(V.pi5(), (0, 78, 522), xdir=(1, 0, 0), zdir=(0, 1, 0)), "lift", "torso", "electronics", 75, "pi5")
-    out += V.boughts("usb_hub", V.place(V.usb_board(64, 36, 16, ports=2), (0, -78, 522), xdir=(1, 0, 0), zdir=(0, -1, 0)),
+    # Side walls of the upper chest. Offsets follow the shoulder, so a shorter column keeps the boards in the shell.
+    out += V.boughts("pi5", V.place(V.pi5(), (0, 78, sz - 60), xdir=(1, 0, 0), zdir=(0, 1, 0)), "lift", "torso", "electronics", 75, "pi5")
+    out += V.boughts("usb_hub", V.place(V.usb_board(64, 36, 16, ports=2), (0, -78, sz - 60), xdir=(1, 0, 0), zdir=(0, -1, 0)),
                      "lift", "torso", "electronics", 60, "usbhub")
     for name, y in (("servo_bus", 72), ("servo_bus_r", -72)):
-        out += V.boughts(name, V.place(V.usb_board(44, 30, 14, ports=2), (30, y, 456), xdir=(1, 0, 0), zdir=(0, 0, 1)),
+        out += V.boughts(name, V.place(V.usb_board(44, 30, 14, ports=2), (30, y, sz - 126), xdir=(1, 0, 0), zdir=(0, 0, 1)),
                          "lift", "torso", "electronics", 25, "busadapter")
     out += V.boughts("speaker", V.place(V.speaker(), (TX1 - 10, 0, sz - 156), xdir=(0, 1, 0), zdir=(1, 0, 0)), "lift", "torso", "electronics", 40, "speaker")
     out += V.boughts("pan_servo", V.place(V.sts3215(), (NECK_X, 0, sz + 47)), "lift", "torso", "actuator", P.STS_MASS, "sts3215")
