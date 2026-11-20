@@ -9,6 +9,7 @@ import numpy as np
 import params as P
 import arm
 import base
+import column
 import head
 import torso
 from lib import HARDWARE, Joint, Part
@@ -16,7 +17,9 @@ from lib import HARDWARE, Joint, Part
 
 def joints() -> list[Joint]:
     out = [
-        Joint("lift", "slide", "base", "lift", (P.MAST_X, 0.0, 0.0), (0, 0, 1), P.LIMITS["lift"], "nema"),
+        Joint("lift", "slide", "base", "lift", (P.COL_X, 0.0, 0.0), (0, 0, 1), P.LIMITS["lift"], "nema"),
+        Joint("lift_mid", "slide", "base", "lift_mid", (P.COL_X, 0.0, 0.0), (0, 0, 1),
+              (0.0, P.STAGE_TRAVEL / 1000.0), mimic="lift", mimic_coef=0.5),
         Joint("wheel_l", "hinge", "base", "wheel_l", (0.0, P.WHEEL_Y, P.AXLE_Z), (0, 1, 0), (-1e9, 1e9), "hub"),
         Joint("wheel_r", "hinge", "base", "wheel_r", (0.0, -P.WHEEL_Y, P.AXLE_Z), (0, 1, 0), (-1e9, 1e9), "hub"),
     ]
@@ -30,7 +33,7 @@ def parts() -> list[Part]:
     HARDWARE.clear()
     out = []
     out += base.parts()
-    out += torso.mast_parts()
+    out += column.parts()
     out += torso.torso_parts()
     out += head.parts()
     out += arm.parts("l")
@@ -39,7 +42,7 @@ def parts() -> list[Part]:
 
 
 def bought():
-    return base.bought() + torso.bought() + head.bought() + arm.bought("l") + arm.bought("r")
+    return base.bought() + column.bought() + torso.bought() + head.bought() + arm.bought("l") + arm.bought("r")
 
 
 def joiners():
@@ -101,7 +104,7 @@ def link_transforms(pose: dict, js: list[Joint] | None = None) -> dict[str, np.n
         for j in list(pending):
             if j.parent not in T:
                 continue
-            q = pose.get(j.name, 0.0)
+            q = pose.get(j.mimic, 0.0) * j.mimic_coef if j.mimic else pose.get(j.name, 0.0)
             local = np.eye(4)
             if j.kind == "slide":
                 local[:3, 3] = np.asarray(j.axis, float) * q * 1000.0

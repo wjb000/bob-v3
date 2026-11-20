@@ -109,6 +109,30 @@ def sts3215():
     return [("", shell, "black"), ("horn", fuse(boss, horn), "white")]
 
 
+def sts3095():
+    """Local frame: shaft +z at the origin, top face z = 0, case x -16.5..48.5, y ±15, z -48..0.
+
+    Dual shaft: 15T horn on +z, rear spline on −z. Aluminium case.
+    """
+    L, W, H, s = P.STS3095_L, P.STS3095_W, P.STS3095_H, P.STS3095_SHAFT_FROM_END
+    x0, x1 = -s, L - s
+    case = _fillet(box(x0, x1, -W / 2, W / 2, -H + 4, -3), 1.5)
+    top = _fillet(box(x0 + 0.6, x1 - 0.6, -W / 2 + 0.4, W / 2 - 0.4, -3, -0.01), 1.2)
+    bottom = _fillet(box(x0 + 0.6, x1 - 0.6, -W / 2 + 0.4, W / 2 - 0.4, -H, -H + 4.01), 1.2)
+    shell = fuse(case, top, bottom)
+    cx = (x0 + x1) / 2
+    for dx in (-P.STS3095_HOLE_L / 2, P.STS3095_HOLE_L / 2):
+        for dy in (-P.STS3095_HOLE_W / 2, P.STS3095_HOLE_W / 2):
+            shell = cut(shell, cyl((cx + dx, dy, -4), "z", 3.3, 6))
+    for z in (-H + 10, -H + 22):
+        shell = cut(shell, box(x1 - 0.8, x1 + 1, -5, 5, z, z + 7))
+    boss = cyl((0, 0, -0.01), "z", 11.0, 1.0)
+    horn = cut(cyl((0, 0, 0.5), "z", P.STS3095_HORN_D, 2.5),
+               *_ring_holes(4, P.STS3095_HORN_PCD, 3.2, 0, 5, 45), cyl((0, 0, 0), "z", 4.0, 5))
+    rear = cyl((0, 0, -H - 8), "z", P.STS3095_SPLINE_D, 8)
+    return [("", shell, "alu"), ("horn", fuse(boss, horn), "steel"), ("shaft", rear, "steel")]
+
+
 # ---------------------------------------------------------------- NEMA 17, 48 mm
 
 def nema17():
@@ -309,8 +333,8 @@ def usb_cam():
 
 
 def lm12uu():
-    s = tube_between("z", (0, 0), -15, 15, P.LM12_OD, P.ROD_D)
-    s = cut(s, *[tube_between("z", (0, 0), z - 0.6, z + 0.6, P.LM12_OD + 1, P.LM12_OD - 1.2) for z in (-11.0, 11.0)])
+    s = tube_between("z", (0, 0), -15, 15, 21.0, 12.0)
+    s = cut(s, *[tube_between("z", (0, 0), z - 0.6, z + 0.6, 22.0, 19.8) for z in (-11.0, 11.0)])
     return [("", s, "steel")]
 
 

@@ -1,8 +1,8 @@
-"""Mast (fixed to the base), carriage and torso (ride the lift).
+"""Torso (rides the inner tube of the telescoping column).
 
-Lift: NEMA 17 in the cap turns a TR8x2 screw that hangs down the mast. The
-carriage rides two 12 mm rods on four LM12UU. Its tongue leaves through the
-mast's front slot and bolts to the torso back plate with four M5.
+The column lives in cad/column.py. The inner cap's front lip bolts to
+torso_back_plate with four M5. The rest of this file is the shell, yokes,
+neck and the boards that sit on the back plate.
 """
 
 from __future__ import annotations
@@ -12,172 +12,10 @@ import math
 import cadquery as cq
 
 import params as P
-from lib import (
-    Bought, Part, box, cbox, cut, cyl, cyl_between, fuse, hexagon, hw,
-    rrect, rrect_shell, tube_between,
-)
+from lib import Bought, Part, box, cut, cyl, cyl_between, fuse, hw, rrect
 from base import JOIN_OFF, split_one, tab_at
 
 S0 = P.SHOULDER_Z0  # shoulder axis at the zero pose
-MX0, MX1 = P.MAST_X - P.MAST_DX / 2, P.MAST_X + P.MAST_DX / 2
-MHY = P.MAST_DY / 2
-IN_X0, IN_X1, IN_Y = MX0 + P.MAST_WALL, MX1 - P.MAST_WALL, MHY - P.MAST_WALL
-JOINT_BOSSES = [(MX0 + 10, -(MHY - 14)), (MX0 + 10, MHY - 14), (MX1 - 10, -(MHY - 18)), (MX1 - 10, MHY - 18)]
-BOSS_H = 14.0
-
-
-# ---------------------------------------------------------------- mast
-
-def _mast_tube(z0, z1):
-    s = rrect_shell(P.MAST_X, 0, z0, z1, P.MAST_DX, P.MAST_DY, P.MAST_R, P.MAST_WALL, open_top=True, open_bot=True)
-    return s.cut(box(MX1 - P.MAST_WALL - 2, MX1 + 2, -P.MAST_SLOT / 2, P.MAST_SLOT / 2, z0 - 1, z1 + 1))
-
-
-def mast_segment(i, z0, z1, n) -> cq.Shape:
-    s = _mast_tube(z0, z1)
-    adds, tools = [], []
-    top_is_cap = i == n - 1
-    for x, y in JOINT_BOSSES:
-        adds.append(cyl((x, y, z1 - BOSS_H), "z", 12, BOSS_H))
-        if top_is_cap:
-            # screw goes up into an insert in the cap; head sits under this boss
-            tools.append(cyl((x, y, z1 - BOSS_H - 1), "z", P.M3, BOSS_H + 2))
-            tools.append(cyl((x, y, z1 - BOSS_H - 1), "z", P.M3_HEAD, BOSS_H - 6))
-        else:
-            tools.append(cyl((x, y, z1 - P.M3_INSERT_DEPTH), "z", P.M3_INSERT, P.M3_INSERT_DEPTH + 1))
-        if i > 0:
-            adds.append(cyl((x, y, z0), "z", 12, BOSS_H))
-            tools.append(cyl((x, y, z0 - 1), "z", P.M3, BOSS_H + 2))
-            tools.append(cyl((x, y, z0 + 8), "z", P.M3_HEAD, BOSS_H))
-    hw("M3 heat-set insert", 4)
-    hw("M3x14 socket head", 4)
-    if i == 0:
-        # foot flange onto the pan
-        f = 14.0
-        flange = rrect(P.MAST_X, 0, z0, z0 + 6, P.MAST_DX + 2 * f, P.MAST_DY + 2 * f, P.MAST_R + f)
-        flange = flange.cut(rrect(P.MAST_X, 0, z0 - 1, z0 + 8, P.MAST_DX - 2, P.MAST_DY - 2, P.MAST_R - 1))
-        adds.append(flange)
-        # rod sockets
-        for sy in (1, -1):
-            adds.append(cyl((P.ROD_X, sy * P.ROD_Y, z0), "z", 26, 40))
-            adds.append(box(IN_X0 - 1, P.ROD_X, sy * (P.ROD_Y - 5), sy * (P.ROD_Y + 5), z0, z0 + 40))
-            adds.append(box(P.ROD_X - 5, P.ROD_X + 5, sy * P.ROD_Y, sy * (IN_Y + 1), z0, z0 + 40))
-            tools.append(cyl((P.ROD_X, sy * P.ROD_Y, P.ROD_Z0), "z", P.ROD_HOLE, 60))
-            # grub screw to stop the rod turning
-            tools.append(cyl_between("x", (sy * P.ROD_Y, z0 + 25), P.ROD_X - 30, P.ROD_X, 2.6))
-        # screw tail bushing
-        zb = P.SCREW_Z1 - P.SCREW_LEN
-        adds.append(box(IN_X0 - 1, P.SCREW_X + 12, -12, 12, zb - 14, zb + 6))
-        tools.append(cyl((P.SCREW_X, 0, zb - 10), "z", 8.5, 30))
-        # homing switch pad, on the back wall under the carriage
-        adds.append(box(IN_X0 - 1, IN_X0 + 8, -10, 10, S0 - P.CARRIAGE_BELOW - 30, S0 - P.CARRIAGE_BELOW - 8))
-        for dz in (-4.75, 4.75):
-            tools.append(cyl_between("x", (0, S0 - P.CARRIAGE_BELOW - 19 + dz), IN_X0 - 2, IN_X0 + 9, 1.9))
-        from base import PAN_PTS
-        for x, y in PAN_PTS["mast"]:
-            tools.append(cyl((x, y, z0 - 1), "z", P.M3, 10))
-        # cable entry from the base
-        tools.append(box(MX0 - 2, MX0 + P.MAST_WALL + 2, -22, 22, z0 + 12, z0 + 80))
-        hw("M3x10 socket head", len(PAN_PTS["mast"]))
-        hw("Micro limit switch (KW12, roller)", 1)
-    s = fuse(s, *adds)
-    s = s.intersect(rrect(P.MAST_X, 0, z0, z1, P.MAST_DX + 40, P.MAST_DY + 40, P.MAST_R + 20))
-    return cut(s, *tools)
-
-
-def mast_cap() -> cq.Shape:
-    z0 = P.MAST_TOP
-    z1 = z0 + P.CAP_H
-    s = rrect_shell(P.MAST_X, 0, z0, z1, P.MAST_DX, P.MAST_DY, P.MAST_R, P.MAST_WALL, chamfer_top=16, open_bot=True)
-    adds = [
-        # motor plate, NEMA face down onto its underside? no: face down, body above, plate under the face
-        box(IN_X0 - 1, IN_X1 + 1, -IN_Y - 1, IN_Y + 1, P.NEMA_FACE_Z - 8, P.NEMA_FACE_Z),
-    ]
-    for sy in (1, -1):
-        adds.append(cyl((P.ROD_X, sy * P.ROD_Y, z0), "z", 26, P.NEMA_FACE_Z - 8 - z0))
-    for x, y in JOINT_BOSSES:
-        adds.append(cyl((x, y, z0), "z", 12, 12))
-    s = fuse(s, *adds)
-    s = s.intersect(rrect(P.MAST_X, 0, z0, z1, P.MAST_DX, P.MAST_DY, P.MAST_R, chamfer_top=16))
-    tools = []
-    for sy in (1, -1):
-        tools.append(cyl((P.ROD_X, sy * P.ROD_Y, z0 - 1), "z", P.ROD_HOLE, P.ROD_Z0 + P.ROD_LEN - z0 + 2))
-    for x, y in JOINT_BOSSES:
-        tools.append(cyl((x, y, z0 - 1), "z", P.M3_INSERT, P.M3_INSERT_DEPTH + 1))
-    tools.append(cyl((P.SCREW_X, 0, P.NEMA_FACE_Z - 20), "z", P.NEMA_PILOT + 0.4, 30))
-    for dx in (-P.NEMA_BOLT / 2, P.NEMA_BOLT / 2):
-        for dy in (-P.NEMA_BOLT / 2, P.NEMA_BOLT / 2):
-            tools.append(cyl((P.SCREW_X + dx, dy, P.NEMA_FACE_Z - 20), "z", P.M3, 30))
-            tools.append(cyl((P.SCREW_X + dx, dy, P.NEMA_FACE_Z - 30), "z", P.M3_HEAD, 22))
-    # coupler window so the set screws can be reached through the slot side
-    tools.append(cyl((P.SCREW_X, 0, z0 - 1), "z", 26, P.NEMA_FACE_Z - 8 - z0 + 1))
-    # light ring groove for an LED strip and a 2 mm diffuser
-    ring = rrect(P.MAST_X, 0, z0 + 50, z0 + 58, P.MAST_DX + 2, P.MAST_DY + 2, P.MAST_R + 1).cut(
-        rrect(P.MAST_X, 0, z0 + 49, z0 + 59, P.MAST_DX - 3, P.MAST_DY - 3, P.MAST_R - 1.5))
-    tools.append(ring)
-    hw("M3 heat-set insert", 4)
-    hw("M3x8 socket head (NEMA)", 4)
-    hw("5 to 8 mm flexible coupler, 25 mm", 1)
-    hw("WS2812B strip, 60/m, 0.5 m", 1)
-    return cut(s, *tools)
-
-
-def mast_parts() -> list[Part]:
-    segs = P.mast_segments()
-    out = []
-    for i, (z0, z1) in enumerate(segs):
-        out.append(Part(f"mast_{i}", mast_segment(i, z0, z1, len(segs)), "base", "mast", color="shell", rot=(0, 0, 0),
-                        note="Prints standing. Inserts in the top bosses." if i else "Foot flange, rod sockets, screw bushing, homing pad."))
-    out.append(Part("mast_cap", mast_cap(), "base", "mast", color="dark", rot=(180, 0, 0),
-                    note="NEMA 17 plate, rod tops, light ring groove. Prints upside down."))
-    return out
-
-
-# ---------------------------------------------------------------- carriage
-
-def carriage(sz=S0) -> cq.Shape:
-    z0 = sz - P.CARRIAGE_BELOW
-    z1 = z0 + P.CARRIAGE_H
-    lo_c = z0 + 4 + P.LM12_LEN / 2
-    hi_c = lo_c + P.BEARING_SPAN
-    adds = []
-    for sy in (1, -1):
-        for zc in (lo_c, hi_c):
-            adds.append(cyl((P.ROD_X, sy * P.ROD_Y, zc - P.LM12_LEN / 2 - 4), "z", 30, P.LM12_LEN + 8))
-        # side web joining the two housings
-        adds.append(box(P.ROD_X - 8, P.ROD_X + 8, sy * (P.ROD_Y - 15), sy * (P.ROD_Y - 9), z0, z1))
-    # central spine, nut bridge at the bottom
-    adds.append(box(P.ROD_X - 16, P.ROD_X + 16, -P.ROD_Y + 8, P.ROD_Y - 8, z0, z0 + 14))
-    adds.append(box(P.ROD_X - 16, P.ROD_X + 16, -P.ROD_Y + 8, P.ROD_Y - 8, hi_c - 18, hi_c + 18))
-    adds.append(box(P.ROD_X + 6, P.ROD_X + 16, -P.ROD_Y + 8, P.ROD_Y - 8, z0, z1))
-    # tongue out through the slot to the torso back plate
-    t0, t1 = sz - 195.0, sz - 128.0
-    plate_x = P.TORSO_X0 + 4.0
-    adds.append(box(P.ROD_X + 6, plate_x, -26, 26, t0, t1))
-    s = fuse(*adds)
-    tools = []
-    for sy in (1, -1):
-        for zc in (lo_c, hi_c):
-            tools.append(cyl((P.ROD_X, sy * P.ROD_Y, zc - P.LM12_LEN / 2), "z", P.LM12_OD, P.LM12_LEN))
-            tools.append(cyl((P.ROD_X, sy * P.ROD_Y, zc - 40), "z", P.ROD_D + 1.5, 80))
-    tools.append(cyl((P.SCREW_X, 0, z0 - 1), "z", 11, P.CARRIAGE_H + 2))
-    tools.append(cyl((P.SCREW_X, 0, z0 - 1), "z", P.T8_FLANGE + 0.4, 4.5 + 1))
-    for dx, dy in [(P.T8_PCD / 2 * math.cos(a), P.T8_PCD / 2 * math.sin(a)) for a in (math.pi / 4, 3 * math.pi / 4, 5 * math.pi / 4, 7 * math.pi / 4)]:
-        tools.append(cyl((P.SCREW_X + dx, dy, z0 - 1), "z", 2.6, 14))
-    # M5 to the back plate, nuts dropped into slots from above / below
-    for y in (-16.0, 16.0):
-        for zb, up in ((sz - 180.0, False), (sz - 145.0, True)):
-            tools.append(cyl_between("x", (y, zb), plate_x - 30, plate_x + 1, P.M5))
-            nx = plate_x - 18
-            if up:
-                tools.append(box(nx - 2.2, nx + 2.2, y - P.M5_NUT_AF / 2, y + P.M5_NUT_AF / 2, zb - 5, t1 + 1))
-            else:
-                tools.append(box(nx - 2.2, nx + 2.2, y - P.M5_NUT_AF / 2, y + P.M5_NUT_AF / 2, t0 - 1, zb + 5))
-    hw("LM12UU linear bearing", 4)
-    hw("TR8x2 brass flange nut", 1)
-    hw("M3x10 thread-forming (T8 nut)", 4)
-    hw("M5x30 socket head + nut (tongue)", 4)
-    return cut(s, *tools)
 
 
 # ---------------------------------------------------------------- torso
@@ -200,7 +38,7 @@ def back_plate(sz=S0) -> cq.Shape:
         .vertices().fillet(8).finalize().extrude(BP_X1 - BP_X0).val()
     tools = []
     for y in (-16.0, 16.0):
-        for zb in (sz - 180.0, sz - 145.0):
+        for zb in (sz - 52.0, sz - 36.0):
             tools.append(cyl_between("x", (y, zb), BP_X0 - 1, BP_X1 + 1, P.M5))
             tools.append(cyl_between("x", (y, zb), BP_X1 - 3, BP_X1 + 1, 9.5))
     # shell screws come in through the back wall into inserts here
@@ -214,7 +52,7 @@ def back_plate(sz=S0) -> cq.Shape:
     for y in range(-60, 61, 20):
         for z in range(int(z0 + 20), int(sz - 115), 20):
             if all(abs(y - p[0]) > 7 or abs(z - p[1]) > 7 for p in _shell_back_pts(sz) + _yoke_web_pts(sz)):
-                if not (abs(abs(y) - 16) < 10 and min(abs(z - (sz - 180)), abs(z - (sz - 145))) < 10):
+                if not (abs(abs(y) - 16) < 10 and min(abs(z - (sz - 52)), abs(z - (sz - 36))) < 10):
                     tools.append(cyl_between("x", (y, z), BP_X1 - 7, BP_X1 + 1, 2.6))
     hw("M3 heat-set insert", len(_shell_back_pts(sz)))
     return cut(s, *tools)
@@ -247,12 +85,12 @@ def _dm_rear_holes(center, axis, face, pcd=P.DM_REAR_PCD, n=P.DM_REAR_N, depth=1
     return out
 
 
-J1_FRAME = lambda sz: ((P.SHOULDER_X, P.J1_FACE_Y, sz), (0, 1, 0), (-1, 0, 0))  # noqa: E731  GM-5 J1, servo toward the back
+J1_FRAME = lambda sz: ((P.SHOULDER_X, P.J1_FACE_Y, sz), (0, 1, 0), (-1, 0, 0))  # noqa: E731  STS3095 J1, servo toward the back
 
 
 def yoke(side, sz=S0) -> cq.Shape:
-    """Left yoke (side=1). Holds the J1 GM-5 module and bolts to the back plate. Right is mirrored."""
-    import gearbox as G
+    """Left yoke (side=1). Holds the J1 STS3095 and bolts to the back plate. Right is mirrored."""
+    import servo as G
 
     cx, cz = P.SHOULDER_X, sz
     cup, inserts, keep = G.mount(*J1_FRAME(sz))
@@ -272,7 +110,7 @@ def yoke(side, sz=S0) -> cq.Shape:
     tools.append(box(NECK_X - P.STS_SHAFT_FROM_END - 5, NECK_X - P.STS_SHAFT_FROM_END + P.STS_L + 5, -20, 20, cz + 4, cz + 31))
     hw("M3 heat-set insert", 6 + 2 + 4)
     hw("M3x12 socket head", 6)
-    hw("M3x8 socket head (module flange)", 4)
+    hw("M3x10 socket head (servo tabs)", 4)
     s = cut(s, *tools)
     # stay inside the torso's rounded back corners
     s = s.intersect(_torso_solid(sz, P.TORSO_WALL + 1.0))
@@ -280,12 +118,12 @@ def yoke(side, sz=S0) -> cq.Shape:
 
 
 def j1_modules(sz=S0):
-    import gearbox as G
+    import servo as G
 
     parts, buys = [], []
     for side in ("l", "r"):
         fr = J1_FRAME(sz) if side == "l" else G.mirror_frame(*J1_FRAME(sz))
-        p, b = G.instance(f"gm_{side}_j1", *fr, "lift", f"{side}_link1", "torso")
+        p, b = G.instance(f"j1_{side}", *fr, "lift", f"{side}_link1", "torso", kind="sts3095")
         parts += p
         buys += b
     return parts, buys
@@ -390,8 +228,9 @@ def torso_shell(sz=S0) -> cq.Shape:
     # shoulder ports
     for sy in (1, -1):
         tools.append(cyl_between("y", (P.SHOULDER_X, sz), sy * (P.TORSO_HW - 10), sy * (P.TORSO_HW + 5), 64))
-    # tongue notch and cable gland at the back
-    tools.append(box(TX0 - 1, TX0 + 6, -31, 31, z0 - 1, sz - 122))
+    # column-cap lip slot (top of the back) and a cable gland lower down
+    tools.append(box(TX0 - 1, TX0 + 6, -31, 31, sz - 90, sz + 8))
+    tools.append(box(TX0 - 1, TX0 + 6, -12, 12, z0 + 20, z0 + 50))
     # neck port
     tools.append(cyl((NECK_X, 0, z1 - 10), "z", 36, 20))
     # chest light slot and speaker grille on the front
@@ -415,12 +254,10 @@ def torso_joiners(sz=S0) -> list[cq.Shape]:
 
 
 def torso_parts() -> list[Part]:
-    out = [Part("carriage", carriage(), "lift", "mast", color="frame", rot=(0, 0, 0),
-                note="Four LM12UU press in. T8 nut from below. Tongue nuts drop into the slots.")]
-    out.append(Part("torso_back_plate", back_plate(), "lift", "torso", color="frame",
-                    note="Takes the lift tongue, the yokes and the Pi and USB grid."))
+    out = [Part("torso_back_plate", back_plate(), "lift", "torso", color="frame",
+                note="Takes the column-cap lip, the yokes and the Pi and USB grid.")]
     out.append(Part("yoke_l", yoke(1), "lift", "torso", color="frame", rot=(90, 0, 0),
-                    note="Holds the left J1 GM-5 module. Prints on its centre face, cup up. 5 walls, 30% infill."))
+                    note="Holds the left J1 STS3095. Prints on its centre face, cup up. 5 walls, 30% infill."))
     out.append(Part("yoke_r", yoke(-1), "lift", "torso", color="frame", rot=(-90, 0, 0), note="Mirror of yoke_l."))
     out.append(Part("neck_mount", neck_mount(), "lift", "torso", color="frame", note="Pan servo cradle, bridges the yokes."))
     out += j1_modules()[0]
@@ -439,28 +276,11 @@ def bought(sz=S0) -> list[Bought]:
     import vendor as V
 
     out = []
-    for sy in (1, -1):
-        out.append(Bought(f"rod_{'l' if sy > 0 else 'r'}", cyl((P.ROD_X, sy * P.ROD_Y, P.ROD_Z0), "z", P.ROD_D, P.ROD_LEN),
-                          "base", "mast", "metal", 888, "rod", look="chrome"))
-    out.append(Bought("leadscrew", cyl((P.SCREW_X, 0, P.SCREW_Z1 - P.SCREW_LEN), "z", 8, P.SCREW_LEN), "base", "mast", "metal", 350, "screw",
-                      look="steel"))
-    out += V.boughts("lift_motor", V.place(V.nema17(), (P.SCREW_X, 0, P.NEMA_FACE_Z)), "base", "mast", "actuator", P.NEMA_MASS, "nema")
-    out += V.boughts("coupler", V.place(V.coupler(), (P.SCREW_X, 0, P.NEMA_FACE_Z - 27)), "base", "mast", "metal", 20, "coupler")
-    lo_c = sz - P.CARRIAGE_BELOW + 4 + P.LM12_LEN / 2
-    for sy in (1, -1):
-        for zc in (lo_c, lo_c + P.BEARING_SPAN):
-            out += V.boughts(f"lm12_{'l' if sy > 0 else 'r'}_{int(zc)}", V.place(V.lm12uu(), (P.ROD_X, sy * P.ROD_Y, zc)),
-                             "lift", "mast", "metal", 60, "lm12")
-    nz = sz - P.CARRIAGE_BELOW
-    out.append(Bought("t8_nut", cut(fuse(cyl((P.SCREW_X, 0, nz), "z", 22, 3.5), cyl((P.SCREW_X, 0, nz - 11.5), "z", 10.2, 11.6)),
-                                    cyl((P.SCREW_X, 0, nz - 20), "z", 8.2, 40)),
-                      "lift", "mast", "metal", 30, "t8nut", look="brass"))
     out += j1_modules(sz)[1]
     jx0 = BP_X1 + 4
     out += V.boughts("pi5", V.place(V.pi5(), (jx0, 0, sz - 165), xdir=(0, 1, 0), zdir=(1, 0, 0)), "lift", "torso", "electronics", 75, "pi5")
     for name, (x, y, z), pcs, m, key in (
         ("usb_hub", (110 - 12.5, -68, sz - 150), V.usb_board(70, 50, 25, ports=4), 60, "usbhub"),
-        ("arm_io", (100 - 10, 70, sz - 150), V.usb_board(30, 22, 12, ports=1), 5, "esp32c3"),
         ("servo_bus", (150 - 10, 60, sz - 120), V.usb_board(40, 65, 20, ports=2), 25, "busadapter"),
         ("servo_bus_r", (150 - 10, -60, sz - 120), V.usb_board(40, 65, 20, ports=2), 25, "busadapter"),
     ):
@@ -468,8 +288,4 @@ def bought(sz=S0) -> list[Bought]:
     out += V.boughts("speaker", V.place(V.speaker(), (TX1 - 10, 0, sz - 156), xdir=(0, 1, 0), zdir=(1, 0, 0)), "lift", "torso", "electronics", 40, "speaker")
     out += V.boughts("pan_servo", V.place(V.sts3215(), (NECK_X, 0, sz + 47)), "lift", "torso", "actuator", P.STS_MASS, "sts3215")
     out.append(Bought("light_chest", rrect(TX1 - 2.2, 0, sz - 63.5, sz - 58.5, 3.0, 118, 2.5), "lift", "torso", "electronics", 5, "ledstrip", look="glow"))
-    z0 = P.MAST_TOP
-    ring = rrect(P.MAST_X, 0, z0 + 50.5, z0 + 57.5, P.MAST_DX - 0.6, P.MAST_DY - 0.6, P.MAST_R - 0.3).cut(
-        rrect(P.MAST_X, 0, z0 + 49, z0 + 59, P.MAST_DX - 2.6, P.MAST_DY - 2.6, P.MAST_R - 1.3))
-    out.append(Bought("light_mast", ring, "base", "mast", "electronics", 5, "ledstrip", look="glow"))
     return out

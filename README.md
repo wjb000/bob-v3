@@ -1,6 +1,6 @@
 # Bob v3
 
-A two-armed home robot you can print on a 200 mm printer. It has a rounded wheeled base, a torso that rides a 650 mm lift, two seven-axis arms with parallel grippers, and a head with a depth camera and two round "eye" displays. Everything structural and everything you see is printed PETG. You buy the motors, the electronics, two steel rods, a leadscrew, bearings and screws.
+A two-armed home robot you can print on a 200 mm printer. It has a rounded wheeled base, a three-stage telescoping column that grows out of the base, two seven-axis arms with parallel grippers, and a head with a depth camera and two round "eye" displays. Everything structural and everything you see is printed PETG. You buy the motors, the electronics, a short leadscrew, two GT2 belts and screws.
 
 Page: [wyat.dev/bob-v3](https://www.wyat.dev/bob-v3/). It shows the 3D model, the print files, the wiring, the BOM and the sim results.
 
@@ -8,37 +8,37 @@ This is a design that has been checked in CAD and in physics simulation. It has 
 
 | | |
 | --- | --- |
-| Size | Ø480 mm round base (turns in its own footprint), 240 mm wide torso, 1.11 m mast. The head top goes from 0.76 m to 1.41 m. |
+| Size | Ø480 mm round base (turns in its own footprint), 240 mm wide torso, 500 mm nested column that extends 650 mm. The head top goes from 0.80 m to 1.45 m. |
 | Reach | Floor 0.32–0.45 m in front of the nose, a 0.91 m counter, a 1.55 m shelf. The hand reaches 1.74 m up and 0.81 m to the side. |
-| Payload | About 0.7 kg per hand held continuously, about 2 kg for a short lift (80% of peak torque). |
+| Payload | About 0.5 kg per hand in ordinary use, about 1.5 kg for a short lift (Nori A3's duty cycle on the same 95 kg·cm servos). |
 | Joints | 19 driven: 2 hub wheels, lift, head pan and tilt, and 7 per arm (six joints plus the gripper). |
-| Gripper | Rack and pinion parallel jaw, 0–80 mm, about 40 N per finger. |
-| Mass | 19.5 kg (printed parts at 4 walls / 20%, bought parts at listed mass, 1.7 kg of wiring and screws). |
-| Prints | 231 prints from 95 files, about 7.4 kg of filament, all inside 200 × 200 × 200 mm. |
-| Cost | About $2,900 for every part at the linked stores, or $2,600 if you reuse the Bob v2 Pi 5, battery and charger. Every BOM line links to a specific product. See [BOM.md](BOM.md). |
+| Gripper | Geared parallel jaw, Nori-style TPU fingers, 0–80 mm, about 40 N per finger. |
+| Mass | 12.1 kg (printed parts at 4 walls / 20%, bought parts at listed mass, 1.7 kg of wiring and screws). |
+| Prints | 150 prints from 89 files, about 5.7 kg of filament, all inside 200 × 200 × 200 mm. |
+| Cost | About $2,686 for every part at the linked stores, or $2,411 if you reuse the Bob v2 Pi 5, battery and charger. Every BOM line links to a specific product. See [BOM.md](BOM.md). |
 | Compute | Raspberry Pi 5 on the robot; big models run on a desktop GPU over Wi-Fi. A wide RGB camera in the head, a USB camera on each wrist, RPLIDAR C1 in the base. |
 
-## GM-5 joint module
+## Direct bus servos
 
-The four big joints in each arm use the same printed module. A Feetech STS3250 drives a 12-tooth sun, three 18-tooth planets and a 48-tooth ring cut into the housing (module 1.0, 5:1). The carrier runs in a 6807 bearing and carries the same 6 × M3 output flange as the arm links. A hall sensor in the housing and a magnet in the carrier home each joint at power-up, because the servo's own encoder repeats every 72° of output. Print the gears in PETG-CF or nylon if you can. `cad/gearbox.py` has the geometry and `cad/stl/gm_*.stl` the files.
+The arms use Feetech STS-series servos in printed cups, the same three grades Nori A3 matches to joint load. Gravity joints (shoulder pitch, shoulder roll, elbow) are STS3095 (95 kg·cm, dual shaft, rear shaft in a printed hole). Upper-arm yaw and wrist pitch are STS3250 (50 kg·cm). Wrist roll, gripper and the head are STS3215 (30 kg·cm). No printed planetaries, no 6807 bearings, no hall homing: the servo encoder is the joint encoder. Cups are in `cad/servo.py`. The gripper is a rack-and-pinion parallel jaw with Nori-style TPU 95A fingers; the second finger mimics the first.
 
 ## Head limits
 
-The head pans ±0.6 rad and tilts −0.35 to +0.55 rad. Below 0.51 m of lift, the software must not combine full pan with looking up, because the back of the head would reach the mast. The CAD check tests full pan at level gaze, full tilt up and down, and pan with tilt down.
+The head pans ±0.8 rad and tilts −0.45 to +0.55 rad. The column sits under the torso, so the head no longer hits a mast. The CAD check tests full pan at level gaze, full tilt up and down, and pan with tilt down.
 
 ## Actuators
 
 | Joint | Actuator | Rated / peak | Worst gravity load, 0.5 kg in the hand |
 | --- | --- | --- | --- |
-| Shoulder pitch (J1) | GM-5: STS3250 + printed 5:1 planetary | 6.7 / 20.8 N·m | 5.8 N·m (87% of rated) |
-| Shoulder roll (J2) | GM-5 | 6.7 / 20.8 N·m | 5.4 N·m (81%) |
-| Upper-arm yaw (J3) | GM-5 with an STS3215 | 4.2 / 12.5 N·m | 2.8 N·m |
-| Elbow (J4) | GM-5 with an STS3215 | 4.2 / 12.5 N·m | 2.8 N·m |
+| Shoulder pitch (J1) | Feetech STS3095 12 V | 2.2 / 9.3 N·m | 5.9 N·m (63% of stall) |
+| Shoulder roll (J2) | Feetech STS3095 12 V | 2.2 / 9.3 N·m | 5.5 N·m (59% of stall) |
+| Upper-arm yaw (J3) | Feetech STS3250 12 V | 1.57 / 4.9 N·m | 2.8 N·m at the worst pose |
+| Elbow (J4) | Feetech STS3095 12 V | 2.2 / 9.3 N·m | 2.9 N·m |
 | Wrist pitch (J5) | Feetech STS3250 12 V | 1.57 / 4.9 N·m | 1.1 N·m (71%) |
 | Wrist roll (J6) | Feetech STS3215 12 V | 0.98 / 2.94 N·m | ~0 |
 | Gripper (J7) | Feetech STS3215 12 V, 12 mm pinion | about 40 N per finger | |
 | Head pan, tilt | Feetech STS3215 12 V | | |
-| Lift | NEMA 17 48 mm, TR8×2 leadscrew | about 380 N, 25 mm/s | 84 N |
+| Lift | NEMA 17 48 mm in the base, TR8×2 on the middle tube, GT2 cascade 2:1 | about 380 N, 25 mm/s at the torso | 84 N |
 | Wheels | 2 × Waveshare DDSM115 direct-drive hub motor, 12 V | 0.96 / 2.0 N·m | about 0.6 m/s |
 
 The torques come from `sim/check.py`. It runs MuJoCo inverse dynamics on the CAD masses at the worst pose for each joint.
@@ -97,7 +97,7 @@ To train your own policy, see [sim/README.md](sim/README.md).
 
 ## Safety
 
-The 36 V pack charges through a GX16 socket on top of the base; Bob can plug his own charger in. The e-stop drops a contactor in series with every motor converter. The Pi stays up. The leadscrew is self-locking, so the torso stays where it is with the power off. The arm servos go limp when they lose power; the 5:1 gearboxes slow the fall but do not stop it. The torso does not move. Keep the arms in the home pose when you are working near the robot.
+The 36 V pack charges through a GX16 socket on top of the base; Bob can plug his own charger in. The e-stop drops a contactor in series with every motor converter. The Pi stays up. The TR8×2 that drives the middle tube is self-locking, so the column stays where it is with the power off. The arm servos go limp when they lose power. Keep the arms in the home pose when you are working near the robot.
 
 ## Older versions
 

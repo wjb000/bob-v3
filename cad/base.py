@@ -25,8 +25,8 @@ PAN_LX, PAN_LY = SHELL_LX - 2 * P.PAN_INSET, SHELL_LY - 2 * P.PAN_INSET
 PAN_R = P.BASE_R - P.PAN_INSET
 TOP_CHAMFER = 24.0
 
-MAST_HOLE = (P.MAST_X - P.MAST_DX / 2 - 4, P.MAST_X + P.MAST_DX / 2 + 4, P.MAST_DY / 2 + 4)
-MAST_FLANGE = 14.0  # mast foot overhang on the pan
+MAST_HOLE = (P.COL_X - P.COL_OUTER_D / 2 - 4, P.COL_X + P.COL_OUTER_D / 2 + 4, P.COL_OUTER_D / 2 + 4)
+MAST_FLANGE = 12.0  # column foot overhang on the pan
 ESTOP_XY = (-205.0, 0.0)
 LIGHT_Z = (172.0, 178.0)
 
@@ -39,12 +39,12 @@ SHELF_T = 4.0
 PAN_PTS: dict[str, list[tuple[float, float]]] = {}
 
 
-def _mast_foot_pts():
-    x0, x1 = P.MAST_X - P.MAST_DX / 2, P.MAST_X + P.MAST_DX / 2
-    f = MAST_FLANGE / 2 + 1
-    return [(x0 - f, -35), (x0 - f, 35), (x1 + f, -45), (x1 + f, 45),
-            (P.MAST_X - 25, -(P.MAST_DY / 2 + f)), (P.MAST_X - 25, P.MAST_DY / 2 + f),
-            (P.MAST_X + 25, -(P.MAST_DY / 2 + f)), (P.MAST_X + 25, P.MAST_DY / 2 + f)]
+def _col_foot_pts():
+    """Eight M3 on the column flange, outside the outer tube, on the flats."""
+    d = P.COL_OUTER_D / 2 + 6.0
+    o = 22.0
+    return [(P.COL_X - d, -o), (P.COL_X - d, o), (P.COL_X + d, -o), (P.COL_X + d, o),
+            (P.COL_X - o, -d), (P.COL_X + o, -d), (P.COL_X - o, d), (P.COL_X + o, d)]
 
 
 def _axle_pts(side):
@@ -75,7 +75,7 @@ def _lug_points():
 
 def _register():
     PAN_PTS.clear()
-    PAN_PTS["mast"] = _mast_foot_pts()
+    PAN_PTS["col"] = _col_foot_pts()
     PAN_PTS["axle_l"] = _axle_pts(1)
     PAN_PTS["axle_r"] = _axle_pts(-1)
     PAN_PTS["caster_f"] = _caster_pts(P.CASTER_X)
@@ -240,9 +240,9 @@ def _shell_full() -> cq.Shape:
     # wheel arches
     for sy in (1, -1):
         tools.append(cyl_between("y", (0, P.AXLE_Z), sy * 140, sy * 240, 2 * P.WHEEL_ARCH_R))
-    # mast opening
+    # column opening
     mx0, mx1, my = MAST_HOLE
-    tools.append(rrect((mx0 + mx1) / 2, 0, P.BASE_TOP - 30, P.BASE_TOP + 5, mx1 - mx0, 2 * my, P.MAST_R + 4))
+    tools.append(rrect((mx0 + mx1) / 2, 0, P.BASE_TOP - 30, P.BASE_TOP + 5, mx1 - mx0, 2 * my, P.COL_OUTER_R + 4))
     # lidar window: a 200 degree band, with four thin pillars so the lower band stays attached
     tools.append(lidar_window())
     # light line: a groove around the shell for an LED strip under a diffuser
@@ -419,8 +419,8 @@ def _pan_full() -> cq.Shape:
     for x, y in pts:
         tools.append(cyl((x, y, z1 - P.M3_INSERT_DEPTH), "z", P.M3_INSERT, P.M3_INSERT_DEPTH + 1))
         tools.append(cyl((x, y, z0 - 1), "z", 2.5, 20))  # vent the insert hole
-    # cable pass under the mast and drain holes
-    tools.append(cyl((P.MAST_X + 20, 0, 0), "z", 30, 100))
+    # cable pass under the column and drain holes
+    tools.append(cyl((P.COL_X + 20, 0, 0), "z", 30, 100))
     hw("M3 heat-set insert", len(pts))
     hw("M3x10 socket head", 2 * len(_pan_seam_pairs()))
     return cut(pan, *tools)

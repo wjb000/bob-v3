@@ -35,7 +35,7 @@ for k, v in m["hardware"].items():
     lines.append(f"| {v} | {k} |")
 (ROOT / "BOM.md").write_text("\n".join(lines) + "\n")
 
-names = {"base": "Base", "mast": "Mast and lift", "torso": "Torso", "head": "Head", "arm": "Arms"}
+names = {"base": "Base", "mast": "Column", "torso": "Torso", "head": "Head", "arm": "Arms"}
 cols = {"shell": "white PETG", "frame": "grey PETG", "dark": "black PETG", "accent": "TPU 95A"}
 p = ["# Print list", "",
      f"{m['unique_prints']} unique files, {m['total_prints']} prints, about {m['print_mass_g'] / 1000:.1f} kg of filament at the settings below.",
@@ -44,7 +44,7 @@ p = ["# Print list", "",
      "## Settings", "",
      "- PETG, 0.4 mm nozzle, 0.2 mm layers, 4 walls, 5 top/bottom layers, 20% gyroid unless the table says otherwise.",
      "- Shell tiles (`base_shell_*`, `torso_*`, `head_*`): 3 walls, 15%. They print top-down; the lugs and the lidar slot want a little support.",
-     "- Structural parts (`yoke_*`, `carriage`, `clevis_*`, `elbow_*`, `axle_*`, `mast_*`): 5 walls, 30%.",
+     "- Structural parts (`yoke_*`, `clevis_*`, `elbow_*`, `col_*`): 5 walls, 30%.",
      "- `pinion_*`: 100% infill. `pad_*`: TPU 95A, 100%.",
      "- Heat-set inserts: M3 x 5.7. Every Ø4.0 hole is an insert. Ø3.4 is clearance, Ø2.6 is thread-forming.",
      "- Supports: the Support column is measured from each oriented STL (faces steeper than 45° not on the bed).",

@@ -75,34 +75,20 @@
     <mesh name="shelf_rear_l" file="shelf_rear_l.stl"/>
     <mesh name="shelf_front_r" file="shelf_front_r.stl"/>
     <mesh name="shelf_rear_r" file="shelf_rear_r.stl"/>
-    <mesh name="mast_0" file="mast_0.stl"/>
-    <mesh name="mast_1" file="mast_1.stl"/>
-    <mesh name="mast_2" file="mast_2.stl"/>
-    <mesh name="mast_3" file="mast_3.stl"/>
-    <mesh name="mast_4" file="mast_4.stl"/>
-    <mesh name="mast_5" file="mast_5.stl"/>
-    <mesh name="mast_cap" file="mast_cap.stl"/>
-    <mesh name="carriage" file="carriage.stl"/>
+    <mesh name="col_outer_0" file="col_outer_0.stl"/>
+    <mesh name="col_outer_1" file="col_outer_1.stl"/>
+    <mesh name="col_outer_2" file="col_outer_2.stl"/>
+    <mesh name="col_mid_0" file="col_mid_0.stl"/>
+    <mesh name="col_mid_1" file="col_mid_1.stl"/>
+    <mesh name="col_mid_2" file="col_mid_2.stl"/>
+    <mesh name="col_inner_0" file="col_inner_0.stl"/>
+    <mesh name="col_inner_1" file="col_inner_1.stl"/>
+    <mesh name="col_inner_2" file="col_inner_2.stl"/>
+    <mesh name="col_cap" file="col_cap.stl"/>
     <mesh name="torso_back_plate" file="torso_back_plate.stl"/>
     <mesh name="yoke_l" file="yoke_l.stl"/>
     <mesh name="yoke_r" file="yoke_r.stl"/>
     <mesh name="neck_mount" file="neck_mount.stl"/>
-    <mesh name="gm_l_j1_housing" file="gm_l_j1_housing.stl"/>
-    <mesh name="gm_l_j1_cap" file="gm_l_j1_cap.stl"/>
-    <mesh name="gm_l_j1_carrier" file="gm_l_j1_carrier.stl"/>
-    <mesh name="gm_l_j1_carrier_back" file="gm_l_j1_carrier_back.stl"/>
-    <mesh name="gm_l_j1_sun" file="gm_l_j1_sun.stl"/>
-    <mesh name="gm_l_j1_planet0" file="gm_l_j1_planet0.stl"/>
-    <mesh name="gm_l_j1_planet1" file="gm_l_j1_planet1.stl"/>
-    <mesh name="gm_l_j1_planet2" file="gm_l_j1_planet2.stl"/>
-    <mesh name="gm_r_j1_housing" file="gm_r_j1_housing.stl"/>
-    <mesh name="gm_r_j1_cap" file="gm_r_j1_cap.stl"/>
-    <mesh name="gm_r_j1_carrier" file="gm_r_j1_carrier.stl"/>
-    <mesh name="gm_r_j1_carrier_back" file="gm_r_j1_carrier_back.stl"/>
-    <mesh name="gm_r_j1_sun" file="gm_r_j1_sun.stl"/>
-    <mesh name="gm_r_j1_planet0" file="gm_r_j1_planet0.stl"/>
-    <mesh name="gm_r_j1_planet1" file="gm_r_j1_planet1.stl"/>
-    <mesh name="gm_r_j1_planet2" file="gm_r_j1_planet2.stl"/>
     <mesh name="torso_lower_l" file="torso_lower_l.stl"/>
     <mesh name="torso_lower_r" file="torso_lower_r.stl"/>
     <mesh name="torso_upper_l" file="torso_upper_l.stl"/>
@@ -126,34 +112,10 @@
     <mesh name="wrist_l" file="wrist_l.stl"/>
     <mesh name="palm_l" file="palm_l.stl"/>
     <mesh name="pinion_l" file="pinion_l.stl"/>
+    <mesh name="rack_a_l" file="rack_a_l.stl"/>
+    <mesh name="rack_b_l" file="rack_b_l.stl"/>
     <mesh name="finger_a_l" file="finger_a_l.stl"/>
     <mesh name="finger_b_l" file="finger_b_l.stl"/>
-    <mesh name="pad_a_l" file="pad_a_l.stl"/>
-    <mesh name="pad_b_l" file="pad_b_l.stl"/>
-    <mesh name="gm_l_j2_housing" file="gm_l_j2_housing.stl"/>
-    <mesh name="gm_l_j2_cap" file="gm_l_j2_cap.stl"/>
-    <mesh name="gm_l_j2_carrier" file="gm_l_j2_carrier.stl"/>
-    <mesh name="gm_l_j2_carrier_back" file="gm_l_j2_carrier_back.stl"/>
-    <mesh name="gm_l_j2_sun" file="gm_l_j2_sun.stl"/>
-    <mesh name="gm_l_j2_planet0" file="gm_l_j2_planet0.stl"/>
-    <mesh name="gm_l_j2_planet1" file="gm_l_j2_planet1.stl"/>
-    <mesh name="gm_l_j2_planet2" file="gm_l_j2_planet2.stl"/>
-    <mesh name="gm_l_j3_housing" file="gm_l_j3_housing.stl"/>
-    <mesh name="gm_l_j3_cap" file="gm_l_j3_cap.stl"/>
-    <mesh name="gm_l_j3_carrier" file="gm_l_j3_carrier.stl"/>
-    <mesh name="gm_l_j3_carrier_back" file="gm_l_j3_carrier_back.stl"/>
-    <mesh name="gm_l_j3_sun" file="gm_l_j3_sun.stl"/>
-    <mesh name="gm_l_j3_planet0" file="gm_l_j3_planet0.stl"/>
-    <mesh name="gm_l_j3_planet1" file="gm_l_j3_planet1.stl"/>
-    <mesh name="gm_l_j3_planet2" file="gm_l_j3_planet2.stl"/>
-    <mesh name="gm_l_j4_housing" file="gm_l_j4_housing.stl"/>
-    <mesh name="gm_l_j4_cap" file="gm_l_j4_cap.stl"/>
-    <mesh name="gm_l_j4_carrier" file="gm_l_j4_carrier.stl"/>
-    <mesh name="gm_l_j4_carrier_back" file="gm_l_j4_carrier_back.stl"/>
-    <mesh name="gm_l_j4_sun" file="gm_l_j4_sun.stl"/>
-    <mesh name="gm_l_j4_planet0" file="gm_l_j4_planet0.stl"/>
-    <mesh name="gm_l_j4_planet1" file="gm_l_j4_planet1.stl"/>
-    <mesh name="gm_l_j4_planet2" file="gm_l_j4_planet2.stl"/>
     <mesh name="shoulder_r" file="shoulder_r.stl"/>
     <mesh name="clevis_r" file="clevis_r.stl"/>
     <mesh name="upper_arm_a_r" file="upper_arm_a_r.stl"/>
@@ -164,34 +126,10 @@
     <mesh name="wrist_r" file="wrist_r.stl"/>
     <mesh name="palm_r" file="palm_r.stl"/>
     <mesh name="pinion_r" file="pinion_r.stl"/>
+    <mesh name="rack_a_r" file="rack_a_r.stl"/>
+    <mesh name="rack_b_r" file="rack_b_r.stl"/>
     <mesh name="finger_a_r" file="finger_a_r.stl"/>
     <mesh name="finger_b_r" file="finger_b_r.stl"/>
-    <mesh name="pad_a_r" file="pad_a_r.stl"/>
-    <mesh name="pad_b_r" file="pad_b_r.stl"/>
-    <mesh name="gm_r_j2_housing" file="gm_r_j2_housing.stl"/>
-    <mesh name="gm_r_j2_cap" file="gm_r_j2_cap.stl"/>
-    <mesh name="gm_r_j2_carrier" file="gm_r_j2_carrier.stl"/>
-    <mesh name="gm_r_j2_carrier_back" file="gm_r_j2_carrier_back.stl"/>
-    <mesh name="gm_r_j2_sun" file="gm_r_j2_sun.stl"/>
-    <mesh name="gm_r_j2_planet0" file="gm_r_j2_planet0.stl"/>
-    <mesh name="gm_r_j2_planet1" file="gm_r_j2_planet1.stl"/>
-    <mesh name="gm_r_j2_planet2" file="gm_r_j2_planet2.stl"/>
-    <mesh name="gm_r_j3_housing" file="gm_r_j3_housing.stl"/>
-    <mesh name="gm_r_j3_cap" file="gm_r_j3_cap.stl"/>
-    <mesh name="gm_r_j3_carrier" file="gm_r_j3_carrier.stl"/>
-    <mesh name="gm_r_j3_carrier_back" file="gm_r_j3_carrier_back.stl"/>
-    <mesh name="gm_r_j3_sun" file="gm_r_j3_sun.stl"/>
-    <mesh name="gm_r_j3_planet0" file="gm_r_j3_planet0.stl"/>
-    <mesh name="gm_r_j3_planet1" file="gm_r_j3_planet1.stl"/>
-    <mesh name="gm_r_j3_planet2" file="gm_r_j3_planet2.stl"/>
-    <mesh name="gm_r_j4_housing" file="gm_r_j4_housing.stl"/>
-    <mesh name="gm_r_j4_cap" file="gm_r_j4_cap.stl"/>
-    <mesh name="gm_r_j4_carrier" file="gm_r_j4_carrier.stl"/>
-    <mesh name="gm_r_j4_carrier_back" file="gm_r_j4_carrier_back.stl"/>
-    <mesh name="gm_r_j4_sun" file="gm_r_j4_sun.stl"/>
-    <mesh name="gm_r_j4_planet0" file="gm_r_j4_planet0.stl"/>
-    <mesh name="gm_r_j4_planet1" file="gm_r_j4_planet1.stl"/>
-    <mesh name="gm_r_j4_planet2" file="gm_r_j4_planet2.stl"/>
     <mesh name="joiner_00" file="joiner_00.stl"/>
     <mesh name="joiner_01" file="joiner_01.stl"/>
     <mesh name="joiner_02" file="joiner_02.stl"/>
@@ -252,6 +190,8 @@
     <mesh name="joiner_57" file="joiner_57.stl"/>
     <mesh name="joiner_58" file="joiner_58.stl"/>
     <mesh name="joiner_59" file="joiner_59.stl"/>
+    <mesh name="joiner_60" file="joiner_60.stl"/>
+    <mesh name="joiner_61" file="joiner_61.stl"/>
     <mesh name="hub_l" file="hub_l.stl"/>
     <mesh name="hub_l_hub" file="hub_l_hub.stl"/>
     <mesh name="hub_l_cover" file="hub_l_cover.stl"/>
@@ -297,29 +237,23 @@
     <mesh name="light_base" file="light_base.stl"/>
     <mesh name="caster_bolt_f" file="caster_bolt_f.stl"/>
     <mesh name="caster_bolt_r" file="caster_bolt_r.stl"/>
-    <mesh name="rod_l" file="rod_l.stl"/>
-    <mesh name="rod_r" file="rod_r.stl"/>
-    <mesh name="leadscrew" file="leadscrew.stl"/>
     <mesh name="lift_motor" file="lift_motor.stl"/>
     <mesh name="lift_motor_stack" file="lift_motor_stack.stl"/>
     <mesh name="lift_motor_shaft" file="lift_motor_shaft.stl"/>
     <mesh name="lift_motor_conn" file="lift_motor_conn.stl"/>
     <mesh name="coupler" file="coupler.stl"/>
-    <mesh name="lm12_l_239" file="lm12_l_239.stl"/>
-    <mesh name="lm12_l_349" file="lm12_l_349.stl"/>
-    <mesh name="lm12_r_239" file="lm12_r_239.stl"/>
-    <mesh name="lm12_r_349" file="lm12_r_349.stl"/>
+    <mesh name="leadscrew" file="leadscrew.stl"/>
     <mesh name="t8_nut" file="t8_nut.stl"/>
-    <mesh name="gm_l_j1_servo" file="gm_l_j1_servo.stl"/>
-    <mesh name="gm_l_j1_servo_horn" file="gm_l_j1_servo_horn.stl"/>
-    <mesh name="gm_l_j1_bearing" file="gm_l_j1_bearing.stl"/>
-    <mesh name="gm_l_j1_pins" file="gm_l_j1_pins.stl"/>
-    <mesh name="gm_l_j1_hall" file="gm_l_j1_hall.stl"/>
-    <mesh name="gm_r_j1_servo" file="gm_r_j1_servo.stl"/>
-    <mesh name="gm_r_j1_servo_horn" file="gm_r_j1_servo_horn.stl"/>
-    <mesh name="gm_r_j1_bearing" file="gm_r_j1_bearing.stl"/>
-    <mesh name="gm_r_j1_pins" file="gm_r_j1_pins.stl"/>
-    <mesh name="gm_r_j1_hall" file="gm_r_j1_hall.stl"/>
+    <mesh name="gt2_pulley_l" file="gt2_pulley_l.stl"/>
+    <mesh name="gt2_belt_l" file="gt2_belt_l.stl"/>
+    <mesh name="gt2_pulley_r" file="gt2_pulley_r.stl"/>
+    <mesh name="gt2_belt_r" file="gt2_belt_r.stl"/>
+    <mesh name="j1_l" file="j1_l.stl"/>
+    <mesh name="j1_l_horn" file="j1_l_horn.stl"/>
+    <mesh name="j1_l_shaft" file="j1_l_shaft.stl"/>
+    <mesh name="j1_r" file="j1_r.stl"/>
+    <mesh name="j1_r_horn" file="j1_r_horn.stl"/>
+    <mesh name="j1_r_shaft" file="j1_r_shaft.stl"/>
     <mesh name="pi5" file="pi5.stl"/>
     <mesh name="pi5_feet" file="pi5_feet.stl"/>
     <mesh name="pi5_cooler" file="pi5_cooler.stl"/>
@@ -327,8 +261,6 @@
     <mesh name="pi5_ports" file="pi5_ports.stl"/>
     <mesh name="usb_hub" file="usb_hub.stl"/>
     <mesh name="usb_hub_ports" file="usb_hub_ports.stl"/>
-    <mesh name="arm_io" file="arm_io.stl"/>
-    <mesh name="arm_io_ports" file="arm_io_ports.stl"/>
     <mesh name="servo_bus" file="servo_bus.stl"/>
     <mesh name="servo_bus_ports" file="servo_bus_ports.stl"/>
     <mesh name="servo_bus_r" file="servo_bus_r.stl"/>
@@ -338,7 +270,6 @@
     <mesh name="pan_servo" file="pan_servo.stl"/>
     <mesh name="pan_servo_horn" file="pan_servo_horn.stl"/>
     <mesh name="light_chest" file="light_chest.stl"/>
-    <mesh name="light_mast" file="light_mast.stl"/>
     <mesh name="tilt_servo" file="tilt_servo.stl"/>
     <mesh name="tilt_servo_horn" file="tilt_servo_horn.stl"/>
     <mesh name="head_cam" file="head_cam.stl"/>
@@ -356,21 +287,14 @@
     <mesh name="eye_r_glass" file="eye_r_glass.stl"/>
     <mesh name="eye_l" file="eye_l.stl"/>
     <mesh name="eye_l_glass" file="eye_l_glass.stl"/>
-    <mesh name="gm_l_j2_servo" file="gm_l_j2_servo.stl"/>
-    <mesh name="gm_l_j2_servo_horn" file="gm_l_j2_servo_horn.stl"/>
-    <mesh name="gm_l_j2_bearing" file="gm_l_j2_bearing.stl"/>
-    <mesh name="gm_l_j2_pins" file="gm_l_j2_pins.stl"/>
-    <mesh name="gm_l_j2_hall" file="gm_l_j2_hall.stl"/>
-    <mesh name="gm_l_j3_servo" file="gm_l_j3_servo.stl"/>
-    <mesh name="gm_l_j3_servo_horn" file="gm_l_j3_servo_horn.stl"/>
-    <mesh name="gm_l_j3_bearing" file="gm_l_j3_bearing.stl"/>
-    <mesh name="gm_l_j3_pins" file="gm_l_j3_pins.stl"/>
-    <mesh name="gm_l_j3_hall" file="gm_l_j3_hall.stl"/>
-    <mesh name="gm_l_j4_servo" file="gm_l_j4_servo.stl"/>
-    <mesh name="gm_l_j4_servo_horn" file="gm_l_j4_servo_horn.stl"/>
-    <mesh name="gm_l_j4_bearing" file="gm_l_j4_bearing.stl"/>
-    <mesh name="gm_l_j4_pins" file="gm_l_j4_pins.stl"/>
-    <mesh name="gm_l_j4_hall" file="gm_l_j4_hall.stl"/>
+    <mesh name="j2_l" file="j2_l.stl"/>
+    <mesh name="j2_l_horn" file="j2_l_horn.stl"/>
+    <mesh name="j2_l_shaft" file="j2_l_shaft.stl"/>
+    <mesh name="j3_l" file="j3_l.stl"/>
+    <mesh name="j3_l_horn" file="j3_l_horn.stl"/>
+    <mesh name="j4_l" file="j4_l.stl"/>
+    <mesh name="j4_l_horn" file="j4_l_horn.stl"/>
+    <mesh name="j4_l_shaft" file="j4_l_shaft.stl"/>
     <mesh name="j5_l" file="j5_l.stl"/>
     <mesh name="j5_l_horn" file="j5_l_horn.stl"/>
     <mesh name="j6_l" file="j6_l.stl"/>
@@ -380,21 +304,14 @@
     <mesh name="wrist_cam_l" file="wrist_cam_l.stl"/>
     <mesh name="wrist_cam_l_holder" file="wrist_cam_l_holder.stl"/>
     <mesh name="wrist_cam_l_lens" file="wrist_cam_l_lens.stl"/>
-    <mesh name="gm_r_j2_servo" file="gm_r_j2_servo.stl"/>
-    <mesh name="gm_r_j2_servo_horn" file="gm_r_j2_servo_horn.stl"/>
-    <mesh name="gm_r_j2_bearing" file="gm_r_j2_bearing.stl"/>
-    <mesh name="gm_r_j2_pins" file="gm_r_j2_pins.stl"/>
-    <mesh name="gm_r_j2_hall" file="gm_r_j2_hall.stl"/>
-    <mesh name="gm_r_j3_servo" file="gm_r_j3_servo.stl"/>
-    <mesh name="gm_r_j3_servo_horn" file="gm_r_j3_servo_horn.stl"/>
-    <mesh name="gm_r_j3_bearing" file="gm_r_j3_bearing.stl"/>
-    <mesh name="gm_r_j3_pins" file="gm_r_j3_pins.stl"/>
-    <mesh name="gm_r_j3_hall" file="gm_r_j3_hall.stl"/>
-    <mesh name="gm_r_j4_servo" file="gm_r_j4_servo.stl"/>
-    <mesh name="gm_r_j4_servo_horn" file="gm_r_j4_servo_horn.stl"/>
-    <mesh name="gm_r_j4_bearing" file="gm_r_j4_bearing.stl"/>
-    <mesh name="gm_r_j4_pins" file="gm_r_j4_pins.stl"/>
-    <mesh name="gm_r_j4_hall" file="gm_r_j4_hall.stl"/>
+    <mesh name="j2_r" file="j2_r.stl"/>
+    <mesh name="j2_r_horn" file="j2_r_horn.stl"/>
+    <mesh name="j2_r_shaft" file="j2_r_shaft.stl"/>
+    <mesh name="j3_r" file="j3_r.stl"/>
+    <mesh name="j3_r_horn" file="j3_r_horn.stl"/>
+    <mesh name="j4_r" file="j4_r.stl"/>
+    <mesh name="j4_r_horn" file="j4_r_horn.stl"/>
+    <mesh name="j4_r_shaft" file="j4_r_shaft.stl"/>
     <mesh name="j5_r" file="j5_r.stl"/>
     <mesh name="j5_r_horn" file="j5_r_horn.stl"/>
     <mesh name="j6_r" file="j6_r.stl"/>
@@ -411,7 +328,7 @@
     <body name="base" pos="0 0 0.002">
       <freejoint name="root"/>
       <site name="imu" pos="0.13 -0.04 0.14" size="0.01"/>
-      <inertial pos="-0.00830 -0.00016 0.35102" mass="9.6241" fullinertia="1.16308 1.18548 0.15684 0.000278903 0.0628524 -0.000212324"/>
+      <inertial pos="0.00475 -0.00022 0.14133" mass="7.1131" fullinertia="0.149673 0.170915 0.148289 0.000258205 0.0117264 0.000123732"/>
       <geom name="base_shell_rear_r" type="mesh" mesh="base_shell_rear_r" material="m_shell" group="1" mass="0"/>
       <geom name="c_base_shell_rear_r" class="col" type="mesh" mesh="base_shell_rear_r" contype="2" conaffinity="13" friction="0.8 0.01 0.001" mass="0"/>
       <geom name="base_shell_rear_c" type="mesh" mesh="base_shell_rear_c" material="m_shell" group="1" mass="0"/>
@@ -454,20 +371,12 @@
       <geom name="shelf_rear_l" type="mesh" mesh="shelf_rear_l" material="m_frame" group="1" mass="0"/>
       <geom name="shelf_front_r" type="mesh" mesh="shelf_front_r" material="m_frame" group="1" mass="0"/>
       <geom name="shelf_rear_r" type="mesh" mesh="shelf_rear_r" material="m_frame" group="1" mass="0"/>
-      <geom name="mast_0" type="mesh" mesh="mast_0" material="m_shell" group="1" mass="0"/>
-      <geom name="c_mast_0" class="col" type="mesh" mesh="mast_0" contype="2" conaffinity="13" friction="0.8 0.01 0.001" mass="0"/>
-      <geom name="mast_1" type="mesh" mesh="mast_1" material="m_shell" group="1" mass="0"/>
-      <geom name="c_mast_1" class="col" type="mesh" mesh="mast_1" contype="2" conaffinity="13" friction="0.8 0.01 0.001" mass="0"/>
-      <geom name="mast_2" type="mesh" mesh="mast_2" material="m_shell" group="1" mass="0"/>
-      <geom name="c_mast_2" class="col" type="mesh" mesh="mast_2" contype="2" conaffinity="13" friction="0.8 0.01 0.001" mass="0"/>
-      <geom name="mast_3" type="mesh" mesh="mast_3" material="m_shell" group="1" mass="0"/>
-      <geom name="c_mast_3" class="col" type="mesh" mesh="mast_3" contype="2" conaffinity="13" friction="0.8 0.01 0.001" mass="0"/>
-      <geom name="mast_4" type="mesh" mesh="mast_4" material="m_shell" group="1" mass="0"/>
-      <geom name="c_mast_4" class="col" type="mesh" mesh="mast_4" contype="2" conaffinity="13" friction="0.8 0.01 0.001" mass="0"/>
-      <geom name="mast_5" type="mesh" mesh="mast_5" material="m_shell" group="1" mass="0"/>
-      <geom name="c_mast_5" class="col" type="mesh" mesh="mast_5" contype="2" conaffinity="13" friction="0.8 0.01 0.001" mass="0"/>
-      <geom name="mast_cap" type="mesh" mesh="mast_cap" material="m_dark" group="1" mass="0"/>
-      <geom name="c_mast_cap" class="col" type="mesh" mesh="mast_cap" contype="2" conaffinity="13" friction="0.8 0.01 0.001" mass="0"/>
+      <geom name="col_outer_0" type="mesh" mesh="col_outer_0" material="m_shell" group="1" mass="0"/>
+      <geom name="c_col_outer_0" class="col" type="mesh" mesh="col_outer_0" contype="2" conaffinity="13" friction="0.8 0.01 0.001" mass="0"/>
+      <geom name="col_outer_1" type="mesh" mesh="col_outer_1" material="m_shell" group="1" mass="0"/>
+      <geom name="c_col_outer_1" class="col" type="mesh" mesh="col_outer_1" contype="2" conaffinity="13" friction="0.8 0.01 0.001" mass="0"/>
+      <geom name="col_outer_2" type="mesh" mesh="col_outer_2" material="m_shell" group="1" mass="0"/>
+      <geom name="c_col_outer_2" class="col" type="mesh" mesh="col_outer_2" contype="2" conaffinity="13" friction="0.8 0.01 0.001" mass="0"/>
       <geom name="joiner_00" type="mesh" mesh="joiner_00" material="m_frame" group="1" mass="0"/>
       <geom name="joiner_01" type="mesh" mesh="joiner_01" material="m_frame" group="1" mass="0"/>
       <geom name="joiner_02" type="mesh" mesh="joiner_02" material="m_frame" group="1" mass="0"/>
@@ -509,6 +418,8 @@
       <geom name="joiner_38" type="mesh" mesh="joiner_38" material="m_frame" group="1" mass="0"/>
       <geom name="joiner_39" type="mesh" mesh="joiner_39" material="m_frame" group="1" mass="0"/>
       <geom name="joiner_40" type="mesh" mesh="joiner_40" material="m_frame" group="1" mass="0"/>
+      <geom name="joiner_41" type="mesh" mesh="joiner_41" material="m_frame" group="1" mass="0"/>
+      <geom name="joiner_42" type="mesh" mesh="joiner_42" material="m_frame" group="1" mass="0"/>
       <geom name="hub_l_stator" type="mesh" mesh="hub_l_stator" material="m_alu" group="2" mass="0"/>
       <geom name="hub_r_stator" type="mesh" mesh="hub_r_stator" material="m_alu" group="2" mass="0"/>
       <geom name="battery" type="mesh" mesh="battery" material="m_battery" group="2" mass="0"/>
@@ -548,31 +459,28 @@
       <geom name="light_base" type="mesh" mesh="light_base" material="m_glow" group="2" mass="0"/>
       <geom name="caster_bolt_f" type="mesh" mesh="caster_bolt_f" material="m_steel" group="2" mass="0"/>
       <geom name="caster_bolt_r" type="mesh" mesh="caster_bolt_r" material="m_steel" group="2" mass="0"/>
-      <geom name="rod_l" type="mesh" mesh="rod_l" material="m_chrome" group="2" mass="0"/>
-      <geom name="rod_r" type="mesh" mesh="rod_r" material="m_chrome" group="2" mass="0"/>
-      <geom name="leadscrew" type="mesh" mesh="leadscrew" material="m_steel" group="2" mass="0"/>
       <geom name="lift_motor" type="mesh" mesh="lift_motor" material="m_alu" group="2" mass="0"/>
       <geom name="lift_motor_stack" type="mesh" mesh="lift_motor_stack" material="m_black" group="2" mass="0"/>
       <geom name="lift_motor_shaft" type="mesh" mesh="lift_motor_shaft" material="m_steel" group="2" mass="0"/>
       <geom name="lift_motor_conn" type="mesh" mesh="lift_motor_conn" material="m_white" group="2" mass="0"/>
       <geom name="coupler" type="mesh" mesh="coupler" material="m_alu" group="2" mass="0"/>
-      <geom name="light_mast" type="mesh" mesh="light_mast" material="m_glow" group="2" mass="0"/>
+      <geom name="leadscrew" type="mesh" mesh="leadscrew" material="m_steel" group="2" mass="0"/>
       <geom name="caster_front" class="col" type="sphere" size="0.0200" pos="0.1730 0 0.0200" contype="1" conaffinity="0" condim="1" priority="1" friction="0 0 0" mass="0"/>
       <geom name="caster_rear" class="col" type="sphere" size="0.0200" pos="-0.1970 0 0.0200" contype="1" conaffinity="0" condim="1" priority="1" friction="0 0 0" mass="0"/>
       <body name="lift" pos="-0.03000 0.00000 0.00000">
         <joint name="lift" type="slide" axis="0 0 1" range="0.0 0.65" damping="1000.0" armature="0.0" frictionloss="15.0"/>
-        <inertial pos="0.08709 -0.00134 0.42494" mass="2.7799" fullinertia="0.0332012 0.0341686 0.0183318 0.000156321 -0.00820853 -0.000204941"/>
-        <geom name="carriage" type="mesh" mesh="carriage" material="m_frame" group="1" mass="0"/>
+        <inertial pos="0.10001 -0.00162 0.49273" mass="2.5235" fullinertia="0.03899 0.0369131 0.0172293 0.000115429 -0.005689 -0.000247798"/>
+        <geom name="col_inner_0" type="mesh" mesh="col_inner_0" material="m_shell" group="1" mass="0"/>
+        <geom name="c_col_inner_0" class="col" type="mesh" mesh="col_inner_0" contype="2" conaffinity="13" friction="0.8 0.01 0.001" mass="0"/>
+        <geom name="col_inner_1" type="mesh" mesh="col_inner_1" material="m_shell" group="1" mass="0"/>
+        <geom name="c_col_inner_1" class="col" type="mesh" mesh="col_inner_1" contype="2" conaffinity="13" friction="0.8 0.01 0.001" mass="0"/>
+        <geom name="col_inner_2" type="mesh" mesh="col_inner_2" material="m_shell" group="1" mass="0"/>
+        <geom name="c_col_inner_2" class="col" type="mesh" mesh="col_inner_2" contype="2" conaffinity="13" friction="0.8 0.01 0.001" mass="0"/>
+        <geom name="col_cap" type="mesh" mesh="col_cap" material="m_dark" group="1" mass="0"/>
         <geom name="torso_back_plate" type="mesh" mesh="torso_back_plate" material="m_frame" group="1" mass="0"/>
         <geom name="yoke_l" type="mesh" mesh="yoke_l" material="m_frame" group="1" mass="0"/>
         <geom name="yoke_r" type="mesh" mesh="yoke_r" material="m_frame" group="1" mass="0"/>
         <geom name="neck_mount" type="mesh" mesh="neck_mount" material="m_frame" group="1" mass="0"/>
-        <geom name="gm_l_j1_housing" type="mesh" mesh="gm_l_j1_housing" material="m_shell" group="1" mass="0"/>
-        <geom name="gm_l_j1_cap" type="mesh" mesh="gm_l_j1_cap" material="m_shell" group="1" mass="0"/>
-        <geom name="gm_l_j1_sun" type="mesh" mesh="gm_l_j1_sun" material="m_accent" group="1" mass="0"/>
-        <geom name="gm_r_j1_housing" type="mesh" mesh="gm_r_j1_housing" material="m_shell" group="1" mass="0"/>
-        <geom name="gm_r_j1_cap" type="mesh" mesh="gm_r_j1_cap" material="m_shell" group="1" mass="0"/>
-        <geom name="gm_r_j1_sun" type="mesh" mesh="gm_r_j1_sun" material="m_accent" group="1" mass="0"/>
         <geom name="torso_lower_l" type="mesh" mesh="torso_lower_l" material="m_shell" group="1" mass="0"/>
         <geom name="c_torso_lower_l" class="col" type="mesh" mesh="torso_lower_l" contype="2" conaffinity="13" friction="0.8 0.01 0.001" mass="0"/>
         <geom name="torso_lower_r" type="mesh" mesh="torso_lower_r" material="m_shell" group="1" mass="0"/>
@@ -581,8 +489,6 @@
         <geom name="c_torso_upper_l" class="col" type="mesh" mesh="torso_upper_l" contype="2" conaffinity="13" friction="0.8 0.01 0.001" mass="0"/>
         <geom name="torso_upper_r" type="mesh" mesh="torso_upper_r" material="m_shell" group="1" mass="0"/>
         <geom name="c_torso_upper_r" class="col" type="mesh" mesh="torso_upper_r" contype="2" conaffinity="13" friction="0.8 0.01 0.001" mass="0"/>
-        <geom name="joiner_41" type="mesh" mesh="joiner_41" material="m_frame" group="1" mass="0"/>
-        <geom name="joiner_42" type="mesh" mesh="joiner_42" material="m_frame" group="1" mass="0"/>
         <geom name="joiner_43" type="mesh" mesh="joiner_43" material="m_frame" group="1" mass="0"/>
         <geom name="joiner_44" type="mesh" mesh="joiner_44" material="m_frame" group="1" mass="0"/>
         <geom name="joiner_45" type="mesh" mesh="joiner_45" material="m_frame" group="1" mass="0"/>
@@ -594,19 +500,14 @@
         <geom name="joiner_51" type="mesh" mesh="joiner_51" material="m_frame" group="1" mass="0"/>
         <geom name="joiner_52" type="mesh" mesh="joiner_52" material="m_frame" group="1" mass="0"/>
         <geom name="joiner_53" type="mesh" mesh="joiner_53" material="m_frame" group="1" mass="0"/>
-        <geom name="lm12_l_239" type="mesh" mesh="lm12_l_239" material="m_steel" group="2" mass="0"/>
-        <geom name="lm12_l_349" type="mesh" mesh="lm12_l_349" material="m_steel" group="2" mass="0"/>
-        <geom name="lm12_r_239" type="mesh" mesh="lm12_r_239" material="m_steel" group="2" mass="0"/>
-        <geom name="lm12_r_349" type="mesh" mesh="lm12_r_349" material="m_steel" group="2" mass="0"/>
-        <geom name="t8_nut" type="mesh" mesh="t8_nut" material="m_brass" group="2" mass="0"/>
-        <geom name="gm_l_j1_servo" type="mesh" mesh="gm_l_j1_servo" material="m_alu" group="2" mass="0"/>
-        <geom name="gm_l_j1_servo_horn" type="mesh" mesh="gm_l_j1_servo_horn" material="m_white" group="2" mass="0"/>
-        <geom name="gm_l_j1_bearing" type="mesh" mesh="gm_l_j1_bearing" material="m_steel" group="2" mass="0"/>
-        <geom name="gm_l_j1_hall" type="mesh" mesh="gm_l_j1_hall" material="m_black" group="2" mass="0"/>
-        <geom name="gm_r_j1_servo" type="mesh" mesh="gm_r_j1_servo" material="m_alu" group="2" mass="0"/>
-        <geom name="gm_r_j1_servo_horn" type="mesh" mesh="gm_r_j1_servo_horn" material="m_white" group="2" mass="0"/>
-        <geom name="gm_r_j1_bearing" type="mesh" mesh="gm_r_j1_bearing" material="m_steel" group="2" mass="0"/>
-        <geom name="gm_r_j1_hall" type="mesh" mesh="gm_r_j1_hall" material="m_black" group="2" mass="0"/>
+        <geom name="joiner_54" type="mesh" mesh="joiner_54" material="m_frame" group="1" mass="0"/>
+        <geom name="joiner_55" type="mesh" mesh="joiner_55" material="m_frame" group="1" mass="0"/>
+        <geom name="j1_l" type="mesh" mesh="j1_l" material="m_alu" group="2" mass="0"/>
+        <geom name="j1_l_horn" type="mesh" mesh="j1_l_horn" material="m_steel" group="2" mass="0"/>
+        <geom name="j1_l_shaft" type="mesh" mesh="j1_l_shaft" material="m_steel" group="2" mass="0"/>
+        <geom name="j1_r" type="mesh" mesh="j1_r" material="m_alu" group="2" mass="0"/>
+        <geom name="j1_r_horn" type="mesh" mesh="j1_r_horn" material="m_steel" group="2" mass="0"/>
+        <geom name="j1_r_shaft" type="mesh" mesh="j1_r_shaft" material="m_steel" group="2" mass="0"/>
         <geom name="pi5" type="mesh" mesh="pi5" material="m_pcb" group="2" mass="0"/>
         <geom name="pi5_feet" type="mesh" mesh="pi5_feet" material="m_steel" group="2" mass="0"/>
         <geom name="pi5_cooler" type="mesh" mesh="pi5_cooler" material="m_alu" group="2" mass="0"/>
@@ -614,8 +515,6 @@
         <geom name="pi5_ports" type="mesh" mesh="pi5_ports" material="m_steel" group="2" mass="0"/>
         <geom name="usb_hub" type="mesh" mesh="usb_hub" material="m_pcb" group="2" mass="0"/>
         <geom name="usb_hub_ports" type="mesh" mesh="usb_hub_ports" material="m_steel" group="2" mass="0"/>
-        <geom name="arm_io" type="mesh" mesh="arm_io" material="m_pcb" group="2" mass="0"/>
-        <geom name="arm_io_ports" type="mesh" mesh="arm_io_ports" material="m_steel" group="2" mass="0"/>
         <geom name="servo_bus" type="mesh" mesh="servo_bus" material="m_pcb" group="2" mass="0"/>
         <geom name="servo_bus_ports" type="mesh" mesh="servo_bus_ports" material="m_steel" group="2" mass="0"/>
         <geom name="servo_bus_r" type="mesh" mesh="servo_bus_r" material="m_pcb" group="2" mass="0"/>
@@ -625,15 +524,15 @@
         <geom name="pan_servo" type="mesh" mesh="pan_servo" material="m_black" group="2" mass="0"/>
         <geom name="pan_servo_horn" type="mesh" mesh="pan_servo_horn" material="m_white" group="2" mass="0"/>
         <geom name="light_chest" type="mesh" mesh="light_chest" material="m_glow" group="2" mass="0"/>
-        <body name="head_pan" pos="0.13200 0.00000 0.57100">
-          <joint name="head_pan" type="hinge" axis="0 0 1" range="-0.6 0.6" damping="0.05" armature="0.004" frictionloss="0.03"/>
+        <body name="head_pan" pos="0.13800 0.00000 0.63300">
+          <joint name="head_pan" type="hinge" axis="0 0 1" range="-0.8 0.8" damping="0.05" armature="0.004" frictionloss="0.03"/>
           <inertial pos="0.00921 -0.00490 0.04063" mass="0.0901" fullinertia="3.79142e-05 4.61121e-05 3.2133e-05 2.84452e-07 -4.2785e-06 1.20627e-06"/>
           <geom name="neck_collar" type="mesh" mesh="neck_collar" material="m_dark" group="1" mass="0"/>
           <geom name="neck_yoke" type="mesh" mesh="neck_yoke" material="m_dark" group="1" mass="0"/>
           <geom name="tilt_servo" type="mesh" mesh="tilt_servo" material="m_black" group="2" mass="0"/>
           <geom name="tilt_servo_horn" type="mesh" mesh="tilt_servo_horn" material="m_white" group="2" mass="0"/>
           <body name="head_tilt" pos="0.00000 0.00000 0.04900">
-            <joint name="head_tilt" type="hinge" axis="0 1 0" range="-0.35 0.55" damping="0.05" armature="0.004" frictionloss="0.03"/>
+            <joint name="head_tilt" type="hinge" axis="0 1 0" range="-0.45 0.55" damping="0.05" armature="0.004" frictionloss="0.03"/>
             <inertial pos="0.03342 0.00011 0.07027" mass="0.4048" fullinertia="0.001929 0.00145191 0.00170785 1.77498e-07 6.0262e-06 2.89594e-06"/>
             <geom name="ear_l" type="mesh" mesh="ear_l" material="m_dark" group="1" mass="0"/>
             <geom name="ear_r" type="mesh" mesh="ear_r" material="m_dark" group="1" mass="0"/>
@@ -645,12 +544,12 @@
             <geom name="c_head_lower" class="col" type="mesh" mesh="head_lower" contype="2" conaffinity="13" friction="0.8 0.01 0.001" mass="0"/>
             <geom name="head_upper" type="mesh" mesh="head_upper" material="m_shell" group="1" mass="0"/>
             <geom name="c_head_upper" class="col" type="mesh" mesh="head_upper" contype="2" conaffinity="13" friction="0.8 0.01 0.001" mass="0"/>
-            <geom name="joiner_54" type="mesh" mesh="joiner_54" material="m_frame" group="1" mass="0"/>
-            <geom name="joiner_55" type="mesh" mesh="joiner_55" material="m_frame" group="1" mass="0"/>
             <geom name="joiner_56" type="mesh" mesh="joiner_56" material="m_frame" group="1" mass="0"/>
             <geom name="joiner_57" type="mesh" mesh="joiner_57" material="m_frame" group="1" mass="0"/>
             <geom name="joiner_58" type="mesh" mesh="joiner_58" material="m_frame" group="1" mass="0"/>
             <geom name="joiner_59" type="mesh" mesh="joiner_59" material="m_frame" group="1" mass="0"/>
+            <geom name="joiner_60" type="mesh" mesh="joiner_60" material="m_frame" group="1" mass="0"/>
+            <geom name="joiner_61" type="mesh" mesh="joiner_61" material="m_frame" group="1" mass="0"/>
             <geom name="head_cam" type="mesh" mesh="head_cam" material="m_pcb" group="2" mass="0"/>
             <geom name="head_cam_holder" type="mesh" mesh="head_cam_holder" material="m_black" group="2" mass="0"/>
             <geom name="head_cam_lens" type="mesh" mesh="head_cam_lens" material="m_black" group="2" mass="0"/>
@@ -669,106 +568,40 @@
             <camera name="head_cam" pos="0.0807 0.0000 0.0960" xyaxes="0 -1 0 0 0 1" fovy="70"/>
           </body>
         </body>
-        <body name="l_link1" pos="0.13600 0.11700 0.52000">
-          <joint name="l_shoulder_pitch" type="hinge" axis="0 1 0" range="-3.1 1.0" damping="0.5" armature="0.1" frictionloss="0.35"/>
-          <inertial pos="0.00930 0.03820 -0.00000" mass="0.1857" fullinertia="0.000146309 0.000124952 0.000201172 -2.82274e-05 -1.70916e-10 -5.3091e-10"/>
-          <geom name="gm_l_j1_carrier" type="mesh" mesh="gm_l_j1_carrier" material="m_dark" group="1" mass="0"/>
-          <geom name="c_gm_l_j1_carrier" class="col" type="mesh" mesh="gm_l_j1_carrier" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
-          <geom name="gm_l_j1_carrier_back" type="mesh" mesh="gm_l_j1_carrier_back" material="m_dark" group="1" mass="0"/>
-          <geom name="c_gm_l_j1_carrier_back" class="col" type="mesh" mesh="gm_l_j1_carrier_back" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
-          <geom name="gm_l_j1_planet0" type="mesh" mesh="gm_l_j1_planet0" material="m_accent" group="1" mass="0"/>
-          <geom name="c_gm_l_j1_planet0" class="col" type="mesh" mesh="gm_l_j1_planet0" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
-          <geom name="gm_l_j1_planet1" type="mesh" mesh="gm_l_j1_planet1" material="m_accent" group="1" mass="0"/>
-          <geom name="c_gm_l_j1_planet1" class="col" type="mesh" mesh="gm_l_j1_planet1" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
-          <geom name="gm_l_j1_planet2" type="mesh" mesh="gm_l_j1_planet2" material="m_accent" group="1" mass="0"/>
-          <geom name="c_gm_l_j1_planet2" class="col" type="mesh" mesh="gm_l_j1_planet2" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
+        <body name="l_link1" pos="0.14200 0.11700 0.58200">
+          <joint name="l_shoulder_pitch" type="hinge" axis="0 1 0" range="-3.1 1.0" damping="0.08" armature="0.012" frictionloss="0.06"/>
+          <inertial pos="-0.00294 0.05348 -0.00000" mass="0.2073" fullinertia="0.000110187 5.91995e-05 0.000132348 -6.09508e-07 1.87882e-10 -1.28624e-09"/>
           <geom name="shoulder_l" type="mesh" mesh="shoulder_l" material="m_shell" group="1" mass="0"/>
           <geom name="c_shoulder_l" class="col" type="mesh" mesh="shoulder_l" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
-          <geom name="gm_l_j2_housing" type="mesh" mesh="gm_l_j2_housing" material="m_shell" group="1" mass="0"/>
-          <geom name="c_gm_l_j2_housing" class="col" type="mesh" mesh="gm_l_j2_housing" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
-          <geom name="gm_l_j2_cap" type="mesh" mesh="gm_l_j2_cap" material="m_shell" group="1" mass="0"/>
-          <geom name="c_gm_l_j2_cap" class="col" type="mesh" mesh="gm_l_j2_cap" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
-          <geom name="gm_l_j2_sun" type="mesh" mesh="gm_l_j2_sun" material="m_accent" group="1" mass="0"/>
-          <geom name="c_gm_l_j2_sun" class="col" type="mesh" mesh="gm_l_j2_sun" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
-          <geom name="gm_l_j1_pins" type="mesh" mesh="gm_l_j1_pins" material="m_steel" group="2" mass="0"/>
-          <geom name="gm_l_j2_servo" type="mesh" mesh="gm_l_j2_servo" material="m_alu" group="2" mass="0"/>
-          <geom name="gm_l_j2_servo_horn" type="mesh" mesh="gm_l_j2_servo_horn" material="m_white" group="2" mass="0"/>
-          <geom name="gm_l_j2_bearing" type="mesh" mesh="gm_l_j2_bearing" material="m_steel" group="2" mass="0"/>
-          <geom name="gm_l_j2_hall" type="mesh" mesh="gm_l_j2_hall" material="m_black" group="2" mass="0"/>
+          <geom name="j2_l" type="mesh" mesh="j2_l" material="m_alu" group="2" mass="0"/>
+          <geom name="j2_l_horn" type="mesh" mesh="j2_l_horn" material="m_steel" group="2" mass="0"/>
+          <geom name="j2_l_shaft" type="mesh" mesh="j2_l_shaft" material="m_steel" group="2" mass="0"/>
           <body name="l_link2" pos="0.00000 0.04000 0.00000">
-            <joint name="l_shoulder_roll" type="hinge" axis="1 0 0" range="-0.2 1.75" damping="0.5" armature="0.1" frictionloss="0.35"/>
-            <inertial pos="-0.00877 -0.00000 -0.06558" mass="0.1757" fullinertia="0.000255395 0.000274529 9.1876e-05 -1.47555e-09 3.73881e-05 1.25096e-08"/>
+            <joint name="l_shoulder_roll" type="hinge" axis="1 0 0" range="-0.2 1.75" damping="0.08" armature="0.012" frictionloss="0.06"/>
+            <inertial pos="-0.00775 -0.00000 -0.08567" mass="0.1436" fullinertia="0.00010079 0.000124777 6.80341e-05 5.32261e-15 1.72935e-05 -1.9448e-14"/>
             <geom name="clevis_l" type="mesh" mesh="clevis_l" material="m_frame" group="1" mass="0"/>
             <geom name="c_clevis_l" class="col" type="mesh" mesh="clevis_l" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
-            <geom name="gm_l_j2_carrier" type="mesh" mesh="gm_l_j2_carrier" material="m_dark" group="1" mass="0"/>
-            <geom name="c_gm_l_j2_carrier" class="col" type="mesh" mesh="gm_l_j2_carrier" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
-            <geom name="gm_l_j2_carrier_back" type="mesh" mesh="gm_l_j2_carrier_back" material="m_dark" group="1" mass="0"/>
-            <geom name="c_gm_l_j2_carrier_back" class="col" type="mesh" mesh="gm_l_j2_carrier_back" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
-            <geom name="gm_l_j2_planet0" type="mesh" mesh="gm_l_j2_planet0" material="m_accent" group="1" mass="0"/>
-            <geom name="c_gm_l_j2_planet0" class="col" type="mesh" mesh="gm_l_j2_planet0" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
-            <geom name="gm_l_j2_planet1" type="mesh" mesh="gm_l_j2_planet1" material="m_accent" group="1" mass="0"/>
-            <geom name="c_gm_l_j2_planet1" class="col" type="mesh" mesh="gm_l_j2_planet1" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
-            <geom name="gm_l_j2_planet2" type="mesh" mesh="gm_l_j2_planet2" material="m_accent" group="1" mass="0"/>
-            <geom name="c_gm_l_j2_planet2" class="col" type="mesh" mesh="gm_l_j2_planet2" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
-            <geom name="gm_l_j3_housing" type="mesh" mesh="gm_l_j3_housing" material="m_shell" group="1" mass="0"/>
-            <geom name="c_gm_l_j3_housing" class="col" type="mesh" mesh="gm_l_j3_housing" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
-            <geom name="gm_l_j3_cap" type="mesh" mesh="gm_l_j3_cap" material="m_shell" group="1" mass="0"/>
-            <geom name="c_gm_l_j3_cap" class="col" type="mesh" mesh="gm_l_j3_cap" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
-            <geom name="gm_l_j3_sun" type="mesh" mesh="gm_l_j3_sun" material="m_accent" group="1" mass="0"/>
-            <geom name="c_gm_l_j3_sun" class="col" type="mesh" mesh="gm_l_j3_sun" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
-            <geom name="gm_l_j2_pins" type="mesh" mesh="gm_l_j2_pins" material="m_steel" group="2" mass="0"/>
-            <geom name="gm_l_j3_servo" type="mesh" mesh="gm_l_j3_servo" material="m_black" group="2" mass="0"/>
-            <geom name="gm_l_j3_servo_horn" type="mesh" mesh="gm_l_j3_servo_horn" material="m_white" group="2" mass="0"/>
-            <geom name="gm_l_j3_bearing" type="mesh" mesh="gm_l_j3_bearing" material="m_steel" group="2" mass="0"/>
-            <geom name="gm_l_j3_hall" type="mesh" mesh="gm_l_j3_hall" material="m_black" group="2" mass="0"/>
+            <geom name="j3_l" type="mesh" mesh="j3_l" material="m_alu" group="2" mass="0"/>
+            <geom name="j3_l_horn" type="mesh" mesh="j3_l_horn" material="m_white" group="2" mass="0"/>
             <body name="l_link3" pos="0.00000 0.00000 -0.11300">
-              <joint name="l_upper_arm_yaw" type="hinge" axis="0 0 1" range="-1.6 1.6" damping="0.5" armature="0.1" frictionloss="0.35"/>
-              <inertial pos="0.00000 -0.00808 -0.10685" mass="0.2200" fullinertia="0.000874468 0.000822236 0.00016747 9.57844e-09 -2.48549e-08 -7.68936e-05"/>
+              <joint name="l_upper_arm_yaw" type="hinge" axis="0 0 1" range="-1.6 1.6" damping="0.05" armature="0.005" frictionloss="0.04"/>
+              <inertial pos="0.00000 -0.00073 -0.13151" mass="0.2627" fullinertia="0.0006872 0.000667375 0.000109749 1.89112e-09 -1.23477e-10 -4.29567e-06"/>
               <geom name="upper_arm_a_l" type="mesh" mesh="upper_arm_a_l" material="m_shell" group="1" mass="0"/>
               <geom name="c_upper_arm_a_l" class="col" type="mesh" mesh="upper_arm_a_l" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
               <geom name="upper_arm_b_l" type="mesh" mesh="upper_arm_b_l" material="m_shell" group="1" mass="0"/>
               <geom name="c_upper_arm_b_l" class="col" type="mesh" mesh="upper_arm_b_l" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
-              <geom name="gm_l_j3_carrier" type="mesh" mesh="gm_l_j3_carrier" material="m_dark" group="1" mass="0"/>
-              <geom name="c_gm_l_j3_carrier" class="col" type="mesh" mesh="gm_l_j3_carrier" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
-              <geom name="gm_l_j3_carrier_back" type="mesh" mesh="gm_l_j3_carrier_back" material="m_dark" group="1" mass="0"/>
-              <geom name="c_gm_l_j3_carrier_back" class="col" type="mesh" mesh="gm_l_j3_carrier_back" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
-              <geom name="gm_l_j3_planet0" type="mesh" mesh="gm_l_j3_planet0" material="m_accent" group="1" mass="0"/>
-              <geom name="c_gm_l_j3_planet0" class="col" type="mesh" mesh="gm_l_j3_planet0" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
-              <geom name="gm_l_j3_planet1" type="mesh" mesh="gm_l_j3_planet1" material="m_accent" group="1" mass="0"/>
-              <geom name="c_gm_l_j3_planet1" class="col" type="mesh" mesh="gm_l_j3_planet1" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
-              <geom name="gm_l_j3_planet2" type="mesh" mesh="gm_l_j3_planet2" material="m_accent" group="1" mass="0"/>
-              <geom name="c_gm_l_j3_planet2" class="col" type="mesh" mesh="gm_l_j3_planet2" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
-              <geom name="gm_l_j4_housing" type="mesh" mesh="gm_l_j4_housing" material="m_shell" group="1" mass="0"/>
-              <geom name="c_gm_l_j4_housing" class="col" type="mesh" mesh="gm_l_j4_housing" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
-              <geom name="gm_l_j4_cap" type="mesh" mesh="gm_l_j4_cap" material="m_shell" group="1" mass="0"/>
-              <geom name="c_gm_l_j4_cap" class="col" type="mesh" mesh="gm_l_j4_cap" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
-              <geom name="gm_l_j4_sun" type="mesh" mesh="gm_l_j4_sun" material="m_accent" group="1" mass="0"/>
-              <geom name="c_gm_l_j4_sun" class="col" type="mesh" mesh="gm_l_j4_sun" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
-              <geom name="gm_l_j3_pins" type="mesh" mesh="gm_l_j3_pins" material="m_steel" group="2" mass="0"/>
-              <geom name="gm_l_j4_servo" type="mesh" mesh="gm_l_j4_servo" material="m_black" group="2" mass="0"/>
-              <geom name="gm_l_j4_servo_horn" type="mesh" mesh="gm_l_j4_servo_horn" material="m_white" group="2" mass="0"/>
-              <geom name="gm_l_j4_bearing" type="mesh" mesh="gm_l_j4_bearing" material="m_steel" group="2" mass="0"/>
-              <geom name="gm_l_j4_hall" type="mesh" mesh="gm_l_j4_hall" material="m_black" group="2" mass="0"/>
+              <geom name="j4_l" type="mesh" mesh="j4_l" material="m_alu" group="2" mass="0"/>
+              <geom name="j4_l_horn" type="mesh" mesh="j4_l_horn" material="m_steel" group="2" mass="0"/>
+              <geom name="j4_l_shaft" type="mesh" mesh="j4_l_shaft" material="m_steel" group="2" mass="0"/>
               <body name="l_link4" pos="0.00000 0.00000 -0.13900">
-                <joint name="l_elbow" type="hinge" axis="0 1 0" range="-2.35 0.0" damping="0.5" armature="0.1" frictionloss="0.35"/>
-                <inertial pos="-0.00000 0.00220 -0.14051" mass="0.2262" fullinertia="0.00124887 0.0012354 9.06553e-05 6.23911e-09 5.69205e-09 -8.69681e-05"/>
+                <joint name="l_elbow" type="hinge" axis="0 1 0" range="-2.35 0.0" damping="0.08" armature="0.012" frictionloss="0.06"/>
+                <inertial pos="-0.00000 0.00185 -0.15140" mass="0.2103" fullinertia="0.000895371 0.000879993 8.90602e-05 6.26792e-09 6.63303e-09 -7.41492e-05"/>
                 <geom name="elbow_l" type="mesh" mesh="elbow_l" material="m_frame" group="1" mass="0"/>
                 <geom name="c_elbow_l" class="col" type="mesh" mesh="elbow_l" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
                 <geom name="forearm_a_l" type="mesh" mesh="forearm_a_l" material="m_shell" group="1" mass="0"/>
                 <geom name="c_forearm_a_l" class="col" type="mesh" mesh="forearm_a_l" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
                 <geom name="forearm_b_l" type="mesh" mesh="forearm_b_l" material="m_shell" group="1" mass="0"/>
                 <geom name="c_forearm_b_l" class="col" type="mesh" mesh="forearm_b_l" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
-                <geom name="gm_l_j4_carrier" type="mesh" mesh="gm_l_j4_carrier" material="m_dark" group="1" mass="0"/>
-                <geom name="c_gm_l_j4_carrier" class="col" type="mesh" mesh="gm_l_j4_carrier" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
-                <geom name="gm_l_j4_carrier_back" type="mesh" mesh="gm_l_j4_carrier_back" material="m_dark" group="1" mass="0"/>
-                <geom name="c_gm_l_j4_carrier_back" class="col" type="mesh" mesh="gm_l_j4_carrier_back" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
-                <geom name="gm_l_j4_planet0" type="mesh" mesh="gm_l_j4_planet0" material="m_accent" group="1" mass="0"/>
-                <geom name="c_gm_l_j4_planet0" class="col" type="mesh" mesh="gm_l_j4_planet0" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
-                <geom name="gm_l_j4_planet1" type="mesh" mesh="gm_l_j4_planet1" material="m_accent" group="1" mass="0"/>
-                <geom name="c_gm_l_j4_planet1" class="col" type="mesh" mesh="gm_l_j4_planet1" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
-                <geom name="gm_l_j4_planet2" type="mesh" mesh="gm_l_j4_planet2" material="m_accent" group="1" mass="0"/>
-                <geom name="c_gm_l_j4_planet2" class="col" type="mesh" mesh="gm_l_j4_planet2" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
-                <geom name="gm_l_j4_pins" type="mesh" mesh="gm_l_j4_pins" material="m_steel" group="2" mass="0"/>
                 <geom name="j5_l" type="mesh" mesh="j5_l" material="m_alu" group="2" mass="0"/>
                 <geom name="j5_l_horn" type="mesh" mesh="j5_l_horn" material="m_white" group="2" mass="0"/>
                 <body name="l_link5" pos="0.00000 0.00000 -0.20000">
@@ -790,25 +623,25 @@
                     <geom name="wrist_cam_l" type="mesh" mesh="wrist_cam_l" material="m_pcb" group="2" mass="0"/>
                     <geom name="wrist_cam_l_holder" type="mesh" mesh="wrist_cam_l_holder" material="m_black" group="2" mass="0"/>
                     <geom name="wrist_cam_l_lens" type="mesh" mesh="wrist_cam_l_lens" material="m_lens" group="2" mass="0"/>
-                    <camera name="wrist_cam_l" pos="-0.0260 0.0000 -0.0498" xyaxes="0 -1 0 0.94 0 0.34" fovy="80"/>
+                    <camera name="wrist_cam_l" pos="-0.0260 0.0000 -0.0497" xyaxes="0 -1 0 0.94 0 0.34" fovy="80"/>
                     <site name="tcp_l" pos="0.0000 0.0000 -0.0950" size="0.006" rgba="1 0.3 0 1"/>
                     <body name="l_link7" pos="0.00000 0.00000 -0.05300">
                       <joint name="l_gripper" type="slide" axis="0 1.0 0" range="0.0 0.04" damping="5.0" armature="0.4" frictionloss="0.8"/>
-                      <inertial pos="0.00390 0.00244 -0.02486" mass="0.0125" fullinertia="7.03848e-06 6.37251e-06 2.74179e-06 4.82909e-07 -1.32165e-06 1.15807e-06"/>
-                      <geom name="finger_a_l" type="mesh" mesh="finger_a_l" material="m_dark" group="1" mass="0"/>
-                      <geom name="c_finger_a_l" class="col" type="box" pos="0.0035 0.0070 -0.0367" size="0.0155 0.0040 0.0232" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
-                      <geom name="pad_a_l" type="mesh" mesh="pad_a_l" material="m_accent" group="1" mass="0"/>
-                      <geom name="c_pad_a_l" class="col" type="mesh" mesh="pad_a_l" contype="4" conaffinity="15" friction="1.5 0.02 0.002" mass="0"/>
-                      <site name="touch_a_l" type="box" pos="0.0000 0.0015 -0.0380" size="0.0130 0.0045 0.0230" rgba="0 0 0 0"/>
+                      <inertial pos="0.00469 0.00267 -0.02186" mass="0.0104" fullinertia="6.21929e-06 5.41563e-06 2.60342e-06 4.94571e-07 -1.17701e-06 1.18213e-06"/>
+                      <geom name="rack_a_l" type="mesh" mesh="rack_a_l" material="m_dark" group="1" mass="0"/>
+                      <geom name="c_rack_a_l" class="col" type="mesh" mesh="rack_a_l" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
+                      <geom name="finger_a_l" type="mesh" mesh="finger_a_l" material="m_accent" group="1" mass="0"/>
+                      <geom name="c_finger_a_l" class="col" type="box" pos="0.0000 0.0070 -0.0363" size="0.0120 0.0040 0.0238" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
+                      <site name="touch_a_l" type="box" pos="0.0000 0.0070 -0.0362" size="0.0130 0.0070 0.0248" rgba="0 0 0 0"/>
                     </body>
                     <body name="l_link8" pos="0.00000 0.00000 -0.05300">
                       <joint name="l_gripper_b" type="slide" axis="0 -1.0 0" range="0.0 0.04" damping="5.0" armature="0.4" frictionloss="0.8"/>
-                      <inertial pos="-0.00390 -0.00244 -0.02486" mass="0.0125" fullinertia="7.03848e-06 6.37251e-06 2.74179e-06 4.82909e-07 1.32165e-06 -1.15807e-06"/>
-                      <geom name="finger_b_l" type="mesh" mesh="finger_b_l" material="m_dark" group="1" mass="0"/>
-                      <geom name="c_finger_b_l" class="col" type="box" pos="-0.0035 -0.0070 -0.0367" size="0.0155 0.0040 0.0232" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
-                      <geom name="pad_b_l" type="mesh" mesh="pad_b_l" material="m_accent" group="1" mass="0"/>
-                      <geom name="c_pad_b_l" class="col" type="mesh" mesh="pad_b_l" contype="4" conaffinity="15" friction="1.5 0.02 0.002" mass="0"/>
-                      <site name="touch_b_l" type="box" pos="0.0000 -0.0015 -0.0380" size="0.0130 0.0045 0.0230" rgba="0 0 0 0"/>
+                      <inertial pos="-0.00464 -0.00266 -0.02202" mass="0.0105" fullinertia="6.25918e-06 5.46382e-06 2.6091e-06 4.94293e-07 1.18472e-06 -1.18088e-06"/>
+                      <geom name="rack_b_l" type="mesh" mesh="rack_b_l" material="m_dark" group="1" mass="0"/>
+                      <geom name="c_rack_b_l" class="col" type="mesh" mesh="rack_b_l" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
+                      <geom name="finger_b_l" type="mesh" mesh="finger_b_l" material="m_accent" group="1" mass="0"/>
+                      <geom name="c_finger_b_l" class="col" type="box" pos="0.0000 -0.0070 -0.0363" size="0.0120 0.0040 0.0238" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
+                      <site name="touch_b_l" type="box" pos="0.0000 -0.0070 -0.0362" size="0.0130 0.0070 0.0248" rgba="0 0 0 0"/>
                     </body>
                   </body>
                 </body>
@@ -816,106 +649,40 @@
             </body>
           </body>
         </body>
-        <body name="r_link1" pos="0.13600 -0.11700 0.52000">
-          <joint name="r_shoulder_pitch" type="hinge" axis="0 1 0" range="-3.1 1.0" damping="0.5" armature="0.1" frictionloss="0.35"/>
-          <inertial pos="0.00930 -0.03820 -0.00000" mass="0.1857" fullinertia="0.000146309 0.000124952 0.000201172 2.82274e-05 -1.70916e-10 5.3091e-10"/>
-          <geom name="gm_r_j1_carrier" type="mesh" mesh="gm_r_j1_carrier" material="m_dark" group="1" mass="0"/>
-          <geom name="c_gm_r_j1_carrier" class="col" type="mesh" mesh="gm_r_j1_carrier" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
-          <geom name="gm_r_j1_carrier_back" type="mesh" mesh="gm_r_j1_carrier_back" material="m_dark" group="1" mass="0"/>
-          <geom name="c_gm_r_j1_carrier_back" class="col" type="mesh" mesh="gm_r_j1_carrier_back" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
-          <geom name="gm_r_j1_planet0" type="mesh" mesh="gm_r_j1_planet0" material="m_accent" group="1" mass="0"/>
-          <geom name="c_gm_r_j1_planet0" class="col" type="mesh" mesh="gm_r_j1_planet0" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
-          <geom name="gm_r_j1_planet1" type="mesh" mesh="gm_r_j1_planet1" material="m_accent" group="1" mass="0"/>
-          <geom name="c_gm_r_j1_planet1" class="col" type="mesh" mesh="gm_r_j1_planet1" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
-          <geom name="gm_r_j1_planet2" type="mesh" mesh="gm_r_j1_planet2" material="m_accent" group="1" mass="0"/>
-          <geom name="c_gm_r_j1_planet2" class="col" type="mesh" mesh="gm_r_j1_planet2" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
+        <body name="r_link1" pos="0.14200 -0.11700 0.58200">
+          <joint name="r_shoulder_pitch" type="hinge" axis="0 1 0" range="-3.1 1.0" damping="0.08" armature="0.012" frictionloss="0.06"/>
+          <inertial pos="-0.00294 -0.05348 -0.00000" mass="0.2073" fullinertia="0.000110187 5.91995e-05 0.000132348 6.09508e-07 1.87882e-10 1.28624e-09"/>
           <geom name="shoulder_r" type="mesh" mesh="shoulder_r" material="m_shell" group="1" mass="0"/>
           <geom name="c_shoulder_r" class="col" type="mesh" mesh="shoulder_r" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
-          <geom name="gm_r_j2_housing" type="mesh" mesh="gm_r_j2_housing" material="m_shell" group="1" mass="0"/>
-          <geom name="c_gm_r_j2_housing" class="col" type="mesh" mesh="gm_r_j2_housing" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
-          <geom name="gm_r_j2_cap" type="mesh" mesh="gm_r_j2_cap" material="m_shell" group="1" mass="0"/>
-          <geom name="c_gm_r_j2_cap" class="col" type="mesh" mesh="gm_r_j2_cap" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
-          <geom name="gm_r_j2_sun" type="mesh" mesh="gm_r_j2_sun" material="m_accent" group="1" mass="0"/>
-          <geom name="c_gm_r_j2_sun" class="col" type="mesh" mesh="gm_r_j2_sun" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
-          <geom name="gm_r_j1_pins" type="mesh" mesh="gm_r_j1_pins" material="m_steel" group="2" mass="0"/>
-          <geom name="gm_r_j2_servo" type="mesh" mesh="gm_r_j2_servo" material="m_alu" group="2" mass="0"/>
-          <geom name="gm_r_j2_servo_horn" type="mesh" mesh="gm_r_j2_servo_horn" material="m_white" group="2" mass="0"/>
-          <geom name="gm_r_j2_bearing" type="mesh" mesh="gm_r_j2_bearing" material="m_steel" group="2" mass="0"/>
-          <geom name="gm_r_j2_hall" type="mesh" mesh="gm_r_j2_hall" material="m_black" group="2" mass="0"/>
+          <geom name="j2_r" type="mesh" mesh="j2_r" material="m_alu" group="2" mass="0"/>
+          <geom name="j2_r_horn" type="mesh" mesh="j2_r_horn" material="m_steel" group="2" mass="0"/>
+          <geom name="j2_r_shaft" type="mesh" mesh="j2_r_shaft" material="m_steel" group="2" mass="0"/>
           <body name="r_link2" pos="0.00000 -0.04000 0.00000">
-            <joint name="r_shoulder_roll" type="hinge" axis="-1 0 0" range="-0.2 1.75" damping="0.5" armature="0.1" frictionloss="0.35"/>
-            <inertial pos="-0.00877 0.00000 -0.06558" mass="0.1757" fullinertia="0.000255395 0.000274529 9.1876e-05 1.47555e-09 3.73881e-05 -1.25096e-08"/>
+            <joint name="r_shoulder_roll" type="hinge" axis="-1 0 0" range="-0.2 1.75" damping="0.08" armature="0.012" frictionloss="0.06"/>
+            <inertial pos="-0.00775 0.00000 -0.08567" mass="0.1436" fullinertia="0.00010079 0.000124777 6.80341e-05 -5.32261e-15 1.72935e-05 1.9448e-14"/>
             <geom name="clevis_r" type="mesh" mesh="clevis_r" material="m_frame" group="1" mass="0"/>
             <geom name="c_clevis_r" class="col" type="mesh" mesh="clevis_r" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
-            <geom name="gm_r_j2_carrier" type="mesh" mesh="gm_r_j2_carrier" material="m_dark" group="1" mass="0"/>
-            <geom name="c_gm_r_j2_carrier" class="col" type="mesh" mesh="gm_r_j2_carrier" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
-            <geom name="gm_r_j2_carrier_back" type="mesh" mesh="gm_r_j2_carrier_back" material="m_dark" group="1" mass="0"/>
-            <geom name="c_gm_r_j2_carrier_back" class="col" type="mesh" mesh="gm_r_j2_carrier_back" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
-            <geom name="gm_r_j2_planet0" type="mesh" mesh="gm_r_j2_planet0" material="m_accent" group="1" mass="0"/>
-            <geom name="c_gm_r_j2_planet0" class="col" type="mesh" mesh="gm_r_j2_planet0" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
-            <geom name="gm_r_j2_planet1" type="mesh" mesh="gm_r_j2_planet1" material="m_accent" group="1" mass="0"/>
-            <geom name="c_gm_r_j2_planet1" class="col" type="mesh" mesh="gm_r_j2_planet1" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
-            <geom name="gm_r_j2_planet2" type="mesh" mesh="gm_r_j2_planet2" material="m_accent" group="1" mass="0"/>
-            <geom name="c_gm_r_j2_planet2" class="col" type="mesh" mesh="gm_r_j2_planet2" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
-            <geom name="gm_r_j3_housing" type="mesh" mesh="gm_r_j3_housing" material="m_shell" group="1" mass="0"/>
-            <geom name="c_gm_r_j3_housing" class="col" type="mesh" mesh="gm_r_j3_housing" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
-            <geom name="gm_r_j3_cap" type="mesh" mesh="gm_r_j3_cap" material="m_shell" group="1" mass="0"/>
-            <geom name="c_gm_r_j3_cap" class="col" type="mesh" mesh="gm_r_j3_cap" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
-            <geom name="gm_r_j3_sun" type="mesh" mesh="gm_r_j3_sun" material="m_accent" group="1" mass="0"/>
-            <geom name="c_gm_r_j3_sun" class="col" type="mesh" mesh="gm_r_j3_sun" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
-            <geom name="gm_r_j2_pins" type="mesh" mesh="gm_r_j2_pins" material="m_steel" group="2" mass="0"/>
-            <geom name="gm_r_j3_servo" type="mesh" mesh="gm_r_j3_servo" material="m_black" group="2" mass="0"/>
-            <geom name="gm_r_j3_servo_horn" type="mesh" mesh="gm_r_j3_servo_horn" material="m_white" group="2" mass="0"/>
-            <geom name="gm_r_j3_bearing" type="mesh" mesh="gm_r_j3_bearing" material="m_steel" group="2" mass="0"/>
-            <geom name="gm_r_j3_hall" type="mesh" mesh="gm_r_j3_hall" material="m_black" group="2" mass="0"/>
+            <geom name="j3_r" type="mesh" mesh="j3_r" material="m_alu" group="2" mass="0"/>
+            <geom name="j3_r_horn" type="mesh" mesh="j3_r_horn" material="m_white" group="2" mass="0"/>
             <body name="r_link3" pos="0.00000 0.00000 -0.11300">
-              <joint name="r_upper_arm_yaw" type="hinge" axis="0 0 -1" range="-1.6 1.6" damping="0.5" armature="0.1" frictionloss="0.35"/>
-              <inertial pos="0.00000 0.00808 -0.10685" mass="0.2200" fullinertia="0.000874468 0.000822236 0.00016747 -9.57844e-09 -2.48549e-08 7.68936e-05"/>
+              <joint name="r_upper_arm_yaw" type="hinge" axis="0 0 -1" range="-1.6 1.6" damping="0.05" armature="0.005" frictionloss="0.04"/>
+              <inertial pos="0.00000 0.00073 -0.13151" mass="0.2627" fullinertia="0.0006872 0.000667375 0.000109749 -1.89112e-09 -1.23477e-10 4.29567e-06"/>
               <geom name="upper_arm_a_r" type="mesh" mesh="upper_arm_a_r" material="m_shell" group="1" mass="0"/>
               <geom name="c_upper_arm_a_r" class="col" type="mesh" mesh="upper_arm_a_r" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
               <geom name="upper_arm_b_r" type="mesh" mesh="upper_arm_b_r" material="m_shell" group="1" mass="0"/>
               <geom name="c_upper_arm_b_r" class="col" type="mesh" mesh="upper_arm_b_r" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
-              <geom name="gm_r_j3_carrier" type="mesh" mesh="gm_r_j3_carrier" material="m_dark" group="1" mass="0"/>
-              <geom name="c_gm_r_j3_carrier" class="col" type="mesh" mesh="gm_r_j3_carrier" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
-              <geom name="gm_r_j3_carrier_back" type="mesh" mesh="gm_r_j3_carrier_back" material="m_dark" group="1" mass="0"/>
-              <geom name="c_gm_r_j3_carrier_back" class="col" type="mesh" mesh="gm_r_j3_carrier_back" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
-              <geom name="gm_r_j3_planet0" type="mesh" mesh="gm_r_j3_planet0" material="m_accent" group="1" mass="0"/>
-              <geom name="c_gm_r_j3_planet0" class="col" type="mesh" mesh="gm_r_j3_planet0" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
-              <geom name="gm_r_j3_planet1" type="mesh" mesh="gm_r_j3_planet1" material="m_accent" group="1" mass="0"/>
-              <geom name="c_gm_r_j3_planet1" class="col" type="mesh" mesh="gm_r_j3_planet1" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
-              <geom name="gm_r_j3_planet2" type="mesh" mesh="gm_r_j3_planet2" material="m_accent" group="1" mass="0"/>
-              <geom name="c_gm_r_j3_planet2" class="col" type="mesh" mesh="gm_r_j3_planet2" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
-              <geom name="gm_r_j4_housing" type="mesh" mesh="gm_r_j4_housing" material="m_shell" group="1" mass="0"/>
-              <geom name="c_gm_r_j4_housing" class="col" type="mesh" mesh="gm_r_j4_housing" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
-              <geom name="gm_r_j4_cap" type="mesh" mesh="gm_r_j4_cap" material="m_shell" group="1" mass="0"/>
-              <geom name="c_gm_r_j4_cap" class="col" type="mesh" mesh="gm_r_j4_cap" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
-              <geom name="gm_r_j4_sun" type="mesh" mesh="gm_r_j4_sun" material="m_accent" group="1" mass="0"/>
-              <geom name="c_gm_r_j4_sun" class="col" type="mesh" mesh="gm_r_j4_sun" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
-              <geom name="gm_r_j3_pins" type="mesh" mesh="gm_r_j3_pins" material="m_steel" group="2" mass="0"/>
-              <geom name="gm_r_j4_servo" type="mesh" mesh="gm_r_j4_servo" material="m_black" group="2" mass="0"/>
-              <geom name="gm_r_j4_servo_horn" type="mesh" mesh="gm_r_j4_servo_horn" material="m_white" group="2" mass="0"/>
-              <geom name="gm_r_j4_bearing" type="mesh" mesh="gm_r_j4_bearing" material="m_steel" group="2" mass="0"/>
-              <geom name="gm_r_j4_hall" type="mesh" mesh="gm_r_j4_hall" material="m_black" group="2" mass="0"/>
+              <geom name="j4_r" type="mesh" mesh="j4_r" material="m_alu" group="2" mass="0"/>
+              <geom name="j4_r_horn" type="mesh" mesh="j4_r_horn" material="m_steel" group="2" mass="0"/>
+              <geom name="j4_r_shaft" type="mesh" mesh="j4_r_shaft" material="m_steel" group="2" mass="0"/>
               <body name="r_link4" pos="0.00000 0.00000 -0.13900">
-                <joint name="r_elbow" type="hinge" axis="0 1 0" range="-2.35 0.0" damping="0.5" armature="0.1" frictionloss="0.35"/>
-                <inertial pos="-0.00000 -0.00220 -0.14051" mass="0.2262" fullinertia="0.00124887 0.0012354 9.06553e-05 -6.23911e-09 5.69205e-09 8.69681e-05"/>
+                <joint name="r_elbow" type="hinge" axis="0 1 0" range="-2.35 0.0" damping="0.08" armature="0.012" frictionloss="0.06"/>
+                <inertial pos="-0.00000 -0.00185 -0.15140" mass="0.2103" fullinertia="0.000895371 0.000879993 8.90602e-05 -6.26792e-09 6.63303e-09 7.41492e-05"/>
                 <geom name="elbow_r" type="mesh" mesh="elbow_r" material="m_frame" group="1" mass="0"/>
                 <geom name="c_elbow_r" class="col" type="mesh" mesh="elbow_r" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
                 <geom name="forearm_a_r" type="mesh" mesh="forearm_a_r" material="m_shell" group="1" mass="0"/>
                 <geom name="c_forearm_a_r" class="col" type="mesh" mesh="forearm_a_r" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
                 <geom name="forearm_b_r" type="mesh" mesh="forearm_b_r" material="m_shell" group="1" mass="0"/>
                 <geom name="c_forearm_b_r" class="col" type="mesh" mesh="forearm_b_r" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
-                <geom name="gm_r_j4_carrier" type="mesh" mesh="gm_r_j4_carrier" material="m_dark" group="1" mass="0"/>
-                <geom name="c_gm_r_j4_carrier" class="col" type="mesh" mesh="gm_r_j4_carrier" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
-                <geom name="gm_r_j4_carrier_back" type="mesh" mesh="gm_r_j4_carrier_back" material="m_dark" group="1" mass="0"/>
-                <geom name="c_gm_r_j4_carrier_back" class="col" type="mesh" mesh="gm_r_j4_carrier_back" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
-                <geom name="gm_r_j4_planet0" type="mesh" mesh="gm_r_j4_planet0" material="m_accent" group="1" mass="0"/>
-                <geom name="c_gm_r_j4_planet0" class="col" type="mesh" mesh="gm_r_j4_planet0" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
-                <geom name="gm_r_j4_planet1" type="mesh" mesh="gm_r_j4_planet1" material="m_accent" group="1" mass="0"/>
-                <geom name="c_gm_r_j4_planet1" class="col" type="mesh" mesh="gm_r_j4_planet1" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
-                <geom name="gm_r_j4_planet2" type="mesh" mesh="gm_r_j4_planet2" material="m_accent" group="1" mass="0"/>
-                <geom name="c_gm_r_j4_planet2" class="col" type="mesh" mesh="gm_r_j4_planet2" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
-                <geom name="gm_r_j4_pins" type="mesh" mesh="gm_r_j4_pins" material="m_steel" group="2" mass="0"/>
                 <geom name="j5_r" type="mesh" mesh="j5_r" material="m_alu" group="2" mass="0"/>
                 <geom name="j5_r_horn" type="mesh" mesh="j5_r_horn" material="m_white" group="2" mass="0"/>
                 <body name="r_link5" pos="0.00000 0.00000 -0.20000">
@@ -927,7 +694,7 @@
                   <geom name="j6_r_horn" type="mesh" mesh="j6_r_horn" material="m_white" group="2" mass="0"/>
                   <body name="r_link6" pos="0.00000 0.00000 -0.08500">
                     <joint name="r_wrist_roll" type="hinge" axis="0 0 -1" range="-2.8 2.8" damping="0.05" armature="0.004" frictionloss="0.03"/>
-                    <inertial pos="0.00422 -0.00000 -0.02935" mass="0.1245" fullinertia="8.70359e-05 7.28042e-05 9.91759e-05 -5.91888e-21 -1.17128e-05 3.57061e-20"/>
+                    <inertial pos="0.00422 -0.00000 -0.02935" mass="0.1245" fullinertia="8.70359e-05 7.28042e-05 9.91759e-05 -5.07009e-22 -1.17128e-05 -1.91767e-20"/>
                     <geom name="palm_r" type="mesh" mesh="palm_r" material="m_dark" group="1" mass="0"/>
                     <geom name="c_palm_r" class="col" type="mesh" mesh="palm_r" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
                     <geom name="pinion_r" type="mesh" mesh="pinion_r" material="m_frame" group="1" mass="0"/>
@@ -937,25 +704,25 @@
                     <geom name="wrist_cam_r" type="mesh" mesh="wrist_cam_r" material="m_pcb" group="2" mass="0"/>
                     <geom name="wrist_cam_r_holder" type="mesh" mesh="wrist_cam_r_holder" material="m_black" group="2" mass="0"/>
                     <geom name="wrist_cam_r_lens" type="mesh" mesh="wrist_cam_r_lens" material="m_lens" group="2" mass="0"/>
-                    <camera name="wrist_cam_r" pos="-0.0260 0.0000 -0.0498" xyaxes="0 -1 0 0.94 0 0.34" fovy="80"/>
+                    <camera name="wrist_cam_r" pos="-0.0260 0.0000 -0.0497" xyaxes="0 -1 0 0.94 0 0.34" fovy="80"/>
                     <site name="tcp_r" pos="0.0000 0.0000 -0.0950" size="0.006" rgba="1 0.3 0 1"/>
                     <body name="r_link7" pos="0.00000 0.00000 -0.05300">
                       <joint name="r_gripper" type="slide" axis="0 -1.0 0" range="0.0 0.04" damping="5.0" armature="0.4" frictionloss="0.8"/>
-                      <inertial pos="0.00390 -0.00244 -0.02486" mass="0.0125" fullinertia="7.03848e-06 6.37251e-06 2.74179e-06 -4.82909e-07 -1.32165e-06 -1.15807e-06"/>
-                      <geom name="finger_a_r" type="mesh" mesh="finger_a_r" material="m_dark" group="1" mass="0"/>
-                      <geom name="c_finger_a_r" class="col" type="box" pos="0.0035 -0.0070 -0.0367" size="0.0155 0.0040 0.0232" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
-                      <geom name="pad_a_r" type="mesh" mesh="pad_a_r" material="m_accent" group="1" mass="0"/>
-                      <geom name="c_pad_a_r" class="col" type="mesh" mesh="pad_a_r" contype="4" conaffinity="15" friction="1.5 0.02 0.002" mass="0"/>
-                      <site name="touch_a_r" type="box" pos="0.0000 -0.0015 -0.0380" size="0.0130 0.0045 0.0230" rgba="0 0 0 0"/>
+                      <inertial pos="0.00469 -0.00267 -0.02186" mass="0.0104" fullinertia="6.21929e-06 5.41563e-06 2.60342e-06 -4.94571e-07 -1.17701e-06 -1.18213e-06"/>
+                      <geom name="rack_a_r" type="mesh" mesh="rack_a_r" material="m_dark" group="1" mass="0"/>
+                      <geom name="c_rack_a_r" class="col" type="mesh" mesh="rack_a_r" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
+                      <geom name="finger_a_r" type="mesh" mesh="finger_a_r" material="m_accent" group="1" mass="0"/>
+                      <geom name="c_finger_a_r" class="col" type="box" pos="0.0000 -0.0070 -0.0363" size="0.0120 0.0040 0.0238" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
+                      <site name="touch_a_r" type="box" pos="0.0000 -0.0070 -0.0362" size="0.0130 0.0070 0.0248" rgba="0 0 0 0"/>
                     </body>
                     <body name="r_link8" pos="0.00000 0.00000 -0.05300">
                       <joint name="r_gripper_b" type="slide" axis="0 1.0 0" range="0.0 0.04" damping="5.0" armature="0.4" frictionloss="0.8"/>
-                      <inertial pos="-0.00390 0.00244 -0.02486" mass="0.0125" fullinertia="7.03848e-06 6.37251e-06 2.74179e-06 -4.82909e-07 1.32165e-06 1.15807e-06"/>
-                      <geom name="finger_b_r" type="mesh" mesh="finger_b_r" material="m_dark" group="1" mass="0"/>
-                      <geom name="c_finger_b_r" class="col" type="box" pos="-0.0035 0.0070 -0.0367" size="0.0155 0.0040 0.0232" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
-                      <geom name="pad_b_r" type="mesh" mesh="pad_b_r" material="m_accent" group="1" mass="0"/>
-                      <geom name="c_pad_b_r" class="col" type="mesh" mesh="pad_b_r" contype="4" conaffinity="15" friction="1.5 0.02 0.002" mass="0"/>
-                      <site name="touch_b_r" type="box" pos="0.0000 0.0015 -0.0380" size="0.0130 0.0045 0.0230" rgba="0 0 0 0"/>
+                      <inertial pos="-0.00464 0.00266 -0.02202" mass="0.0105" fullinertia="6.25918e-06 5.46382e-06 2.6091e-06 -4.94293e-07 1.18472e-06 1.18088e-06"/>
+                      <geom name="rack_b_r" type="mesh" mesh="rack_b_r" material="m_dark" group="1" mass="0"/>
+                      <geom name="c_rack_b_r" class="col" type="mesh" mesh="rack_b_r" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
+                      <geom name="finger_b_r" type="mesh" mesh="finger_b_r" material="m_accent" group="1" mass="0"/>
+                      <geom name="c_finger_b_r" class="col" type="box" pos="0.0000 0.0070 -0.0363" size="0.0120 0.0040 0.0238" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
+                      <site name="touch_b_r" type="box" pos="0.0000 0.0070 -0.0362" size="0.0130 0.0070 0.0248" rgba="0 0 0 0"/>
                     </body>
                   </body>
                 </body>
@@ -963,6 +730,21 @@
             </body>
           </body>
         </body>
+      </body>
+      <body name="lift_mid" pos="-0.03000 0.00000 0.00000">
+        <joint name="lift_mid" type="slide" axis="0 0 1" range="0.0 0.325" damping="0" armature="0" frictionloss="0"/>
+        <inertial pos="0.00000 -0.00000 0.28893" mass="0.5630" fullinertia="0.0123383 0.0122711 0.000837537 -4.93624e-21 -2.21619e-12 -2.72889e-18"/>
+        <geom name="col_mid_0" type="mesh" mesh="col_mid_0" material="m_shell" group="1" mass="0"/>
+        <geom name="c_col_mid_0" class="col" type="mesh" mesh="col_mid_0" contype="2" conaffinity="13" friction="0.8 0.01 0.001" mass="0"/>
+        <geom name="col_mid_1" type="mesh" mesh="col_mid_1" material="m_shell" group="1" mass="0"/>
+        <geom name="c_col_mid_1" class="col" type="mesh" mesh="col_mid_1" contype="2" conaffinity="13" friction="0.8 0.01 0.001" mass="0"/>
+        <geom name="col_mid_2" type="mesh" mesh="col_mid_2" material="m_shell" group="1" mass="0"/>
+        <geom name="c_col_mid_2" class="col" type="mesh" mesh="col_mid_2" contype="2" conaffinity="13" friction="0.8 0.01 0.001" mass="0"/>
+        <geom name="t8_nut" type="mesh" mesh="t8_nut" material="m_brass" group="2" mass="0"/>
+        <geom name="gt2_pulley_l" type="mesh" mesh="gt2_pulley_l" material="m_alu" group="2" mass="0"/>
+        <geom name="gt2_belt_l" type="mesh" mesh="gt2_belt_l" material="m_black" group="2" mass="0"/>
+        <geom name="gt2_pulley_r" type="mesh" mesh="gt2_pulley_r" material="m_alu" group="2" mass="0"/>
+        <geom name="gt2_belt_r" type="mesh" mesh="gt2_belt_r" material="m_black" group="2" mass="0"/>
       </body>
       <body name="wheel_l" pos="0.00000 0.18500 0.05035">
         <joint name="wheel_l" type="hinge" axis="0 1 0" damping="0.01" armature="0.004" frictionloss="0.02"/>
@@ -984,6 +766,8 @@
   </worldbody>
   <contact>
     <exclude body1="base" body2="lift"/>
+    <exclude body1="base" body2="lift_mid"/>
+    <exclude body1="lift_mid" body2="lift"/>
     <exclude body1="lift" body2="head_tilt"/>
     <exclude body1="lift" body2="l_link2"/>
     <exclude body1="l_link5" body2="l_link7"/>
@@ -995,24 +779,25 @@
     <exclude body1="r_link7" body2="r_link8"/>
   </contact>
   <equality>
-    <joint joint1="l_gripper_b" joint2="l_gripper" polycoef="0 1 0 0 0" solref="0.005 1"/>
-    <joint joint1="r_gripper_b" joint2="r_gripper" polycoef="0 1 0 0 0" solref="0.005 1"/>
+    <joint joint1="l_gripper_b" joint2="l_gripper" polycoef="0 1.0 0 0 0" solref="0.005 1"/>
+    <joint joint1="r_gripper_b" joint2="r_gripper" polycoef="0 1.0 0 0 0" solref="0.005 1"/>
+    <joint joint1="lift_mid" joint2="lift" polycoef="0 0.5 0 0 0" solref="0.005 1"/>
   </equality>
   <actuator>
     <position name="lift" joint="lift" kp="60000.0" kv="9000.0" ctrlrange="0.0 0.65" forcerange="-380.0 380.0"/>
-    <position name="head_pan" joint="head_pan" kp="40.0" kv="0.6" ctrlrange="-0.6 0.6" forcerange="-2.94 2.94"/>
-    <position name="head_tilt" joint="head_tilt" kp="40.0" kv="0.6" ctrlrange="-0.35 0.55" forcerange="-2.94 2.94"/>
-    <position name="l_shoulder_pitch" joint="l_shoulder_pitch" kp="160.0" kv="6.0" ctrlrange="-3.1 1.0" forcerange="-20.8 20.8"/>
-    <position name="l_shoulder_roll" joint="l_shoulder_roll" kp="160.0" kv="6.0" ctrlrange="-0.2 1.75" forcerange="-20.8 20.8"/>
-    <position name="l_upper_arm_yaw" joint="l_upper_arm_yaw" kp="120.0" kv="5.0" ctrlrange="-1.6 1.6" forcerange="-12.5 12.5"/>
-    <position name="l_elbow" joint="l_elbow" kp="120.0" kv="5.0" ctrlrange="-2.35 0.0" forcerange="-12.5 12.5"/>
+    <position name="head_pan" joint="head_pan" kp="40.0" kv="0.6" ctrlrange="-0.8 0.8" forcerange="-2.94 2.94"/>
+    <position name="head_tilt" joint="head_tilt" kp="40.0" kv="0.6" ctrlrange="-0.45 0.55" forcerange="-2.94 2.94"/>
+    <position name="l_shoulder_pitch" joint="l_shoulder_pitch" kp="80.0" kv="1.2" ctrlrange="-3.1 1.0" forcerange="-9.32 9.32"/>
+    <position name="l_shoulder_roll" joint="l_shoulder_roll" kp="80.0" kv="1.2" ctrlrange="-0.2 1.75" forcerange="-9.32 9.32"/>
+    <position name="l_upper_arm_yaw" joint="l_upper_arm_yaw" kp="60.0" kv="0.8" ctrlrange="-1.6 1.6" forcerange="-4.9 4.9"/>
+    <position name="l_elbow" joint="l_elbow" kp="80.0" kv="1.2" ctrlrange="-2.35 0.0" forcerange="-9.32 9.32"/>
     <position name="l_wrist_pitch" joint="l_wrist_pitch" kp="60.0" kv="0.8" ctrlrange="-2.3 2.3" forcerange="-4.9 4.9"/>
     <position name="l_wrist_roll" joint="l_wrist_roll" kp="40.0" kv="0.6" ctrlrange="-2.8 2.8" forcerange="-2.94 2.94"/>
     <position name="l_gripper" joint="l_gripper" kp="2500.0" kv="60.0" ctrlrange="0.0 0.04" forcerange="-40.0 40.0"/>
-    <position name="r_shoulder_pitch" joint="r_shoulder_pitch" kp="160.0" kv="6.0" ctrlrange="-3.1 1.0" forcerange="-20.8 20.8"/>
-    <position name="r_shoulder_roll" joint="r_shoulder_roll" kp="160.0" kv="6.0" ctrlrange="-0.2 1.75" forcerange="-20.8 20.8"/>
-    <position name="r_upper_arm_yaw" joint="r_upper_arm_yaw" kp="120.0" kv="5.0" ctrlrange="-1.6 1.6" forcerange="-12.5 12.5"/>
-    <position name="r_elbow" joint="r_elbow" kp="120.0" kv="5.0" ctrlrange="-2.35 0.0" forcerange="-12.5 12.5"/>
+    <position name="r_shoulder_pitch" joint="r_shoulder_pitch" kp="80.0" kv="1.2" ctrlrange="-3.1 1.0" forcerange="-9.32 9.32"/>
+    <position name="r_shoulder_roll" joint="r_shoulder_roll" kp="80.0" kv="1.2" ctrlrange="-0.2 1.75" forcerange="-9.32 9.32"/>
+    <position name="r_upper_arm_yaw" joint="r_upper_arm_yaw" kp="60.0" kv="0.8" ctrlrange="-1.6 1.6" forcerange="-4.9 4.9"/>
+    <position name="r_elbow" joint="r_elbow" kp="80.0" kv="1.2" ctrlrange="-2.35 0.0" forcerange="-9.32 9.32"/>
     <position name="r_wrist_pitch" joint="r_wrist_pitch" kp="60.0" kv="0.8" ctrlrange="-2.3 2.3" forcerange="-4.9 4.9"/>
     <position name="r_wrist_roll" joint="r_wrist_roll" kp="40.0" kv="0.6" ctrlrange="-2.8 2.8" forcerange="-2.94 2.94"/>
     <position name="r_gripper" joint="r_gripper" kp="2500.0" kv="60.0" ctrlrange="0.0 0.04" forcerange="-40.0 40.0"/>
@@ -1043,17 +828,18 @@
     <touch name="touch_a_r" site="touch_a_r"/>
     <jointpos name="q_r_gripper_b" joint="r_gripper_b"/>
     <touch name="touch_b_r" site="touch_b_r"/>
+    <jointpos name="q_lift_mid" joint="lift_mid"/>
     <jointpos name="q_wheel_l" joint="wheel_l"/>
     <jointpos name="q_wheel_r" joint="wheel_r"/>
     <accelerometer name="imu_acc" site="imu"/>
     <gyro name="imu_gyro" site="imu"/>
   </sensor>
   <keyframe>
-    <key name="zero" qpos="0 0 0.002 1 0 0 0 0.4 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0" ctrl="0.4 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0"/>
-    <key name="home" qpos="0 0 0.002 1 0 0 0 0.1 0 0.25 -0.35 0.1 0 -1.55 0.35 0 0.012 0 -0.35 0.1 0 -1.55 0.35 0 0.012 0 0 0" ctrl="0.1 0 0.25 -0.35 0.1 0 -1.55 0.35 0 0.012 -0.35 0.1 0 -1.55 0.35 0 0.012 0 0"/>
-    <key name="counter" qpos="0 0 0.002 1 0 0 0 0.35 0 0.55 -1.492 -0.008 -0.015 -1.403 1.894 0.016 0.03 0 -1.492 -0.008 -0.015 -1.403 1.894 0.016 0.03 0 0 0" ctrl="0.35 0 0.55 -1.492 -0.008 -0.015 -1.403 1.894 0.016 0.03 -1.492 -0.008 -0.015 -1.403 1.894 0.016 0.03 0 0"/>
-    <key name="floor" qpos="0 0 0.002 1 0 0 0 0 0 0.55 -0.278 0.006 0.019 -0.879 1.156 -0.02 0.03 0 -0.278 0.006 0.019 -0.879 1.156 -0.02 0.03 0 0 0" ctrl="0 0 0.55 -0.278 0.006 0.019 -0.879 1.156 -0.02 0.03 -0.278 0.006 0.019 -0.879 1.156 -0.02 0.03 0 0"/>
-    <key name="shelf" qpos="0 0 0.002 1 0 0 0 0.65 0 -0.35 -2.614 0.011 0.004 -0.472 1.682 -0.012 0.03 0 -2.614 0.011 0.004 -0.472 1.682 -0.012 0.03 0 0 0" ctrl="0.65 0 -0.35 -2.614 0.011 0.004 -0.472 1.682 -0.012 0.03 -2.614 0.011 0.004 -0.472 1.682 -0.012 0.03 0 0"/>
-    <key name="wave" qpos="0 0 0.002 1 0 0 0 0.3 0.35 0.25 -0.25 1.45 0 -1.4 0 0 0.012 0 -0.35 0.1 0 -1.55 0.35 0 0.012 0 0 0" ctrl="0.3 0.35 0.25 -0.25 1.45 0 -1.4 0 0 0.012 -0.35 0.1 0 -1.55 0.35 0 0.012 0 0"/>
+    <key name="zero" qpos="0 0 0.002 1 0 0 0 0.4 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0" ctrl="0.4 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0"/>
+    <key name="home" qpos="0 0 0.002 1 0 0 0 0.1 0 0.25 -0.35 0.1 0 -1.55 0.35 0 0.012 0 -0.35 0.1 0 -1.55 0.35 0 0.012 0 0 0 0" ctrl="0.1 0 0.25 -0.35 0.1 0 -1.55 0.35 0 0.012 -0.35 0.1 0 -1.55 0.35 0 0.012 0 0"/>
+    <key name="counter" qpos="0 0 0.002 1 0 0 0 0.35 0 0.55 -1.492 -0.008 -0.015 -1.403 1.894 0.016 0.03 0 -1.492 -0.008 -0.015 -1.403 1.894 0.016 0.03 0 0 0 0" ctrl="0.35 0 0.55 -1.492 -0.008 -0.015 -1.403 1.894 0.016 0.03 -1.492 -0.008 -0.015 -1.403 1.894 0.016 0.03 0 0"/>
+    <key name="floor" qpos="0 0 0.002 1 0 0 0 0 0 0.55 -0.278 0.006 0.019 -0.879 1.156 -0.02 0.03 0 -0.278 0.006 0.019 -0.879 1.156 -0.02 0.03 0 0 0 0" ctrl="0 0 0.55 -0.278 0.006 0.019 -0.879 1.156 -0.02 0.03 -0.278 0.006 0.019 -0.879 1.156 -0.02 0.03 0 0"/>
+    <key name="shelf" qpos="0 0 0.002 1 0 0 0 0.65 0 -0.35 -2.614 0.011 0.004 -0.472 1.682 -0.012 0.03 0 -2.614 0.011 0.004 -0.472 1.682 -0.012 0.03 0 0 0 0" ctrl="0.65 0 -0.35 -2.614 0.011 0.004 -0.472 1.682 -0.012 0.03 -2.614 0.011 0.004 -0.472 1.682 -0.012 0.03 0 0"/>
+    <key name="wave" qpos="0 0 0.002 1 0 0 0 0.3 0.35 0.25 -0.25 1.45 0 -1.4 0 0 0.012 0 -0.35 0.1 0 -1.55 0.35 0 0.012 0 0 0 0" ctrl="0.3 0.35 0.25 -0.25 1.45 0 -1.4 0 0 0.012 -0.35 0.1 0 -1.55 0.35 0 0.012 0 0"/>
   </keyframe>
 </mujoco>

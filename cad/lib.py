@@ -68,7 +68,8 @@ class Joint:
     range: tuple
     actuator: str = ""  # BOM key of the motor
     gear: dict = field(default_factory=dict)
-    mimic: str = ""  # follows this joint 1:1 (the second gripper finger)
+    mimic: str = ""  # follows this joint (the second gripper finger, the column mid stage)
+    mimic_coef: float = 1.0  # child = coef * mimic; 0.5 for the cascade middle tube
 
 
 # ---------------------------------------------------------------- primitives

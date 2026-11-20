@@ -75,24 +75,42 @@ STS_H = 35.0
 STS_SHAFT_FROM_END = 11.5  # shaft centre from the near end along L. VERIFY
 STS_HORN_D = 22.0  # VERIFY with the horn in the box
 STS_HORN_PCD = 14.0  # VERIFY
+STS_HOLE_L = 51.0  # tab hole spacing along L. VERIFY
+STS_HOLE_W = 10.0  # tab hole spacing across W. VERIFY
 STS_MASS = 55.0
 STS_TAU_STALL = 2.94  # N·m at 12 V
 STS_TAU_RATED = 0.98
+# Feetech STS3250 C001: same 45 x 25 x 35 case as the 3215, 75 g, 50 kg·cm stall.
+STS3250_MASS = 75.0
+STS3250_TAU_STALL = 4.9
+STS3250_TAU_RATED = 1.57
+# Feetech STS3095 C002 (12 V). A=30 B=65 C=48 mm, 194.5 g, 15T dual shaft OD 7.6.
+# Nori A3 uses this grade on the gravity joints. VERIFY holes and shaft-from-end
+# on the part; only the printed cups reprint if a number is wrong.
+STS3095_L = 65.0
+STS3095_W = 30.0
+STS3095_H = 48.0
+STS3095_SHAFT_FROM_END = 16.5  # VERIFY
+STS3095_HORN_D = 24.0  # VERIFY with the 15T horn in the box
+STS3095_HORN_PCD = 18.0  # VERIFY, 4 x M3
+STS3095_SPLINE_D = 7.6
+STS3095_HOLE_L = 56.0  # tab hole spacing along L. VERIFY
+STS3095_HOLE_W = 20.0  # across W. VERIFY
+STS3095_MASS = 194.5
+STS3095_TAU_STALL = 9.32  # 95 kg·cm
+STS3095_TAU_RATED = 2.21  # 22.5 kg·cm
 
-# NEMA 17 48 mm for the lift. TR8x2 leadscrew 900 mm. 12 mm rods 1000 mm, LM12UU.
+# NEMA 17 48 mm in the base, turning a TR8×2 that drives the middle stage.
 NEMA_SIZE = 42.3
 NEMA_LEN = 48.0
 NEMA_BOLT = 31.0
 NEMA_PILOT = 22.2
 NEMA_MASS = 360.0
 NEMA_HOLD = 0.55  # N·m holding torque, 17HS19-2004S1
-ROD_D = 12.0
-ROD_HOLE = 12.3
-LM12_OD = 21.0
-LM12_LEN = 30.0
 T8_FLANGE = 22.0
 T8_PCD = 16.0
 T8_LEAD = 2.0
+T8_D = 8.0
 
 # Electronics envelopes (bought). MEASURE the battery.
 BATT = (80.0, 200.0, 70.0)  # x, y, z. The 36 V 10S2P hoverboard pack Bob v2 already has. MEASURE yours.
@@ -114,7 +132,7 @@ BASE_R = 240.0  # plan corner radius (half the width: a circle)
 BASE_TOP = 212.0  # top surface of the shell
 BASE_WALL = 3.0
 SHELL_BOTTOM = 30.0
-GRID_X = (-100.0, 87.0)  # tile cut lines, shell and pan. Clear of the mast hole.
+GRID_X = (-100.0, 87.0)  # tile cut lines, shell and pan. Clear of the column well.
 GRID_Y = (-90.0, 90.0)
 
 PAN_INSET = 8.0  # pan outline sits this far inside the shell
@@ -138,33 +156,54 @@ LIDAR_X = 185.0  # on the front caster bridge
 LIDAR_Z0 = 108.0  # bottom of the lidar
 LIDAR_SCAN_Z = 134.0  # optical plane, roughly
 
-# ---------------------------------------------------------------- mast / lift
-MAST_X = -30.0  # mast centre
-MAST_DX = 92.0  # depth (x)
-MAST_DY = 120.0  # width (y)
-MAST_R = 34.0
-MAST_WALL = 4.0
-MAST_SLOT = 60.0  # front slot width the carriage tongue rides in
-ROD_X = MAST_X - 12.0
-ROD_Y = 36.0
-SCREW_X = ROD_X
-MAST_Z0 = PAN_TOP
-MAST_TOP = 1035.0  # top of the segment stack, bottom of the cap
-CAP_H = 92.0
-ROD_Z0 = MAST_Z0 + 6.0
-ROD_LEN = 1000.0
-SCREW_LEN = 900.0
-SCREW_Z1 = 1060.0  # top end of the screw, inside the coupler
-NEMA_FACE_Z = 1070.0  # motor face, pointing down, body above
+# ---------------------------------------------------------------- telescoping column (Nori A3 / Sunday Memo style)
+# Three nested rounded-square tubes. Outer is bolted to the pan. A NEMA 17 in
+# the base turns a short TR8×2 that drives the middle tube. A GT2 cascade on
+# each side makes the inner tube travel twice as far, so the torso rises 650 mm
+# while the nested stack is only ~500 mm tall. No exposed mast, no 1 m rods.
+COL_X = -30.0
+COL_WALL = 4.0
+COL_PAD = 2.0  # slide pad thickness in the gap between tubes (5 mm gap, pads on both sides)
+COL_OUTER_D = 100.0  # rounded-square outside
+COL_OUTER_R = 32.0
+COL_MID_D = 82.0
+COL_MID_R = 24.0
+COL_INNER_D = 64.0
+COL_INNER_R = 16.0
+COL_Z0 = PAN_TOP  # outer sits on the pan
+COL_MID_Z0 = COL_Z0 + 8.0  # middle tube sits on the motor pedestal, not on the pan
+COL_OUTER_LEN = 504.0  # 3 × 168 mm prints
+COL_INNER_LEN = 420.0  # 3 × 140 mm prints; top sits above the outer tube so the cap lip clears it
+COL_INNER_Z0 = 140.0  # above the motor / coupler / nut
+STAGE_TRAVEL = 325.0  # middle tube travel; inner travels 2× this
+LIFT_TRAVEL = 2 * STAGE_TRAVEL  # 650 mm, same workspace as the old leadscrew
+COL_OVERLAP = COL_OUTER_LEN - STAGE_TRAVEL  # 179 mm at full stretch
 
-LIFT_TRAVEL = 650.0
-SHOULDER_Z0 = 520.0  # shoulder axis at lift = 0
-CARRIAGE_BELOW = 300.0  # carriage bottom, below the shoulder axis
-CARRIAGE_H = 150.0
-BEARING_SPAN = 110.0  # lower to upper LM12UU centres
+# Motor stands on the pan inside the outer tube, shaft up.
+NEMA_PEDESTAL = 8.0
+NEMA_FACE_Z = COL_Z0 + NEMA_PEDESTAL + NEMA_LEN  # 93 mm, shaft points +z
+COUPLER_H = 25.0
+SCREW_X = COL_X
+SCREW_Z0 = NEMA_FACE_Z + 2.0
+SCREW_LEN = STAGE_TRAVEL + 80.0  # 405 mm, cut from a 500 mm TR8×2
+NUT_Z = COL_INNER_Z0 - 18.0  # T8 nut on the middle tube, just under the inner
+
+SHOULDER_Z0 = COL_INNER_Z0 + COL_INNER_LEN + 22.0  # inner cap is the torso mount
+COL_TOP0 = COL_Z0 + COL_OUTER_LEN  # outer/mid top at lift = 0
+COL_INNER_TOP0 = COL_INNER_Z0 + COL_INNER_LEN
+
+# Viewer / leftover aliases. The old mast is gone; these keep base.py hole math
+# and the "Mast" layer name working.
+MAST_X = COL_X
+MAST_DX = COL_OUTER_D
+MAST_DY = COL_OUTER_D
+MAST_R = COL_OUTER_R
+MAST_WALL = COL_WALL
+MAST_Z0 = COL_Z0
+MAST_TOP = COL_TOP0
 
 # ---------------------------------------------------------------- torso (relative to the shoulder axis in z)
-TORSO_X0 = MAST_X + MAST_DX / 2 + 6.0  # back face, 6 mm in front of the mast
+TORSO_X0 = COL_X + COL_OUTER_D / 2 + 8.0  # back face, just in front of the column
 TORSO_D = 150.0
 TORSO_HW = 120.0  # half width
 TORSO_BELOW = 200.0
@@ -192,14 +231,14 @@ HEAD_W = 176.0
 HEAD_D = 120.0
 HEAD_H = 144.0
 HEAD_CZ = 168.0
-HEAD_CX = SHOULDER_X + 18.0  # head centre, ahead of the neck so it clears the mast
+HEAD_CX = SHOULDER_X + 18.0  # head centre, ahead of the neck
 NECK_X = SHOULDER_X - 4.0  # pan axis
 
 # ---------------------------------------------------------------- joints, rad (lift in m)
 LIMITS = {
     "lift": (0.0, LIFT_TRAVEL / 1000.0),
-    "head_pan": (-0.6, 0.6),  # below 0.51 m of lift, wider and the head's back corners reach the mast
-    "head_tilt": (-0.35, 0.55),  # positive looks down; the chin meets the torso top past 0.55, the back meets the mast past -0.35
+    "head_pan": (-0.8, 0.8),  # column is under the torso, so the head no longer hits a mast
+    "head_tilt": (-0.45, 0.55),  # positive looks down; the chin meets the torso top past 0.55
     "shoulder_pitch": (-3.1, 1.0),  # negative swings the arm forward and up
     "shoulder_roll": (-0.20, 1.75),  # positive raises the arm out to the side
     "upper_arm_yaw": (-1.6, 1.6),
@@ -214,33 +253,45 @@ def shoulder_z(lift_mm: float = 0.0) -> float:
     return SHOULDER_Z0 + lift_mm
 
 
-def mast_segments() -> list[tuple[float, float]]:
-    """Segment z ranges from the pan to the cap. No piece taller than the bed."""
-    h = MAST_TOP - MAST_Z0
-    n = math.ceil(h / (BED_Z - 20.0))
-    step = h / n
-    return [(MAST_Z0 + i * step, MAST_Z0 + (i + 1) * step) for i in range(n)]
+def col_segments(z0: float, length: float) -> list[tuple[float, float]]:
+    """Stack of prints for one tube. No piece taller than the bed."""
+    n = max(1, math.ceil(length / (BED_Z - 4.0)))
+    step = length / n
+    return [(z0 + i * step, z0 + (i + 1) * step) for i in range(n)]
 
 
 def check() -> None:
     errs = []
-    if ROD_Y - ROD_D / 2 - NEMA_SIZE / 2 < 3:
-        errs.append("rods hit the NEMA 17")
-    if ROD_Y + LM12_OD / 2 + 5 > MAST_DY / 2 - MAST_WALL:
-        errs.append("bearing housings hit the mast wall")
-    car_top_max = SHOULDER_Z0 + LIFT_TRAVEL - CARRIAGE_BELOW + CARRIAGE_H
-    if car_top_max > MAST_TOP - 10:
-        errs.append(f"carriage top {car_top_max} runs into the cap")
-    if SHOULDER_Z0 - CARRIAGE_BELOW < SCREW_Z1 - SCREW_LEN + 30:
-        errs.append("carriage nut runs off the bottom of the screw")
+    gap_om = (COL_OUTER_D - 2 * COL_WALL - COL_MID_D) / 2
+    gap_mi = (COL_MID_D - 2 * COL_WALL - COL_INNER_D) / 2
+    if gap_om < COL_PAD + 1.0:
+        errs.append(f"outer/mid pad gap {gap_om:.1f} mm")
+    if gap_mi < COL_PAD + 1.0:
+        errs.append(f"mid/inner pad gap {gap_mi:.1f} mm")
+    if abs(COL_MID_Z0 - (NEMA_FACE_Z - NEMA_LEN)) > 0.1:
+        errs.append("middle tube does not sit on the motor pedestal")
+    if NEMA_SIZE + 8 > COL_OUTER_D - 2 * COL_WALL:
+        errs.append("NEMA 17 does not fit inside the outer tube")
+    if NUT_Z < SCREW_Z0 + 10:
+        errs.append("T8 nut sits on the coupler")
+    if NUT_Z + STAGE_TRAVEL > SCREW_Z0 + SCREW_LEN - 20:
+        errs.append("T8 nut runs off the screw at the top")
+    inner_top = COL_INNER_Z0 + COL_INNER_LEN
+    mid_top = COL_Z0 + COL_OUTER_LEN
+    if inner_top < mid_top - 30:
+        errs.append("inner tube is buried in the middle tube at lift = 0")
+    overlap_up = (COL_Z0 + COL_OUTER_LEN + STAGE_TRAVEL) - (COL_INNER_Z0 + LIFT_TRAVEL)
+    if overlap_up < 60:
+        errs.append(f"inner/mid overlap at full stretch is {overlap_up:.0f} mm")
     if SHOULDER_Z0 - TORSO_BELOW < BASE_TOP + 40:
         errs.append("torso hits the base at the bottom of travel")
-    if ROD_Z0 + ROD_LEN > MAST_TOP + CAP_H - 20:
-        errs.append("rods poke through the cap")
     if WHEEL_Y + WHEEL_W / 2 > BASE_W / 2 - 4:
         errs.append("tire rubs the shell")
-    if any(b - a > BED_Z for a, b in mast_segments()):
-        errs.append("mast segment too tall")
+    for z0, z1 in col_segments(COL_Z0, COL_OUTER_LEN) + col_segments(COL_INNER_Z0, COL_INNER_LEN):
+        if z1 - z0 > BED_Z:
+            errs.append("column segment too tall")
+    if TORSO_X0 < COL_X + COL_OUTER_D / 2 + 4:
+        errs.append("torso back sits inside the column")
     if errs:
         raise ValueError("; ".join(errs))
 

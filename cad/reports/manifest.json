@@ -7,10 +7,10 @@
  ],
  "density_g_cm3": 1.27,
  "fill": 0.55,
- "unique_prints": 93,
- "total_prints": 210,
- "print_mass_g": 6256.0,
- "robot_mass_g": 14230.0,
+ "unique_prints": 89,
+ "total_prints": 150,
+ "print_mass_g": 5698.0,
+ "robot_mass_g": 12070.0,
  "parts": [
   {
    "name": "base_shell_rear_r",
@@ -129,8 +129,8 @@
     180.0,
     12.0
    ],
-   "volume_cm3": 71.3,
-   "grams": 49.8
+   "volume_cm3": 74.3,
+   "grams": 51.9
   },
   {
    "name": "base_shell_mid_l",
@@ -307,7 +307,7 @@
    "link": "base",
    "material": "PETG",
    "color": "frame",
-   "support_cm2": 0.6,
+   "support_cm2": 0.7,
    "walls": 4,
    "infill": 20,
    "note": "Structure. Skin down on the bed, ribs up. 4 walls.",
@@ -321,8 +321,8 @@
     134.6,
     15.0
    ],
-   "volume_cm3": 115.0,
-   "grams": 80.4
+   "volume_cm3": 115.6,
+   "grams": 80.8
   },
   {
    "name": "base_pan_mid_c",
@@ -331,7 +331,7 @@
    "link": "base",
    "material": "PETG",
    "color": "frame",
-   "support_cm2": 0.8,
+   "support_cm2": 1.0,
    "walls": 4,
    "infill": 20,
    "note": "Structure. Skin down on the bed, ribs up. 4 walls.",
@@ -345,8 +345,8 @@
     180.0,
     15.0
    ],
-   "volume_cm3": 194.1,
-   "grams": 135.6
+   "volume_cm3": 195.0,
+   "grams": 136.2
   },
   {
    "name": "base_pan_mid_l",
@@ -355,7 +355,7 @@
    "link": "base",
    "material": "PETG",
    "color": "frame",
-   "support_cm2": 0.6,
+   "support_cm2": 0.7,
    "walls": 4,
    "infill": 20,
    "note": "Structure. Skin down on the bed, ribs up. 4 walls.",
@@ -369,8 +369,8 @@
     134.6,
     15.0
    ],
-   "volume_cm3": 115.0,
-   "grams": 80.4
+   "volume_cm3": 115.6,
+   "grams": 80.8
   },
   {
    "name": "base_pan_front_r",
@@ -805,87 +805,183 @@
    "grams": 56.7
   },
   {
-   "name": "mast_0",
+   "name": "col_outer_0",
    "qty": 1,
    "group": "mast",
    "link": "base",
    "material": "PETG",
    "color": "shell",
-   "support_cm2": 17.3,
-   "walls": 4,
-   "infill": 20,
-   "note": "Foot flange, rod sockets, screw bushing, homing pad.",
+   "support_cm2": 3.1,
+   "walls": 5,
+   "infill": 30,
+   "note": "Foot flange, motor pedestal, homing pad.",
    "rot_deg": [
     0,
     0,
     0
    ],
    "bed_mm": [
-    120.0,
-    148.0,
-    166.3
+    124.0,
+    124.0,
+    168.0
    ],
-   "volume_cm3": 294.5,
-   "grams": 205.7
+   "volume_cm3": 303.7,
+   "grams": 212.2
   },
   {
-   "name": "mast_1",
+   "name": "col_outer_1",
    "qty": 1,
    "group": "mast",
    "link": "base",
+   "material": "PETG",
+   "color": "shell",
+   "support_cm2": 2.4,
+   "walls": 5,
+   "infill": 30,
+   "note": "Prints standing. Inserts in the top bosses.",
+   "rot_deg": [
+    0,
+    0,
+    0
+   ],
+   "bed_mm": [
+    100.6,
+    100.6,
+    168.0
+   ],
+   "volume_cm3": 225.2,
+   "grams": 157.3
+  },
+  {
+   "name": "col_outer_2",
+   "qty": 1,
+   "group": "mast",
+   "link": "base",
+   "material": "PETG",
+   "color": "shell",
+   "support_cm2": 4.4,
+   "walls": 5,
+   "infill": 30,
+   "note": "Top of the outer tube. Slide pads and belt anchors.",
+   "rot_deg": [
+    0,
+    0,
+    0
+   ],
+   "bed_mm": [
+    100.6,
+    108.0,
+    168.0
+   ],
+   "volume_cm3": 230.2,
+   "grams": 160.8
+  },
+  {
+   "name": "col_mid_0",
+   "qty": 1,
+   "group": "mast",
+   "link": "lift_mid",
+   "material": "PETG",
+   "color": "shell",
+   "support_cm2": 24.8,
+   "walls": 5,
+   "infill": 30,
+   "note": "T8 nut pocket and outer slide pads.",
+   "rot_deg": [
+    0,
+    0,
+    0
+   ],
+   "bed_mm": [
+    86.0,
+    86.0,
+    168.0
+   ],
+   "volume_cm3": 215.8,
+   "grams": 150.7
+  },
+  {
+   "name": "col_mid_1",
+   "qty": 1,
+   "group": "mast",
+   "link": "lift_mid",
+   "material": "PETG",
+   "color": "shell",
+   "support_cm2": 2.4,
+   "walls": 5,
+   "infill": 30,
+   "note": "Prints standing. Inserts in the top bosses.",
+   "rot_deg": [
+    0,
+    0,
+    0
+   ],
+   "bed_mm": [
+    82.6,
+    82.6,
+    168.0
+   ],
+   "volume_cm3": 186.0,
+   "grams": 129.9
+  },
+  {
+   "name": "col_mid_2",
+   "qty": 1,
+   "group": "mast",
+   "link": "lift_mid",
    "material": "PETG",
    "color": "shell",
    "support_cm2": 3.4,
-   "walls": 4,
-   "infill": 20,
-   "note": "Prints standing. Inserts in the top bosses.",
+   "walls": 5,
+   "infill": 30,
+   "note": "Pulleys and inner slide pads.",
    "rot_deg": [
     0,
     0,
     0
    ],
    "bed_mm": [
-    91.8,
-    120.0,
-    166.3
+    82.6,
+    82.6,
+    168.0
    ],
-   "volume_cm3": 200.8,
-   "grams": 140.3
+   "volume_cm3": 189.6,
+   "grams": 132.4
   },
   {
-   "name": "mast_2",
+   "name": "col_inner_0",
    "qty": 1,
    "group": "mast",
-   "link": "base",
+   "link": "lift",
    "material": "PETG",
    "color": "shell",
-   "support_cm2": 3.4,
-   "walls": 4,
-   "infill": 20,
-   "note": "Prints standing. Inserts in the top bosses.",
+   "support_cm2": 4.0,
+   "walls": 5,
+   "infill": 30,
+   "note": "Belt clamps and outer slide pads.",
    "rot_deg": [
     0,
     0,
     0
    ],
    "bed_mm": [
-    91.8,
-    120.0,
-    166.3
+    68.0,
+    70.0,
+    140.0
    ],
-   "volume_cm3": 200.8,
-   "grams": 140.3
+   "volume_cm3": 127.8,
+   "grams": 89.2
   },
   {
-   "name": "mast_3",
+   "name": "col_inner_1",
    "qty": 1,
    "group": "mast",
-   "link": "base",
+   "link": "lift",
    "material": "PETG",
    "color": "shell",
-   "support_cm2": 3.4,
-   "walls": 4,
-   "infill": 20,
+   "support_cm2": 2.4,
+   "walls": 5,
+   "infill": 30,
    "note": "Prints standing. Inserts in the top bosses.",
    "rot_deg": [
     0,
@@ -893,23 +989,23 @@
     0
    ],
    "bed_mm": [
-    91.8,
-    120.0,
-    166.3
+    64.6,
+    64.6,
+    140.0
    ],
-   "volume_cm3": 200.8,
-   "grams": 140.3
+   "volume_cm3": 122.7,
+   "grams": 85.7
   },
   {
-   "name": "mast_4",
+   "name": "col_inner_2",
    "qty": 1,
    "group": "mast",
-   "link": "base",
+   "link": "lift",
    "material": "PETG",
    "color": "shell",
-   "support_cm2": 3.4,
-   "walls": 4,
-   "infill": 20,
+   "support_cm2": 2.4,
+   "walls": 5,
+   "infill": 30,
    "note": "Prints standing. Inserts in the top bosses.",
    "rot_deg": [
     0,
@@ -917,84 +1013,36 @@
     0
    ],
    "bed_mm": [
-    91.8,
-    120.0,
-    166.3
+    64.6,
+    64.6,
+    140.0
    ],
-   "volume_cm3": 200.8,
-   "grams": 140.3
+   "volume_cm3": 122.7,
+   "grams": 85.7
   },
   {
-   "name": "mast_5",
+   "name": "col_cap",
    "qty": 1,
    "group": "mast",
-   "link": "base",
-   "material": "PETG",
-   "color": "shell",
-   "support_cm2": 3.6,
-   "walls": 4,
-   "infill": 20,
-   "note": "Prints standing. Inserts in the top bosses.",
-   "rot_deg": [
-    0,
-    0,
-    0
-   ],
-   "bed_mm": [
-    91.8,
-    120.0,
-    166.3
-   ],
-   "volume_cm3": 200.0,
-   "grams": 139.7
-  },
-  {
-   "name": "mast_cap",
-   "qty": 1,
-   "group": "mast",
-   "link": "base",
+   "link": "lift",
    "material": "PETG",
    "color": "dark",
-   "support_cm2": 97.5,
-   "walls": 4,
-   "infill": 20,
-   "note": "NEMA 17 plate, rod tops, light ring groove. Prints upside down.",
+   "support_cm2": 3.0,
+   "walls": 5,
+   "infill": 30,
+   "note": "Sits on the inner tube. Front lip takes the torso back plate, 4 \u00d7 M5.",
    "rot_deg": [
     180,
     0,
     0
    ],
    "bed_mm": [
-    92.0,
-    120.0,
-    92.0
+    98.0,
+    72.0,
+    67.0
    ],
-   "volume_cm3": 243.9,
-   "grams": 170.4
-  },
-  {
-   "name": "carriage",
-   "qty": 1,
-   "group": "mast",
-   "link": "lift",
-   "material": "PETG",
-   "color": "frame",
-   "support_cm2": 60.7,
-   "walls": 4,
-   "infill": 20,
-   "note": "Four LM12UU press in. T8 nut from below. Tongue nuts drop into the slots.",
-   "rot_deg": [
-    0,
-    0,
-    0
-   ],
-   "bed_mm": [
-    84.0,
-    102.0,
-    172.0
-   ],
-   "volume_cm3": 386.8,
-   "grams": 270.2
+   "volume_cm3": 83.6,
+   "grams": 58.4
   },
   {
    "name": "torso_back_plate",
@@ -1003,10 +1051,10 @@
    "link": "lift",
    "material": "PETG",
    "color": "frame",
-   "support_cm2": 2.9,
+   "support_cm2": 3.0,
    "walls": 4,
    "infill": 20,
-   "note": "Takes the lift tongue, the yokes and the Pi and USB grid.",
+   "note": "Takes the column-cap lip, the yokes and the Pi and USB grid.",
    "rot_deg": [
     0,
     90,
@@ -1017,7 +1065,7 @@
     140.0,
     8.0
    ],
-   "volume_cm3": 178.0,
+   "volume_cm3": 177.9,
    "grams": 124.3
   },
   {
@@ -1027,22 +1075,22 @@
    "link": "lift",
    "material": "PETG",
    "color": "frame",
-   "support_cm2": 18.9,
+   "support_cm2": 25.0,
    "walls": 4,
    "infill": 20,
-   "note": "Holds the left DM-J4340 (J1). Prints on its centre face, cup up. 5 walls, 30% infill.",
+   "note": "Holds the left J1 STS3095. Prints on its centre face, cup up. 5 walls, 30% infill.",
    "rot_deg": [
     90,
     0,
     0
    ],
    "bed_mm": [
-    105.0,
-    143.0,
+    108.0,
+    145.7,
     115.7
    ],
-   "volume_cm3": 365.8,
-   "grams": 255.5
+   "volume_cm3": 344.0,
+   "grams": 240.3
   },
   {
    "name": "yoke_r",
@@ -1051,7 +1099,7 @@
    "link": "lift",
    "material": "PETG",
    "color": "frame",
-   "support_cm2": 18.9,
+   "support_cm2": 25.0,
    "walls": 4,
    "infill": 20,
    "note": "Mirror of yoke_l.",
@@ -1061,12 +1109,12 @@
     0
    ],
    "bed_mm": [
-    105.0,
-    143.0,
+    108.0,
+    145.7,
     115.7
    ],
-   "volume_cm3": 365.8,
-   "grams": 255.5
+   "volume_cm3": 344.0,
+   "grams": 240.3
   },
   {
    "name": "neck_mount",
@@ -1093,157 +1141,13 @@
    "grams": 42.1
   },
   {
-   "name": "gm_housing",
-   "qty": 8,
-   "group": "torso",
-   "link": "lift",
-   "material": "PETG",
-   "color": "shell",
-   "support_cm2": 17.0,
-   "walls": 4,
-   "infill": 40,
-   "note": "Ring gear inside. Prints flange-down; PETG-CF or nylon if you have it.",
-   "rot_deg": [
-    180,
-    0,
-    0
-   ],
-   "bed_mm": [
-    70.0,
-    66.0,
-    71.0
-   ],
-   "volume_cm3": 49.1,
-   "grams": 34.3
-  },
-  {
-   "name": "gm_cap",
-   "qty": 8,
-   "group": "torso",
-   "link": "lift",
-   "material": "PETG",
-   "color": "shell",
-   "support_cm2": 0.2,
-   "walls": 4,
-   "infill": 40,
-   "note": "Closes the servo sleeve.",
-   "rot_deg": [
-    0,
-    0,
-    0
-   ],
-   "bed_mm": [
-    51.8,
-    31.3,
-    3.0
-   ],
-   "volume_cm3": 4.5,
-   "grams": 3.2
-  },
-  {
-   "name": "gm_carrier",
-   "qty": 8,
-   "group": "torso",
-   "link": "l_link1",
-   "material": "PETG",
-   "color": "dark",
-   "support_cm2": 5.8,
-   "walls": 4,
-   "infill": 40,
-   "note": "Output: hub runs in the 6807, disc takes the link's 6 x M3.",
-   "rot_deg": [
-    180,
-    0,
-    0
-   ],
-   "bed_mm": [
-    44.0,
-    44.0,
-    13.0
-   ],
-   "volume_cm3": 12.8,
-   "grams": 8.9
-  },
-  {
-   "name": "gm_carrier_back",
-   "qty": 8,
-   "group": "torso",
-   "link": "l_link1",
-   "material": "PETG",
-   "color": "dark",
-   "support_cm2": 0.0,
-   "walls": 4,
-   "infill": 40,
-   "note": "Back plate; the three M3 x 20 pins screw through it.",
-   "rot_deg": [
-    0,
-    0,
-    0
-   ],
-   "bed_mm": [
-    44.0,
-    44.0,
-    2.3
-   ],
-   "volume_cm3": 3.0,
-   "grams": 2.1
-  },
-  {
-   "name": "gm_sun",
-   "qty": 8,
-   "group": "torso",
-   "link": "lift",
-   "material": "PETG",
-   "color": "accent",
-   "support_cm2": 0.1,
-   "walls": 4,
-   "infill": 100,
-   "note": "12 T on the servo horn. 100% infill.",
-   "rot_deg": [
-    0,
-    0,
-    0
-   ],
-   "bed_mm": [
-    21.0,
-    21.0,
-    20.8
-   ],
-   "volume_cm3": 2.9,
-   "grams": 2.0
-  },
-  {
-   "name": "gm_planet",
-   "qty": 24,
-   "group": "torso",
-   "link": "l_link1",
-   "material": "PETG",
-   "color": "accent",
-   "support_cm2": 0.0,
-   "walls": 4,
-   "infill": 100,
-   "note": "18 T planet. Print 3 per module, 100% infill.",
-   "rot_deg": [
-    0,
-    0,
-    0
-   ],
-   "bed_mm": [
-    19.8,
-    20.0,
-    13.4
-   ],
-   "volume_cm3": 3.2,
-   "grams": 2.3
-  },
-  {
    "name": "torso_lower_l",
    "qty": 1,
    "group": "torso",
    "link": "lift",
    "material": "PETG",
    "color": "shell",
-   "support_cm2": 7.1,
+   "support_cm2": 6.5,
    "walls": 3,
    "infill": 15,
    "note": "Lower tier prints floor-down; upper tier prints top-down.",
@@ -1257,8 +1161,8 @@
     120.0,
     120.0
    ],
-   "volume_cm3": 159.2,
-   "grams": 111.2
+   "volume_cm3": 164.7,
+   "grams": 115.0
   },
   {
    "name": "torso_lower_r",
@@ -1267,7 +1171,7 @@
    "link": "lift",
    "material": "PETG",
    "color": "shell",
-   "support_cm2": 7.1,
+   "support_cm2": 6.5,
    "walls": 3,
    "infill": 15,
    "note": "Lower tier prints floor-down; upper tier prints top-down.",
@@ -1281,8 +1185,8 @@
     120.0,
     120.0
    ],
-   "volume_cm3": 159.2,
-   "grams": 111.2
+   "volume_cm3": 164.7,
+   "grams": 115.0
   },
   {
    "name": "torso_upper_l",
@@ -1305,8 +1209,8 @@
     120.0,
     130.0
    ],
-   "volume_cm3": 174.3,
-   "grams": 121.7
+   "volume_cm3": 166.1,
+   "grams": 116.0
   },
   {
    "name": "torso_upper_r",
@@ -1329,8 +1233,8 @@
     120.0,
     130.0
    ],
-   "volume_cm3": 174.3,
-   "grams": 121.7
+   "volume_cm3": 166.1,
+   "grams": 116.0
   },
   {
    "name": "ear_l",
@@ -1555,7 +1459,7 @@
    "link": "l_link1",
    "material": "PETG",
    "color": "shell",
-   "support_cm2": 16.5,
+   "support_cm2": 2.0,
    "walls": 4,
    "infill": 20,
    "note": "J1 output to the J2 cup. Screw it to J1 before J2 goes in.",
@@ -1566,11 +1470,11 @@
    ],
    "bed_mm": [
     52.0,
-    66.0,
-    71.0
+    72.0,
+    67.1
    ],
-   "volume_cm3": 36.2,
-   "grams": 25.3
+   "volume_cm3": 18.3,
+   "grams": 12.8
   },
   {
    "name": "clevis_l",
@@ -1579,7 +1483,7 @@
    "link": "l_link2",
    "material": "PETG",
    "color": "frame",
-   "support_cm2": 21.6,
+   "support_cm2": 11.8,
    "walls": 4,
    "infill": 20,
    "note": "J2 output, holds J3.",
@@ -1589,12 +1493,12 @@
     0
    ],
    "bed_mm": [
-    135.5,
+    137.0,
     66.0,
     67.7
    ],
-   "volume_cm3": 50.6,
-   "grams": 35.3
+   "volume_cm3": 98.2,
+   "grams": 68.6
   },
   {
    "name": "upper_arm_a_l",
@@ -1603,22 +1507,22 @@
    "link": "l_link3",
    "material": "PETG",
    "color": "shell",
-   "support_cm2": 68.4,
+   "support_cm2": 5.7,
    "walls": 4,
    "infill": 20,
    "note": "Clamshell half. Prints on the split face.",
    "rot_deg": [
+    180,
     0,
-    90,
     0
    ],
    "bed_mm": [
-    179.0,
+    36.0,
     64.0,
-    33.0
+    165.4
    ],
-   "volume_cm3": 57.0,
-   "grams": 39.8
+   "volume_cm3": 48.8,
+   "grams": 34.1
   },
   {
    "name": "upper_arm_b_l",
@@ -1627,22 +1531,22 @@
    "link": "l_link3",
    "material": "PETG",
    "color": "shell",
-   "support_cm2": 68.5,
+   "support_cm2": 6.3,
    "walls": 4,
    "infill": 20,
    "note": "Clamshell half with the nut traps.",
    "rot_deg": [
+    180,
     0,
-    -90,
     0
    ],
    "bed_mm": [
-    179.0,
+    36.0,
     64.0,
-    33.0
+    165.4
    ],
-   "volume_cm3": 57.0,
-   "grams": 39.8
+   "volume_cm3": 48.9,
+   "grams": 34.1
   },
   {
    "name": "elbow_l",
@@ -1651,7 +1555,7 @@
    "link": "l_link4",
    "material": "PETG",
    "color": "frame",
-   "support_cm2": 4.1,
+   "support_cm2": 3.5,
    "walls": 4,
    "infill": 20,
    "note": "J4 output to the forearm flange.",
@@ -1663,10 +1567,10 @@
    "bed_mm": [
     54.0,
     91.0,
-    58.0
+    60.0
    ],
-   "volume_cm3": 44.3,
-   "grams": 30.9
+   "volume_cm3": 47.1,
+   "grams": 32.9
   },
   {
    "name": "forearm_a_l",
@@ -1789,88 +1693,88 @@
    "grams": 2.4
   },
   {
-   "name": "finger_a_l",
+   "name": "rack_a_l",
    "qty": 1,
    "group": "arm",
    "link": "l_link7",
    "material": "PETG",
    "color": "dark",
-   "support_cm2": 3.9,
+   "support_cm2": 0.0,
    "walls": 4,
    "infill": 20,
-   "note": "Rack, drop and finger in one piece. Slides in from the +y end.",
+   "note": "PETG rack and drop. Slides in from the +y end.",
    "rot_deg": [
     0,
     90,
     0
    ],
    "bed_mm": [
-    68.0,
+    21.5,
     70.0,
     31.1
    ],
-   "volume_cm3": 14.9,
-   "grams": 10.4
+   "volume_cm3": 6.0,
+   "grams": 4.2
+  },
+  {
+   "name": "rack_b_l",
+   "qty": 1,
+   "group": "arm",
+   "link": "l_link8",
+   "material": "PETG",
+   "color": "dark",
+   "support_cm2": 0.0,
+   "walls": 4,
+   "infill": 20,
+   "note": "PETG rack and drop. Slides in from the -y end.",
+   "rot_deg": [
+    0,
+    -90,
+    0
+   ],
+   "bed_mm": [
+    21.5,
+    70.0,
+    31.1
+   ],
+   "volume_cm3": 6.0,
+   "grams": 4.2
+  },
+  {
+   "name": "finger_a_l",
+   "qty": 1,
+   "group": "arm",
+   "link": "l_link7",
+   "material": "TPU",
+   "color": "accent",
+   "support_cm2": 0.0,
+   "walls": 4,
+   "infill": 20,
+   "note": "Nori-style TPU 95A finger. Bolts to the rack.",
+   "rot_deg": [
+    -90,
+    0,
+    0
+   ],
+   "bed_mm": [
+    24.0,
+    47.5,
+    8.0
+   ],
+   "volume_cm3": 8.8,
+   "grams": 6.2
   },
   {
    "name": "finger_b_l",
    "qty": 1,
    "group": "arm",
    "link": "l_link8",
-   "material": "PETG",
-   "color": "dark",
-   "support_cm2": 3.9,
-   "walls": 4,
-   "infill": 20,
-   "note": "Rack, drop and finger. Slides in from the -y end.",
-   "rot_deg": [
-    0,
-    -90,
-    0
-   ],
-   "bed_mm": [
-    68.0,
-    70.0,
-    31.1
-   ],
-   "volume_cm3": 14.9,
-   "grams": 10.4
-  },
-  {
-   "name": "pad_a_l",
-   "qty": 1,
-   "group": "arm",
-   "link": "l_link7",
    "material": "TPU",
    "color": "accent",
    "support_cm2": 0.0,
    "walls": 4,
    "infill": 20,
-   "note": "TPU 95A.",
-   "rot_deg": [
-    90,
-    0,
-    0
-   ],
-   "bed_mm": [
-    24.0,
-    44.0,
-    3.0
-   ],
-   "volume_cm3": 3.0,
-   "grams": 2.1
-  },
-  {
-   "name": "pad_b_l",
-   "qty": 1,
-   "group": "arm",
-   "link": "l_link8",
-   "material": "TPU",
-   "color": "accent",
-   "support_cm2": 0.0,
-   "walls": 4,
-   "infill": 20,
-   "note": "TPU 95A.",
+   "note": "Nori-style TPU 95A finger.",
    "rot_deg": [
     -90,
     0,
@@ -1878,11 +1782,11 @@
    ],
    "bed_mm": [
     24.0,
-    44.0,
-    3.0
+    47.5,
+    8.0
    ],
-   "volume_cm3": 3.0,
-   "grams": 2.1
+   "volume_cm3": 9.0,
+   "grams": 6.3
   },
   {
    "name": "shoulder_r",
@@ -1891,7 +1795,7 @@
    "link": "r_link1",
    "material": "PETG",
    "color": "shell",
-   "support_cm2": 16.5,
+   "support_cm2": 2.0,
    "walls": 4,
    "infill": 20,
    "note": "J1 output to the J2 cup. Screw it to J1 before J2 goes in.",
@@ -1902,11 +1806,11 @@
    ],
    "bed_mm": [
     52.0,
-    66.0,
-    71.0
+    72.0,
+    67.1
    ],
-   "volume_cm3": 36.2,
-   "grams": 25.3
+   "volume_cm3": 18.3,
+   "grams": 12.8
   },
   {
    "name": "clevis_r",
@@ -1915,7 +1819,7 @@
    "link": "r_link2",
    "material": "PETG",
    "color": "frame",
-   "support_cm2": 21.6,
+   "support_cm2": 11.8,
    "walls": 4,
    "infill": 20,
    "note": "J2 output, holds J3.",
@@ -1925,12 +1829,12 @@
     0
    ],
    "bed_mm": [
-    135.5,
+    137.0,
     66.0,
     67.7
    ],
-   "volume_cm3": 50.6,
-   "grams": 35.3
+   "volume_cm3": 98.2,
+   "grams": 68.6
   },
   {
    "name": "upper_arm_a_r",
@@ -1939,22 +1843,22 @@
    "link": "r_link3",
    "material": "PETG",
    "color": "shell",
-   "support_cm2": 68.4,
+   "support_cm2": 5.7,
    "walls": 4,
    "infill": 20,
    "note": "Clamshell half. Prints on the split face.",
    "rot_deg": [
+    180,
     0,
-    90,
     0
    ],
    "bed_mm": [
-    179.0,
+    36.0,
     64.0,
-    33.0
+    165.4
    ],
-   "volume_cm3": 57.0,
-   "grams": 39.8
+   "volume_cm3": 48.8,
+   "grams": 34.1
   },
   {
    "name": "upper_arm_b_r",
@@ -1963,22 +1867,22 @@
    "link": "r_link3",
    "material": "PETG",
    "color": "shell",
-   "support_cm2": 68.5,
+   "support_cm2": 6.3,
    "walls": 4,
    "infill": 20,
    "note": "Clamshell half with the nut traps.",
    "rot_deg": [
+    180,
     0,
-    -90,
     0
    ],
    "bed_mm": [
-    179.0,
+    36.0,
     64.0,
-    33.0
+    165.4
    ],
-   "volume_cm3": 57.0,
-   "grams": 39.8
+   "volume_cm3": 48.9,
+   "grams": 34.1
   },
   {
    "name": "elbow_r",
@@ -1987,7 +1891,7 @@
    "link": "r_link4",
    "material": "PETG",
    "color": "frame",
-   "support_cm2": 4.1,
+   "support_cm2": 3.5,
    "walls": 4,
    "infill": 20,
    "note": "J4 output to the forearm flange.",
@@ -1999,10 +1903,10 @@
    "bed_mm": [
     54.0,
     91.0,
-    58.0
+    60.0
    ],
-   "volume_cm3": 44.3,
-   "grams": 30.9
+   "volume_cm3": 47.1,
+   "grams": 32.9
   },
   {
    "name": "forearm_a_r",
@@ -2125,88 +2029,88 @@
    "grams": 2.4
   },
   {
-   "name": "finger_a_r",
+   "name": "rack_a_r",
    "qty": 1,
    "group": "arm",
    "link": "r_link7",
    "material": "PETG",
    "color": "dark",
-   "support_cm2": 3.9,
+   "support_cm2": 0.0,
    "walls": 4,
    "infill": 20,
-   "note": "Rack, drop and finger in one piece. Slides in from the +y end.",
+   "note": "PETG rack and drop. Slides in from the +y end.",
    "rot_deg": [
     0,
     90,
     0
    ],
    "bed_mm": [
-    68.0,
+    21.5,
     70.0,
     31.1
    ],
-   "volume_cm3": 14.9,
-   "grams": 10.4
+   "volume_cm3": 6.0,
+   "grams": 4.2
+  },
+  {
+   "name": "rack_b_r",
+   "qty": 1,
+   "group": "arm",
+   "link": "r_link8",
+   "material": "PETG",
+   "color": "dark",
+   "support_cm2": 0.0,
+   "walls": 4,
+   "infill": 20,
+   "note": "PETG rack and drop. Slides in from the -y end.",
+   "rot_deg": [
+    0,
+    -90,
+    0
+   ],
+   "bed_mm": [
+    21.5,
+    70.0,
+    31.1
+   ],
+   "volume_cm3": 6.0,
+   "grams": 4.2
+  },
+  {
+   "name": "finger_a_r",
+   "qty": 1,
+   "group": "arm",
+   "link": "r_link7",
+   "material": "TPU",
+   "color": "accent",
+   "support_cm2": 0.0,
+   "walls": 4,
+   "infill": 20,
+   "note": "Nori-style TPU 95A finger. Bolts to the rack.",
+   "rot_deg": [
+    90,
+    0,
+    0
+   ],
+   "bed_mm": [
+    24.0,
+    47.5,
+    8.0
+   ],
+   "volume_cm3": 8.8,
+   "grams": 6.2
   },
   {
    "name": "finger_b_r",
    "qty": 1,
    "group": "arm",
    "link": "r_link8",
-   "material": "PETG",
-   "color": "dark",
-   "support_cm2": 3.9,
-   "walls": 4,
-   "infill": 20,
-   "note": "Rack, drop and finger. Slides in from the -y end.",
-   "rot_deg": [
-    0,
-    -90,
-    0
-   ],
-   "bed_mm": [
-    68.0,
-    70.0,
-    31.1
-   ],
-   "volume_cm3": 14.9,
-   "grams": 10.4
-  },
-  {
-   "name": "pad_a_r",
-   "qty": 1,
-   "group": "arm",
-   "link": "r_link7",
    "material": "TPU",
    "color": "accent",
    "support_cm2": 0.0,
    "walls": 4,
    "infill": 20,
-   "note": "TPU 95A.",
-   "rot_deg": [
-    -90,
-    0,
-    0
-   ],
-   "bed_mm": [
-    24.0,
-    44.0,
-    3.0
-   ],
-   "volume_cm3": 3.0,
-   "grams": 2.1
-  },
-  {
-   "name": "pad_b_r",
-   "qty": 1,
-   "group": "arm",
-   "link": "r_link8",
-   "material": "TPU",
-   "color": "accent",
-   "support_cm2": 0.0,
-   "walls": 4,
-   "infill": 20,
-   "note": "TPU 95A.",
+   "note": "Nori-style TPU 95A finger.",
    "rot_deg": [
     90,
     0,
@@ -2214,15 +2118,15 @@
    ],
    "bed_mm": [
     24.0,
-    44.0,
-    3.0
+    47.5,
+    8.0
    ],
-   "volume_cm3": 3.0,
-   "grams": 2.1
+   "volume_cm3": 9.0,
+   "grams": 6.3
   },
   {
    "name": "joiner_tab",
-   "qty": 60,
+   "qty": 62,
    "group": "base",
    "link": "base",
    "material": "PETG",
@@ -2246,107 +2150,108 @@
   }
  ],
  "hardware": {
-  "5 to 8 mm flexible coupler, 25 mm": 1,
   "608ZZ bearing": 6,
-  "LM12UU linear bearing": 4,
+  "GT2 20T pulley, 5 mm bore": 2,
+  "M2.5x10 screw (TPU finger)": 8,
   "M2.5x10 socket head (DDSM115 stub)": 6,
   "M2.5x6 screw (lidar)": 4,
-  "M2.5x8 screw (finger pad)": 8,
   "M2x6 thread-forming (wrist camera)": 4,
-  "M2x8 screw (horn)": 32,
-  "M3 heat-set insert": 266,
-  "M3x10 socket head": 177,
+  "M2x8 screw (horn)": 40,
+  "M3 heat-set insert": 270,
+  "M3x10 socket head": 181,
+  "M3x10 socket head (belt anchor)": 2,
+  "M3x10 socket head (belt clamp)": 2,
+  "M3x10 socket head (servo tabs)": 32,
   "M3x10 thread-forming (T8 nut)": 4,
   "M3x12 shoulder screw (idler)": 2,
-  "M3x12 socket head": 26,
+  "M3x12 socket head": 30,
   "M3x12 thread-forming (eye plate)": 2,
   "M3x14 socket head": 24,
   "M3x16 socket head + nut (clamshell)": 20,
   "M3x16 socket head + nut (elbow flange)": 8,
   "M3x6 screw (D435 rear)": 2,
-  "M3x8 socket head (DM output)": 48,
+  "M3x8 socket head (3095 horn)": 24,
   "M3x8 socket head (NEMA)": 4,
-  "M3x8 socket head (module flange)": 32,
-  "M5x30 socket head + nut (tongue)": 4,
+  "M5x20 shoulder screw (pulley)": 2,
+  "M5x20 socket head + nut (torso)": 4,
   "M8x40 bolt + nyloc (caster axle)": 2,
   "M8x40 bolt + nyloc + 2 washers (caster swivel)": 2,
   "Micro limit switch (KW12, roller)": 1,
   "TR8x2 brass flange nut": 1,
-  "Velcro battery strap 25 mm": 2,
-  "WS2812B strip, 60/m, 0.5 m": 1
+  "Velcro battery strap 25 mm": 2
  },
  "stability": {
   "zero": {
    "com_mm": [
-    24.0,
-    -0.4,
-    459.8
-   ],
-   "margin_front_mm": 149.0,
-   "margin_rear_mm": 197.0,
-   "margin_side_mm": 184.6,
-   "tip_deg_front": 18.0,
-   "tip_deg_rear": 23.2
-  },
-  "home": {
-   "com_mm": [
-    46.9,
-    -0.4,
-    376.7
-   ],
-   "margin_front_mm": 126.1,
-   "margin_rear_mm": 219.9,
-   "margin_side_mm": 184.6,
-   "tip_deg_front": 18.5,
-   "tip_deg_rear": 30.3
-  },
-  "counter": {
-   "com_mm": [
-    55.4,
-    -0.4,
-    488.9
-   ],
-   "margin_front_mm": 117.6,
-   "margin_rear_mm": 228.4,
-   "margin_side_mm": 184.6,
-   "tip_deg_front": 13.5,
-   "tip_deg_rear": 25.0
-  },
-  "floor": {
-   "com_mm": [
-    42.1,
-    -0.4,
-    329.6
-   ],
-   "margin_front_mm": 130.9,
-   "margin_rear_mm": 215.1,
-   "margin_side_mm": 184.6,
-   "tip_deg_front": 21.7,
-   "tip_deg_rear": 33.1
-  },
-  "shelf": {
-   "com_mm": [
     39.7,
-    -0.4,
-    617.9
+    -0.5,
+    411.1
    ],
    "margin_front_mm": 133.3,
    "margin_rear_mm": 212.7,
-   "margin_side_mm": 184.6,
-   "tip_deg_front": 12.2,
-   "tip_deg_rear": 19.0
+   "margin_side_mm": 184.5,
+   "tip_deg_front": 18.0,
+   "tip_deg_rear": 27.4
+  },
+  "home": {
+   "com_mm": [
+    67.1,
+    -0.5,
+    310.2
+   ],
+   "margin_front_mm": 105.9,
+   "margin_rear_mm": 240.1,
+   "margin_side_mm": 184.5,
+   "tip_deg_front": 18.8,
+   "tip_deg_rear": 37.7
+  },
+  "counter": {
+   "com_mm": [
+    78.8,
+    -0.5,
+    446.1
+   ],
+   "margin_front_mm": 94.2,
+   "margin_rear_mm": 251.8,
+   "margin_side_mm": 184.5,
+   "tip_deg_front": 11.9,
+   "tip_deg_rear": 29.4
+  },
+  "floor": {
+   "com_mm": [
+    61.5,
+    -0.5,
+    254.0
+   ],
+   "margin_front_mm": 111.5,
+   "margin_rear_mm": 234.5,
+   "margin_side_mm": 184.5,
+   "tip_deg_front": 23.7,
+   "tip_deg_rear": 42.7
+  },
+  "shelf": {
+   "com_mm": [
+    59.6,
+    -0.5,
+    602.8
+   ],
+   "margin_front_mm": 113.4,
+   "margin_rear_mm": 232.6,
+   "margin_side_mm": 184.5,
+   "tip_deg_front": 10.7,
+   "tip_deg_rear": 21.1
   },
   "wave": {
    "com_mm": [
-    42.9,
-    12.5,
-    455.2
+    62.2,
+    15.4,
+    405.4
    ],
-   "margin_front_mm": 130.1,
-   "margin_rear_mm": 215.9,
-   "margin_side_mm": 172.5,
-   "tip_deg_front": 15.9,
-   "tip_deg_rear": 25.4
+   "margin_front_mm": 110.8,
+   "margin_rear_mm": 235.2,
+   "margin_side_mm": 169.6,
+   "tip_deg_front": 15.3,
+   "tip_deg_rear": 30.1
   }
  },
  "overlaps": {
@@ -2360,5 +2265,5 @@
  },
  "errors": [],
  "warnings": [],
- "seconds": 384.4
+ "seconds": 160.3
 }

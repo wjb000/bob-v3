@@ -1,10 +1,12 @@
 """Seven-axis arm (six joints plus the jaw). Built as the left arm; the right is a mirror.
 
-J1 shoulder pitch  DM-J4340  axis Y   (in the torso yoke)
-J2 shoulder roll   DM-J4340  axis X   (in the shoulder cap)
-J3 upper-arm yaw   DM-J4310  axis Z   (in the clevis)
-J4 elbow           DM-J4310  axis Y   (bottom of the upper arm)
-J5 wrist pitch     STS3215   axis Y   (bottom of the forearm)
+Nori A3-style Feetech bus servos in printed cups. No printed planetaries.
+
+J1 shoulder pitch  STS3095   axis Y   (in the torso yoke)
+J2 shoulder roll   STS3095   axis X   (in the shoulder cap)
+J3 upper-arm yaw   STS3250   axis Z   (in the clevis)
+J4 elbow           STS3095   axis Y   (bottom of the upper arm)
+J5 wrist pitch     STS3250   axis Y   (bottom of the forearm)
 J6 wrist roll      STS3215   axis Z   (in the wrist clevis)
 J7 jaw             STS3215   axis X   (in the palm)
 
@@ -30,11 +32,11 @@ W = E - P.FOREARM
 J3_FACE_Z = S + P.J3_FACE
 J2_FACE_X = X0 - 26.65
 J4_FACE_Y = Y0 + 23.0
-# GM-5 module frames: (origin, output direction, servo-offset direction), left arm
-GM = {
-    "j2": ((J2_FACE_X, Y0, S), (-1, 0, 0), (0, 1, 0)),
-    "j3": ((X0, Y0, J3_FACE_Z), (0, 0, -1), (-1, 0, 0)),
-    "j4": ((X0, J4_FACE_Y, E), (0, 1, 0), (0, 0, -1)),
+# Servo frames: (origin, output/horn direction, servo-length direction), left arm
+SV = {
+    "j2": ((J2_FACE_X, Y0, S), (-1, 0, 0), (0, 1, 0), "sts3095"),
+    "j3": ((X0, Y0, J3_FACE_Z), (0, 0, -1), (-1, 0, 0), "sts3250"),
+    "j4": ((X0, J4_FACE_Y, E), (0, 1, 0), (0, 0, -1), "sts3095"),
 }
 
 # wrist-roll servo, shaft down on the arm axis
@@ -82,11 +84,13 @@ def _rear_holes(center, axis, face, inward, n=P.DM_REAR_N, pcd=P.DM_REAR_PCD):
     return tools
 
 
-def _horn_holes(center, axis, face, outward, depth=12):
+def _horn_holes(center, axis, face, outward, depth=12, kind="sts3215", head_from=None):
+    pcd = P.STS3095_HORN_PCD if kind == "sts3095" else P.STS_HORN_PCD
+    hole = P.M3 if kind == "sts3095" else 2.3
     tools = []
     for i in range(4):
         a = math.pi / 4 + i * math.pi / 2
-        u, v = P.STS_HORN_PCD / 2 * math.cos(a), P.STS_HORN_PCD / 2 * math.sin(a)
+        u, v = pcd / 2 * math.cos(a), pcd / 2 * math.sin(a)
         if axis == "x":
             p = (face, center[1] + u, center[2] + v)
         elif axis == "y":
@@ -94,12 +98,15 @@ def _horn_holes(center, axis, face, outward, depth=12):
         else:
             p = (center[0] + u, center[1] + v, face)
         q = tuple(p[k] - outward[k] * 1 for k in range(3))
-        tools.append(cyl(q, outward, 2.3, depth))
+        tools.append(cyl(q, outward, hole, depth))
+        if head_from is not None:
+            h = tuple(p[k] + outward[k] * head_from for k in range(3))
+            tools.append(cyl(h, outward, 6.6 if kind == "sts3095" else 4.5, depth))
     c = list(center)
     c["xyz".index(axis)] = face
     q = tuple(c[k] - outward[k] * 1 for k in range(3))
-    tools.append(cyl(q, outward, 3.2, depth))  # horn centre screw
-    hw("M2x8 screw (horn)", 4)
+    tools.append(cyl(q, outward, 4.0 if kind == "sts3095" else 3.2, depth))
+    hw("M3x8 socket head (3095 horn)" if kind == "sts3095" else "M2x8 screw (horn)", 4)
     return tools
 
 
@@ -121,51 +128,54 @@ def _hex_x(x0, x1, y, z):
 # ---------------------------------------------------------------- link 1: shoulder cap (J1 out, J2 cup)
 
 def shoulder() -> cq.Shape:
-    import gearbox as G
+    import servo as G
 
-    hub = cyl_between("y", (X0, S), P.J1_FACE_Y + 2, P.J1_FACE_Y + 8, 52)
-    cup, inserts, keep = G.mount(*GM["j2"])
+    hub = cyl_between("y", (X0, S), P.J1_FACE_Y + 3.5, P.J1_FACE_Y + 10, 52)
+    cup, inserts, keep = G.mount(*SV["j2"][:3], kind=SV["j2"][3])
     bridge = box(J2_FACE_X + 4, X0 + 8, P.J1_FACE_Y + 5, Y0 - (G.D + 0.6) / 2 + 1.0, S - 24, S + 24)
     s = fuse(hub, cup, bridge)
     tools = [cyl_between("y", (X0, S), P.J1_FACE_Y, Y0 + 40, 14), keep, inserts]
-    # J1 output screws: heads reached straight through the empty J2 cup, so drill on through
-    tools += _out_holes((X0, 0, S), "y", P.J1_FACE_Y + 2, (0, 1, 0), depth=12, head_from=6)
-    for i in range(P.DM_OUT_N):
-        a = 2 * math.pi * i / P.DM_OUT_N
-        u, v = P.DM_OUT_PCD / 2 * math.cos(a), P.DM_OUT_PCD / 2 * math.sin(a)
-        tools.append(cyl_between("y", (X0 + u, S + v), P.J1_FACE_Y + 8, Y0 + 40, 7.0))
+    # J1 horn screws: heads reached straight through the empty J2 cup
+    tools += _horn_holes((X0, 0, S), "y", P.J1_FACE_Y + 3.5, (0, 1, 0), depth=12, kind="sts3095", head_from=5)
+    pcd = P.STS3095_HORN_PCD
+    for i in range(4):
+        a = math.pi / 4 + i * math.pi / 2
+        u, v = pcd / 2 * math.cos(a), pcd / 2 * math.sin(a)
+        tools.append(cyl_between("y", (X0 + u, S + v), P.J1_FACE_Y + 10, Y0 + 40, 7.0))
     hw("M3 heat-set insert", 4)
-    hw("M3x8 socket head (module flange)", 4)
+    hw("M3x10 socket head (servo tabs)", 4)
     return cut(s, *tools)
 
 
 # ---------------------------------------------------------------- link 2: clevis (J2 out, J3 cup)
 
 def clevis() -> cq.Shape:
-    import gearbox as G
+    import servo as G
 
-    x0, x1 = J2_FACE_X - 2 - 6, J2_FACE_X - 2
+    x0, x1 = J2_FACE_X - 2 - 6, J2_FACE_X - 4.0
     disc = cyl_between("x", (Y0, S), x0, x1, 52)
-    cup, inserts, keep = G.mount(*GM["j3"])
-    plate = box(x0, x1, Y0 - 24, Y0 + 24, J3_FACE_Z + 3.5, S)
-    s = fuse(disc, plate, cup)
-    tools = _out_holes((0, Y0, S), "x", x1, (-1, 0, 0), depth=10, head_from=4)
+    cup, inserts, keep = G.mount(*SV["j3"][:3], kind=SV["j3"][3])
+    # thin cheek at the J2 horn; span to the J3 cup stays below the J2 servo body
+    cheek = box(x0, x1, Y0 - 24, Y0 + 24, J3_FACE_Z + 3.5, S)
+    span = box(x1 - 1, X0 + 28, Y0 - 24, Y0 + 24, J3_FACE_Z + 3.5, J3_FACE_Z + 48)
+    s = fuse(disc, cheek, span, cup)
+    tools = _horn_holes((0, Y0, S), "x", x1, (-1, 0, 0), depth=10, kind="sts3095", head_from=4)
     tools += [cyl_between("x", (Y0, S), x0 - 1, x1 + 1, 14), keep, inserts]
     hw("M3 heat-set insert", 4)
-    hw("M3x8 socket head (module flange)", 4)
+    hw("M3x10 socket head (servo tabs)", 4)
     return cut(s, *tools)
 
 
 # ---------------------------------------------------------------- link 3: upper arm (J3 out, J4 cup), clamshell
 
 def upper_arm() -> cq.Shape:
-    import gearbox as G
+    import servo as G
 
-    d1 = J3_FACE_Z - 2
+    d1 = J3_FACE_Z - 4.2
     d0 = d1 - 6
     disc = cyl_between("z", (X0, Y0), d0, d1, P.ARM_TUBE_D)
     tube = tube_between("z", (X0, Y0), E + 28, d0 + 0.5, P.ARM_TUBE_D, P.ARM_TUBE_D - 6)  # starts above the elbow disc
-    cup, inserts, keep = G.mount(*GM["j4"])
+    cup, inserts, keep = G.mount(*SV["j4"][:3], kind=SV["j4"][3])
     # carry the tube down past the elbow axis to tie into the cup, short of the elbow disc's swing
     tie = tube_between("z", (X0, Y0), E - 12, E + 28.5, P.ARM_TUBE_D, P.ARM_TUBE_D - 6).intersect(box(0, 300, 0, J4_FACE_Y - 5, E - 20, E + 30))
     s = fuse(disc, tube, cup, tie)
@@ -177,10 +187,10 @@ def upper_arm() -> cq.Shape:
         adds.append(b)
         tools += t
     s = fuse(s, *adds)
-    tools += _out_holes((X0, Y0, 0), "z", d1, (0, 0, -1), depth=10, head_from=4)
+    tools += _horn_holes((X0, Y0, 0), "z", d1, (0, 0, -1), depth=10, kind="sts3215", head_from=4)
     tools += [cyl_between("z", (X0, Y0), d0 - 1, d1 + 1, 14), keep, inserts]
     hw("M3 heat-set insert", 4)
-    hw("M3x8 socket head (module flange)", 4)
+    hw("M3x10 socket head (servo tabs)", 4)
     return cut(s, *tools)
 
 
@@ -190,13 +200,13 @@ ELBOW_FLANGE = (E - 70.0, E - 64.0)
 
 
 def elbow() -> cq.Shape:
-    y0, y1 = J4_FACE_Y + 2, J4_FACE_Y + 8
+    y0, y1 = J4_FACE_Y + 3.5, J4_FACE_Y + 10
     disc = cyl_between("y", (X0, E), y0, y1, 54)
     plate = box(X0 - 22, X0 + 22, y0, y1, ELBOW_FLANGE[1], E)
     bridge = box(X0 - 22, X0 + 22, Y0 - 26, y1, ELBOW_FLANGE[1], ELBOW_FLANGE[1] + 10)
     flange = cyl_between("z", (X0, Y0), ELBOW_FLANGE[1] - 0.01, ELBOW_FLANGE[1] + 10, 54)
     s = fuse(disc, plate, bridge, flange)
-    tools = _out_holes((X0, 0, E), "y", y0, (0, 1, 0), depth=10, head_from=4)
+    tools = _horn_holes((X0, 0, E), "y", y0, (0, 1, 0), depth=10, kind="sts3095", head_from=4)
     tools.append(cyl_between("y", (X0, E), y0 - 1, y1 + 1, 14))
     for x, y in _forearm_bolts():
         tools.append(cyl((x, y, ELBOW_FLANGE[1] - 1), "z", P.M3, 20))
@@ -336,24 +346,40 @@ def _rack(sign, y0, y1):
     return s.translate((X0, 0, 0))
 
 
-def finger(sign) -> cq.Shape:
-    """Rack + drop bracket + finger. sign=+1 is the finger on the +y side (its rack is on the +x side)."""
+def rack(sign) -> cq.Shape:
+    """PETG rack + drop. Bolts to the TPU finger. sign=+1 is the +y finger (rack on +x)."""
     if sign > 0:
-        rack = _rack(1, Y0 - 45, Y0 + 25)
+        body = _rack(1, Y0 - 45, Y0 + 25)
         y0, y1 = Y0 + PAD_T, Y0 + PAD_T + FINGER_T
         bx0, bx1 = X0 + RACK_X1 - 5.0, X0 + RACK_X1
     else:
-        rack = _rack(-1, Y0 - 25, Y0 + 45)
+        body = _rack(-1, Y0 - 25, Y0 + 45)
         y0, y1 = Y0 - PAD_T - FINGER_T, Y0 - PAD_T
         bx0, bx1 = X0 - RACK_X1, X0 - RACK_X1 + 5.0
     drop = box(bx0, bx1, y0, y1, FINGER_TOP - 8, RACK_Z[1])
     top = box(min(X0 - 12, bx0), max(X0 + 12, bx1), y0, y1, FINGER_TOP - 8, FINGER_TOP)
-    blade = box(X0 - 12, X0 + 12, y0, y1, TIP, FINGER_TOP - 7)
-    s = fuse(rack, drop, top, blade)
+    s = fuse(body, drop, top)
     face = y0 if sign > 0 else y1
-    tools = []
-    for z in (TIP + 12, TIP + 32):
-        tools.append(cyl_between("y", (X0, z), face - 5, face + 5, 2.6))
+    tools = [cyl_between("y", (X0, z), face - 5, face + 5, 2.6) for z in (TIP + 12, TIP + 32)]
+    hw("M2.5x10 screw (TPU finger)", 2)
+    return cut(s, *tools)
+
+
+def finger(sign) -> cq.Shape:
+    """Nori-style compliant TPU 95A finger. Ridges on the pad face, bolts to the PETG rack."""
+    if sign > 0:
+        y0, y1 = Y0 + PAD_T, Y0 + PAD_T + FINGER_T
+    else:
+        y0, y1 = Y0 - PAD_T - FINGER_T, Y0 - PAD_T
+    s = box(X0 - 12, X0 + 12, y0, y1, TIP, FINGER_TOP - 7)
+    face_out = y1 if sign > 0 else y0
+    face_in = y0 if sign > 0 else y1
+    tools = [cyl_between("y", (X0, z), y0 - 1, y1 + 1, 3.2) for z in (TIP + 12, TIP + 32)]
+    for z in (TIP + 6, TIP + 16, TIP + 26, TIP + 36):
+        tools.append(box(X0 - 13, X0 + 13,
+                         (face_in - 0.2) if sign > 0 else (face_out - 0.8),
+                         (face_in + 0.8) if sign > 0 else (face_out + 0.2),
+                         z - 1, z + 1))
     return cut(s, *tools)
 
 
@@ -375,17 +401,6 @@ def palm() -> cq.Shape:
     for dy in (-12.0, 12.0):  # wrist camera, M2 thread-forming
         tools.append(cyl_between("x", (Y0 + dy, (HOUSING_Z[0] + HOUSING_Z[1]) / 2), WRIST_CAM_X - 1, WRIST_CAM_X + 6, 1.8))
     hw("M2x6 thread-forming (wrist camera)", 2)
-    return cut(s, *tools)
-
-
-def pad(sign) -> cq.Shape:
-    """TPU finger pad."""
-    y0, y1 = (Y0 + 0.0, Y0 + PAD_T) if sign > 0 else (Y0 - PAD_T, Y0 - 0.0)
-    s = box(X0 - 12, X0 + 12, y0, y1, TIP, TIP + 44)
-    tools = [cyl_between("y", (X0, z), y0 - 1, y1 + 1, 3.2) for z in (TIP + 12, TIP + 32)]
-    for z in (TIP + 6, TIP + 16, TIP + 26, TIP + 36):  # grip ridges
-        tools.append(box(X0 - 13, X0 + 13, (y1 - 0.8) if sign > 0 else (y0 - 0.2), (y1 + 0.2) if sign > 0 else (y0 + 0.8), z - 1, z + 1))
-    hw("M2.5x8 screw (finger pad)", 2)
     return cut(s, *tools)
 
 
@@ -420,11 +435,10 @@ def parts(side: str) -> list[Part]:
     add("wrist", wrist(), "link5", color="dark", note="J5 horn and idler, holds J6.")
     add("palm", palm(), "link6", color="dark", note="J6 horn on top, J7 inside, rack channels underneath.")
     add("pinion", pinion(), "link6", color="frame", note="16T module 1.5 on the J7 horn. 100% infill.")
-    add("finger_a", finger(1), "link7", color="dark", note="Rack, drop and finger in one piece. Slides in from the +y end.")
-    add("finger_b", finger(-1), "link8", color="dark", note="Rack, drop and finger. Slides in from the -y end.")
-    add("pad_a", pad(1), "link7", color="accent", material="TPU", note="TPU 95A.")
-    add("pad_b", pad(-1), "link8", color="accent", material="TPU", note="TPU 95A.")
-    out += gm_instances(side)[0]
+    add("rack_a", rack(1), "link7", color="dark", note="PETG rack and drop. Slides in from the +y end.")
+    add("rack_b", rack(-1), "link8", color="dark", note="PETG rack and drop. Slides in from the -y end.")
+    add("finger_a", finger(1), "link7", color="accent", material="TPU", note="Nori-style TPU 95A finger. Bolts to the rack.")
+    add("finger_b", finger(-1), "link8", color="accent", material="TPU", note="Nori-style TPU 95A finger.")
     return out
 
 
@@ -438,9 +452,9 @@ def bought(side: str) -> list[Bought]:
         mirrored = [(sfx, m(shp), look) for sfx, shp, look in pieces]
         out.extend(V.boughts(f"{name}_{side}", mirrored, f"{side}_{link}", "arm", kind, mass, key))
 
-    out.extend(gm_instances(side)[1])
+    out.extend(sv_instances(side)[1])
     j5 = [(sfx, shp, "alu" if not sfx else look) for sfx, shp, look in V.sts3215()]  # STS3250: same case, aluminium middle
-    add("j5", V.place(j5, (X0, J5_BODY["y"][1], W), xdir=(0, 0, 1), zdir=(0, 1, 0)), "link4", "actuator", 75.0, "sts3250")
+    add("j5", V.place(j5, (X0, J5_BODY["y"][1], W), xdir=(0, 0, 1), zdir=(0, 1, 0)), "link4", "actuator", P.STS3250_MASS, "sts3250")
     add("j6", V.place(V.sts3215(), (X0, Y0, J6_BODY_Z[0]), xdir=(1, 0, 0), zdir=(0, 0, -1)), "link5", "actuator", P.STS_MASS, "sts3215")
     add("j7", V.place(V.sts3215(), (X0, Y0, J7_BODY_Z[0]), xdir=(1, 0, 0), zdir=(0, 0, -1)), "link6", "actuator", P.STS_MASS, "sts3215")
     add("wrist_cam", V.place(V.usb_cam(), (WRIST_CAM_X, Y0, (HOUSING_Z[0] + HOUSING_Z[1]) / 2), xdir=(-1, 0, 0), zdir=(0, 0, 1)),
@@ -448,16 +462,17 @@ def bought(side: str) -> list[Bought]:
     return out
 
 
-def gm_instances(side: str):
-    """GM-5 modules J2..J4 of one arm: (parts, boughts)."""
-    import gearbox as G
+def sv_instances(side: str):
+    """J2..J4 servos of one arm: (parts, boughts). Cups are printed into the links."""
+    import servo as G
 
     parts, buys = [], []
     links = {"j2": ("link1", "link2"), "j3": ("link2", "link3"), "j4": ("link3", "link4")}
-    for j, frame in GM.items():
-        fr = frame if side == "l" else G.mirror_frame(*frame)
+    for j, frame in SV.items():
+        origin, zdir, xdir, kind = frame
+        fr = (origin, zdir, xdir) if side == "l" else G.mirror_frame(origin, zdir, xdir)
         pa, ch = links[j]
-        p, b = G.instance(f"gm_{side}_{j}", *fr, f"{side}_{pa}", f"{side}_{ch}", "arm", servo="sts3250" if j == "j2" else "sts3215")
+        p, b = G.instance(f"{j}_{side}", *fr, f"{side}_{pa}", f"{side}_{ch}", "arm", kind=kind)
         parts += p
         buys += b
     return parts, buys
@@ -471,10 +486,10 @@ def joints(side: str) -> list[Joint]:
     sy = 1 if side == "l" else -1
     L = P.LIMITS
     raw = [
-        ("shoulder_pitch", "lift", "link1", (X0, P.J1_FACE_Y, S), (0, 1, 0), "gm5"),
-        ("shoulder_roll", "link1", "link2", (X0, Y0, S), (1, 0, 0), "gm5"),
-        ("upper_arm_yaw", "link2", "link3", (X0, Y0, J3_FACE_Z), (0, 0, 1), "gm5s"),
-        ("elbow", "link3", "link4", (X0, Y0, E), (0, 1, 0), "gm5s"),
+        ("shoulder_pitch", "lift", "link1", (X0, P.J1_FACE_Y, S), (0, 1, 0), "sts3095"),
+        ("shoulder_roll", "link1", "link2", (X0, Y0, S), (1, 0, 0), "sts3095"),
+        ("upper_arm_yaw", "link2", "link3", (X0, Y0, J3_FACE_Z), (0, 0, 1), "sts3250"),
+        ("elbow", "link3", "link4", (X0, Y0, E), (0, 1, 0), "sts3095"),
         ("wrist_pitch", "link4", "link5", (X0, Y0, W), (0, 1, 0), "sts3250"),
         ("wrist_roll", "link5", "link6", (X0, Y0, J6_HORN_Z), (0, 0, 1), "sts3215"),
     ]

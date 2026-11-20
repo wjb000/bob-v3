@@ -13,7 +13,7 @@ python check.py                                 # the physics checks
 - **Links:** the printed meshes, with mass from the CAD volume at 4 walls and 20% infill, plus the bought parts at their listed mass, plus 1.7 kg of wiring and screws. Each link gets full inertia from its meshes.
 - **Joints:** the CAD axes and limits. The second gripper finger follows the first through an equality constraint, as the shared pinion does.
 - **Actuators:** position control with datasheet torque limits:
-  - GM-5 modules (J1–J4): 20.8 N·m
+  - STS3095 (J1, J2, J4): 9.3 N·m stall
   - STS3250 wrist pitch: 4.9 N·m
   - STS3215: 2.94 N·m
   - gripper: 40 N

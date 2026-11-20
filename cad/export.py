@@ -293,12 +293,19 @@ def main() -> int:
         pool = [(it["name"], it["link"], placed_at(s, T[it["link"]])) for it, s in zip(items, solids)]
         # The pinion turns with the fingers on the real gripper; here it is frozen, so its mesh with the racks is expected.
         def meshing(a, b):
-            if a.startswith("pinion_") and b.startswith("finger_"):
+            if a.startswith("pinion_") and (b.startswith("finger_") or b.startswith("rack_")):
                 return True
-            # GM-5 gears: the planets spin as they orbit; frozen here, their teeth cross the sun's and the ring's
-            if a.startswith("gm_") and a.rsplit("_", 1)[0] == b.rsplit("_", 1)[0]:
-                kinds = {a.rsplit("_", 1)[1], b.rsplit("_", 1)[1]}
-                return any(k.startswith("planet") for k in kinds) and kinds & {"housing", "sun", "planet0", "planet1", "planet2"} == kinds
+            if a.startswith("rack_") and b.startswith("finger_"):
+                return True  # TPU finger bolts onto the PETG rack
+            # servo horn/shaft sit in the child disc / printed bushing
+            if any(k in n for n in (a, b) for k in ("_horn", "_shaft")):
+                return True
+            # GT2 belt envelopes are boxes that occupy the same space as the pulleys and tube walls.
+            if "gt2_belt" in a or "gt2_belt" in b or "gt2_pulley" in a or "gt2_pulley" in b:
+                return True
+            drive = ("lift_motor", "coupler", "leadscrew", "t8_nut")
+            if any(a.startswith(x) for x in drive) and any(b.startswith(x) for x in drive):
+                return True
             return False
 
         hits = [h for h in overlaps(pool) if not meshing(h[0], h[1])]
@@ -343,11 +350,11 @@ def main() -> int:
         units="mm", frame="x forward, y left, z up, origin on the floor between the wheels",
         links=links, total_mass_g=round(total_mass, 1),
         joints=[dict(name=j.name, kind=j.kind, parent=j.parent, child=j.child, anchor=list(j.anchor), axis=list(j.axis),
-                     range=list(j.range), actuator=j.actuator, mimic=j.mimic) for j in joints],
+                     range=list(j.range), actuator=j.actuator, mimic=j.mimic, mimic_coef=j.mimic_coef) for j in joints],
         poses=robot.POSES, items=items,
         dims=dict(shoulder_z0=P.SHOULDER_Z0, lift_travel=P.LIFT_TRAVEL, base=[P.BASE_L, P.BASE_W, P.BASE_TOP],
                   wheel_od=P.WHEEL_OD, wheel_w=P.WHEEL_W, wheel_y=P.WHEEL_Y, caster_x=P.CASTER_X, caster_trail=P.CASTER_TRAIL,
-                  caster_wheel=P.CASTER_WHEEL, mast_top=P.MAST_TOP + P.CAP_H),
+                  caster_wheel=P.CASTER_WHEEL, mast_top=P.COL_TOP0),
     )
     (CAD / "scene.json").write_text(json.dumps(scene, indent=1) + "\n")
 

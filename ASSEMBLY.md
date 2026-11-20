@@ -1,18 +1,18 @@
 # Assembly
 
-Build it in this order. Several parts can't go on later: the centre base tile has to drop over the mast foot before the carriage goes in, and each arm's J1 screws have to go in before its J2 motor does.
+Build it in this order. Several parts can't go on later: the centre base tile has to drop over the column foot before the middle tube goes in, and each arm's J1 screws have to go in before its J2 motor does.
 
 Tools you need:
 
 - soldering iron with a heat-set insert tip
-- hex keys 1.5, 2, 2.5 and 3 mm, including a long 2.5 mm key for the mast
+- hex keys 1.5, 2, 2.5 and 3 mm
 - 7 mm and 13 mm wrenches
 - crimpers, a multimeter, and a bench supply with a current limit for first power-up
 
 ## 0. Before printing
 
 1. Measure everything in [VERIFY.md](VERIFY.md), update `cad/params.py`, run `cad/export.py`.
-2. Print a `joiner_tab`, one `wheel_bracket` and one GM-5 module first. Check the inserts, the DDSM115 stub fit and the gear mesh before you commit 6 kg of filament.
+2. Print a `joiner_tab`, one `wheel_bracket` and one servo cup (a `yoke` or `shoulder`) first. Check the inserts, the DDSM115 stub fit and the STS3095 drop-in before you commit 6 kg of filament.
 
 ## 1. Floor pan
 
@@ -37,15 +37,15 @@ Follow the wiring diagram on the page.
 4. Wire the power path: pack → main fuse → main switch → fuse block. The Pololu 5 V regulator is always on and feeds the Pi. The contactor sits between the fuse block and the two arm converters and the Pololu 12 V regulator (wheels and lift). The e-stop's NC contacts are in series with the contactor coil.
 5. First power-up on a current-limited bench supply at 36 V, 1 A. Check each rail before connecting any load.
 
-## 4. Mast and lift
+## 4. Telescoping column
 
-1. Bolt `mast_0` to the pan, 8 × M3×10 through the foot flange. Fit the KW12 limit switch on its pad.
-2. Drop the centre base tile (`base_shell_mid_c`) over `mast_0`. It just rests there for now.
-3. Push the two 12 mm rods into the sockets and lock them with the grub screws.
-4. Carriage: press in four LM12UU, screw the TR8 nut on from below, and drop the four M5 nuts into the tongue slots. Slide it down the rods from the top.
-5. Stack `mast_1` to `mast_5`. Each joint takes 4 × M3×14 through the inner bosses, reached through the front slot with a long key.
-6. Cap: NEMA 17 on the plate (4 × M3×8), coupler on the shaft. Thread the leadscrew through the nut from above. Seat the cap and screw it up from below into its inserts. Tighten the coupler.
-7. Drive the lift end to end on the bench supply. It should run smoothly at 25 mm/s and stop on the switch.
+1. Bolt `col_outer_0` to the pan, 8 × M3×10 through the foot flange. Fit the KW12 limit switch on its pad. Bolt the NEMA 17 onto the pedestal (4 × M3×8), shaft up, coupler on the shaft.
+2. Drop the centre base tile (`base_shell_mid_c`) over the outer tube. It just rests there for now.
+3. Stack `col_outer_1` and `col_outer_2`. Each joint takes 4 × M3×14 through the bosses. Fit the two belt anchors at the top.
+4. Middle tube: screw the TR8 nut into `col_mid_0`'s pocket from below (4 × M3 thread-forming). Stack `col_mid_0` to `col_mid_2`. Press the two GT2 20T pulleys onto the top axles. Slide the middle tube down the outer tube from the top. Thread the leadscrew up through the coupler and the nut. Tighten the coupler.
+5. Inner tube: stack `col_inner_0` and `col_inner_1`. Slide it into the middle tube. Clamp a GT2 belt on each side of the inner tube, run it up over the mid pulley, and anchor it on the outer tube. Same length both sides.
+6. Bolt `col_cap` onto the inner tube (4 × M3×12). The front lip hangs in front of the outer tube.
+7. Drive the lift end to end on the bench supply. The inner tube should travel twice as far as the middle. It should stop on the switch.
 
 ## 5. Base shell
 
@@ -54,23 +54,22 @@ Follow the wiring diagram on the page.
 
 ## 6. Torso
 
-1. Build eight GM-5 modules: STS3250 into the housing sleeve, cap on; sun onto the horn (4 × M2); planets on the M3 × 20 pins between the carrier plates; 6807 into the housing; magnet into the carrier rim; hall sensor into its pocket. Turn each one by hand: it should run smoothly at 5:1.
-2. Yokes: a GM-5 into each `yoke` cup, flange screwed to the rim (4 × M3 × 8). Bolt both yokes to `torso_back_plate` (6 × M3×12 each, from behind).
+1. Yokes: drop an STS3095 into each `yoke` cup, horn outboard. Four M3×10 through the servo tabs into the inserts. Bolt both yokes to `torso_back_plate` (6 × M3×12 each, from behind).
 2. `neck_mount` bridges the two yoke beams. Put the pan STS3215 in its cradle.
-3. On the back plate grid: Pi 5, USB hub, XIAO ESP32-C3 for the hall sensors, two Waveshare bus adapters.
-4. Bolt the back plate to the carriage tongue with 4 × M5×30.
-5. Shells: the lower halves, then the upper halves. Join them from inside with joiner tabs, then screw them through the back wall into the plate. Run the umbilical (36 V pair, CAN ×2, servo bus, USB) down the mast with a service loop.
+3. On the back plate grid: Pi 5, USB hub, two Waveshare bus adapters.
+4. Bolt the back plate to the column-cap lip with 4 × M5×20.
+5. Shells: the lower halves, then the upper halves. Join them from inside with joiner tabs, then screw them through the back wall into the plate. Run the umbilical (36 V pair, servo bus, USB) down the column with a service loop.
 
 ## 7. Arms (left, then mirror for the right)
 
-1. `shoulder` onto the J1 output: 6 × M3×8, reached through the empty J2 cup.
-2. J2 into the shoulder cup, rear screws. `clevis` onto the J2 output.
-3. J3 into the clevis cup. Screw both `upper_arm` halves to the J3 output, put J4 in the cup, and close the clamshell (6 × M3×16 with nuts).
-4. `elbow` onto the J4 output. Put J5 between the `forearm` halves, close them, and bolt the forearm flange to the elbow (4 × M3×16 with nuts).
+1. `shoulder` onto the J1 horn: 4 × M3×8, reached through the empty J2 cup.
+2. J2 STS3095 into the shoulder cup, tab screws. `clevis` onto the J2 horn.
+3. J3 STS3250 into the clevis cup. Screw both `upper_arm` halves to the J3 horn, put the J4 STS3095 in the cup, and close the clamshell (6 × M3×16 with nuts).
+4. `elbow` onto the J4 horn. Put the J5 STS3250 between the `forearm` halves, close them, and bolt the forearm flange to the elbow (4 × M3×16 with nuts).
 5. `wrist` clevis onto the J5 horn, with the idler screw on the other side. Put J6 in the wrist sleeve.
-6. `palm` onto the J6 horn, with J7 inside it. Centre J7 at mid-travel, press the `pinion` onto the horn, and slide `finger_a` and `finger_b` into their channels so they meet when the servo is at the "closed" end. Screw on the TPU `pad`s.
-7. Wiring: CAN runs down the hollow upper arm. The Feetech bus runs down the forearm. Leave slack at every joint.
-8. Set the Feetech IDs on each arm's bus: J1–J4 modules are 1–4, J5–J7 are 5–7; the head pan and tilt are 8 and 9 on the left bus. Put the module servos in multi-turn mode.
+6. `palm` onto the J6 horn, with J7 inside it. Centre J7 at mid-travel, press the `pinion` onto the horn, slide the PETG `rack`s into their channels so they meet when the servo is at the "closed" end, and bolt on the TPU `finger`s.
+7. Wiring: the Feetech bus runs down the hollow upper arm and the forearm. Leave slack at every joint.
+8. Set the Feetech IDs on each arm's bus: J1–J7 are 1–7; the head pan and tilt are 8 and 9 on the left bus. Multi-turn mode on every arm servo.
 
 ## 8. Head
 
@@ -81,5 +80,5 @@ Follow the wiring diagram on the page.
 ## 9. Bring-up
 
 1. Home the lift and check every joint's direction and zero against the viewer (`sim/bob_v3.xml` uses the same conventions).
-2. Home every GM-5 to its hall index. Set torque limits: modules at 80% of stall, STS3215 gripper at about 0.5 N·m.
+2. Set torque limits: STS3095 and STS3250 at 80% of stall, STS3215 gripper at about 0.5 N·m. The servos home from their own encoders.
 3. Run the pick in sim with `sim/expert.py`. Then teleoperate the real robot and record your own demonstrations.

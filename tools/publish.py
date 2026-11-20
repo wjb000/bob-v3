@@ -259,7 +259,7 @@ def us_units(t: str) -> str:
         if b:
             return f"{ftin(float(a))} – {ftin(float(b))}"
         return ftin(float(a.replace(",", "")))
-    t = R.sub(N_ + r"\s?m\b(?![/²·])", m_sub, t)
+    t = R.sub(N_ + r"\sm\b(?![/²·])", m_sub, t)
     return t
 
 def main():
@@ -334,7 +334,7 @@ def main():
     t = fill(t, "BOM", "\n".join(out))
     # prints
     out = []
-    grp_names = {"base": "Base", "mast": "Mast and lift", "torso": "Torso", "head": "Head", "arm": "Arms"}
+    grp_names = {"base": "Base", "mast": "Column", "torso": "Torso", "head": "Head", "arm": "Arms"}
     for g in ("base", "mast", "torso", "head", "arm"):
         ps = [p for p in manifest["parts"] if p["group"] == g]
         if not ps:
@@ -357,7 +357,7 @@ def main():
         detail = {
             "stand": lambda v: f"drift {v['drift_mm']} mm, tilt {v['tilt_deg']}°",
             "torque": lambda v: ", ".join(f"{r['joint'].replace('_', ' ')} {r['worst_Nm']} N·m ({100 * r['of_rated']:.0f}% rated)" for r in v["rows"][:5]),
-            "hold": lambda v: f"worst error {v['worst_err_deg']}°, nothing saturated",
+            "hold": lambda v: f"worst error {v['worst_err_deg']}°, tilt {v.get('tilt_deg', 0)}°" + ("" if not v.get("saturated") else ", saturated"),
             "lift": lambda v: f"{v['time_s']} s, holds within {v['hold_err_mm']} mm at {v['hold_force_N']} N",
             "brake": lambda v: f"max tilt {v['max_tilt_deg']}° at {v['speed_mps']} m/s",
             "push": lambda v: f"tips at {v['push_forward_N']} N forward, {v['push_back_N']} N back",

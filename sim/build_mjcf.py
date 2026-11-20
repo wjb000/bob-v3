@@ -29,16 +29,13 @@ ASSETS = ROOT / "sim" / "assets"
 OUT = ROOT / "sim"
 
 # Wiring, screws, inserts and paint are not in the CAD. Book them where they sit.
-MISC_G = {"base": 1200.0, "lift": 500.0}
+MISC_G = {"base": 1200.0, "lift": 400.0, "lift_mid": 80.0}
 
 # Actuator models. Torques from the datasheets; armature is the reflected rotor
 # inertia (an estimate); kp/kv are the gains used for position control.
 ACT = {
-    # GM-5: STS3250 (4.9 N·m stall, 1.57 rated) through the printed 5:1 planetary at 85%. The servo's reflected
-    # inertia grows by 25; printed gears add friction.
-    # GM-5 with an STS3215 (J3, J4): 2.94 N·m stall, 0.98 rated
-    "gm5s": dict(force=12.5, rated=4.2, kp=120.0, kv=5.0, armature=0.10, damping=0.5, frictionloss=0.35, vel=1.57),
-    "gm5": dict(force=20.8, rated=6.7, kp=160.0, kv=6.0, armature=0.10, damping=0.5, frictionloss=0.35, vel=1.57),
+    # Direct Feetech bus servos, Nori A3 grades. Stall is the force limit; rated is what sim/check.py uses.
+    "sts3095": dict(force=9.32, rated=2.21, kp=80.0, kv=1.2, armature=0.012, damping=0.08, frictionloss=0.06, vel=3.25),
     "sts3250": dict(force=4.9, rated=1.57, kp=60.0, kv=0.8, armature=0.005, damping=0.05, frictionloss=0.04, vel=7.8),
     "sts3215": dict(force=2.94, rated=0.98, kp=40.0, kv=0.6, armature=0.004, damping=0.05, frictionloss=0.03, vel=4.8),
     # gripper: STS3215 through a 12 mm pitch-radius pinion, torque limit set to ~0.5 N·m -> ~40 N per finger
@@ -81,9 +78,11 @@ def collides(item):
     if kind != "print":
         return None
     if link == "base":
-        return "body" if n.startswith(("base_shell_", "mast_")) else None
+        return "body" if n.startswith(("base_shell_", "col_outer_")) else None
+    if link == "lift_mid":
+        return "body" if n.startswith("col_mid_") else None
     if link == "lift":
-        return "body" if n.startswith("torso_") and not n.startswith("torso_back") else None
+        return "body" if (n.startswith("torso_") and not n.startswith("torso_back")) or n.startswith("col_inner_") else None
     if link.startswith("head"):
         return "body" if n.startswith(("head_lower", "head_upper", "visor")) else None
     if link.startswith(("l_", "r_")):
@@ -181,7 +180,7 @@ def main():
             j = joints_by_child[link]
             pos = org[link] - org[j["parent"]]
             w(f'{pad}<body name="{link}" pos="{pos[0]:.5f} {pos[1]:.5f} {pos[2]:.5f}">')
-            a = ACT[j["actuator"]]
+            a = ACT.get(j["actuator"], dict(damping=0, armature=0, frictionloss=0, kp=0, kv=0, force=0, vel=0))
             if j["kind"] == "slide":
                 lo, hi = j["range"]
                 w(f'{pad}  <joint name="{j["name"]}" type="slide" axis="{" ".join(map(str, j["axis"]))}" range="{lo} {hi}" '
@@ -195,7 +194,8 @@ def main():
                   f'damping="{a["damping"]}" armature="{a["armature"]}" frictionloss="{a["frictionloss"]}"/>')
             sensors.append(f'    <jointpos name="q_{j["name"]}" joint="{j["name"]}"/>')
             if j.get("mimic"):
-                equalities.append(f'    <joint joint1="{j["name"]}" joint2="{j["mimic"]}" polycoef="0 1 0 0 0" solref="0.005 1"/>')
+                coef = float(j.get("mimic_coef") or 1.0)
+                equalities.append(f'    <joint joint1="{j["name"]}" joint2="{j["mimic"]}" polycoef="0 {coef} 0 0 0" solref="0.005 1"/>')
             elif j["name"].startswith("wheel"):
                 actuators.append(f'    <velocity name="{j["name"]}" joint="{j["name"]}" kv="{a["kv"]}" ctrlrange="{-a["vel"]} {a["vel"]}" '
                                  f'forcerange="{-a["force"]} {a["force"]}"/>')
@@ -224,7 +224,7 @@ def main():
                   f'size="{e[0]:.4f} {e[1]:.4f} {e[2]:.4f}" contype="{ct}" conaffinity="{ca}" friction="0.8 0.01 0.001" mass="0"/>')
             elif col:
                 ct, ca = CLS[col]
-                fr = "1.5 0.02 0.002" if "pad_" in it["name"] else "0.8 0.01 0.001"
+                fr = "1.5 0.02 0.002" if it["name"].startswith("finger_") else "0.8 0.01 0.001"
                 w(f'{pad}  <geom name="c_{it["name"]}" class="col" type="mesh" mesh="{it["name"]}" contype="{ct}" conaffinity="{ca}" '
                   f'friction="{fr}" mass="0"/>')
         if link.startswith("wheel"):
@@ -260,7 +260,7 @@ def main():
             if link != f"{link[0]}_{fl}" or not link.startswith(("l_", "r_")):
                 continue
             side = link[0]
-            pad_it = next(i for i in SCENE["items"] if i["name"] == f"pad_{padname}_{side}")
+            pad_it = next(i for i in SCENE["items"] if i["name"] == f"finger_{padname}_{side}")
             pm = trimesh.load_mesh(PLACED / pad_it["file"])
             pc = pm.bounds.mean(0) / 1000 - org[link]
             pe = pm.extents / 2000
@@ -277,9 +277,11 @@ def main():
     w(f'    <geom name="floor" type="plane" size="0 0 0.05" material="floor" contype="{ct}" conaffinity="{ca}" group="0" friction="1 0.01 0.001"/>')
     body("base", 2)
     w("  </worldbody>")
-    # The carriage and torso slide inside the mast: exclude that pair explicitly (they are parent/child, kept for clarity).
+    # Nested column stages slide inside each other; the torso is a child of lift.
     w("  <contact>")
     w('    <exclude body1="base" body2="lift"/>')
+    w('    <exclude body1="base" body2="lift_mid"/>')
+    w('    <exclude body1="lift_mid" body2="lift"/>')
     w('    <exclude body1="lift" body2="head_tilt"/>')
     for s in ("l", "r"):
         w(f'    <exclude body1="lift" body2="{s}_link2"/>')
@@ -330,8 +332,8 @@ def _tip_points():
     """Fingertip midpoint (tool centre) at the zero pose, metres, from the pad meshes."""
     out = {}
     for side in ("l", "r"):
-        a = trimesh.load_mesh(PLACED / f"pad_a_{side}.stl").bounds / 1000
-        b = trimesh.load_mesh(PLACED / f"pad_b_{side}.stl").bounds / 1000
+        a = trimesh.load_mesh(PLACED / f"finger_a_{side}.stl").bounds / 1000
+        b = trimesh.load_mesh(PLACED / f"finger_b_{side}.stl").bounds / 1000
         lo = np.minimum(a[0], b[0])
         hi = np.maximum(a[1], b[1])
         c = (lo + hi) / 2

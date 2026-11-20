@@ -92,7 +92,7 @@ def test_stand():
 # ---------------------------------------------------------------- 2 torque
 
 ARM_J = ["shoulder_pitch", "shoulder_roll", "upper_arm_yaw", "elbow", "wrist_pitch", "wrist_roll", "gripper"]
-RATING = {"shoulder_pitch": (6.7, 20.8), "shoulder_roll": (6.7, 20.8), "upper_arm_yaw": (4.2, 12.5), "elbow": (4.2, 12.5),
+RATING = {"shoulder_pitch": (2.21, 9.32), "shoulder_roll": (2.21, 9.32), "upper_arm_yaw": (1.57, 4.9), "elbow": (2.21, 9.32),
           "wrist_pitch": (1.57, 4.9), "wrist_roll": (0.98, 2.94), "gripper": (0.98, 2.94)}
 
 
@@ -379,11 +379,14 @@ def main():
     OUT.mkdir(parents=True, exist_ok=True)
     tests = [test_stand, test_torque, test_hold, test_lift, test_brake, test_push, test_slope, test_reach, test_tasks, test_pick]
     only = sys.argv[1:]
-    for t in tests:
-        if only and t.__name__[5:] not in only:
-            continue
-        t()
-    (OUT / "check.json").write_text(json.dumps(RESULTS, indent=1) + "\n")
+    try:
+        for t in tests:
+            if only and t.__name__[5:] not in only:
+                continue
+            t()
+    finally:
+        if RESULTS:
+            (OUT / "check.json").write_text(json.dumps(RESULTS, indent=1) + "\n")
     bad = [k for k, v in RESULTS.items() if not v["ok"]]
     print("all passed" if not bad else f"failed: {', '.join(bad)}")
     return 1 if bad else 0
