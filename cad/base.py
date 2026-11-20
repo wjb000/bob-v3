@@ -27,11 +27,14 @@ TOP_CHAMFER = 24.0
 
 MAST_HOLE = (P.COL_X - P.COL_OUTER_D / 2 - 4, P.COL_X + P.COL_OUTER_D / 2 + 4, P.COL_OUTER_D / 2 + 4)
 MAST_FLANGE = 12.0  # column foot overhang on the pan
-ESTOP_XY = (-205.0, 0.0)
+ESTOP_XY = (-140.0, 78.0)  # rear-left of the top, clear of the rear caster
 LIGHT_Z = (172.0, 178.0)
 
-BATT_C = (90.0, 0.0)
-BATT_Z0 = P.PAN_TOP + 4.0  # sits on the joiner tabs
+# Pack turned so its 200 mm side runs fore-aft and it sits on +y, off the caster centreline.
+# Above the wheel brackets (they top out near z = 75) and clear of the column (y ≤ 50).
+BATT_C = (0.0, 100.0)
+BATT_LX, BATT_LY = P.BATT[1], P.BATT[0]  # 200 along x, 80 along y
+BATT_Z0 = 100.0
 SHELF_Z = 142.0
 SHELF_T = 4.0
 
@@ -48,17 +51,24 @@ def _col_foot_pts():
 
 
 def _axle_pts(side):
+    """Four M3 in the pan, on the inboard face of the wheel bracket."""
+    yf = P.WHEEL_Y - P.DDSM_STUB_END
     y = side
-    return [(-20, y * 122), (20, y * 122), (-20, y * 140), (20, y * 140)]
+    return [(-20, y * (yf - 22)), (20, y * (yf - 22)), (-20, y * (yf - 8)), (20, y * (yf - 8))]
 
 
 def _caster_pts(cx):
     return [(cx - 25, -60), (cx - 25, 60), (cx + 25, -60), (cx + 25, 60)]
 
 
-FRONT_SHELF_PTS = [(40, 110), (146, 110), (146, 14)]
-REAR_SHELF_PTS = [(-106, 30), (-106, 130), (-160, 125), (-185, 100)]
-CRADLE_PTS = [(62, 114), (118, 114), (62, -114), (118, -114)]
+# Shelves stay on the open side (−y) and one rear pocket. +y is the battery.
+# Clear of the wheel brackets (x ±26, y −135..−105 on this side).
+FRONT_SHELF_PTS = [(55, -95), (90, -95), (72, -140)]
+REAR_SHELF_PTS = [(-55, -95), (-90, -95), (-72, -140)]
+FRONT_SHELF_R_PTS = [(120, -118), (140, -116), (126, -132)]
+REAR_SHELF_R_PTS = [(-132, 96), (-150, 108), (-128, 128)]
+# On the cradle side walls (x ≈ ±105). The old feet sat in the opening and the half fell apart.
+CRADLE_PTS = [(107, 88), (107, 128), (-107, 88), (-107, 128)]
 LUG_PTS = []
 
 
@@ -81,9 +91,9 @@ def _register():
     PAN_PTS["caster_f"] = _caster_pts(P.CASTER_X)
     PAN_PTS["caster_r"] = _caster_pts(-P.CASTER_X)
     PAN_PTS["shelf_fl"] = FRONT_SHELF_PTS
-    PAN_PTS["shelf_fr"] = [(x, -y) for x, y in FRONT_SHELF_PTS]
+    PAN_PTS["shelf_fr"] = FRONT_SHELF_R_PTS
     PAN_PTS["shelf_rl"] = REAR_SHELF_PTS
-    PAN_PTS["shelf_rr"] = [(x, -y) for x, y in REAR_SHELF_PTS]
+    PAN_PTS["shelf_rr"] = REAR_SHELF_R_PTS
     PAN_PTS["cradle"] = CRADLE_PTS
     LUG_PTS[:] = _lug_points()
     PAN_PTS["lug"] = list(LUG_PTS)
@@ -113,7 +123,7 @@ def _top_seam_pairs():
     flat_y = SHELL_LY / 2 - TOP_CHAMFER - 12
     mx0, mx1, my = MAST_HOLE
     for gx in P.GRID_X:
-        for y in (-178.0, -132.0, -45.0, 45.0, 132.0, 178.0):
+        for y in range(-140, 141, 46):
             if abs(y) > flat_y:
                 continue
             a, b = (gx - JOIN_OFF, y), (gx + JOIN_OFF, y)
@@ -123,9 +133,11 @@ def _top_seam_pairs():
                 continue
             if max(math.hypot(*a), math.hypot(*b)) > P.BASE_R - TOP_CHAMFER - 14:
                 continue
+            if _near_port(a) or _near_port(b):
+                continue
             pairs.append(("x", a, b))
     for gy in P.GRID_Y:
-        for x in (-232.0, -165.0, -40.0, 30.0, 140.0, 222.0):
+        for x in range(-150, 151, 46):
             if abs(x) > flat_x:
                 continue
             if any(abs(x - gx) < 16 for gx in P.GRID_X):
@@ -133,8 +145,16 @@ def _top_seam_pairs():
             a, b = (x, gy - JOIN_OFF), (x, gy + JOIN_OFF)
             if max(math.hypot(*a), math.hypot(*b)) > P.BASE_R - TOP_CHAMFER - 14:
                 continue
+            if _near_port(a) or _near_port(b):
+                continue
             pairs.append(("y", a, b))
     return pairs
+
+
+def _near_port(q, tol=26.0):
+    """Keep joiner tabs out of the charge socket and the e-stop body."""
+    return (math.hypot(q[0] - P.CHARGE_XY[0], q[1] - P.CHARGE_XY[1]) < tol
+            or math.hypot(q[0] - ESTOP_XY[0], q[1] - ESTOP_XY[1]) < tol)
 
 
 def _arch_top(x):
@@ -237,9 +257,9 @@ def _shell_full() -> cq.Shape:
     for x, y in LUG_PTS:
         tools.append(cyl((x, y, P.PAN_TOP - 1), "z", P.M3, 12))
         tools.append(cyl((x, y, P.PAN_TOP + 4), "z", P.M3_HEAD, 10))
-    # wheel arches
+    # wheel arches, opening the shell where the tire is
     for sy in (1, -1):
-        tools.append(cyl_between("y", (0, P.AXLE_Z), sy * 140, sy * 240, 2 * P.WHEEL_ARCH_R))
+        tools.append(cyl_between("y", (0, P.AXLE_Z), sy * (P.WHEEL_Y - 28), sy * (P.BASE_R + 30), 2 * P.WHEEL_ARCH_R))
     # column opening
     mx0, mx1, my = MAST_HOLE
     tools.append(rrect((mx0 + mx1) / 2, 0, P.BASE_TOP - 30, P.BASE_TOP + 5, mx1 - mx0, 2 * my, P.COL_OUTER_R + 4))
@@ -341,26 +361,25 @@ def _pan_seam_pairs():
     pairs = []
     taken = _all_pan_pts()
     for gx in P.GRID_X:
-        for y in (-190.0, -135.0, -60.0, 0.0, 60.0, 135.0, 190.0):
+        for y in range(-150, 151, 42):
             a, b = (gx - JOIN_OFF, y), (gx + JOIN_OFF, y)
             ok = all(_pan_inside(q, 12) for q in (a, b)) and all(_clear(q, taken, 24) for q in (a, b))
             ok = ok and all(abs(y - gy) > 18 for gy in P.GRID_Y)
             ok = ok and not any(_in_cut(q, 8) for q in (a, b))
             mx0, mx1, my = MAST_HOLE
-            ok = ok and not any(mx0 - 16 < q[0] < mx1 + 16 and abs(q[1]) < my + 16 for q in (a, b))
+            ok = ok and not any(mx0 - 28 < q[0] < mx1 + 28 and abs(q[1]) < my + 28 for q in (a, b))
             if ok:
                 pairs.append(("x", a, b))
     for gy in P.GRID_Y:
-        for x in (-232.0, -170.0, -130.0, -40.0, 30.0, 120.0, 160.0, 225.0):
+        for x in range(-150, 151, 42):
             a, b = (x, gy - JOIN_OFF), (x, gy + JOIN_OFF)
             ok = all(_pan_inside(q, 12) for q in (a, b)) and all(_clear(q, taken, 24) for q in (a, b))
             ok = ok and all(abs(x - gx) > 18 for gx in P.GRID_X)
             ok = ok and not any(_in_cut(q, 8) for q in (a, b))
             mx0, mx1, my = MAST_HOLE
-            ok = ok and not any(mx0 - 16 < q[0] < mx1 + 16 and abs(q[1]) < my + 16 for q in (a, b))
+            ok = ok and not any(mx0 - 28 < q[0] < mx1 + 28 and abs(q[1]) < my + 28 for q in (a, b))
             # keep tabs out from under the battery cradle walls
-            bx, by = P.BATT[0] / 2 + 10, P.BATT[1] / 2 + 10
-            ok = ok and not (abs(x - BATT_C[0]) < bx + 16 and abs(abs(gy) - by) < 22)
+            ok = ok and not (abs(x - BATT_C[0]) < BATT_LX / 2 + 18 and abs(gy - BATT_C[1]) < BATT_LY / 2 + 18)
             if ok:
                 pairs.append(("y", a, b))
     return pairs
@@ -538,17 +557,23 @@ def caster_wheel(cx) -> cq.Shape:
 # ---------------------------------------------------------------- battery and shelves
 
 def battery_cradle() -> cq.Shape:
-    bx, by, bz = P.BATT
+    bx, by = BATT_LX, BATT_LY
     cx, cy = BATT_C
-    frame = rrect_shell(cx, cy, P.PAN_TOP, P.PAN_TOP + 40, bx + 10, by + 10, 6, 4.0, open_top=True, open_bot=True)
+    z0 = BATT_Z0 - 8.0
+    # 3 mm of air around the pack. Feet land on the side walls so each half is one solid.
+    frame = rrect_shell(cx, cy, z0, z0 + 28, bx + 14, by + 14, 6, 4.0, open_top=True, open_bot=True)
     feet = []
     for x, y in CRADLE_PTS:
-        feet.append(fuse(cyl((x, y, P.PAN_TOP), "z", 14, 6), box(x - 7, x + 7, y, y - 10 * (1 if y > 0 else -1), P.PAN_TOP, P.PAN_TOP + 6)))
+        # Stay on the wall. A foot that reaches inward lands in the pack.
+        sign = 1.0 if x > 0 else -1.0
+        feet.append(fuse(cyl((x, y, P.PAN_TOP), "z", 12, z0 - P.PAN_TOP + 4),
+                         box(x - 4 * sign, x + 8 * sign, y - 10, y + 10, z0 - 2, z0 + 10)))
     s = fuse(frame, *feet)
     tools = [cyl((x, y, P.PAN_TOP - 1), "z", P.M3, 20) for x, y in CRADLE_PTS]
-    # strap slots
-    for y in (-60, 60):
-        tools.append(box(cx - bx / 2 - 10, cx + bx / 2 + 10, y - 13, y + 13, P.PAN_TOP + 26, P.PAN_TOP + 30))
+    # strap slots across the short side
+    z0 = BATT_Z0 - 8.0
+    for x in (-60, 60):
+        tools.append(box(x - 13, x + 13, cy - by / 2 - 8, cy + by / 2 + 8, z0 + 16, z0 + 22))
     hw("M3x10 socket head", 4)
     hw("Velcro battery strap 25 mm", 2)
     return cut(s, *tools)
@@ -578,13 +603,16 @@ def _shelf(pts, outline_box, side, front) -> cq.Shape:
 
 
 def front_shelf(side) -> cq.Shape:
-    pts = FRONT_SHELF_PTS if side > 0 else [(x, -y) for x, y in FRONT_SHELF_PTS]
-    return _shelf(pts, (32, 160, 4, 122), side, True)
+    # −y side, split so the two plates do not share a footprint.
+    if side > 0:
+        return _shelf(REAR_SHELF_PTS, (-110, -40, -155, -80), 1, False)
+    return _shelf(FRONT_SHELF_PTS, (40, 100, -155, -80), 1, True)
 
 
 def rear_shelf(side) -> cq.Shape:
-    pts = REAR_SHELF_PTS if side > 0 else [(x, -y) for x, y in REAR_SHELF_PTS]
-    return _shelf(pts, (-262, -98, 20, 142), side, False)
+    if side > 0:
+        return _shelf(FRONT_SHELF_R_PTS, (108, 155, -155, -100), 1, True)
+    return _shelf(REAR_SHELF_R_PTS, (-158, -108, 78, 138), 1, False)
 
 
 # ---------------------------------------------------------------- bought envelopes
@@ -599,20 +627,23 @@ def bought() -> list[Bought]:
         frame = dict(xdir=(1, 0, 0), zdir=(0, sy, 0))
         out += V.boughts(name, V.place(rot, (0, sy * P.WHEEL_Y, P.AXLE_Z), **frame), link, "base", "wheel", P.HUB_MASS - 300, "ddsm115")
         out += V.boughts(f"{name}_stator", V.place(stat, (0, sy * P.WHEEL_Y, P.AXLE_Z), **frame), "base", "base", "wheel", 300, "")
-    out += V.boughts("battery", V.place(V.battery(), (BATT_C[0], BATT_C[1], BATT_Z0)), "base", "base", "battery", P.BATT_MASS, "battery")
+    # local y (200 mm) maps to world −x, local x (80 mm) maps to world y.
+    out += V.boughts("battery", V.place(V.battery(), (BATT_C[0], BATT_C[1], BATT_Z0), xdir=(0, 1, 0), zdir=(0, 0, 1)),
+                     "base", "base", "battery", P.BATT_MASS, "battery")
     out += V.boughts("charge_socket", V.place(V.gx16(), (P.CHARGE_XY[0], P.CHARGE_XY[1], P.BASE_TOP)), "base", "base", "electronics", 20, "gx16")
     out += V.boughts("lidar", V.place(V.rplidar_c1(), (P.LIDAR_X, 0, P.LIDAR_Z0)), "base", "base", "electronics", 110, "lidar")
     z = SHELF_Z + SHELF_T
+    # −y bay, above the pan, inside the Ø400 shell and clear of the column (r = 50).
     boards = [
-        ("ddsm_driver", (70, 60), V.small_board(65, 30, (18, 25, 3), look="pcb_black"), 20, "ddsmdriver"),
-        ("imu", (130, -40), V.small_board(25, 20, (5, 5, 1)), 5, "imu"),
-        ("tmc2209", (132, -92), V.small_board(15, 20, (5, 5, 1), look="pcb_black"), 5, "tmc"),
-        ("reg_5v", (60, -105), V.small_board(25.4, 25.4, (10, 10, 4), look="pcb_blue"), 8, "pololu5"),
-        ("reg_12v", (95, -105), V.small_board(25.4, 25.4, (10, 10, 4), look="pcb_blue"), 8, "pololu12"),
-        ("fuse_block", (70, -55), V.fuse_block(40, 30, 25), 40, "fuse"),
-        ("contactor_relay", (130, 60), V.contactor(40, 30, 30), 60, "relay"),
-        ("buck_12v", (-150, 80), V.finned_buck(74, 74, 32), 220, "buck12"),
-        ("buck_12v_r", (-150, -80), V.finned_buck(74, 74, 32), 220, "buck12"),
+        ("ddsm_driver", (0, -104), V.small_board(40, 24, (10, 8, 3), look="pcb_black"), 20, "ddsmdriver"),
+        ("imu", (-130, -45), V.small_board(22, 18, (4, 4, 1)), 5, "imu"),
+        ("tmc2209", (-130, -20), V.small_board(16, 14, (4, 4, 1), look="pcb_black"), 5, "tmc"),
+        ("reg_5v", (0, -162), V.small_board(22, 22, (8, 8, 3), look="pcb_blue"), 8, "pololu5"),
+        ("reg_12v", (0, -132), V.small_board(22, 22, (8, 8, 3), look="pcb_blue"), 8, "pololu12"),
+        ("fuse_block", (0, -72), V.fuse_block(40, 20, 24), 40, "fuse"),
+        ("contactor_relay", (-130, -96), V.contactor(32, 22, 24), 60, "relay"),
+        ("buck_12v", (-72, -112), V.finned_buck(74, 74, 32), 220, "buck12"),
+        ("buck_12v_r", (72, -112), V.finned_buck(74, 74, 32), 220, "buck12"),
     ]
     for name, (x, y), pcs, m, key in boards:
         zz = z + (8.5 if name == "esp32" else 0.0)  # the devkit stands on its pin headers
@@ -644,7 +675,9 @@ def parts() -> list[Part]:
                         note="Two 608ZZ pressed in. TPU 95A if your printer does it, PETG otherwise."))
     cradle = battery_cradle()
     for sy, s in ((1, "l"), (-1, "r")):
-        half = split_one(cradle, box(-400, 400, 0, sy * 400, 0, 400), f"battery_cradle_{s}")
+        # The pack sits on +y, so the two halves meet on x = 0, not on the centreline.
+        region = box(0, 400, -400, 400, 0, 400) if sy > 0 else box(-400, 0, -400, 400, 0, 400)
+        half = split_one(cradle, region, f"battery_cradle_{s}")
         out.append(Part(f"battery_cradle_{s}", half, "base", "base", color="frame",
                         note="Two halves meet under the pack; the strap holds them together."))
     for side, s in ((1, "l"), (-1, "r")):

@@ -44,7 +44,7 @@ Follow the wiring diagram on the page.
 3. Stack `col_outer_1` and `col_outer_2`. Each joint takes 4 × M3×14 through the bosses. Fit the two belt anchors at the top.
 4. Middle tube: screw the TR8 nut into `col_mid_0`'s pocket from below (4 × M3 thread-forming). Stack `col_mid_0` to `col_mid_2`. Press the two GT2 20T pulleys onto the top axles. Slide the middle tube down the outer tube from the top. Thread the leadscrew up through the coupler and the nut. Tighten the coupler.
 5. Inner tube: stack `col_inner_0` and `col_inner_1`. Slide it into the middle tube. Clamp a GT2 belt on each side of the inner tube, run it up over the mid pulley, and anchor it on the outer tube. Same length both sides.
-6. Bolt `col_cap` onto the inner tube (4 × M3×12). The front lip hangs in front of the outer tube.
+6. Bolt `col_cap` onto the inner tube (4 × M3×12). The plate is the seat for the torso.
 7. Drive the lift end to end on the bench supply. The inner tube should travel twice as far as the middle. It should stop on the switch.
 
 ## 5. Base shell
@@ -57,7 +57,7 @@ Follow the wiring diagram on the page.
 1. Yokes: drop an STS3095 into each `yoke` cup, horn outboard. Four M3×10 through the servo tabs into the inserts. Bolt both yokes to `torso_back_plate` (6 × M3×12 each, from behind).
 2. `neck_mount` bridges the two yoke beams. Put the pan STS3215 in its cradle.
 3. On the back plate grid: Pi 5, USB hub, two Waveshare bus adapters.
-4. Bolt the back plate to the column-cap lip with 4 × M5×20.
+4. Set the torso on the cap. Bolt the shelf down with 4 × M5×16. The column passes through the hole in the belly.
 5. Shells: the lower halves, then the upper halves. Join them from inside with joiner tabs, then screw them through the back wall into the plate. Run the umbilical (36 V pair, servo bus, USB) down the column with a service loop.
 
 ## 7. Arms (left, then mirror for the right)

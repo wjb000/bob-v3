@@ -186,29 +186,26 @@ def inner_segment(i, z0, z1, n) -> cq.Shape:
     return cut(s, *tools)
 
 
+def _cap_bolts():
+    b = P.CAP_BOLT
+    return [(P.COL_X + sx * b, sy * b) for sx in (1, -1) for sy in (1, -1)]
+
+
 def inner_cap() -> cq.Shape:
-    """Plate on the inner tube. A front lip takes the torso back plate on four M5."""
+    """Plate on the inner tube. The torso shelf sits on this face and bolts down."""
     z0 = P.COL_INNER_TOP0
     z1 = z0 + 8.0
-    plate = rrect(P.COL_X, 0, z0, z1, P.COL_INNER_D + 8, P.COL_INNER_D + 8, P.COL_INNER_R + 2)
-    x0 = P.COL_X + P.COL_OUTER_D / 2 + 2
-    x1 = P.TORSO_X0 + 4.0  # meets the back-plate face; screws continue through the plate
-    bridge = box(P.COL_X, x1, -24, 24, z0, z1)
-    lip_z0 = min(S0 - 58.0, P.COL_TOP0 - 40.0)
-    lip = box(x0, x1, -30, 30, lip_z0, z1)
-    s = fuse(plate, bridge, lip)
+    plate = rrect(P.COL_X, 0, z0, z1, P.COL_INNER_D + 12, P.COL_INNER_D + 12, P.COL_INNER_R + 4)
     tools = []
     for x, y in _boss_pts(P.COL_INNER_D):
         tools.append(cyl((x, y, z0 - 1), "z", P.M3, 12))
         tools.append(cyl((x, y, z1 - 3), "z", P.M3_HEAD, 4))
-    # M5 through the lip into the back plate
-    for y in (-16.0, 16.0):
-        for zb in (S0 - 52.0, S0 - 36.0):
-            tools.append(cyl_between("x", (y, zb), x0 - 1, x1 + 1, P.M5))
-            tools.append(cyl_between("x", (y, zb), x1 - 3, x1 + 1, 9.5))
+    for x, y in _cap_bolts():
+        tools.append(cyl((x, y, z0 - 1), "z", P.M5, 14))
+        tools.append(cyl((x, y, z0 - 1), "z", 9.2, 4.5))  # nut pocket under the plate
     hw("M3x12 socket head", 4)
-    hw("M5x20 socket head + nut (torso)", 4)
-    return cut(s, *tools)
+    hw("M5x16 socket head + nut (torso to cap)", 4)
+    return cut(plate, *tools)
 
 
 # ---------------------------------------------------------------- parts / bought
@@ -233,7 +230,7 @@ def parts() -> list[Part]:
         out.append(Part(f"col_inner_{i}", inner_segment(i, z0, z1, len(segs)), "lift", "mast", color="shell", rot=(0, 0, 0),
                         walls=5, infill=30, note=note))
     out.append(Part("col_cap", inner_cap(), "lift", "mast", color="dark", rot=(180, 0, 0), walls=5, infill=30,
-                    note="Sits on the inner tube. Front lip takes the torso back plate, 4 × M5."))
+                    note="Sits on the inner tube. The torso shelf bolts down onto this plate, 4 × M5."))
     return out
 
 

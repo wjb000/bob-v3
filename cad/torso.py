@@ -1,8 +1,6 @@
-"""Torso (rides the inner tube of the telescoping column).
-
-The column lives in cad/column.py. The inner cap's front lip bolts to
-torso_back_plate with four M5. The rest of this file is the shell, yokes,
-neck and the boards that sit on the back plate.
+"""Torso. It sits on the inner-tube cap, with the column coming up through
+the bottom. The shell has a shelf that bolts down onto the cap with four M5.
+The back plate holds the yokes and the boards. The column lives in cad/column.py.
 """
 
 from __future__ import annotations
@@ -24,7 +22,7 @@ TX0 = P.TORSO_X0
 TX1 = TX0 + P.TORSO_D
 TCX = (TX0 + TX1) / 2
 BP_X0, BP_X1 = TX0 + 4.0, TX0 + 12.0  # back plate
-BP_Z = (-185.0, -22.0)
+BP_Z = (-176.0, -22.0)  # bottom stays above the belly joiner tabs
 YOKE_FACE_X = BP_X1
 
 
@@ -37,10 +35,6 @@ def back_plate(sz=S0) -> cq.Shape:
     s = cq.Workplane("YZ").workplane(offset=BP_X0).center(0, (z0 + z1) / 2).sketch().rect(140, z1 - z0) \
         .vertices().fillet(8).finalize().extrude(BP_X1 - BP_X0).val()
     tools = []
-    for y in (-16.0, 16.0):
-        for zb in (sz - 52.0, sz - 36.0):
-            tools.append(cyl_between("x", (y, zb), BP_X0 - 1, BP_X1 + 1, P.M5))
-            tools.append(cyl_between("x", (y, zb), BP_X1 - 3, BP_X1 + 1, 9.5))
     # shell screws come in through the back wall into inserts here
     for pt in _shell_back_pts(sz):
         tools.append(cyl_between("x", (pt[0], pt[1]), BP_X0 - 1, BP_X0 + P.M3_INSERT_DEPTH, P.M3_INSERT))
@@ -59,7 +53,8 @@ def back_plate(sz=S0) -> cq.Shape:
 
 
 def _shell_back_pts(sz):
-    return [(sy * 52.0, sz + dz) for sy in (1, -1) for dz in (-172.0, -110.0, -55.0)]
+    # Outboard of the column (the tube occupies y = ±50).
+    return [(sy * 62.0, sz + dz) for sy in (1, -1) for dz in (-172.0, -110.0, -55.0)]
 
 
 def _yoke_web_pts(sz):
@@ -94,11 +89,14 @@ def yoke(side, sz=S0) -> cq.Shape:
 
     cx, cz = P.SHOULDER_X, sz
     cup, inserts, keep = G.mount(*J1_FRAME(sz))
-    upper = box(YOKE_FACE_X, cx + 10, 0.3, 140, cz + 18, cz + 30)
-    lower = box(YOKE_FACE_X, cx + 10, 0.3, 140, cz - 30, cz - 18)
-    side_plate = box(YOKE_FACE_X + 6, 62, 40, 140, cz - 30, cz + 30)
-    web = box(YOKE_FACE_X, YOKE_FACE_X + 6, 0.3, 70, cz - 110, cz + 30)
-    gusset = box(YOKE_FACE_X, cx - 20, 0.3, 8, cz - 110, cz + 30)
+    # Stay outside the column. The tube fills y = ±50 up to the cap.
+    upper = box(YOKE_FACE_X, cx + 10, 48, 140, cz + 18, cz + 30)
+    lower = box(YOKE_FACE_X, cx + 10, 48, 140, cz - 30, cz - 18)
+    side_plate = box(YOKE_FACE_X + 6, 62, 46, 140, cz - 30, cz + 30)
+    # Stop under the chest shelf. The shelf spans this x, and the web does not need to reach the neck.
+    z_web = P.COL_INNER_TOP0 + 6.0
+    web = box(YOKE_FACE_X, YOKE_FACE_X + 6, 0.3, 70, cz - 110, z_web)
+    gusset = box(YOKE_FACE_X, cx - 20, 54, 70, cz - 110, cz + 30)
     s = fuse(cup, upper, lower, side_plate, web, gusset)
     tools = [keep, inserts]
     for y, z in _yoke_web_pts(sz):
@@ -111,7 +109,7 @@ def yoke(side, sz=S0) -> cq.Shape:
     hw("M3 heat-set insert", 6 + 2 + 4)
     hw("M3x12 socket head", 6)
     hw("M3x10 socket head (servo tabs)", 4)
-    s = cut(s, *tools)
+    s = cut(s, *tools, _column_void())
     # stay inside the torso's rounded back corners
     s = s.intersect(_torso_solid(sz, P.TORSO_WALL + 1.0))
     return s if side > 0 else s.mirror("XZ", (0, 0, 0))
@@ -130,7 +128,8 @@ def j1_modules(sz=S0):
 
 
 def _neck_pts():
-    return [(48.0, 24.0), (72.0, 24.0), (48.0, -24.0), (72.0, -24.0)]
+    c = TCX
+    return [(c - 24.0, 24.0), (c + 24.0, 24.0), (c - 24.0, -24.0), (c + 24.0, -24.0)]
 
 
 NECK_X = P.NECK_X
@@ -138,7 +137,7 @@ NECK_X = P.NECK_X
 
 def neck_mount(sz=S0) -> cq.Shape:
     z0 = sz + 30.0
-    plate = rrect(98, 0, z0, z0 + 8, 108, 70, 10)
+    plate = rrect(TCX, 0, z0, z0 + 8, 108, 70, 10)
     sx0, sx1 = NECK_X - P.STS_SHAFT_FROM_END - 0.3, NECK_X - P.STS_SHAFT_FROM_END + P.STS_L + 0.3
     cradle = box(sx0 - 3, sx1 + 3, -P.STS_W / 2 - 3.3, P.STS_W / 2 + 3.3, sz + 10, z0 + 8)
     s = fuse(plate, cradle)
@@ -155,7 +154,7 @@ def neck_mount(sz=S0) -> cq.Shape:
 
 
 def _torso_top_pts():
-    return [(60.0, 30.0), (60.0, -30.0), (140.0, 28.0), (140.0, -28.0)]
+    return [(TCX - 20.0, 30.0), (TCX - 20.0, -30.0), (TCX + 36.0, 28.0), (TCX + 36.0, -28.0)]
 
 
 def _torso_seam_pairs(sz):
@@ -175,8 +174,12 @@ def _torso_seam_pairs(sz):
             yb = half_width(zb_, sz) - P.TORSO_WALL
             out.append(((x, sy * ya, za), (x, sy * yb, zb_), (0, -sy, 0)))
     zb = sz - P.TORSO_BELOW + P.TORSO_WALL
-    for x in (TX0 + 50.0, TX1 - 30.0):
-        out.append(((x, -JOIN_OFF, zb), (x, JOIN_OFF, zb), (0, 0, 1)))
+    # Rear tabs sit beside the column, forward of the back plate. At |y| = 40 the tube
+    # has pulled in, so a 14 mm tab fits between the plate (x = −63) and the tube.
+    x_rear = TX0 + 16.0
+    for sy in (1, -1):
+        out.append(((x_rear, sy * 40.0 - JOIN_OFF, zb), (x_rear, sy * 40.0 + JOIN_OFF, zb), (0, 0, 1)))
+    out.append(((TX1 - 16.0, -JOIN_OFF, zb), (TX1 - 16.0, JOIN_OFF, zb), (0, 0, 1)))
     return out
 
 
@@ -203,6 +206,17 @@ def _torso_solid(sz, inset):
     return upper.fuse(lower).clean()
 
 
+def _cap_bolts():
+    b = P.CAP_BOLT
+    return [(P.COL_X + sx * b, sy * b) for sx in (1, -1) for sy in (1, -1)]
+
+
+def _column_void():
+    """Column and cap, with a gap. Torso parts stay out of this except the shelf."""
+    d = P.COL_OUTER_D + 6.0
+    return rrect(P.COL_X, 0, 0, P.COL_INNER_TOP0 + 8.6, d, d, P.COL_OUTER_R + 2)
+
+
 def torso_shell(sz=S0) -> cq.Shape:
     z0, z1 = sz - P.TORSO_BELOW, sz + P.TORSO_ABOVE
     outer = _torso_solid(sz, 0.0)
@@ -218,6 +232,11 @@ def torso_shell(sz=S0) -> cq.Shape:
     # bosses under the top skin onto the neck plate
     for x, y in _torso_top_pts():
         adds.append(cyl((x, y, sz + 38), "z", 10, z1 - P.TORSO_WALL - sz - 38 + 0.5))
+    # shelf across the chest, 0.5 mm above the cap, fused into the front and back walls
+    z_cap = P.COL_INNER_TOP0 + 8.0
+    shelf = rrect(TCX, 0, z_cap + 0.5, z_cap + 6.0, P.TORSO_D + 2.0, 78, 12)
+    shelf = shelf.cut(cyl((P.COL_X, 0, z_cap), "z", 14, 12))
+    adds.append(shelf)
     s = fuse(s, *adds)
     s = s.intersect(outer)
     for x, y in _torso_top_pts():
@@ -228,9 +247,12 @@ def torso_shell(sz=S0) -> cq.Shape:
     # shoulder ports
     for sy in (1, -1):
         tools.append(cyl_between("y", (P.SHOULDER_X, sz), sy * (P.TORSO_HW - 10), sy * (P.TORSO_HW + 5), 64))
-    # column-cap lip slot (top of the back) and a cable gland lower down
-    tools.append(box(TX0 - 1, TX0 + 6, -31, 31, sz - 90, sz + 8))
-    tools.append(box(TX0 - 1, TX0 + 6, -12, 12, z0 + 20, z0 + 50))
+    # the column passes through the belly and ends under the shelf
+    tools.append(rrect(P.COL_X, 0, z0 - 4, P.COL_INNER_TOP0 - 0.4,
+                       P.COL_OUTER_D + 6, P.COL_OUTER_D + 6, P.COL_OUTER_R + 2))
+    for x, y in _cap_bolts():
+        tools.append(cyl((x, y, z_cap - 1), "z", P.M5, 14))
+        tools.append(cyl((x, y, z_cap + 3.0), "z", 9.5, 6))
     # neck port
     tools.append(cyl((NECK_X, 0, z1 - 10), "z", 36, 20))
     # chest light slot and speaker grille on the front
@@ -255,7 +277,7 @@ def torso_joiners(sz=S0) -> list[cq.Shape]:
 
 def torso_parts() -> list[Part]:
     out = [Part("torso_back_plate", back_plate(), "lift", "torso", color="frame",
-                note="Takes the column-cap lip, the yokes and the Pi and USB grid.")]
+                note="Yokes bolt to the front face. The Pi and the bus adapters sit beside the column.")]
     out.append(Part("yoke_l", yoke(1), "lift", "torso", color="frame", rot=(90, 0, 0),
                     note="Holds the left J1 STS3095. Prints on its centre face, cup up. 5 walls, 30% infill."))
     out.append(Part("yoke_r", yoke(-1), "lift", "torso", color="frame", rot=(-90, 0, 0), note="Mirror of yoke_l."))
@@ -277,14 +299,14 @@ def bought(sz=S0) -> list[Bought]:
 
     out = []
     out += j1_modules(sz)[1]
-    jx0 = BP_X1 + 4
-    out += V.boughts("pi5", V.place(V.pi5(), (jx0, 0, sz - 165), xdir=(0, 1, 0), zdir=(1, 0, 0)), "lift", "torso", "electronics", 75, "pi5")
-    for name, (x, y, z), pcs, m, key in (
-        ("usb_hub", (110 - 12.5, -68, sz - 150), V.usb_board(70, 50, 25, ports=4), 60, "usbhub"),
-        ("servo_bus", (150 - 10, 60, sz - 120), V.usb_board(40, 65, 20, ports=2), 25, "busadapter"),
-        ("servo_bus_r", (150 - 10, -60, sz - 120), V.usb_board(40, 65, 20, ports=2), 25, "busadapter"),
-    ):
-        out += V.boughts(name, V.place(pcs, (x, y, z), xdir=(0, 0, 1), zdir=(1, 0, 0)), "lift", "torso", "electronics", m, key)
+    # Pi and hub stand on the side walls of the upper chest, thin side toward the wall.
+    # Buses lie flat below the yokes, forward of the gusset (that gusset ends at x ≈ −11).
+    out += V.boughts("pi5", V.place(V.pi5(), (0, 78, 522), xdir=(1, 0, 0), zdir=(0, 1, 0)), "lift", "torso", "electronics", 75, "pi5")
+    out += V.boughts("usb_hub", V.place(V.usb_board(64, 36, 16, ports=2), (0, -78, 522), xdir=(1, 0, 0), zdir=(0, -1, 0)),
+                     "lift", "torso", "electronics", 60, "usbhub")
+    for name, y in (("servo_bus", 72), ("servo_bus_r", -72)):
+        out += V.boughts(name, V.place(V.usb_board(44, 30, 14, ports=2), (30, y, 456), xdir=(1, 0, 0), zdir=(0, 0, 1)),
+                         "lift", "torso", "electronics", 25, "busadapter")
     out += V.boughts("speaker", V.place(V.speaker(), (TX1 - 10, 0, sz - 156), xdir=(0, 1, 0), zdir=(1, 0, 0)), "lift", "torso", "electronics", 40, "speaker")
     out += V.boughts("pan_servo", V.place(V.sts3215(), (NECK_X, 0, sz + 47)), "lift", "torso", "actuator", P.STS_MASS, "sts3215")
     out.append(Bought("light_chest", rrect(TX1 - 2.2, 0, sz - 63.5, sz - 58.5, 3.0, 118, 2.5), "lift", "torso", "electronics", 5, "ledstrip", look="glow"))

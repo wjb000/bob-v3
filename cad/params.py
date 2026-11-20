@@ -122,17 +122,19 @@ EYE_GLASS = 32.4
 LIDAR_D = 55.6  # Slamtec RPLIDAR C1
 LIDAR_H = 41.3
 ESTOP_HOLE = 22.5  # 22 mm panel e-stop
-CHARGE_XY = (150.0, -125.0)  # GX16 charge socket in the base top, where the right hand can reach it
-CHARGE_HOLE = 16.2
+CHARGE_XY = (118.0, -88.0)  # GX16 on the base top, front-right, where the right hand reaches
+CHARGE_HOLE = 20.0  # clears the GX16 nut (19 mm); the 21 mm flange stays on the skin
 
 # ---------------------------------------------------------------- base
-BASE_L = 480.0  # round: a 480 mm circle turns in its own footprint
-BASE_W = 480.0  # y
-BASE_R = 240.0  # plan corner radius (half the width: a circle)
+# 400 mm circle. The old 480 mm disc was empty around a 100 mm column.
+# Casters stay on the centreline; the battery sits off to one side.
+BASE_L = 400.0
+BASE_W = 400.0
+BASE_R = 200.0
 BASE_TOP = 212.0  # top surface of the shell
 BASE_WALL = 3.0
 SHELL_BOTTOM = 30.0
-GRID_X = (-100.0, 87.0)  # tile cut lines, shell and pan. Clear of the column well.
+GRID_X = (-90.0, 90.0)  # tile cuts, clear of the column well (x = ±50)
 GRID_Y = (-90.0, 90.0)
 
 PAN_INSET = 8.0  # pan outline sits this far inside the shell
@@ -140,19 +142,19 @@ PAN_BOTTOM = 22.0  # rib bottoms (ground clearance)
 PAN_TOP = 37.0
 PAN_SKIN = 4.0
 
-WHEEL_Y = 185.0  # wheel centre, each side
+WHEEL_Y = 172.0  # wheel centre, each side. Tires sit just inside the shell.
 AXLE_Z = WHEEL_OD / 2.0
 WHEEL_ARCH_R = 60.0
 WHEEL_CUT_X = 58.0  # pan cutout half-length around the tire
-WHEEL_CUT_Y = 160.0  # pan cutout starts here
-CASTER_X = 185.0  # front and rear
+WHEEL_CUT_Y = 148.0  # pan cutout starts here, outboard of the axle bolts
+CASTER_X = 128.0  # front and rear, inboard of the rim and clear of the column foot
 CASTER_WHEEL = 40.0
 CASTER_WHEEL_W = 22.0
 CASTER_TRAIL = 12.0
 CASTER_HOLE = 84.0  # pan cutout the fork swings in
 CASTER_PLATE_Z = 56.0  # bottom of the swivel bridge plate
 
-LIDAR_X = 185.0  # on the front caster bridge
+LIDAR_X = CASTER_X  # on the front caster bridge
 LIDAR_Z0 = 108.0  # bottom of the lidar
 LIDAR_SCAN_Z = 134.0  # optical plane, roughly
 
@@ -161,7 +163,7 @@ LIDAR_SCAN_Z = 134.0  # optical plane, roughly
 # the base turns a short TR8×2 that drives the middle tube. A GT2 cascade on
 # each side makes the inner tube travel twice as far, so the torso rises 650 mm
 # while the nested stack is only ~500 mm tall. No exposed mast, no 1 m rods.
-COL_X = -30.0
+COL_X = 0.0  # under the torso, on the wheel axis
 COL_WALL = 4.0
 COL_PAD = 2.0  # slide pad thickness in the gap between tubes (5 mm gap, pads on both sides)
 COL_OUTER_D = 100.0  # rounded-square outside
@@ -173,7 +175,7 @@ COL_INNER_R = 16.0
 COL_Z0 = PAN_TOP  # outer sits on the pan
 COL_MID_Z0 = COL_Z0 + 8.0  # middle tube sits on the motor pedestal, not on the pan
 COL_OUTER_LEN = 504.0  # 3 × 168 mm prints
-COL_INNER_LEN = 420.0  # 3 × 140 mm prints; top sits above the outer tube so the cap lip clears it
+COL_INNER_LEN = 420.0  # 3 × 140 mm prints; the cap is the torso seat
 COL_INNER_Z0 = 140.0  # above the motor / coupler / nut
 STAGE_TRAVEL = 325.0  # middle tube travel; inner travels 2× this
 LIFT_TRAVEL = 2 * STAGE_TRAVEL  # 650 mm, same workspace as the old leadscrew
@@ -203,7 +205,9 @@ MAST_Z0 = COL_Z0
 MAST_TOP = COL_TOP0
 
 # ---------------------------------------------------------------- torso (relative to the shoulder axis in z)
-TORSO_X0 = COL_X + COL_OUTER_D / 2 + 8.0  # back face, just in front of the column
+# The column comes up through the bottom of the torso. The torso sits on the
+# inner-tube cap. It does not hang off a lip in front of the column.
+TORSO_X0 = COL_X - 150.0 / 2.0  # back face; depth is centred on the column
 TORSO_D = 150.0
 TORSO_HW = 120.0  # half width
 TORSO_BELOW = 200.0
@@ -213,6 +217,7 @@ TORSO_R = 32.0
 TORSO_WALL = 3.0
 SHOULDER_X = TORSO_X0 + 84.0
 SHOULDER_Y = 157.0  # J2/J3 axis line, each side
+CAP_BOLT = 22.0  # M5 square that holds the torso shelf down on the cap
 
 # ---------------------------------------------------------------- arm (left; right mirrors y)
 UPPER_ARM = 252.0  # shoulder axis to elbow axis
@@ -287,11 +292,18 @@ def check() -> None:
         errs.append("torso hits the base at the bottom of travel")
     if WHEEL_Y + WHEEL_W / 2 > BASE_W / 2 - 4:
         errs.append("tire rubs the shell")
+    if CASTER_X + CASTER_HOLE / 2 + 10 > BASE_R - PAN_INSET:
+        errs.append("caster hole breaks the pan rim")
+    if CASTER_X - CASTER_HOLE / 2 < COL_OUTER_D / 2 + 16:
+        errs.append("caster hole meets the column foot")
     for z0, z1 in col_segments(COL_Z0, COL_OUTER_LEN) + col_segments(COL_INNER_Z0, COL_INNER_LEN):
         if z1 - z0 > BED_Z:
             errs.append("column segment too tall")
-    if TORSO_X0 < COL_X + COL_OUTER_D / 2 + 4:
-        errs.append("torso back sits inside the column")
+    tx1 = TORSO_X0 + TORSO_D
+    if TORSO_X0 + 8 >= COL_X - COL_OUTER_D / 2 or COL_X + COL_OUTER_D / 2 >= tx1 - 8:
+        errs.append("column is not inside the torso")
+    if COL_INNER_TOP0 + 12 > SHOULDER_Z0 + TORSO_ABOVE:
+        errs.append("column cap comes out the top of the torso")
     if errs:
         raise ValueError("; ".join(errs))
 

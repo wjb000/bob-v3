@@ -8,13 +8,13 @@ This is a design that has been checked in CAD and in physics simulation. It has 
 
 | | |
 | --- | --- |
-| Size | Ø480 mm round base (turns in its own footprint), 240 mm wide torso, 500 mm nested column that extends 650 mm. The head top goes from 0.80 m to 1.45 m. |
+| Size | Ø400 mm round base (turns in its own footprint), 240 mm wide torso sitting on the column, 500 mm nested column that extends 650 mm. The head top goes from 0.80 m to 1.45 m. |
 | Reach | Floor 0.32–0.45 m in front of the nose, a 0.91 m counter, a 1.55 m shelf. The hand reaches 1.74 m up and 0.81 m to the side. |
 | Payload | About 0.5 kg per hand in ordinary use, about 1.5 kg for a short lift (Nori A3's duty cycle on the same 95 kg·cm servos). |
 | Joints | 19 driven: 2 hub wheels, lift, head pan and tilt, and 7 per arm (six joints plus the gripper). |
 | Gripper | Geared parallel jaw, Nori-style TPU fingers, 0–80 mm, about 40 N per finger. |
-| Mass | 12.1 kg (printed parts at 4 walls / 20%, bought parts at listed mass, 1.7 kg of wiring and screws). |
-| Prints | 150 prints from 89 files, about 5.7 kg of filament, all inside 200 × 200 × 200 mm. |
+| Mass | 11.7 kg (printed parts at 4 walls / 20%, bought parts at listed mass). Wiring and screws are about 1.7 kg more, booked on the base and the lift in the sim. |
+| Prints | 135 prints from 89 files, about 5.3 kg of filament, all inside 200 × 200 × 200 mm. |
 | Cost | About $2,686 for every part at the linked stores, or $2,411 if you reuse the Bob v2 Pi 5, battery and charger. Every BOM line links to a specific product. See [BOM.md](BOM.md). |
 | Compute | Raspberry Pi 5 on the robot; big models run on a desktop GPU over Wi-Fi. A wide RGB camera in the head, a USB camera on each wrist, RPLIDAR C1 in the base. |
 
