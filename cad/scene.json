@@ -3,27 +3,35 @@
  "frame": "x forward, y left, z up, origin on the floor between the wheels",
  "links": {
   "base": {
-   "mass_g": 5233.7,
+   "mass_g": 10284.1,
    "com": [
-    -0.7,
-    12.0,
-    119.5
+    -61.6,
+    -12.1,
+    110.6
    ]
   },
   "lift_mid": {
-   "mass_g": 387.5,
+   "mass_g": 371.8,
+   "com": [
+    0.4,
+    -0.2,
+    228.6
+   ]
+  },
+  "lift_upper": {
+   "mass_g": 206.8,
    "com": [
     0.0,
     -0.0,
-    229.9
+    290.8
    ]
   },
   "lift": {
-   "mass_g": 2196.7,
+   "mass_g": 2145.1,
    "com": [
-    -3.7,
-    0.6,
-    405.3
+    -3.8,
+    0.7,
+    407.9
    ]
   },
   "head_tilt": {
@@ -187,7 +195,7 @@
    ]
   }
  },
- "total_mass_g": 11360.6,
+ "total_mass_g": 16550.5,
  "joints": [
   {
    "name": "lift",
@@ -206,7 +214,7 @@
    ],
    "range": [
     0.0,
-    0.42
+    0.558
    ],
    "actuator": "nema",
    "mimic": "",
@@ -229,11 +237,34 @@
    ],
    "range": [
     0.0,
-    0.21
+    0.186
    ],
    "actuator": "",
    "mimic": "lift",
-   "mimic_coef": 0.5
+   "mimic_coef": 0.3333333333333333
+  },
+  {
+   "name": "lift_upper",
+   "kind": "slide",
+   "parent": "base",
+   "child": "lift_upper",
+   "anchor": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "axis": [
+    0,
+    0,
+    1
+   ],
+   "range": [
+    0.0,
+    0.372
+   ],
+   "actuator": "",
+   "mimic": "lift",
+   "mimic_coef": 0.6666666666666666
   },
   {
    "name": "wheel_l",
@@ -757,7 +788,7 @@
    "r_wrist_roll": 0.0
   },
   "shelf": {
-   "lift": 0.42,
+   "lift": 0.558,
    "head_tilt": -0.35,
    "l_shoulder_pitch": -2.9,
    "l_shoulder_roll": 0.0,
@@ -924,7 +955,7 @@
    "kind": "print",
    "color": "frame",
    "material": "PETG",
-   "mass_g": 61.5,
+   "mass_g": 62.0,
    "print": "base_pan_rear_c",
    "note": "Structure. Skin down on the bed, ribs up. 4 walls."
   },
@@ -960,7 +991,7 @@
    "kind": "print",
    "color": "frame",
    "material": "PETG",
-   "mass_g": 130.4,
+   "mass_g": 131.8,
    "print": "base_pan_mid_c",
    "note": "Structure. Skin down on the bed, ribs up. 4 walls."
   },
@@ -996,7 +1027,7 @@
    "kind": "print",
    "color": "frame",
    "material": "PETG",
-   "mass_g": 61.5,
+   "mass_g": 62.5,
    "print": "base_pan_front_c",
    "note": "Structure. Skin down on the bed, ribs up. 4 walls."
   },
@@ -1008,7 +1039,7 @@
    "kind": "print",
    "color": "frame",
    "material": "PETG",
-   "mass_g": 20.5,
+   "mass_g": 20.9,
    "print": "base_pan_front_l",
    "note": "Structure. Skin down on the bed, ribs up. 4 walls."
   },
@@ -1193,6 +1224,18 @@
    "note": "Bucks, fuse block, contactor."
   },
   {
+   "name": "cable_trough",
+   "file": "cable_trough.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "print",
+   "color": "frame",
+   "material": "PETG",
+   "mass_g": 29.8,
+   "print": "cable_trough",
+   "note": "Service loop for the column umbilical. Zip-tie the sleeve at the closed end. 4 walls."
+  },
+  {
    "name": "col_outer_0",
    "file": "col_outer_0.stl",
    "link": "base",
@@ -1200,7 +1243,7 @@
    "kind": "print",
    "color": "shell",
    "material": "PETG",
-   "mass_g": 233.5,
+   "mass_g": 236.3,
    "print": "col_outer_0",
    "note": "Foot flange, motor pedestal, homing pad."
   },
@@ -1224,9 +1267,9 @@
    "kind": "print",
    "color": "shell",
    "material": "PETG",
-   "mass_g": 168.3,
+   "mass_g": 162.3,
    "print": "col_mid_0",
-   "note": "T8 nut pocket and outer slide pads."
+   "note": "T8 nut pocket, cable notch, outer slide pads."
   },
   {
    "name": "col_mid_1",
@@ -1236,9 +1279,33 @@
    "kind": "print",
    "color": "shell",
    "material": "PETG",
-   "mass_g": 149.2,
+   "mass_g": 147.5,
    "print": "col_mid_1",
-   "note": "Pulleys and inner slide pads."
+   "note": "Belt A pulleys, belt B anchors, inner slide pads."
+  },
+  {
+   "name": "col_upper_0",
+   "file": "col_upper_0.stl",
+   "link": "lift_upper",
+   "group": "mast",
+   "kind": "print",
+   "color": "shell",
+   "material": "PETG",
+   "mass_g": 88.1,
+   "print": "col_upper_0",
+   "note": "Belt A clamps and outer slide pads."
+  },
+  {
+   "name": "col_upper_1",
+   "file": "col_upper_1.stl",
+   "link": "lift_upper",
+   "group": "mast",
+   "kind": "print",
+   "color": "shell",
+   "material": "PETG",
+   "mass_g": 86.7,
+   "print": "col_upper_1",
+   "note": "Belt B pulleys and inner slide pads."
   },
   {
    "name": "col_inner_0",
@@ -1248,9 +1315,9 @@
    "kind": "print",
    "color": "shell",
    "material": "PETG",
-   "mass_g": 89.8,
+   "mass_g": 65.4,
    "print": "col_inner_0",
-   "note": "Belt clamps and outer slide pads."
+   "note": "Belt B clamps, sleeve tie, outer slide pads."
   },
   {
    "name": "col_inner_1",
@@ -1260,7 +1327,7 @@
    "kind": "print",
    "color": "shell",
    "material": "PETG",
-   "mass_g": 86.3,
+   "mass_g": 61.6,
    "print": "col_inner_1",
    "note": "Prints standing. Inserts in the top bosses."
   },
@@ -1272,9 +1339,9 @@
    "kind": "print",
    "color": "dark",
    "material": "PETG",
-   "mass_g": 29.0,
+   "mass_g": 27.5,
    "print": "col_cap",
-   "note": "Sits on the inner tube. The torso shelf bolts down onto this plate, 4 \u00d7 M5."
+   "note": "Sits on the inner tube. Umbilical exits the \u00d818 hole. The torso shelf bolts down, 4 \u00d7 M5."
   },
   {
    "name": "torso_back_plate",
@@ -1356,7 +1423,7 @@
    "kind": "print",
    "color": "shell",
    "material": "PETG",
-   "mass_g": 142.6,
+   "mass_g": 142.1,
    "print": "torso_upper_l",
    "note": "Lower tier prints floor-down; upper tier prints top-down."
   },
@@ -1368,7 +1435,7 @@
    "kind": "print",
    "color": "shell",
    "material": "PETG",
-   "mass_g": 142.6,
+   "mass_g": 142.1,
    "print": "torso_upper_r",
    "note": "Lower tier prints floor-down; upper tier prints top-down."
   },
@@ -2143,12 +2210,12 @@
   {
    "name": "joiner_27",
    "file": "joiner_27.stl",
-   "link": "lift",
-   "group": "torso",
+   "link": "base",
+   "group": "base",
    "kind": "print",
    "color": "frame",
    "material": "PETG",
-   "mass_g": 1.7,
+   "mass_g": 1.6,
    "print": "joiner_tab",
    "note": "Joiner tab"
   },
@@ -2232,7 +2299,7 @@
    "kind": "print",
    "color": "frame",
    "material": "PETG",
-   "mass_g": 1.6,
+   "mass_g": 1.7,
    "print": "joiner_tab",
    "note": "Joiner tab"
   },
@@ -2311,8 +2378,8 @@
   {
    "name": "joiner_41",
    "file": "joiner_41.stl",
-   "link": "head_tilt",
-   "group": "head",
+   "link": "lift",
+   "group": "torso",
    "kind": "print",
    "color": "frame",
    "material": "PETG",
@@ -2364,13 +2431,25 @@
    "kind": "print",
    "color": "frame",
    "material": "PETG",
-   "mass_g": 1.7,
+   "mass_g": 1.6,
    "print": "joiner_tab",
    "note": "Joiner tab"
   },
   {
    "name": "joiner_46",
    "file": "joiner_46.stl",
+   "link": "head_tilt",
+   "group": "head",
+   "kind": "print",
+   "color": "frame",
+   "material": "PETG",
+   "mass_g": 1.7,
+   "print": "joiner_tab",
+   "note": "Joiner tab"
+  },
+  {
+   "name": "joiner_47",
+   "file": "joiner_47.stl",
    "link": "head_tilt",
    "group": "head",
    "kind": "print",
@@ -2876,6 +2955,39 @@
    "bom": "m8"
   },
   {
+   "name": "ballast_port",
+   "file": "ballast_port.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "metal",
+   "color": "steel",
+   "material": "bought",
+   "mass_g": 1477.1,
+   "bom": "ballast"
+  },
+  {
+   "name": "ballast_keel",
+   "file": "ballast_keel.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "metal",
+   "color": "steel",
+   "material": "bought",
+   "mass_g": 888.2,
+   "bom": "ballast"
+  },
+  {
+   "name": "ballast_aft",
+   "file": "ballast_aft.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "metal",
+   "color": "steel",
+   "material": "bought",
+   "mass_g": 2647.6,
+   "bom": "ballast"
+  },
+  {
    "name": "lift_motor",
    "file": "lift_motor.stl",
    "link": "base",
@@ -2953,8 +3065,8 @@
    "bom": "t8nut"
   },
   {
-   "name": "gt2_pulley_l",
-   "file": "gt2_pulley_l.stl",
+   "name": "gt2_pulley_a_l",
+   "file": "gt2_pulley_a_l.stl",
    "link": "lift_mid",
    "group": "mast",
    "kind": "metal",
@@ -2964,19 +3076,19 @@
    "bom": "gt2pulley"
   },
   {
-   "name": "gt2_belt_l",
-   "file": "gt2_belt_l.stl",
+   "name": "gt2_belt_a_l",
+   "file": "gt2_belt_a_l.stl",
    "link": "lift_mid",
    "group": "mast",
    "kind": "metal",
    "color": "black",
    "material": "bought",
-   "mass_g": 12,
+   "mass_g": 8,
    "bom": "gt2belt"
   },
   {
-   "name": "gt2_pulley_r",
-   "file": "gt2_pulley_r.stl",
+   "name": "gt2_pulley_a_r",
+   "file": "gt2_pulley_a_r.stl",
    "link": "lift_mid",
    "group": "mast",
    "kind": "metal",
@@ -2986,14 +3098,58 @@
    "bom": "gt2pulley"
   },
   {
-   "name": "gt2_belt_r",
-   "file": "gt2_belt_r.stl",
+   "name": "gt2_belt_a_r",
+   "file": "gt2_belt_a_r.stl",
    "link": "lift_mid",
    "group": "mast",
    "kind": "metal",
    "color": "black",
    "material": "bought",
-   "mass_g": 12,
+   "mass_g": 8,
+   "bom": "gt2belt"
+  },
+  {
+   "name": "gt2_pulley_b_l",
+   "file": "gt2_pulley_b_l.stl",
+   "link": "lift_upper",
+   "group": "mast",
+   "kind": "metal",
+   "color": "alu",
+   "material": "bought",
+   "mass_g": 8,
+   "bom": "gt2pulley"
+  },
+  {
+   "name": "gt2_belt_b_l",
+   "file": "gt2_belt_b_l.stl",
+   "link": "lift_upper",
+   "group": "mast",
+   "kind": "metal",
+   "color": "black",
+   "material": "bought",
+   "mass_g": 8,
+   "bom": "gt2belt"
+  },
+  {
+   "name": "gt2_pulley_b_r",
+   "file": "gt2_pulley_b_r.stl",
+   "link": "lift_upper",
+   "group": "mast",
+   "kind": "metal",
+   "color": "alu",
+   "material": "bought",
+   "mass_g": 8,
+   "bom": "gt2pulley"
+  },
+  {
+   "name": "gt2_belt_b_r",
+   "file": "gt2_belt_b_r.stl",
+   "link": "lift_upper",
+   "group": "mast",
+   "kind": "metal",
+   "color": "black",
+   "material": "bought",
+   "mass_g": 8,
    "bom": "gt2belt"
   },
   {
@@ -3802,7 +3958,7 @@
  ],
  "dims": {
   "shoulder_z0": 452.0,
-  "lift_travel": 420.0,
+  "lift_travel": 558.0,
   "base": [
    400.0,
    400.0,
@@ -3811,7 +3967,7 @@
   "wheel_od": 100.7,
   "wheel_w": 43.0,
   "wheel_y": 172.0,
-  "caster_x": 128.0,
+  "caster_x": 132.0,
   "caster_trail": 12.0,
   "caster_wheel": 40.0,
   "mast_top": 419.0

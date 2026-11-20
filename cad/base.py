@@ -95,6 +95,7 @@ def _register():
     PAN_PTS["shelf_rl"] = REAR_SHELF_PTS
     PAN_PTS["shelf_rr"] = REAR_SHELF_R_PTS
     PAN_PTS["cradle"] = CRADLE_PTS
+    PAN_PTS["cable"] = [(-78.0, 24.0), (-78.0, 42.0)]
     LUG_PTS[:] = _lug_points()
     PAN_PTS["lug"] = list(LUG_PTS)
 
@@ -654,7 +655,49 @@ def bought() -> list[Bought]:
     for cx in (P.CASTER_X, -P.CASTER_X):
         out.append(Bought(f"caster_bolt_{'f' if cx > 0 else 'r'}", cyl((cx, 0, P.CASTER_PLATE_Z - 12), "z", 8, 30), "base", "base", "metal", 30, "m8",
                           look="steel"))
+    for name, *dims in BALLAST:
+        solid, mass = _steel(*dims)
+        out.append(Bought(name, solid, "base", "base", "metal", mass, "ballast", look="steel"))
     return out
+
+
+# 1018 steel, stacked from 1/2 × 2 in bar. Low and rearward: the fore-aft tip is the failure.
+# Each box is (x0, x1, y0, y1, z0, z1).
+# port: right-rear corner, under the shelf. keel: inboard of the rear caster hole and under the buck.
+# aft: above the rear caster bridge (the fork ends at z=66), clear of the M8 swivel bolt which ends at z=74.
+STEEL_G_CM3 = 7.85
+BALLAST = (
+    ("ballast_port", -142.0, -102.0, -120.0, -72.0, 40.0, 138.0),
+    ("ballast_keel", -94.0, -68.0, -70.0, -36.0, 40.0, 168.0),
+    ("ballast_aft", -176.0, -108.0, -40.0, 40.0, 78.0, 140.0),
+)
+
+
+def _steel(x0, x1, y0, y1, z0, z1):
+    mass = abs((x1 - x0) * (y1 - y0) * (z1 - z0)) / 1000.0 * STEEL_G_CM3
+    return box(x0, x1, y0, y1, z0, z1), round(mass, 1)
+
+
+def cable_trough() -> cq.Shape:
+    """Folded service loop behind the column. Open toward the rear window and open on top.
+
+    The sleeve is clamped here and again on the cap. Slack stays in this channel, not in the bore.
+    """
+    outer = box(-90, -66, 12, 100, 42, 88)
+    inner = box(-86, -62, 18, 94, 48, 100)  # open +x, toward the column window, and open on top
+    s = cut(outer, inner)
+    # Tongue into the outer-tube window. The flange below z=43 stays clear.
+    s = fuse(s, box(-70, -48, 16, 28, 64, 86))
+    for y in (24.0, 42.0):
+        s = fuse(s, cyl((-78, y, P.PAN_TOP), "z", 12, 42 - P.PAN_TOP + 2))
+    tools = []
+    for y in (24.0, 42.0):
+        tools.append(cyl((-78, y, P.PAN_TOP - 1), "z", P.M3, 24))
+        tools.append(cyl((-78, y, P.PAN_TOP + 6), "z", P.M3_HEAD, 14))
+    tools.append(cyl_between("y", (-72, 70), 96, 104, 4.2))
+    hw("M3x12 socket head", 2)
+    hw("4 in zip tie (column umbilical)", 1)
+    return cut(s, *tools)
 
 
 def parts() -> list[Part]:
@@ -685,4 +728,6 @@ def parts() -> list[Part]:
                         note="Motor drivers and the ESP32 on the 20 mm grid."))
         out.append(Part(f"shelf_rear_{s}", rear_shelf(side), "base", "base", color="frame", rot=(180, 0, 0),
                         note="Bucks, fuse block, contactor."))
+    out.append(Part("cable_trough", cable_trough(), "base", "base", color="frame", rot=(0, 0, 0),
+                    note="Service loop for the column umbilical. Zip-tie the sleeve at the closed end. 4 walls."))
     return out

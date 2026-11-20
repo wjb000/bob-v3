@@ -1,6 +1,6 @@
 # Bob v3
 
-A two-armed home robot you can print on a 200 mm printer. It has a rounded wheeled base, a three-stage telescoping column that grows out of the base, two seven-axis arms with parallel grippers, and a head with a depth camera and two round "eye" displays. Everything structural and everything you see is printed PETG. You buy the motors, the electronics, a short leadscrew, two GT2 belts and screws.
+A two-armed home robot you can print on a 200 mm printer. It has a rounded wheeled base, a four-stage telescoping column that grows out of the base, two seven-axis arms with parallel grippers, and a head with a depth camera and two round "eye" displays. Everything structural and everything you see is printed PETG, plus three steel ballast pads in the base. You buy the motors, the electronics, a short leadscrew, GT2 belts and screws.
 
 Page: [wyat.dev/bob-v3](https://www.wyat.dev/bob-v3/). It shows the 3D model, the print files, the wiring, the BOM and the sim results.
 
@@ -8,14 +8,14 @@ This is a design that has been checked in CAD and in physics simulation. It has 
 
 | | |
 | --- | --- |
-| Size | Ø400 mm round base (turns in its own footprint), 240 mm wide torso sitting on the column, 382 mm nested column that extends 420 mm. At the bottom of travel the torso sits 40 mm above the base. The head top goes from 0.70 m to 1.12 m. |
-| Reach | With the lift down, the hands touch the floor about 0.28 m past the nose. A 0.91 m counter is in reach. With the lift fully up the hand reaches about 1.54 m. |
-| Payload | About 0.5 kg per hand in ordinary use, about 1.5 kg for a short lift (Nori A3's duty cycle on the same 95 kg·cm servos). |
+| Size | Ø400 mm round base (turns in its own footprint), 240 mm wide torso sitting on the column, 382 mm nested column that extends 558 mm (22 in). At the bottom of travel the torso sits 40 mm above the base. The head top goes from 0.70 m to 1.26 m. |
+| Reach | With the lift down, the hands touch the floor about 0.28 m past the nose. A 0.91 m counter is in reach. Straight overhead the fingertip reaches 1.64 m (5 ft 5 in) with no self-collision. A point 0.40 m forward at 1.55 m is beyond the arm. |
+| Payload | 0.5 kg per hand straight out is past the STS3095 rated torque and near stall. Keep the load close to the chest, elbow bent, when the lift is up. There is no stronger STS-series servo in the same 30 × 65 × 48 mm cup. |
 | Joints | 19 driven: 2 hub wheels, lift, head pan and tilt, and 7 per arm (six joints plus the gripper). |
 | Gripper | Geared parallel jaw, Nori-style TPU fingers, 0–80 mm, about 40 N per finger. |
 | Mass | 11.4 kg (printed parts at 4 walls / 20%, bought parts at listed mass). Wiring and screws are about 1.7 kg more, booked on the base and the lift in the sim. |
 | Prints | 132 prints from 86 files, about 5.0 kg of filament, all inside 200 × 200 × 200 mm. |
-| Cost | About $2,686 for every part at the linked stores, or $2,411 if you reuse the Bob v2 Pi 5, battery and charger. Every BOM line links to a specific product. See [BOM.md](BOM.md). |
+| Cost | About $2,751 for every part at the linked stores, or $2,476 if you reuse the Bob v2 Pi 5, battery and charger. The extra over the previous $2,686 is a second GT2 pulley pack, PET sleeving, and about 5.0 kg of 1018 bar. Every BOM line links to a specific product. See [BOM.md](BOM.md). |
 | Compute | Raspberry Pi 5 on the robot; big models run on a desktop GPU over Wi-Fi. A wide RGB camera in the head, a USB camera on each wrist, RPLIDAR C1 in the base. |
 
 ## Direct bus servos
@@ -38,7 +38,7 @@ The head pans ±0.8 rad and tilts −0.45 to +0.55 rad. The column sits under th
 | Wrist roll (J6) | Feetech STS3215 12 V | 0.98 / 2.94 N·m | ~0 |
 | Gripper (J7) | Feetech STS3215 12 V, 12 mm pinion | about 40 N per finger | |
 | Head pan, tilt | Feetech STS3215 12 V | | |
-| Lift | NEMA 17 48 mm in the base, TR8×2 on the middle tube, GT2 cascade 2:1 | about 380 N, 25 mm/s at the torso | 84 N |
+| Lift | NEMA 17 48 mm in the base, TR8×2 on the middle tube, GT2 cascade 3:1 | about 380 N at the screw, 25 mm/s at the torso | the torso and the arms |
 | Wheels | 2 × Waveshare DDSM115 direct-drive hub motor, 12 V | 0.96 / 2.0 N·m | about 0.6 m/s |
 
 The torques come from `sim/check.py`. It runs MuJoCo inverse dynamics on the CAD masses at the worst pose for each joint.
@@ -79,19 +79,20 @@ python3.12 -m venv .venv
 
 ## Simulation
 
-`sim/bob_v3.xml` is generated from the CAD, so the meshes, masses, joint axes and limits are the same ones you print. The actuator models use datasheet torque limits. Every check currently passes:
+`sim/bob_v3.xml` is generated from the CAD, so the meshes, masses, joint axes and limits are the same ones you print. The actuator models use datasheet torque limits. Numbers below are from `sim/check.py` on this column.
 
 | Check | Result |
 | --- | --- |
-| Stands at home | no drift, no tilt |
-| Holds both arms straight out with 0.5 kg each | 1.6° worst sag, no actuator saturated |
-| Lift 0 → 420 mm | The TR8×2 is self-locking, so the column holds with the power off. |
-| Drives 0.8 m/s, stops at 1–6 m/s² with the torso up and arms out | 0.2° tilt |
-| Shove at the head, torso up, arms out, 0.5 kg each | tips at 30 N forward, 45 N back |
-| Steepest ramp in that worst pose | 11.5° nose down, 27.9° up, 17.5° sideways |
-| Floor, counter, top shelf by IK, no self-collision | all reached |
-| Scripted pick off a 0.75 m table | 95% of 40 random placements |
-| Behaviour cloning on 390 scripted demos (MLP on state) | 39/50 picks on unseen placements |
+| Stands at home | drift 0.3 mm, tilt 0.01° |
+| Arm torque, 0.5 kg in each hand | passes on 80% of peak. Shoulder pitch is at 64% of peak, 268% of the continuous rating. Keep the load in close when the lift is high. |
+| Holds both arms straight out with 0.5 kg each | the base does not tip (0.04°). The shoulder sags 4.2°, so this check fails the 3° tracking limit. No actuator saturated. |
+| Lift 0 → 558 mm | 18.6 s at 25 mm/s. The TR8×2 holds with the power off. |
+| Drives 0.6 m/s, stops at 1–6 m/s² with the torso up and arms out | passes, max tilt 0.23° |
+| Shove at the head, torso up, arms out, 0.5 kg each | tips at 18.2 N forward and 24.0 N back. The check wants 25 N both ways, so this still fails. |
+| Steepest ramp in that worst pose | passes: 12.4° nose down, 23.1° nose up, 22.1° sideways |
+| Workspace sample, 6000 poses | collision-free samples reach 1.59 m. An overhead pose reaches 1.64 m with no contact. The 1.60 m sample cutoff still fails. |
+| Floor, counter, charge socket by IK | reached. The 1.55 m shelf point 0.40 m forward is not. |
+| Scripted pick off a 0.75 m table | 62% of 40 random placements |
 
 To train your own policy, see [sim/README.md](sim/README.md).
 

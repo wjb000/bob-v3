@@ -288,7 +288,7 @@ def main() -> int:
              "pan_left": {**robot.HOME, "head_pan": P.LIMITS["head_pan"][1]},
              "pan_right": {**robot.HOME, "head_pan": P.LIMITS["head_pan"][0]},
              "pan_down": {**robot.HOME, "head_pan": P.LIMITS["head_pan"][1], "head_tilt": P.LIMITS["head_tilt"][1]}}
-    for pose_name in ("home", "zero", "look_down", "look_up", "pan_left", "pan_right", "pan_down"):
+    for pose_name in ("home", "zero", "floor", "shelf", "look_down", "look_up", "pan_left", "pan_right", "pan_down"):
         T = robot.link_transforms(robot.POSES.get(pose_name) or extra[pose_name], joints)
         pool = [(it["name"], it["link"], placed_at(s, T[it["link"]])) for it, s in zip(items, solids)]
         # The pinion turns with the fingers on the real gripper; here it is frozen, so its mesh with the racks is expected.

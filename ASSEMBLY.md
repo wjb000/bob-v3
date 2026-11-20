@@ -39,13 +39,27 @@ Follow the wiring diagram on the page.
 
 ## 4. Telescoping column
 
-1. Bolt `col_outer_0` to the pan, 8 × M3×10 through the foot flange. Fit the KW12 limit switch on its pad. Bolt the NEMA 17 onto the pedestal (4 × M3×8), shaft up, coupler on the shaft.
-2. Drop the centre base tile (`base_shell_mid_c`) over the outer tube. It just rests there for now.
-3. Stack `col_outer_1` and `col_outer_2`. Each joint takes 4 × M3×14 through the bosses. Fit the two belt anchors at the top.
-4. Middle tube: screw the TR8 nut into `col_mid_0`'s pocket from below (4 × M3 thread-forming). Stack `col_mid_0` to `col_mid_2`. Press the two GT2 20T pulleys onto the top axles. Slide the middle tube down the outer tube from the top. Thread the leadscrew up through the coupler and the nut. Tighten the coupler.
-5. Inner tube: stack `col_inner_0` and `col_inner_1`. Slide it into the middle tube. Clamp a GT2 belt on each side of the inner tube, run it up over the mid pulley, and anchor it on the outer tube. Same length both sides.
-6. Bolt `col_cap` onto the inner tube (4 × M3×12). The plate is the seat for the torso.
-7. Drive the lift end to end on the bench supply. The inner tube should travel twice as far as the middle. It should stop on the switch.
+Four tubes. The screw drives the middle tube. Belt A makes the upper tube travel twice that far. Belt B makes the inner tube travel three times as far, 558 mm, 22 in. At the bottom the torso still sits 40 mm above the base.
+
+1. Set the three steel ballast pads on the pan. They are not bolted: the port pad goes on the right-rear (negative y), the keel just behind the column, and the aft pad above the rear caster bridge. Keep them out of the caster holes and clear of the swivel bolt. Bolt `cable_trough` down, 2 × M3×12.
+2. Bolt `col_outer_0` to the pan, 8 × M3×10 through the foot flange. Fit the KW12 limit switch on its pad. Bolt the NEMA 17 onto the pedestal (4 × M3×8), shaft up, coupler on the shaft.
+3. Drop the centre base tile (`base_shell_mid_c`) over the outer tube. It just rests there for now.
+4. Stack `col_outer_1` on `col_outer_0`, 4 × M3×14. Fit the two belt anchors at the top.
+5. Middle tube: screw the TR8 nut into `col_mid_0`'s pocket from below (4 × M3 thread-forming). Stack `col_mid_1`. Press a GT2 20T pulley onto each top axle (belt A). Slide the middle tube down the outer tube. Thread the leadscrew (cut to 266 mm) up through the coupler and the nut. Tighten the coupler.
+6. Upper tube: stack `col_upper_0` and `col_upper_1`. Clamp belt A on each side of `col_upper_0`, run it up over the middle-tube pulley, and anchor it on the outer tube. Same length both sides. Press the other two GT2 pulleys onto the top of the upper tube (belt B). Slide the upper tube into the middle tube.
+7. Inner tube: stack `col_inner_0` and `col_inner_1`. Clamp belt B on each side, run it up over the upper-tube pulley, and anchor it on the middle tube. Slide the inner tube into the upper tube.
+8. Bolt `col_cap` onto the inner tube (4 × M3×12). The plate is the seat for the torso. The Ø18 hole is the cable exit.
+9. Drive the lift end to end on the bench supply before the sleeve is in. The inner tube should travel three times as far as the middle. It should stop on the switch.
+
+### Column umbilical
+
+One PET sleeve carries the chest power (5 V to the Pi, 12 V to both servo buses) and the lidar USB. Head and wrist camera cables stay in the chest and the arms.
+
+1. Zip-tie the sleeve to the closed end of `cable_trough`. Fold about 550 mm of slack in the trough. That is the service loop. Do not leave slack in the bore, or a tube edge will catch it.
+2. The tongue of the trough leads into the rear window of `col_outer_0` (left of the centre, y about 14 to 30 mm). The middle tube has a matching notch that is open at its bottom edge, so the rising wall cannot shear the sleeve.
+3. From there the sleeve goes up inside the bores. Keep it on the left of the T8 nut bridge (the bridge only spans the middle 28 mm). The slide pads are on the walls and do not cross this lane.
+4. Zip-tie the sleeve to the bar inside `col_inner_0`, and again through the two holes beside the cap hole. Those two ties are the strain relief. The cap tie is the one that moves with the torso.
+5. After the torso is on, the sleeve comes through the hole in the chest shelf and splits to the Pi, the two bus adapters, and the lidar USB going back down.
 
 ## 5. Base shell
 
@@ -58,7 +72,7 @@ Follow the wiring diagram on the page.
 2. `neck_mount` bridges the two yoke beams. Put the pan STS3215 in its cradle.
 3. On the back plate grid: Pi 5, USB hub, two Waveshare bus adapters.
 4. Set the torso on the cap. Bolt the shelf down with 4 × M5×16. The column passes through the hole in the belly.
-5. Shells: the lower halves, then the upper halves. Join them from inside with joiner tabs, then screw them through the back wall into the plate. Run the umbilical (36 V pair, servo bus, USB) down the column with a service loop.
+5. Shells: the lower halves, then the upper halves. Join them from inside with joiner tabs, then screw them through the back wall into the plate. Bring the column sleeve through the shelf hole and tie it off as in section 4.
 
 ## 7. Arms (left, then mirror for the right)
 

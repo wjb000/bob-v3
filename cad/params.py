@@ -147,7 +147,7 @@ AXLE_Z = WHEEL_OD / 2.0
 WHEEL_ARCH_R = 60.0
 WHEEL_CUT_X = 58.0  # pan cutout half-length around the tire
 WHEEL_CUT_Y = 148.0  # pan cutout starts here, outboard of the axle bolts
-CASTER_X = 128.0  # front and rear, inboard of the rim and clear of the column foot
+CASTER_X = 132.0  # outboard of 128, stopped short of the shell lugs
 CASTER_WHEEL = 40.0
 CASTER_WHEEL_W = 22.0
 CASTER_TRAIL = 12.0
@@ -159,28 +159,33 @@ LIDAR_Z0 = 108.0  # bottom of the lidar
 LIDAR_SCAN_Z = 134.0  # optical plane, roughly
 
 # ---------------------------------------------------------------- telescoping column (Nori A3 / Sunday Memo style)
-# Three nested rounded-square tubes. Outer is bolted to the pan. A NEMA 17 in
-# the base turns a short TR8×2 that drives the middle tube. A GT2 cascade on
-# each side makes the inner tube travel twice as far. The stack is short enough
-# that at lift = 0 the torso sits just above the base and the hands reach the
-# floor. No exposed mast, no 1 m rods.
+# Four nested rounded-square tubes. Outer is bolted to the pan. A NEMA 17 in
+# the base turns a short TR8×2 that drives the middle tube (1×). A GT2 cascade
+# on the middle tube drives the upper tube at 2×, and a second cascade on the
+# upper tube drives the inner tube at 3×. Collapsed, the torso still sits 40 mm
+# above the base so the hands reach the floor. A 2:1 stack cannot do both.
 COL_X = 0.0  # under the torso, on the wheel axis
 COL_WALL = 4.0
 COL_PAD = 2.0  # slide pad thickness in the gap between tubes (5 mm gap, pads on both sides)
-COL_OUTER_D = 100.0  # rounded-square outside
+COL_OUTER_D = 100.0  # rounded-square outside. Do not grow this: the torso void and the base well are sized to it.
 COL_OUTER_R = 32.0
 COL_MID_D = 82.0
 COL_MID_R = 24.0
-COL_INNER_D = 64.0
-COL_INNER_R = 16.0
+COL_UPPER_D = 64.0
+COL_UPPER_R = 16.0
+COL_INNER_D = 46.0  # bore about 38 mm, enough for the umbilical sleeve
+COL_INNER_R = 10.0
 COL_Z0 = PAN_TOP  # outer sits on the pan
 COL_MID_Z0 = COL_Z0 + 8.0  # middle tube sits on the motor pedestal, not on the pan
-COL_OUTER_LEN = 382.0  # 2 × 191 mm prints. Mid top stays under the cap.
-COL_INNER_LEN = 282.0  # 2 × 141 mm prints; the cap is the torso seat
-COL_INNER_Z0 = 148.0  # nut bridge stays above the coupler when the column is down
-STAGE_TRAVEL = 210.0  # middle tube travel; inner travels 2× this
-LIFT_TRAVEL = 2 * STAGE_TRAVEL  # 420 mm. Longer travel would pull the tubes apart.
-COL_OVERLAP = COL_OUTER_LEN - STAGE_TRAVEL  # 164 mm at full stretch
+COL_UPPER_Z0 = 146.0  # above the T8 nut bridge (bridge top is NUT_Z + 8)
+COL_INNER_Z0 = 150.0
+COL_OUTER_LEN = 382.0  # 2 × 191 mm prints
+COL_MID_LEN = 376.0  # 2 × 188 mm. Top stays under the cap.
+COL_UPPER_LEN = 278.0  # 2 × 139 mm
+COL_INNER_LEN = 280.0  # 2 × 140 mm. Cap underside stays at 430 so the shoulder does not rise.
+STAGE_TRAVEL = 186.0  # middle tube. Upper travels 2×, inner travels 3×.
+LIFT_TRAVEL = 3 * STAGE_TRAVEL  # 558 mm, 22.0 in
+COL_OVERLAP = 80.0  # minimum tube engagement at full stretch, every stage
 
 # Motor stands on the pan inside the outer tube, shaft up.
 NEMA_PEDESTAL = 8.0
@@ -188,11 +193,11 @@ NEMA_FACE_Z = COL_Z0 + NEMA_PEDESTAL + NEMA_LEN  # 93 mm, shaft points +z
 COUPLER_H = 25.0
 SCREW_X = COL_X
 SCREW_Z0 = NEMA_FACE_Z + 2.0
-SCREW_LEN = STAGE_TRAVEL + 80.0  # 290 mm, cut from a 500 mm TR8×2
-NUT_Z = COL_INNER_Z0 - 18.0  # T8 nut on the middle tube, just under the inner
+SCREW_LEN = STAGE_TRAVEL + 80.0  # 266 mm, cut from a 500 mm TR8×2
+NUT_Z = 130.0  # on the middle tube. Bridge is 124–138, clear of the coupler and below the upper tube.
 
-SHOULDER_Z0 = COL_INNER_Z0 + COL_INNER_LEN + 22.0  # inner cap is the torso mount
-COL_TOP0 = COL_Z0 + COL_OUTER_LEN  # outer/mid top at lift = 0
+SHOULDER_Z0 = COL_INNER_Z0 + COL_INNER_LEN + 22.0  # 452 mm. Do not raise this or the hands miss the floor.
+COL_TOP0 = COL_Z0 + COL_OUTER_LEN  # outer top at lift = 0
 COL_INNER_TOP0 = COL_INNER_Z0 + COL_INNER_LEN
 
 # Viewer / leftover aliases. The old mast is gone; these keep base.py hole math
@@ -268,12 +273,14 @@ def col_segments(z0: float, length: float) -> list[tuple[float, float]]:
 
 def check() -> None:
     errs = []
-    gap_om = (COL_OUTER_D - 2 * COL_WALL - COL_MID_D) / 2
-    gap_mi = (COL_MID_D - 2 * COL_WALL - COL_INNER_D) / 2
-    if gap_om < COL_PAD + 1.0:
-        errs.append(f"outer/mid pad gap {gap_om:.1f} mm")
-    if gap_mi < COL_PAD + 1.0:
-        errs.append(f"mid/inner pad gap {gap_mi:.1f} mm")
+    gaps = {
+        "outer/mid": (COL_OUTER_D - 2 * COL_WALL - COL_MID_D) / 2,
+        "mid/upper": (COL_MID_D - 2 * COL_WALL - COL_UPPER_D) / 2,
+        "upper/inner": (COL_UPPER_D - 2 * COL_WALL - COL_INNER_D) / 2,
+    }
+    for name, gap in gaps.items():
+        if gap < COL_PAD + 1.0:
+            errs.append(f"{name} pad gap {gap:.1f} mm")
     if abs(COL_MID_Z0 - (NEMA_FACE_Z - NEMA_LEN)) > 0.1:
         errs.append("middle tube does not sit on the motor pedestal")
     if NEMA_SIZE + 8 > COL_OUTER_D - 2 * COL_WALL:
@@ -282,13 +289,23 @@ def check() -> None:
         errs.append("T8 nut sits on the coupler")
     if NUT_Z + STAGE_TRAVEL > SCREW_Z0 + SCREW_LEN - 20:
         errs.append("T8 nut runs off the screw at the top")
-    inner_top = COL_INNER_Z0 + COL_INNER_LEN
-    mid_top = COL_Z0 + COL_OUTER_LEN
-    if inner_top < mid_top - 30:
-        errs.append("inner tube is buried in the middle tube at lift = 0")
-    overlap_up = (COL_Z0 + COL_OUTER_LEN + STAGE_TRAVEL) - (COL_INNER_Z0 + LIFT_TRAVEL)
-    if overlap_up < 60:
-        errs.append(f"inner/mid overlap at full stretch is {overlap_up:.0f} mm")
+    if COL_UPPER_Z0 < NUT_Z + 10:
+        errs.append("upper tube hits the nut bridge")
+    if COL_INNER_Z0 < COL_UPPER_Z0:
+        errs.append("inner tube starts below the upper tube")
+    if COL_MID_Z0 + COL_MID_LEN > COL_INNER_TOP0 - 6:
+        errs.append("middle tube hits the cap at lift = 0")
+    if COL_UPPER_Z0 + COL_UPPER_LEN > COL_INNER_TOP0 - 4:
+        errs.append("upper tube hits the cap at lift = 0")
+    # At full stretch, how much of the inner member is still inside the one outside it.
+    pairs = (
+        ("outer/mid", (COL_Z0 + COL_OUTER_LEN) - (COL_MID_Z0 + STAGE_TRAVEL)),
+        ("mid/upper", (COL_MID_Z0 + COL_MID_LEN + STAGE_TRAVEL) - (COL_UPPER_Z0 + 2 * STAGE_TRAVEL)),
+        ("upper/inner", (COL_UPPER_Z0 + COL_UPPER_LEN + 2 * STAGE_TRAVEL) - (COL_INNER_Z0 + LIFT_TRAVEL)),
+    )
+    for name, overlap in pairs:
+        if overlap < COL_OVERLAP:
+            errs.append(f"{name} overlap at full stretch is {overlap:.0f} mm")
     if SHOULDER_Z0 - TORSO_BELOW < BASE_TOP + 40:
         errs.append("torso hits the base at the bottom of travel")
     if WHEEL_Y + WHEEL_W / 2 > BASE_W / 2 - 4:
@@ -297,7 +314,13 @@ def check() -> None:
         errs.append("caster hole breaks the pan rim")
     if CASTER_X - CASTER_HOLE / 2 < COL_OUTER_D / 2 + 16:
         errs.append("caster hole meets the column foot")
-    for z0, z1 in col_segments(COL_Z0, COL_OUTER_LEN) + col_segments(COL_INNER_Z0, COL_INNER_LEN):
+    spans = (
+        col_segments(COL_Z0, COL_OUTER_LEN)
+        + col_segments(COL_MID_Z0, COL_MID_LEN)
+        + col_segments(COL_UPPER_Z0, COL_UPPER_LEN)
+        + col_segments(COL_INNER_Z0, COL_INNER_LEN)
+    )
+    for z0, z1 in spans:
         if z1 - z0 > BED_Z:
             errs.append("column segment too tall")
     tx1 = TORSO_X0 + TORSO_D

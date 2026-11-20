@@ -19,7 +19,9 @@ def joints() -> list[Joint]:
     out = [
         Joint("lift", "slide", "base", "lift", (P.COL_X, 0.0, 0.0), (0, 0, 1), P.LIMITS["lift"], "nema"),
         Joint("lift_mid", "slide", "base", "lift_mid", (P.COL_X, 0.0, 0.0), (0, 0, 1),
-              (0.0, P.STAGE_TRAVEL / 1000.0), mimic="lift", mimic_coef=0.5),
+              (0.0, P.STAGE_TRAVEL / 1000.0), mimic="lift", mimic_coef=1.0 / 3.0),
+        Joint("lift_upper", "slide", "base", "lift_upper", (P.COL_X, 0.0, 0.0), (0, 0, 1),
+              (0.0, 2 * P.STAGE_TRAVEL / 1000.0), mimic="lift", mimic_coef=2.0 / 3.0),
         Joint("wheel_l", "hinge", "base", "wheel_l", (0.0, P.WHEEL_Y, P.AXLE_Z), (0, 1, 0), (-1e9, 1e9), "hub"),
         Joint("wheel_r", "hinge", "base", "wheel_r", (0.0, -P.WHEEL_Y, P.AXLE_Z), (0, 1, 0), (-1e9, 1e9), "hub"),
     ]

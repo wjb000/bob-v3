@@ -19,7 +19,8 @@ These numbers came from datasheets and store listings, not from parts on a bench
 Things the sim models but can't prove:
 
 - **Printed gear life.** The gripper pinion is PETG at 100% infill. Grip force is set by the servo torque limit (about 0.5 N·m, roughly 40 N per finger). Above that the teeth wear quickly.
-- **STS3095 hold.** Rated torque is 22.5 kg·cm (2.2 N·m). A 0.5 kg payload at full reach plus the arm's own mass sits near stall, which is how Nori A3 runs the same servo. Expect the thermal cut to trip if you hold a heavy pose.
-- **Column stiffness.** The three printed tubes overlap 76 mm at full stretch. The sim treats the lift as rigid. If the torso nods more than you like, print the tubes at 6 walls / 40% or sleeve the middle tube with a thin aluminium square tube.
+- **STS3095 hold.** Rated torque is 22.5 kg·cm (2.2 N·m). There is no stronger Feetech STS in this 30 × 65 × 48 mm case. The STS3250 is 50 kg·cm and a smaller case, so it is not a drop-in upgrade. A 0.5 kg payload straight out sits past the rated torque and near stall. Bend the elbow and keep the load near the chest when the lift is up. Expect the thermal cut to trip if you hold the straight-out pose.
+- **Column stiffness.** Four printed tubes. At full stretch the engagement is about 190 mm at the base, 90 mm at the middle stage and 90 mm at the top. The sim treats the lift as rigid. If the torso nods more than you like, print the tubes at 6 walls / 50% or sleeve the middle tube with a thin aluminium square tube.
+- **Ballast.** The three steel pads are about 5.0 kg together. The port pad is on the negative-y side of the pan. The keel is just behind the column, clear of the cable trough, the buck, and the rear caster hole. The aft pad sits above the rear caster bridge. Keep all three out of the caster swing. If a pad rocks, stick it down with a strip of foam tape. Do not move it forward.
 - **Battery runtime.** 158 Wh is about 3 hours of mixed use with the Pi 5. Holding both arms out under load cuts that roughly in half.
 - **Homing.** The servos run in multi-turn mode. If one loses power on its own, re-home that joint before moving it.

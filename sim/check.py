@@ -6,7 +6,7 @@
 1 stand     settle at home for 3 s, base must not move or tilt
 2 torque    gravity torque at every arm joint, worst pose, 0.5 kg in the hand, vs rated and peak
 3 hold      hold the arm straight out with 0.5 kg using the modelled actuators
-4 lift      raise the torso 0 -> 650 mm and back, measure time and error
+4 lift      raise the torso over its full travel and back, measure time and error
 5 brake     drive at 0.8 m/s with the lift up and arms out, stop at 1-6 m/s^2, measure tilt
 6 push      horizontal shove at the head that tips it, torso up and arms out
 7 slope     steepest ramp it can stand on, same pose
@@ -194,12 +194,18 @@ def test_lift():
 
 # ---------------------------------------------------------------- 5 brake
 
+def torso_up(m):
+    """Arms forward at the top of the lift. The old 0.65 m target is above the joint."""
+    hi = float(m.jnt_range[m.joint("lift").id][1])
+    return {"lift": hi, "l_shoulder_pitch": -1.2, "r_shoulder_pitch": -1.2, "l_elbow": -0.3, "r_elbow": -0.3}
+
+
 def _drive(decel, v=0.6):
     """Raise the torso, arms out, drive at v with the ramp, then stop at `decel`. Returns max tilt and top speed."""
     m, d = load()
     add_payload(m, PAYLOAD)
     key(m, d, "home")
-    up = {"lift": 0.65, "l_shoulder_pitch": -1.2, "r_shoulder_pitch": -1.2, "l_elbow": -0.3, "r_elbow": -0.3}
+    up = torso_up(m)
     for k, val in up.items():
         d.ctrl[act(m, k)] = val
     for _ in range(int(3.0 / m.opt.timestep)):
@@ -240,7 +246,8 @@ def test_push():
             m, d = load()
             add_payload(m, PAYLOAD)
             key(m, d, "home")
-            for k, v in {"lift": 0.65, "l_shoulder_pitch": -1.2, "r_shoulder_pitch": -1.2, "l_elbow": -0.3, "r_elbow": -0.3}.items():
+            up = torso_up(m)
+            for k, v in up.items():
                 d.ctrl[act(m, k)] = v
                 d.qpos[m.jnt_qposadr[m.joint(k).id]] = v
             for _ in range(int(1.0 / m.opt.timestep)):
@@ -263,7 +270,7 @@ def test_slope():
     m, d = load()
     add_payload(m, PAYLOAD)
     key(m, d, "home")
-    for k, v in {"lift": 0.65, "l_shoulder_pitch": -1.2, "r_shoulder_pitch": -1.2, "l_elbow": -0.3, "r_elbow": -0.3}.items():
+    for k, v in torso_up(m).items():
         d.qpos[m.jnt_qposadr[m.joint(k).id]] = v
     mujoco.mj_forward(m, d)
     com = d.subtree_com[m.body("base").id]
@@ -341,7 +348,8 @@ def test_tasks():
     found = {}
     for name, t in targets.items():
         found[name] = None
-        for lift in np.arange(0.0, 0.651, 0.05):
+        lift_hi = float(m.jnt_range[m.joint("lift").id][1])
+        for lift in np.arange(0.0, lift_hi + 1e-9, 0.05):
             for tilt in (0.0, 0.35, 0.7, 1.0, 1.4):
                 for sd in seeds:
                     q0 = sd.copy()

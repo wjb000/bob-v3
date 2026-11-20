@@ -235,7 +235,7 @@ def torso_shell(sz=S0) -> cq.Shape:
     # shelf across the chest, 0.5 mm above the cap, fused into the front and back walls
     z_cap = P.COL_INNER_TOP0 + 8.0
     shelf = rrect(TCX, 0, z_cap + 0.5, z_cap + 6.0, P.TORSO_D + 2.0, 78, 12)
-    shelf = shelf.cut(cyl((P.COL_X, 0, z_cap), "z", 14, 12))
+    shelf = shelf.cut(cyl((P.COL_X, 0, z_cap), "z", 22, 12))
     adds.append(shelf)
     s = fuse(s, *adds)
     s = s.intersect(outer)

@@ -1,5 +1,14 @@
 """Every wire in Bob v3. One source for the wiring diagram, the wire table and the viewer's wiring layer.
 
+Column umbilical
+  One PET sleeve, zip-tied in the base trough and again on the inner-tube cap.
+  The slack (about 550 mm) folds in the trough and pays out through the rear
+  window of the outer tube, the open notch in the middle tube, and the bore
+  of the upper and inner tubes. It passes the T8 bridge on the left side of
+  the bridge (y about 20 mm), where the pads are not. Power to the chest and
+  the lidar USB are the wires in that sleeve. Camera USB stays in the chest
+  and the arms.
+
 NODES: id -> (label, sub, column, row, cad item for the 3D overlay or None)
 WIRES: (from, to, kind, what, wire, connector, fuse)
 kind: power36 | power12 | power5 | usb | ttl | signal | motor | estop
@@ -40,9 +49,9 @@ WIRES = [
     ("estop", "cont", "estop", "Coil loop through the NC e-stop", "22 AWG", "spade 4.8", "1 A"),
     ("cont", "b12a", "power36", "Arm converters", "16 AWG", "ferrules", "15 A"),
     ("cont", "b12m", "power36", "Base converter", "18 AWG", "ferrules", "5 A"),
-    ("b5", "pi", "power5", "Pi 5 power, 5.1 V 5 A", "18 AWG", "GPIO 5V pins", ""),
-    ("b12a", "busl", "power12", "Left arm + head servos", "16 AWG", "5.5/2.1 → bus", "10 A"),
-    ("b12a", "busr", "power12", "Right arm servos", "16 AWG", "5.5/2.1 → bus", "10 A"),
+    ("b5", "pi", "power5", "Pi 5 power, 5.1 V 5 A, up the column sleeve", "18 AWG", "GPIO 5V pins", ""),
+    ("b12a", "busl", "power12", "Left arm + head servos, up the column sleeve", "16 AWG", "5.5/2.1 → bus", "10 A"),
+    ("b12a", "busr", "power12", "Right arm servos, up the column sleeve", "16 AWG", "5.5/2.1 → bus", "10 A"),
     ("b12m", "esp", "power12", "Wheel and HAT power", "18 AWG", "XT60", "5 A"),
     ("b12m", "tmc", "power12", "Stepper driver VM", "20 AWG", "JST-XH", "3 A"),
     ("pi", "hub", "usb", "USB 3", "", "USB-A to USB-C", ""),
@@ -51,7 +60,7 @@ WIRES = [
     ("pi", "esp", "usb", "USB serial, JSON commands", "", "USB-C", ""),
     ("hub", "cam", "usb", "USB", "", "USB-A", ""),
     ("hub", "wcam", "usb", "USB 2 ×2", "", "USB-A, down the arms", ""),
-    ("hub", "lidar", "usb", "USB", "", "USB-A", ""),
+    ("hub", "lidar", "usb", "USB down the column sleeve", "", "USB-A", ""),
     ("hub", "s3", "usb", "USB serial", "", "USB-C", ""),
     ("hub", "audio", "usb", "USB audio", "", "USB-A", ""),
     ("busl", "stl", "ttl", "Half-duplex TTL, 1 Mbit/s", "18 AWG", "Molex 5264 3-pin", ""),

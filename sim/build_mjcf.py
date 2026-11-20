@@ -29,7 +29,7 @@ ASSETS = ROOT / "sim" / "assets"
 OUT = ROOT / "sim"
 
 # Wiring, screws, inserts and paint are not in the CAD. Book them where they sit.
-MISC_G = {"base": 1200.0, "lift": 400.0, "lift_mid": 80.0}
+MISC_G = {"base": 1200.0, "lift": 400.0, "lift_upper": 60.0, "lift_mid": 100.0}
 
 # Actuator models. Torques from the datasheets; armature is the reflected rotor
 # inertia (an estimate); kp/kv are the gains used for position control.
@@ -81,6 +81,8 @@ def collides(item):
         return "body" if n.startswith(("base_shell_", "col_outer_")) else None
     if link == "lift_mid":
         return "body" if n.startswith("col_mid_") else None
+    if link == "lift_upper":
+        return "body" if n.startswith("col_upper_") else None
     if link == "lift":
         return "body" if (n.startswith("torso_") and not n.startswith("torso_back")) or n.startswith("col_inner_") else None
     if link.startswith("head"):
@@ -281,6 +283,9 @@ def main():
     w("  <contact>")
     w('    <exclude body1="base" body2="lift"/>')
     w('    <exclude body1="base" body2="lift_mid"/>')
+    w('    <exclude body1="base" body2="lift_upper"/>')
+    w('    <exclude body1="lift_mid" body2="lift_upper"/>')
+    w('    <exclude body1="lift_upper" body2="lift"/>')
     w('    <exclude body1="lift_mid" body2="lift"/>')
     w('    <exclude body1="lift" body2="head_tilt"/>')
     for s in ("l", "r"):

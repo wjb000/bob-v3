@@ -41,7 +41,8 @@ class Expert:
         s2 = q.copy()
         s2[ik.qadr] = [-0.9, 0.0, 0.0, -0.9, 1.6, 0.0]
         seeds.append(s2)
-        for lift in sorted(np.arange(0.20, 0.651, 0.05), key=lambda v: abs(v - 0.5)):
+        lift_hi = float(env.m.jnt_range[env.m.joint("lift").id][1])
+        for lift in sorted(np.arange(0.20, lift_hi + 1e-9, 0.05), key=lambda v: abs(v - min(0.5, lift_hi))):
             for tilt in (0.0, 0.35, 0.7):
                 for seed in seeds:
                     q0 = seed.copy()

@@ -1,16 +1,17 @@
-"""Three-stage telescoping column, Nori A3 / Sunday Memo style.
+"""Four-stage telescoping column, Nori A3 / Sunday Memo style.
 
 The outer tube is bolted to the pan. A NEMA 17 in the base turns a short
-TR8×2 that drives the middle tube. A GT2 belt on each side, anchored on
-the outer tube and the inner tube and running over a pulley on the middle
-tube, makes the inner tube travel twice as far. The torso sits on a cap
-on the inner tube, so the column grows out of the base instead of a
-carriage riding an exposed mast.
+TR8×2 that drives the middle tube. Two GT2 cascades make the tubes above
+travel further: belt A (pulley on the middle) drives the upper tube at
+2× the screw, belt B (pulley on the upper) drives the inner tube at 3×.
+The torso sits on a cap on the inner tube. Collapsed, that cap is low
+enough for the hands to reach the floor. Extended, travel is 558 mm.
 
-Links
+Links, all sliding on the base (meshes are drawn in the world frame):
   outer  -> base
-  mid    -> lift_mid   (slide 0.5 × lift)
-  inner  -> lift       (slide 1.0 × lift)
+  mid    -> lift_mid    (slide 1/3 × lift)
+  upper  -> lift_upper  (slide 2/3 × lift)
+  inner  -> lift        (slide 1 × lift)
 """
 
 from __future__ import annotations
@@ -120,9 +121,10 @@ def outer_segment(i, z0, z1, n) -> cq.Shape:
         from base import PAN_PTS
         for x, y in PAN_PTS["col"]:
             tools.append(cyl((x, y, z0 - 1), "z", P.M3, 10))
-        # cable / belt exits at the back
+        # Cable lane on the rear wall, +y side, matching the trough and the mid-tube notch.
+        # The homing pad stays on the centre of the same wall.
         tools.append(box(P.COL_X - P.COL_OUTER_D / 2 - 2, P.COL_X - P.COL_OUTER_D / 2 + P.COL_WALL + 2,
-                         -16, 16, z0 + 14, z0 + 70))
+                         14, 30, z0 + 20, z0 + 70))
         # homing pad on the back inner wall; 2 mm into the cavity so the mid tube still fits
         face = P.COL_X - (P.COL_OUTER_D / 2 - P.COL_WALL)
         adds.append(box(face - 0.2, face + 1.0, -12, 12, z0 + 80, z0 + 100))
@@ -156,18 +158,54 @@ def mid_segment(i, z0, z1, n) -> cq.Shape:
         for a in (math.pi / 4, 3 * math.pi / 4, 5 * math.pi / 4, 7 * math.pi / 4):
             tools.append(cyl((P.SCREW_X + P.T8_PCD / 2 * math.cos(a), P.T8_PCD / 2 * math.sin(a), P.NUT_Z - 1), "z", 2.6, 12))
         adds.extend(_pads_outside(P.COL_MID_D, z0 + 8, z0 + 8 + PAD_L))
+        # Open at the bottom, beside the rear pad, so the rising wall cannot shear the
+        # umbilical against the fixed window in the outer tube.
+        tools.append(box(P.COL_X - P.COL_MID_D / 2 - 2, P.COL_X - P.COL_MID_D / 2 + P.COL_WALL + 6,
+                         14, 30, z0 - 1, z0 + 80))
         hw("TR8x2 brass flange nut", 1)
         hw("M3x10 thread-forming (T8 nut)", 4)
     if i == n - 1:
         adds.extend(_pads_inside(P.COL_MID_D, z1 - 8 - PAD_L, z1 - 8))
         for sy in (1, -1):
-            # Between the inner slide pads (out to 34 mm) and the outer belt anchors (in to 42 mm).
+            # Between the upper slide pads (out to 34 mm) and the outer belt anchors (in to 42 mm).
             adds.append(cbox(P.COL_X, sy * (P.COL_MID_D / 2 - 2.5), z1 - 16, 14, 4, 14))
             tools.append(cyl_between("y", (P.COL_X, z1 - 16), sy * (P.COL_MID_D / 2 - 12), sy * (P.COL_MID_D / 2 + 4), 5.2))
+            # Belt B fixed end, in the wall, below the inner slide pads.
+            adds.append(_wall_boss(P.COL_MID_D, z1 - 78, z1 - 66, P.COL_X, sy * (P.COL_MID_D / 2 - 2)))
+            tools.append(cyl_between("y", (P.COL_X, z1 - 72),
+                                     sy * (P.COL_MID_D / 2 - 14), sy * (P.COL_MID_D / 2 + 2), 3.4))
+        hw("GT2 20T pulley, 5 mm bore", 2)
+        hw("M5x20 shoulder screw (pulley)", 2)
+        hw("M3x10 socket head (belt anchor)", 2)
+    s = fuse(s, *adds)
+    s = s.intersect(rrect(P.COL_X, 0, min(z0, P.NUT_Z - 8), z1 + 1, P.COL_MID_D + 20, P.COL_MID_D + 20, P.COL_MID_R + 8))
+    return cut(s, *tools)
+
+
+# ---------------------------------------------------------------- upper (2× the screw)
+
+def upper_segment(i, z0, z1, n) -> cq.Shape:
+    s = _tube(P.COL_UPPER_D, P.COL_UPPER_R, z0, z1)
+    adds, tools = _splice_tools(P.COL_UPPER_D, z0, z1, i, n, insert_top=True)
+    if i == 0:
+        adds.extend(_pads_outside(P.COL_UPPER_D, z0 + 8, z0 + 8 + PAD_L))
+        for sy in (1, -1):
+            # Stay outside the inner tube's pads (they reach y = 25) and inside the mid bore.
+            adds.append(cbox(P.COL_X, sy * (P.COL_UPPER_D / 2 - 1), z0 + 20, 12, 8, 12))
+            tools.append(cyl_between("y", (P.COL_X, z0 + 20),
+                                     sy * (P.COL_UPPER_D / 2 - 10), sy * (P.COL_UPPER_D / 2 + 2), 3.4))
+        hw("M3x10 socket head (belt clamp)", 2)
+    if i == n - 1:
+        adds.extend(_pads_inside(P.COL_UPPER_D, z1 - 8 - PAD_L, z1 - 8))
+        for sy in (1, -1):
+            # Inner pads reach y = 25. The mid's inside pads start at y = 35.
+            adds.append(cbox(P.COL_X, sy * (P.COL_UPPER_D / 2 - 2.5), z1 - 16, 14, 4, 14))
+            tools.append(cyl_between("y", (P.COL_X, z1 - 16),
+                                     sy * (P.COL_UPPER_D / 2 - 12), sy * (P.COL_UPPER_D / 2 + 4), 5.2))
         hw("GT2 20T pulley, 5 mm bore", 2)
         hw("M5x20 shoulder screw (pulley)", 2)
     s = fuse(s, *adds)
-    s = s.intersect(rrect(P.COL_X, 0, min(z0, P.NUT_Z - 8), z1 + 1, P.COL_MID_D + 20, P.COL_MID_D + 20, P.COL_MID_R + 8))
+    s = s.intersect(rrect(P.COL_X, 0, z0, z1 + 1, P.COL_UPPER_D + 20, P.COL_UPPER_D + 20, P.COL_UPPER_R + 8))
     return cut(s, *tools)
 
 
@@ -179,9 +217,16 @@ def inner_segment(i, z0, z1, n) -> cq.Shape:
     if i == 0:
         adds.extend(_pads_outside(P.COL_INNER_D, z0 + 8, z0 + 8 + PAD_L))
         for sy in (1, -1):
-            adds.append(cbox(P.COL_X, sy * (P.COL_INNER_D / 2 - 2), z0 + 20, 14, 10, 12))
-            tools.append(cyl_between("y", (P.COL_X, z0 + 20), sy * (P.COL_INNER_D / 2 - 12), sy * (P.COL_INNER_D / 2 + 2), 3.4))
+            # On the tube wall, above the upper tube's belt clamp, so the two clamps do not meet.
+            adds.append(cbox(P.COL_X, sy * (P.COL_INNER_D / 2 - 5), z0 + 44, 12, 8, 12))
+            tools.append(cyl_between("y", (P.COL_X, z0 + 44),
+                                     sy * (P.COL_INNER_D / 2 - 14), sy * (P.COL_INNER_D / 2 - 1), 3.4))
+        # Strain-relief bar inside the bore, above the pads, for a zip tie on the sleeve.
+        face = P.COL_INNER_D / 2 - P.COL_WALL
+        adds.append(box(P.COL_X - face - 1.2, P.COL_X - face + 8, 8, 22, z0 + 64, z0 + 72))
+        tools.append(cyl_between("x", (15, z0 + 68), P.COL_X - face - 2, P.COL_X - face + 10, 4.2))
         hw("M3x10 socket head (belt clamp)", 2)
+        hw("4 in zip tie (column umbilical)", 1)
     s = fuse(s, *adds)
     s = s.intersect(rrect(P.COL_X, 0, z0, z1 + 1, P.COL_INNER_D + 20, P.COL_INNER_D + 20, P.COL_INNER_R + 8))
     return cut(s, *tools)
@@ -193,19 +238,26 @@ def _cap_bolts():
 
 
 def inner_cap() -> cq.Shape:
-    """Plate on the inner tube. The torso shelf sits on this face and bolts down."""
+    """Plate on the inner tube. The torso shelf sits on this face and bolts down.
+
+    The plate stays 76 mm, wider than the 46 mm tube, so the M5 square at ±22 mm
+    still lands in material. The Ø18 hole is the umbilical exit, with zip-tie holes beside it.
+    """
     z0 = P.COL_INNER_TOP0
     z1 = z0 + 8.0
-    plate = rrect(P.COL_X, 0, z0, z1, P.COL_INNER_D + 12, P.COL_INNER_D + 12, P.COL_INNER_R + 4)
-    tools = []
+    plate = rrect(P.COL_X, 0, z0, z1, 76, 76, 20)
+    tools = [cyl((P.COL_X, 0, z0 - 1), "z", 18, 14)]
     for x, y in _boss_pts(P.COL_INNER_D):
         tools.append(cyl((x, y, z0 - 1), "z", P.M3, 12))
         tools.append(cyl((x, y, z1 - 3), "z", P.M3_HEAD, 4))
     for x, y in _cap_bolts():
         tools.append(cyl((x, y, z0 - 1), "z", P.M5, 14))
         tools.append(cyl((x, y, z0 - 1), "z", 9.2, 4.5))  # nut pocket under the plate
+    for y in (-14.0, 14.0):
+        tools.append(cyl((P.COL_X, y, z0 - 1), "z", 4.2, 14))
     hw("M3x12 socket head", 4)
     hw("M5x16 socket head + nut (torso to cap)", 4)
+    hw("4 in zip tie (column umbilical)", 1)
     return cut(plate, *tools)
 
 
@@ -218,20 +270,26 @@ def parts() -> list[Part]:
         note = "Foot flange, motor pedestal, homing pad." if i == 0 else (
             "Top of the outer tube. Slide pads and belt anchors." if i == len(segs) - 1 else "Prints standing. Inserts in the top bosses.")
         out.append(Part(f"col_outer_{i}", outer_segment(i, z0, z1, len(segs)), "base", "mast", color="shell", rot=(0, 0, 0),
-                        walls=5, infill=30, note=note))
-    segs = P.col_segments(P.COL_MID_Z0, P.COL_OUTER_LEN)
+                        walls=5, infill=40, note=note))
+    segs = P.col_segments(P.COL_MID_Z0, P.COL_MID_LEN)
     for i, (z0, z1) in enumerate(segs):
-        note = "T8 nut pocket and outer slide pads." if i == 0 else (
-            "Pulleys and inner slide pads." if i == len(segs) - 1 else "Prints standing. Inserts in the top bosses.")
+        note = "T8 nut pocket, cable notch, outer slide pads." if i == 0 else (
+            "Belt A pulleys, belt B anchors, inner slide pads." if i == len(segs) - 1 else "Prints standing. Inserts in the top bosses.")
         out.append(Part(f"col_mid_{i}", mid_segment(i, z0, z1, len(segs)), "lift_mid", "mast", color="shell", rot=(0, 0, 0),
-                        walls=5, infill=30, note=note))
+                        walls=5, infill=40, note=note))
+    segs = P.col_segments(P.COL_UPPER_Z0, P.COL_UPPER_LEN)
+    for i, (z0, z1) in enumerate(segs):
+        note = "Belt A clamps and outer slide pads." if i == 0 else (
+            "Belt B pulleys and inner slide pads." if i == len(segs) - 1 else "Prints standing. Inserts in the top bosses.")
+        out.append(Part(f"col_upper_{i}", upper_segment(i, z0, z1, len(segs)), "lift_upper", "mast", color="shell", rot=(0, 0, 0),
+                        walls=5, infill=40, note=note))
     segs = P.col_segments(P.COL_INNER_Z0, P.COL_INNER_LEN)
     for i, (z0, z1) in enumerate(segs):
-        note = "Belt clamps and outer slide pads." if i == 0 else "Prints standing. Inserts in the top bosses."
+        note = "Belt B clamps, sleeve tie, outer slide pads." if i == 0 else "Prints standing. Inserts in the top bosses."
         out.append(Part(f"col_inner_{i}", inner_segment(i, z0, z1, len(segs)), "lift", "mast", color="shell", rot=(0, 0, 0),
-                        walls=5, infill=30, note=note))
+                        walls=5, infill=40, note=note))
     out.append(Part("col_cap", inner_cap(), "lift", "mast", color="dark", rot=(180, 0, 0), walls=5, infill=30,
-                    note="Sits on the inner tube. The torso shelf bolts down onto this plate, 4 × M5."))
+                    note="Sits on the inner tube. Umbilical exits the Ø18 hole. The torso shelf bolts down, 4 × M5."))
     return out
 
 
@@ -251,14 +309,24 @@ def bought() -> list[Bought]:
                                          cyl((P.SCREW_X, 0, nz - 11.5), "z", 10.2, 11.6)),
                                     cyl((P.SCREW_X, 0, nz - 20), "z", 8.2, 40)),
                       "lift_mid", "mast", "metal", 30, "t8nut", look="brass"))
-    # pulleys on the middle tube top
-    z_pul = P.COL_MID_Z0 + P.COL_OUTER_LEN - 16
+    # Belt A: pulley on the middle tube, envelope in the outer/mid gap. Drives the upper tube at 2×.
+    z_a = P.COL_MID_Z0 + P.COL_MID_LEN - 16
     for sy, s in ((1, "l"), (-1, "r")):
-        out.append(Bought(f"gt2_pulley_{s}",
-                          cyl_between("y", (P.COL_X, z_pul), sy * (P.COL_MID_D / 2 - 8), sy * (P.COL_MID_D / 2 + 4), 16),
+        out.append(Bought(f"gt2_pulley_a_{s}",
+                          cyl_between("y", (P.COL_X, z_a), sy * (P.COL_MID_D / 2 - 8), sy * (P.COL_MID_D / 2 + 4), 16),
                           "lift_mid", "mast", "metal", 8, "gt2pulley", look="alu"))
         belt = box(P.COL_X - 1.5, P.COL_X + 1.5,
                    sy * (P.COL_MID_D / 2 + 2), sy * (P.COL_MID_D / 2 + 5),
-                   P.COL_Z0 + 20, z_pul)
-        out.append(Bought(f"gt2_belt_{s}", belt, "lift_mid", "mast", "metal", 12, "gt2belt", look="black"))
+                   P.COL_Z0 + 20, z_a)
+        out.append(Bought(f"gt2_belt_a_{s}", belt, "lift_mid", "mast", "metal", 8, "gt2belt", look="black"))
+    # Belt B: pulley on the upper tube, envelope in the mid/upper gap. Drives the inner tube at 3×.
+    z_b = P.COL_UPPER_Z0 + P.COL_UPPER_LEN - 16
+    for sy, s in ((1, "l"), (-1, "r")):
+        out.append(Bought(f"gt2_pulley_b_{s}",
+                          cyl_between("y", (P.COL_X, z_b), sy * (P.COL_UPPER_D / 2 - 8), sy * (P.COL_UPPER_D / 2 + 4), 16),
+                          "lift_upper", "mast", "metal", 8, "gt2pulley", look="alu"))
+        belt = box(P.COL_X - 1.5, P.COL_X + 1.5,
+                   sy * (P.COL_UPPER_D / 2 + 2), sy * (P.COL_UPPER_D / 2 + 5),
+                   P.COL_MID_Z0 + 30, z_b)
+        out.append(Bought(f"gt2_belt_b_{s}", belt, "lift_upper", "mast", "metal", 8, "gt2belt", look="black"))
     return out

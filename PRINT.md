@@ -1,6 +1,6 @@
 # Print list
 
-86 unique files, 132 prints, about 5.0 kg of filament at the settings below.
+89 unique files, 136 prints, about 5.1 kg of filament at the settings below.
 Every part fits a 200 x 200 x 200 mm volume (Prusa MK4, Ender-3, Bambu A1/P1/X1, Core One).
 The STLs in `cad/stl/` are already oriented: flat face down, no rotating. Grams are at 4 walls and 20% gyroid.
 
@@ -14,7 +14,7 @@ The STLs in `cad/stl/` are already oriented: flat face down, no rotating. Grams 
 - Supports: the Support column is measured from each oriented STL (faces steeper than 45° not on the bed).
   'none' means under 5 cm². Use tree supports, touching the build plate only where you can.
 
-## Base (1.61 kg)
+## Base (1.65 kg)
 
 | File | Qty | Colour | Bed mm | g each | Support | Note |
 | --- | ---: | --- | --- | ---: | --- | --- |
@@ -31,11 +31,11 @@ The STLs in `cad/stl/` are already oriented: flat face down, no rotating. Grams 
 | `base_pan_rear_c.stl` | 1 | grey PETG | 102 x 180 x 15 | 62 | none | Structure. Skin down on the bed, ribs up. 4 walls. |
 | `base_pan_rear_l.stl` | 1 | grey PETG | 80 x 80 x 15 | 22 | none | Structure. Skin down on the bed, ribs up. 4 walls. |
 | `base_pan_mid_r.stl` | 1 | grey PETG | 180 x 93 x 15 | 60 | none | Structure. Skin down on the bed, ribs up. 4 walls. |
-| `base_pan_mid_c.stl` | 1 | grey PETG | 180 x 180 x 15 | 130 | none | Structure. Skin down on the bed, ribs up. 4 walls. |
+| `base_pan_mid_c.stl` | 1 | grey PETG | 180 x 180 x 15 | 132 | none | Structure. Skin down on the bed, ribs up. 4 walls. |
 | `base_pan_mid_l.stl` | 1 | grey PETG | 180 x 93 x 15 | 59 | none | Structure. Skin down on the bed, ribs up. 4 walls. |
 | `base_pan_front_r.stl` | 1 | grey PETG | 80 x 80 x 15 | 21 | none | Structure. Skin down on the bed, ribs up. 4 walls. |
 | `base_pan_front_c.stl` | 1 | grey PETG | 102 x 180 x 15 | 62 | none | Structure. Skin down on the bed, ribs up. 4 walls. |
-| `base_pan_front_l.stl` | 1 | grey PETG | 80 x 80 x 15 | 20 | none | Structure. Skin down on the bed, ribs up. 4 walls. |
+| `base_pan_front_l.stl` | 1 | grey PETG | 80 x 80 x 15 | 21 | none | Structure. Skin down on the bed, ribs up. 4 walls. |
 | `wheel_bracket_l.stl` | 1 | grey PETG | 52 x 30 x 37 | 33 | 5 cm² | Holds a DDSM115 by its stub (3 x M2.5 x 10). 5 walls, 40% infill. |
 | `wheel_bracket_r.stl` | 1 | grey PETG | 52 x 30 x 37 | 33 | 5 cm² | Holds a DDSM115 by its stub (3 x M2.5 x 10). 5 walls, 40% infill. |
 | `caster_bridge_front.stl` | 1 | grey PETG | 66 x 136 x 29 | 64 | none | Swivel 608ZZ pocket underneath. Inserts on top for the lidar mount. |
@@ -51,19 +51,22 @@ The STLs in `cad/stl/` are already oriented: flat face down, no rotating. Grams 
 | `shelf_rear_l.stl` | 1 | grey PETG | 47 x 54 x 109 | 18 | none | Bucks, fuse block, contactor. |
 | `shelf_front_r.stl` | 1 | grey PETG | 60 x 75 x 109 | 26 | none | Motor drivers and the ESP32 on the 20 mm grid. |
 | `shelf_rear_r.stl` | 1 | grey PETG | 50 x 60 x 109 | 21 | none | Bucks, fuse block, contactor. |
-| `joiner_tab.stl` | 47 | grey PETG | 30 x 14 x 4 | 1 | none | Joins shell and pan tiles from inside. M3x10 into heat-set inserts. |
+| `cable_trough.stl` | 1 | grey PETG | 42 x 88 x 51 | 30 | 22 cm² | Service loop for the column umbilical. Zip-tie the sleeve at the closed end. 4 walls. |
+| `joiner_tab.stl` | 48 | grey PETG | 30 x 14 x 4 | 1 | none | Joins shell and pan tiles from inside. M3x10 into heat-set inserts. |
 
-## Column (0.94 kg)
+## Column (1.06 kg)
 
 | File | Qty | Colour | Bed mm | g each | Support | Note |
 | --- | ---: | --- | --- | ---: | --- | --- |
-| `col_outer_0.stl` | 1 | white PETG | 124 x 124 x 191 | 234 | none | Foot flange, motor pedestal, homing pad. |
+| `col_outer_0.stl` | 1 | white PETG | 124 x 124 x 191 | 236 | none | Foot flange, motor pedestal, homing pad. |
 | `col_outer_1.stl` | 1 | white PETG | 101 x 108 x 191 | 182 | none | Top of the outer tube. Slide pads and belt anchors. |
-| `col_mid_0.stl` | 1 | white PETG | 86 x 86 x 191 | 168 | 25 cm² | T8 nut pocket and outer slide pads. |
-| `col_mid_1.stl` | 1 | white PETG | 83 x 83 x 191 | 149 | none | Pulleys and inner slide pads. |
-| `col_inner_0.stl` | 1 | white PETG | 68 x 70 x 141 | 90 | none | Belt clamps and outer slide pads. |
-| `col_inner_1.stl` | 1 | white PETG | 65 x 65 x 141 | 86 | none | Prints standing. Inserts in the top bosses. |
-| `col_cap.stl` | 1 | black PETG | 76 x 76 x 8 | 29 | none | Sits on the inner tube. The torso shelf bolts down onto this plate, 4 × M5. |
+| `col_mid_0.stl` | 1 | white PETG | 86 x 86 x 188 | 162 | 26 cm² | T8 nut pocket, cable notch, outer slide pads. |
+| `col_mid_1.stl` | 1 | white PETG | 83 x 83 x 188 | 148 | none | Belt A pulleys, belt B anchors, inner slide pads. |
+| `col_upper_0.stl` | 1 | white PETG | 68 x 70 x 139 | 88 | none | Belt A clamps and outer slide pads. |
+| `col_upper_1.stl` | 1 | white PETG | 65 x 65 x 139 | 87 | none | Belt B pulleys and inner slide pads. |
+| `col_inner_0.stl` | 1 | white PETG | 50 x 50 x 140 | 65 | 5 cm² | Belt B clamps, sleeve tie, outer slide pads. |
+| `col_inner_1.stl` | 1 | white PETG | 47 x 47 x 140 | 62 | none | Prints standing. Inserts in the top bosses. |
+| `col_cap.stl` | 1 | black PETG | 76 x 76 x 8 | 28 | none | Sits on the inner tube. Umbilical exits the Ø18 hole. The torso shelf bolts down, 4 × M5. |
 
 ## Torso (1.29 kg)
 
@@ -75,8 +78,8 @@ The STLs in `cad/stl/` are already oriented: flat face down, no rotating. Grams 
 | `neck_mount.stl` | 1 | grey PETG | 108 x 70 x 28 | 42 | 8 cm² | Pan servo cradle, bridges the yokes. |
 | `torso_lower_l.stl` | 1 | white PETG | 150 x 120 x 120 | 106 | 6 cm² | Lower tier prints floor-down; upper tier prints top-down. |
 | `torso_lower_r.stl` | 1 | white PETG | 150 x 120 x 120 | 106 | 6 cm² | Lower tier prints floor-down; upper tier prints top-down. |
-| `torso_upper_l.stl` | 1 | white PETG | 150 x 120 x 130 | 143 | 68 cm² | Lower tier prints floor-down; upper tier prints top-down. |
-| `torso_upper_r.stl` | 1 | white PETG | 150 x 120 x 130 | 143 | 68 cm² | Lower tier prints floor-down; upper tier prints top-down. |
+| `torso_upper_l.stl` | 1 | white PETG | 150 x 120 x 130 | 142 | 67 cm² | Lower tier prints floor-down; upper tier prints top-down. |
+| `torso_upper_r.stl` | 1 | white PETG | 150 x 120 x 130 | 142 | 67 cm² | Lower tier prints floor-down; upper tier prints top-down. |
 
 ## Head (0.36 kg)
 
