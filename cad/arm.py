@@ -133,7 +133,13 @@ def shoulder() -> cq.Shape:
     hub = cyl_between("y", (X0, S), P.J1_FACE_Y + 3.5, P.J1_FACE_Y + 10, 52)
     cup, inserts, keep = G.mount(*SV["j2"][:3], kind=SV["j2"][3])
     bridge = box(J2_FACE_X + 4, X0 + 8, P.J1_FACE_Y + 5, Y0 - (G.D + 0.6) / 2 + 1.0, S - 24, S + 24)
-    s = fuse(hub, cup, bridge)
+    # Gussets above and below the one bridge, overlapping the hub and the J2 flange.
+    # The servo keep-out is cut below, so the ribs stop at the motor body.
+    rib_hi = box(J2_FACE_X + 6, X0 + 10, P.J1_FACE_Y + 4.5, P.J1_FACE_Y + 12, S + 12, S + 28)
+    rib_lo = box(J2_FACE_X + 6, X0 + 10, P.J1_FACE_Y + 4.5, P.J1_FACE_Y + 12, S - 28, S - 12)
+    fair = cyl_between("x", (P.J1_FACE_Y + 8, S), J2_FACE_X + 4, X0 + 10, 34)
+    fair = fair.intersect(box(J2_FACE_X + 2, X0 + 12, P.J1_FACE_Y + 4, P.J1_FACE_Y + 13, S - 28, S + 28))
+    s = fuse(hub, cup, bridge, rib_hi, rib_lo, fair)
     tools = [cyl_between("y", (X0, S), P.J1_FACE_Y, Y0 + 40, 14), keep, inserts]
     # J1 horn screws: heads reached straight through the empty J2 cup
     tools += _horn_holes((X0, 0, S), "y", P.J1_FACE_Y + 3.5, (0, 1, 0), depth=12, kind="sts3095", head_from=5)
@@ -158,7 +164,11 @@ def clevis() -> cq.Shape:
     # thin cheek at the J2 horn; span to the J3 cup stays below the J2 servo body
     cheek = box(x0, x1, Y0 - 24, Y0 + 24, J3_FACE_Z + 3.5, S)
     span = box(x1 - 1, X0 + 28, Y0 - 24, Y0 + 24, J3_FACE_Z + 3.5, J3_FACE_Z + 48)
-    s = fuse(disc, cheek, span, cup)
+    # Side cheeks share the J2 disc and the J3 cup, so one plate is not the whole load path.
+    side_a = box(x0, x1, Y0 - 32, Y0 - 20, J3_FACE_Z + 16, S - 22)
+    side_b = box(x0, x1, Y0 + 20, Y0 + 32, J3_FACE_Z + 16, S - 22)
+    fair = cyl_between("x", (Y0, S - 36), x0, x1, 36)
+    s = fuse(disc, cheek, span, cup, side_a, side_b, fair)
     tools = _horn_holes((0, Y0, S), "x", x1, (-1, 0, 0), depth=10, kind="sts3095", head_from=4)
     tools += [cyl_between("x", (Y0, S), x0 - 1, x1 + 1, 14), keep, inserts]
     hw("M3 heat-set insert", 4)
@@ -205,7 +215,12 @@ def elbow() -> cq.Shape:
     plate = box(X0 - 22, X0 + 22, y0, y1, ELBOW_FLANGE[1], E)
     bridge = box(X0 - 22, X0 + 22, Y0 - 26, y1, ELBOW_FLANGE[1], ELBOW_FLANGE[1] + 10)
     flange = cyl_between("z", (X0, Y0), ELBOW_FLANGE[1] - 0.01, ELBOW_FLANGE[1] + 10, 54)
-    s = fuse(disc, plate, bridge, flange)
+    # Second pair of cheeks beside the plate, and a round nose over the square flange edge.
+    cheek_l = box(X0 - 26, X0 - 14, y0, y1, ELBOW_FLANGE[1] + 2, E - 10)
+    cheek_r = box(X0 + 14, X0 + 26, y0, y1, ELBOW_FLANGE[1] + 2, E - 10)
+    nose = cyl_between("z", (X0, (y0 + y1) / 2), ELBOW_FLANGE[1] + 1, ELBOW_FLANGE[1] + 14, 40)
+    beads = [cyl_between("z", (X0 + sx * 16, (y0 + y1) / 2), ELBOW_FLANGE[1] + 8, E - 12, 10) for sx in (-1, 1)]
+    s = fuse(disc, plate, bridge, flange, cheek_l, cheek_r, nose, *beads)
     tools = _horn_holes((X0, 0, E), "y", y0, (0, 1, 0), depth=10, kind="sts3095", head_from=4)
     tools.append(cyl_between("y", (X0, E), y0 - 1, y1 + 1, 14))
     for x, y in _forearm_bolts():
@@ -266,6 +281,13 @@ def wrist() -> cq.Shape:
     j6x0 = X0 - P.STS_SHAFT_FROM_END
     sleeve = box(j6x0 - 3, j6x0 + P.STS_L + 3, Y0 - P.STS_W / 2 - 3, Y0 + P.STS_W / 2 + 3, J6_BODY_Z[0] + 3, W - 40)
     parts.append(sleeve)
+    # Round the sleeve corners so the wrist fairing covers the square edges.
+    sx0, sx1 = j6x0 - 3, j6x0 + P.STS_L + 3
+    sy0, sy1 = Y0 - P.STS_W / 2 - 3, Y0 + P.STS_W / 2 + 3
+    wz0, wz1 = J6_BODY_Z[0] + 3, W - 40
+    for x in (sx0, sx1):
+        for y in (sy0, sy1):
+            parts.append(cyl_between("z", (x, y), wz0, wz1, 7))
     s = fuse(*parts)
     tools = [box(j6x0 - 0.3, j6x0 + P.STS_L + 0.3, Y0 - P.STS_W / 2 - 0.3, Y0 + P.STS_W / 2 + 0.3, J6_BODY_Z[0] - 1, J6_BODY_Z[1] + 0.3),
              cyl_between("y", (X0, W), yb0 - 1, yb1 + 1, P.M3)]

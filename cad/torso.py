@@ -250,6 +250,9 @@ def torso_shell(sz=S0) -> cq.Shape:
     # the column passes through the belly and ends under the shelf
     tools.append(rrect(P.COL_X, 0, z0 - 4, P.COL_INNER_TOP0 - 0.4,
                        P.COL_OUTER_D + 6, P.COL_OUTER_D + 6, P.COL_OUTER_R + 2))
+    # Groove for the top-limit switch on the front of the fixed outer tube.
+    # It runs the whole lower belly, so the shell clears the switch at every lift.
+    tools.append(box(2, 18, P.COL_OUTER_D / 2 - 1, P.COL_OUTER_D / 2 + 16, z0 - 4, P.COL_INNER_TOP0 - 2))
     for x, y in _cap_bolts():
         tools.append(cyl((x, y, z_cap - 1), "z", P.M5, 14))
         tools.append(cyl((x, y, z_cap + 3.0), "z", 9.5, 6))

@@ -1,13 +1,18 @@
 """Every wire in Bob v3. One source for the wiring diagram, the wire table and the viewer's wiring layer.
 
 Column umbilical
-  One PET sleeve, zip-tied in the base trough and again on the inner-tube cap.
-  The slack (about 550 mm) folds in the trough and pays out through the rear
-  window of the outer tube, the open notch in the middle tube, and the bore
-  of the upper and inner tubes. It passes the T8 bridge on the left side of
-  the bridge (y about 20 mm), where the pads are not. Power to the chest and
-  the lidar USB are the wires in that sleeve. Camera USB stays in the chest
-  and the arms.
+  One PET sleeve, zip-tied at each stage and again on the inner-tube cap.
+  The slack folds as a serpentine in the base trough (six printed drag-chain
+  links) and pays out through the rear window of the outer tube, the open
+  notch in the middle tube, and the bore of the upper and inner tubes.
+  Travel is 558 mm. The sleeve passes the T8 bridge on the left (y about 20 mm).
+  Power to the chest and the lidar USB ride that sleeve. Camera USB stays in
+  the chest, the neck, and the arms.
+
+  PATHS are polylines in each link's zero-pose CAD frame (mm). A point tagged
+  "loop" is the trough coil. Cut length is the longer of the coiled route at
+  lift = 0 and the paid-out route at full lift, over hanging and straight arms,
+  plus 8 percent for terminations. The coil is not counted twice at full lift.
 
 NODES: id -> (label, sub, column, row, cad item for the 3D overlay or None)
 WIRES: (from, to, kind, what, wire, connector, fuse)
@@ -80,3 +85,167 @@ LABELS = {
     "power36": "36 V", "power12": "12 V", "power5": "5 V", "usb": "USB",
     "ttl": "Servo TTL", "signal": "Logic", "motor": "Motor phases", "estop": "E-stop loop",
 }
+
+
+def _pt(link, x, y, z, tag=None):
+    return (link, float(x), float(y), float(z), tag) if tag else (link, float(x), float(y), float(z))
+
+
+def _loop():
+    """Serpentine in the trough, about half a metre of sleeve waiting to pay out."""
+    pts = []
+    for i in range(8):
+        z = 52.0 + (i % 4) * 3.0
+        x = -80.0 if i < 4 else -70.0
+        y0, y1 = (24.0, 88.0) if i % 2 == 0 else (88.0, 24.0)
+        pts.append(_pt("base", x, y0, z, "loop"))
+        pts.append(_pt("base", x, y1, z, "loop"))
+    return pts
+
+
+def _bore():
+    """Points on the inner tube. They rise with the lift."""
+    return [_pt("lift", -6.0, 16.0, z) for z in (200.0, 300.0, 390.0, 436.0)]
+
+
+def _column_up(start, end):
+    """Base device, trough coil, rear window, bore, chest device."""
+    return [start, _pt("base", -60.0, 20.0, 90.0), *_loop(), _pt("base", -48.0, 20.0, 100.0), *_bore(), end]
+
+
+def _column_down(start, end):
+    """Chest device, bore, window, coil, base device (lidar USB)."""
+    return [start, *_bore()[::-1], _pt("base", -48.0, 20.0, 100.0), *_loop(), _pt("base", -40.0, 10.0, 120.0), end]
+
+
+def _neck(start, end):
+    return [start, _pt("lift", 5.0, 0.0, 490.0), _pt("head_pan", 5.0, 0.0, 530.0),
+            _pt("head_tilt", 20.0, 0.0, 580.0), end]
+
+
+def _arm(side, start, extra=()):
+    sy = 1.0 if side == "l" else -1.0
+    link = f"{side}_"
+    bow = 16.0 * sy
+    pts = [
+        start,
+        _pt("lift", 18.0, 96.0 * sy, 400.0),
+        _pt(link + "link1", 9.0, 128.0 * sy, 452.0),
+        _pt(link + "link2", 9.0, 157.0 * sy, 420.0),
+        _pt(link + "link2", 9.0, 157.0 * sy + bow, 339.0),
+        _pt(link + "link3", 9.0, 157.0 * sy, 270.0),
+        _pt(link + "link3", 9.0, 157.0 * sy + bow, 200.0),
+        _pt(link + "link4", 9.0, 157.0 * sy, 100.0),
+        _pt(link + "link5", 9.0, 157.0 * sy, 0.0),
+    ]
+    pts.extend(extra)
+    return pts
+
+
+def routes():
+    """One polyline per wire, in link frames. Missing wires fall back to part centres in the viewer."""
+    shelf = 160.0
+    bus_l = _pt("lift", 30.0, 72.0, 326.0)
+    bus_r = _pt("lift", 30.0, -72.0, 326.0)
+    hub = _pt("lift", 0.0, -78.0, 392.0)
+    pi = _pt("lift", 0.0, 78.0, 392.0)
+    cam = _pt("head_tilt", 65.0, 0.0, 648.0)
+    s3 = _pt("head_tilt", 1.0, 0.0, 587.0)
+    mic = _pt("head_tilt", 21.0, 0.0, 683.0)
+    palm_l = _pt("l_link6", -16.0, 157.0, -70.0)
+    palm_r = _pt("r_link6", -16.0, -157.0, -70.0)
+    return {
+        ("charge", "batt"): [_pt("base", 150.0, -125.0, 212.0), _pt("base", 80.0, -40.0, shelf), _pt("base", 0.0, 80.0, 120.0)],
+        ("batt", "fuse"): [_pt("base", 0.0, 80.0, 120.0), _pt("base", 0.0, 20.0, shelf), _pt("base", 0.0, -72.0, shelf)],
+        ("fuse", "b5"): [_pt("base", 0.0, -72.0, shelf), _pt("base", 0.0, -162.0, shelf)],
+        ("fuse", "cont"): [_pt("base", 0.0, -72.0, shelf), _pt("base", -80.0, -80.0, shelf), _pt("base", -130.0, -96.0, shelf)],
+        ("estop", "cont"): [_pt("base", -200.0, 115.0, 212.0), _pt("base", -180.0, 40.0, 180.0), _pt("base", -130.0, -96.0, shelf)],
+        ("cont", "b12a"): [_pt("base", -130.0, -96.0, shelf), _pt("base", -72.0, -112.0, shelf), _pt("base", 72.0, -112.0, shelf)],
+        ("cont", "b12m"): [_pt("base", -130.0, -96.0, shelf), _pt("base", -40.0, -120.0, shelf), _pt("base", 0.0, -132.0, shelf)],
+        ("b5", "pi"): _column_up(_pt("base", 0.0, -162.0, shelf), pi),
+        ("b12a", "busl"): _column_up(_pt("base", -72.0, -112.0, shelf), bus_l),
+        ("b12a", "busr"): _column_up(_pt("base", 72.0, -112.0, shelf), bus_r),
+        ("b12m", "esp"): [_pt("base", 0.0, -132.0, shelf), _pt("base", 0.0, -104.0, shelf)],
+        ("b12m", "tmc"): [_pt("base", 0.0, -132.0, shelf), _pt("base", -80.0, -60.0, shelf), _pt("base", -130.0, -20.0, shelf)],
+        ("pi", "hub"): [_pt("lift", 0.0, 78.0, 392.0), _pt("lift", 0.0, 0.0, 400.0), hub],
+        ("pi", "busl"): [pi, _pt("lift", 10.0, 70.0, 360.0), bus_l],
+        ("pi", "busr"): [pi, _pt("lift", 10.0, -40.0, 360.0), bus_r],
+        ("pi", "esp"): _column_down(pi, _pt("base", 0.0, -104.0, shelf)),
+        ("hub", "cam"): _neck(hub, cam),
+        ("hub", "wcam"): _arm("l", hub, (palm_l,)) + [_pt("lift", 0.0, -20.0, 380.0)] + _arm("r", hub, (palm_r,))[1:],
+        ("hub", "lidar"): _column_down(hub, _pt("base", 176.0, 0.0, 140.0)),
+        ("hub", "s3"): _neck(hub, s3),
+        ("hub", "audio"): _neck(hub, mic),
+        ("busl", "stl"): _arm("l", bus_l),
+        ("busr", "str"): _arm("r", bus_r),
+        ("esp", "wheels"): [
+            _pt("base", 0.0, -104.0, shelf), _pt("base", 0.0, 40.0, 80.0),
+            _pt("base", 0.0, 170.0, 55.0), _pt("base", 0.0, -170.0, 55.0),
+        ],
+        ("esp", "tmc"): [_pt("base", 0.0, -104.0, shelf), _pt("base", -80.0, -50.0, shelf), _pt("base", -130.0, -20.0, shelf)],
+        ("esp", "imu"): [_pt("base", 0.0, -104.0, shelf), _pt("base", -80.0, -70.0, shelf), _pt("base", -130.0, -45.0, shelf)],
+        ("esp", "estop"): [_pt("base", 0.0, -104.0, shelf), _pt("base", -160.0, 0.0, 170.0), _pt("base", -200.0, 115.0, 200.0)],
+        ("tmc", "nema"): [
+            _pt("base", -130.0, -20.0, shelf), _pt("base", -40.0, -10.0, 100.0), _pt("base", 0.0, 0.0, 70.0),
+            _pt("base", 20.0, 40.0, 130.0), _pt("base", 13.0, 56.0, 388.0),
+        ],
+    }
+
+
+_CACHE = None
+
+
+def wire_records():
+    """WIRES plus len_mm and a viewer path. Lengths use the CAD joint tree."""
+    global _CACHE
+    if _CACHE is not None:
+        return _CACHE
+    import sys
+    from pathlib import Path
+
+    import numpy as np
+
+    root = Path(__file__).resolve().parents[1]
+    sys.path.insert(0, str(root / "cad"))
+    import params as P
+    import robot
+
+    table = routes()
+    hang = {f"{s}_{k}": 0.0 for s in ("l", "r") for k in
+            ("shoulder_pitch", "shoulder_roll", "upper_arm_yaw", "elbow", "wrist_pitch", "wrist_roll")}
+    straight = {f"{s}_{k}": v for s in ("l", "r") for k, v in {
+        "shoulder_pitch": -1.55, "shoulder_roll": 0.2, "upper_arm_yaw": 0.0,
+        "elbow": -0.15, "wrist_pitch": 0.2, "wrist_roll": 0.0}.items()}
+    poses = [
+        {"lift": 0.0, **hang},
+        {"lift": 0.0, **straight},
+        {"lift": P.LIFT_TRAVEL / 1000.0, **hang},
+        {"lift": P.LIFT_TRAVEL / 1000.0, **straight},
+    ]
+    transforms = [(pose.get("lift", 0.0), robot.link_transforms(pose)) for pose in poses]
+
+    def length_of(pts, lift, T):
+        drop = lift > 0.2
+        acc = 0.0
+        prev = None
+        for item in pts:
+            if drop and len(item) == 5 and item[4] == "loop":
+                continue
+            q = T[item[0]] @ np.array([item[1], item[2], item[3], 1.0])
+            if prev is not None:
+                acc += float(np.linalg.norm(q[:3] - prev))
+            prev = q[:3]
+        return acc
+
+    out = []
+    for row in WIRES:
+        pts = table.get((row[0], row[1]))
+        if not pts:
+            out.append({"len_mm": None, "path": []})
+            continue
+        longest = max(length_of(pts, lift, T) for lift, T in transforms)
+        path = [{"link": p[0], "x": round(p[1], 1), "y": round(p[2], 1), "z": round(p[3], 1),
+                 **({"loop": True} if len(p) == 5 and p[4] == "loop" else {})} for p in pts]
+        out.append({"len_mm": int(round(longest * 1.08)), "path": path})
+    _CACHE = out
+    return out

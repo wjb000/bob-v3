@@ -27,7 +27,7 @@ TOP_CHAMFER = 24.0
 
 MAST_HOLE = (P.COL_X - P.COL_OUTER_D / 2 - 4, P.COL_X + P.COL_OUTER_D / 2 + 4, P.COL_OUTER_D / 2 + 4)
 MAST_FLANGE = 12.0  # column foot overhang on the pan
-ESTOP_XY = (-140.0, 78.0)  # rear-left of the top, clear of the rear caster
+ESTOP_XY = (-200.0, 115.0)  # rear-left of the top, clear of the rear caster plate
 LIGHT_Z = (172.0, 178.0)
 
 # Pack turned so its 200 mm side runs fore-aft and it sits on +y, off the caster centreline.
@@ -73,13 +73,21 @@ LUG_PTS = []
 
 
 def _lug_points():
-    """Eight lugs around the round shell, clear of the seams, the wheel cuts and the caster holes."""
-    r = PAN_R - 6
+    """Lugs on the flats of the rounded-square shell, clear of the wheel cuts and the caster holes."""
+    hx, hy = PAN_LX / 2 - 18, PAN_LY / 2 - 18
     pts = []
-    for deg in (20.0, 55.0, 125.0, 160.0):
+    for x in (-120.0, -60.0, 60.0, 120.0):
         for sy in (1, -1):
-            a = math.radians(deg)
-            pts.append((r * math.cos(a), sy * r * math.sin(a)))
+            y = sy * hy
+            if abs(y) > P.WHEEL_CUT_Y - 16 and abs(x) < P.WHEEL_CUT_X + 28:
+                continue
+            pts.append((x, y))
+    for y in (-80.0, 80.0):
+        for sx in (1, -1):
+            x = sx * hx
+            if math.hypot(x - sx * P.CASTER_X, y) < P.CASTER_HOLE / 2 + 24:
+                continue
+            pts.append((x, y))
     return pts
 
 
@@ -117,34 +125,34 @@ JOIN_OFF = 8.0  # insert each side of a seam
 TAB = (30.0, 14.0, 4.0)
 
 
+def _on_top(q):
+    """True when a point sits on the top skin, inside the chamfer of the rounded square."""
+    lim = rr_boundary("y", q[1], SHELL_LX, SHELL_LY, P.BASE_R) - TOP_CHAMFER - 14
+    return abs(q[0]) <= lim and abs(q[1]) <= SHELL_LY / 2 - TOP_CHAMFER - 14
+
+
 def _top_seam_pairs():
     """Shell top seams: pairs of insert points straddling each cut line."""
     pairs = []
-    flat_x = SHELL_LX / 2 - TOP_CHAMFER - 12
-    flat_y = SHELL_LY / 2 - TOP_CHAMFER - 12
     mx0, mx1, my = MAST_HOLE
     for gx in P.GRID_X:
-        for y in range(-140, 141, 46):
-            if abs(y) > flat_y:
-                continue
+        for y in range(-180, 181, 46):
             a, b = (gx - JOIN_OFF, y), (gx + JOIN_OFF, y)
+            if not (_on_top(a) and _on_top(b)):
+                continue
             if any(mx0 - 8 < q[0] < mx1 + 8 and abs(q[1]) < my + 8 for q in (a, b)):
                 continue
             if any(abs(y - gy) < 16 for gy in P.GRID_Y):
-                continue
-            if max(math.hypot(*a), math.hypot(*b)) > P.BASE_R - TOP_CHAMFER - 14:
                 continue
             if _near_port(a) or _near_port(b):
                 continue
             pairs.append(("x", a, b))
     for gy in P.GRID_Y:
-        for x in range(-150, 151, 46):
-            if abs(x) > flat_x:
-                continue
+        for x in range(-200, 201, 46):
             if any(abs(x - gx) < 16 for gx in P.GRID_X):
                 continue
             a, b = (x, gy - JOIN_OFF), (x, gy + JOIN_OFF)
-            if max(math.hypot(*a), math.hypot(*b)) > P.BASE_R - TOP_CHAMFER - 14:
+            if not (_on_top(a) and _on_top(b)):
                 continue
             if _near_port(a) or _near_port(b):
                 continue
@@ -156,6 +164,21 @@ def _near_port(q, tol=26.0):
     """Keep joiner tabs out of the charge socket and the e-stop body."""
     return (math.hypot(q[0] - P.CHARGE_XY[0], q[1] - P.CHARGE_XY[1]) < tol
             or math.hypot(q[0] - ESTOP_XY[0], q[1] - ESTOP_XY[1]) < tol)
+
+
+def _wall_normal(x, y):
+    """Inward normal of the rounded-square inner wall at a point on it."""
+    hx, hy = INNER_LX / 2, INNER_LY / 2
+    r = max(P.BASE_R - P.BASE_WALL, 1.0)
+    ax, ay = abs(x), abs(y)
+    if ay >= hy - r - 1 and ax <= hx - r + 1:
+        return (0.0, -1.0 if y > 0 else 1.0, 0.0)
+    if ax >= hx - r - 1 and ay <= hy - r + 1:
+        return (-1.0 if x > 0 else 1.0, 0.0, 0.0)
+    cx, cy = math.copysign(hx - r, x), math.copysign(hy - r, y)
+    dx, dy = x - cx, y - cy
+    n = math.hypot(dx, dy) or 1.0
+    return (-dx / n, -dy / n, 0.0)
 
 
 def _arch_top(x):
@@ -178,8 +201,7 @@ def _wall_seam_pairs():
 
     def pair(a, b, kind):
         c = ((a[0] + b[0]) / 2, (a[1] + b[1]) / 2)
-        r = math.hypot(*c)
-        return (kind, a, b, (-c[0] / r, -c[1] / r, 0.0))
+        return (kind, a, b, _wall_normal(*c))
 
     for gx in P.GRID_X:
         for sy in (1, -1):
@@ -260,7 +282,7 @@ def _shell_full() -> cq.Shape:
         tools.append(cyl((x, y, P.PAN_TOP + 4), "z", P.M3_HEAD, 10))
     # wheel arches, opening the shell where the tire is
     for sy in (1, -1):
-        tools.append(cyl_between("y", (0, P.AXLE_Z), sy * (P.WHEEL_Y - 28), sy * (P.BASE_R + 30), 2 * P.WHEEL_ARCH_R))
+        tools.append(cyl_between("y", (0, P.AXLE_Z), sy * (P.WHEEL_Y - 28), sy * (P.BASE_W / 2 + 40), 2 * P.WHEEL_ARCH_R))
     # column opening
     mx0, mx1, my = MAST_HOLE
     tools.append(rrect((mx0 + mx1) / 2, 0, P.BASE_TOP - 30, P.BASE_TOP + 5, mx1 - mx0, 2 * my, P.COL_OUTER_R + 4))
@@ -362,7 +384,7 @@ def _pan_seam_pairs():
     pairs = []
     taken = _all_pan_pts()
     for gx in P.GRID_X:
-        for y in range(-150, 151, 42):
+        for y in range(-200, 201, 42):
             a, b = (gx - JOIN_OFF, y), (gx + JOIN_OFF, y)
             ok = all(_pan_inside(q, 12) for q in (a, b)) and all(_clear(q, taken, 24) for q in (a, b))
             ok = ok and all(abs(y - gy) > 18 for gy in P.GRID_Y)
@@ -372,7 +394,7 @@ def _pan_seam_pairs():
             if ok:
                 pairs.append(("x", a, b))
     for gy in P.GRID_Y:
-        for x in range(-150, 151, 42):
+        for x in range(-200, 201, 42):
             a, b = (x, gy - JOIN_OFF), (x, gy + JOIN_OFF)
             ok = all(_pan_inside(q, 12) for q in (a, b)) and all(_clear(q, taken, 24) for q in (a, b))
             ok = ok and all(abs(x - gx) > 18 for gx in P.GRID_X)
@@ -406,9 +428,9 @@ def _pan_full() -> cq.Shape:
     skin = rrect(0, 0, z1 - P.PAN_SKIN, z1, PAN_LX, PAN_LY, PAN_R)
     rim = rrect_shell(0, 0, z0, z1, PAN_LX, PAN_LY, PAN_R, 4.0, open_top=True, open_bot=True)
     ribs = []
-    for x in range(-240, 241, 60):
+    for x in range(-280, 281, 60):
         ribs.append(box(x - 1.5, x + 1.5, -PAN_LY / 2, PAN_LY / 2, z0, z1 - 1))
-    for y in range(-180, 181, 60):
+    for y in range(-220, 221, 60):
         ribs.append(box(-PAN_LX / 2, PAN_LX / 2, y - 1.5, y + 1.5, z0, z1 - 1))
     # ribs either side of every cut line, so each tile edge is stiff
     for gx in P.GRID_X:
@@ -662,20 +684,33 @@ def bought() -> list[Bought]:
 
 
 # 1018 steel, stacked from 1/2 × 2 in bar. Low and rearward: the fore-aft tip is the failure.
-# Each box is (x0, x1, y0, y1, z0, z1).
-# port: right-rear corner, under the shelf. keel: inboard of the rear caster hole and under the buck.
+# Each box is (x0, x1, y0, y1, z0, z1). About 5.0 kg, same bar as before.
+# port: right-rear corner, beside the wheel and under nothing hot. keel: inboard of the rear caster.
 # aft: above the rear caster bridge (the fork ends at z=66), clear of the M8 swivel bolt which ends at z=74.
 STEEL_G_CM3 = 7.85
 BALLAST = (
-    ("ballast_port", -142.0, -102.0, -120.0, -72.0, 40.0, 138.0),
-    ("ballast_keel", -94.0, -68.0, -70.0, -36.0, 40.0, 168.0),
-    ("ballast_aft", -176.0, -108.0, -40.0, 40.0, 78.0, 140.0),
+    ("ballast_port", -210.0, -145.0, -120.0, -85.0, 44.0, 126.0),
+    ("ballast_keel", -120.0, -88.0, -60.0, -24.0, 42.0, 150.0),
+    ("ballast_aft", -220.0, -150.0, -32.0, 32.0, 86.0, 158.0),
 )
 
 
 def _steel(x0, x1, y0, y1, z0, z1):
     mass = abs((x1 - x0) * (y1 - y0) * (z1 - z0)) / 1000.0 * STEEL_G_CM3
     return box(x0, x1, y0, y1, z0, z1), round(mass, 1)
+
+
+def drag_link() -> cq.Shape:
+    """One link of the column service-loop chain. Six of them fold in the base trough.
+
+    The chain is the slack for the 22 in of column travel. Each stage also has a
+    zip-tie bar, so the sleeve cannot pull out of the chain or into a tube joint.
+    """
+    outer = rrect(0, 0, 0, 8, 18, 11, 2.4)
+    inner = rrect(0, 0, -1, 9, 9, 4, 1.2)
+    s = cut(outer, inner)
+    s = cut(s, cyl((-6.5, 0, -1), "z", 2.2, 12), cyl((6.5, 0, -1), "z", 2.2, 12))
+    return s
 
 
 def cable_trough() -> cq.Shape:
@@ -730,4 +765,10 @@ def parts() -> list[Part]:
                         note="Bucks, fuse block, contactor."))
     out.append(Part("cable_trough", cable_trough(), "base", "base", color="frame", rot=(0, 0, 0),
                     note="Service loop for the column umbilical. Zip-tie the sleeve at the closed end. 4 walls."))
+    link = drag_link()
+    for i, y in enumerate((26.0, 38.0, 50.0, 62.0, 74.0, 86.0)):
+        placed = link.translate((-74.0, y, 56.0))
+        out.append(Part(f"drag_link_{i}", placed, "base", "base", color="dark", rot=(0, 0, 0),
+                        print_as="col_draglink", print_solid=link, walls=4, infill=30,
+                        note="Drag-chain link. Six of them fold in the base trough for the column sleeve."))
     return out

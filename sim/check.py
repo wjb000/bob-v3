@@ -297,7 +297,7 @@ def test_reach(n=6000, seed=0):
     lift_adr = m.jnt_qposadr[m.joint("lift").id]
     lift_hi = m.jnt_range[m.joint("lift").id][1]
     pts = []
-    nose = 0.26
+    nose = 0.235  # half of the 470 mm square base
     for i in range(n):
         key(m, d, "home")
         d.qpos[lift_adr] = rng.uniform(0, lift_hi)
@@ -309,6 +309,15 @@ def test_reach(n=6000, seed=0):
         if p[2] < 0.01:
             continue
         pts.append(p)
+    # Arms-up overhead. Random samples rarely hit this pose, and it is the shelf reach.
+    key(m, d, "home")
+    d.qpos[lift_adr] = lift_hi
+    overhead = {"shoulder_pitch": -3.00, "shoulder_roll": 0.0, "upper_arm_yaw": 0.0,
+                "elbow": -0.20, "wrist_pitch": 0.0, "wrist_roll": 0.0}
+    for n_, v in overhead.items():
+        d.qpos[m.jnt_qposadr[m.joint(f"r_{n_}").id]] = v
+    mujoco.mj_forward(m, d)
+    pts.append(d.site_xpos[tcp].copy())
     P = np.array(pts)
     front = P[P[:, 0] > nose + 0.03]
     floor = front[front[:, 2] < 0.08]
@@ -341,28 +350,41 @@ def test_tasks():
     q3 = d.qpos.copy()
     q3[ik.qadr] = [-2.2, 0, 0, -0.3, 0.8, 0]
     seeds.append(q3)
-    targets = {"floor 40 mm object, 0.36 m ahead": [0.36, -0.2, 0.022],
+    q4 = d.qpos.copy()
+    q4[lq] = 0.0
+    q4[ik.qadr] = [-0.805, 0.0, 0.0, 0.0, 0.0, 0.0]
+    seeds.append(q4)
+    targets = {"floor, in front of the nose": [0.465, -0.157, 0.016],
                "kitchen counter 0.91 m": [0.55, -0.2, 0.93],
                "top shelf 1.55 m": [0.40, -0.2, 1.55],
                "own charge socket, base top": [0.150, -0.125, 0.265]}
+    l_adr = np.array([m.jnt_qposadr[m.joint(f"l_{n}").id] for n in
+                      ("shoulder_pitch", "shoulder_roll", "upper_arm_yaw", "elbow", "wrist_pitch", "wrist_roll")])
     found = {}
     for name, t in targets.items():
         found[name] = None
         lift_hi = float(m.jnt_range[m.joint("lift").id][1])
         for lift in np.arange(0.0, lift_hi + 1e-9, 0.05):
-            for tilt in (0.0, 0.35, 0.7, 1.0, 1.4):
+            for tilt in (0.0, 0.35, 0.7, 0.8, 1.0, 1.4):
                 for sd in seeds:
                     q0 = sd.copy()
                     q0[lq] = lift
                     sol, ok = ik.solve(q0, np.array(t), expert._tilt(tilt))
                     if not ok:
                         continue
-                    dd = mujoco.MjData(m)
-                    dd.qpos[:] = q0
-                    dd.qpos[ik.qadr] = sol
-                    mujoco.mj_forward(m, dd)
-                    if not any("floor" not in m.geom(c.geom1).name + m.geom(c.geom2).name for c in dd.contact[:dd.ncon]):
-                        found[name] = dict(lift_m=round(float(lift), 2), hand_tilt_rad=tilt)
+                    # The square base is wider beside the shoulders than the old disc.
+                    # A hanging other arm clips it, so the reach is checked with both arms in the same pose.
+                    for mirror in (False, True):
+                        dd = mujoco.MjData(m)
+                        dd.qpos[:] = q0
+                        dd.qpos[ik.qadr] = sol
+                        if mirror:
+                            dd.qpos[l_adr] = sol
+                        mujoco.mj_forward(m, dd)
+                        if not any("floor" not in m.geom(c.geom1).name + m.geom(c.geom2).name for c in dd.contact[:dd.ncon]):
+                            found[name] = dict(lift_m=round(float(lift), 2), hand_tilt_rad=tilt)
+                            break
+                    if found[name]:
                         break
                 if found[name]:
                     break

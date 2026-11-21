@@ -41,10 +41,10 @@ Follow the wiring diagram on the page.
 
 Four tubes. The screw drives the middle tube. Belt A makes the upper tube travel twice that far. Belt B makes the inner tube travel three times as far, 558 mm, 22 in. At the bottom the torso still sits 40 mm above the base.
 
-1. Set the three steel ballast pads on the pan. They are not bolted: the port pad goes on the right-rear (negative y), the keel just behind the column, and the aft pad above the rear caster bridge. Keep them out of the caster holes and clear of the swivel bolt. Bolt `cable_trough` down, 2 × M3×12.
-2. Bolt `col_outer_0` to the pan, 8 × M3×10 through the foot flange. Fit the KW12 limit switch on its pad. Bolt the NEMA 17 onto the pedestal (4 × M3×8), shaft up, coupler on the shaft.
+1. Set the three steel ballast pads on the pan. They are not bolted: the port pad goes on the right-rear flat, clear of the corner radius, the keel just behind the column, and the aft pad above the rear caster bridge. Keep them out of the caster holes and clear of the swivel bolt. Bolt `cable_trough` down, 2 × M3×12. Pin the six `col_draglink` prints into a short chain in that trough.
+2. Bolt `col_outer_0` to the pan, 8 × M3×10 through the foot flange. Fit the lower KW12 on its pad. Bolt the NEMA 17 onto the pedestal (4 × M3×8), shaft up, coupler on the shaft.
 3. Drop the centre base tile (`base_shell_mid_c`) over the outer tube. It just rests there for now.
-4. Stack `col_outer_1` on `col_outer_0`, 4 × M3×14. Fit the two belt anchors at the top.
+4. Stack `col_outer_1` on `col_outer_0`, 4 × M3×14. Fit the two belt anchors at the top, and the upper KW12 on the left side flat (+Y) so its leaf reaches through the slot. The stop dogs on that piece face inward. The speaker and the belt-anchor bosses occupy the front flat, so the switch does not go there.
 5. Middle tube: screw the TR8 nut into `col_mid_0`'s pocket from below (4 × M3 thread-forming). Stack `col_mid_1`. Press a GT2 20T pulley onto each top axle (belt A). Slide the middle tube down the outer tube. Thread the leadscrew (cut to 266 mm) up through the coupler and the nut. Tighten the coupler.
 6. Upper tube: stack `col_upper_0` and `col_upper_1`. Clamp belt A on each side of `col_upper_0`, run it up over the middle-tube pulley, and anchor it on the outer tube. Same length both sides. Press the other two GT2 pulleys onto the top of the upper tube (belt B). Slide the upper tube into the middle tube.
 7. Inner tube: stack `col_inner_0` and `col_inner_1`. Clamp belt B on each side, run it up over the upper-tube pulley, and anchor it on the middle tube. Slide the inner tube into the upper tube.
@@ -53,13 +53,14 @@ Four tubes. The screw drives the middle tube. Belt A makes the upper tube travel
 
 ### Column umbilical
 
-One PET sleeve carries the chest power (5 V to the Pi, 12 V to both servo buses) and the lidar USB. Head and wrist camera cables stay in the chest and the arms.
+One PET sleeve carries the chest power (5 V to the Pi, 12 V to both servo buses) and the lidar USB. Head and wrist camera cables stay in the chest and the arms. Each sliding tube has a shallow zip-tie bar on its rear inner wall, and the trough holds a six-link drag chain so the sleeve pays out instead of rubbing a tube edge.
 
-1. Zip-tie the sleeve to the closed end of `cable_trough`. Fold about 550 mm of slack in the trough. That is the service loop. Do not leave slack in the bore, or a tube edge will catch it.
+1. Zip-tie the sleeve to the closed end of `cable_trough` and through the drag-chain links. The coil in the trough is the service loop for the 558 mm of travel. Do not leave a loose loop in the bore.
 2. The tongue of the trough leads into the rear window of `col_outer_0` (left of the centre, y about 14 to 30 mm). The middle tube has a matching notch that is open at its bottom edge, so the rising wall cannot shear the sleeve.
-3. From there the sleeve goes up inside the bores. Keep it on the left of the T8 nut bridge (the bridge only spans the middle 28 mm). The slide pads are on the walls and do not cross this lane.
-4. Zip-tie the sleeve to the bar inside `col_inner_0`, and again through the two holes beside the cap hole. Those two ties are the strain relief. The cap tie is the one that moves with the torso.
-5. After the torso is on, the sleeve comes through the hole in the chest shelf and splits to the Pi, the two bus adapters, and the lidar USB going back down.
+3. From there the sleeve goes up inside the bores. Zip-tie it to the bar on the middle tube, the upper tube, and the inner tube. Keep it on the left of the T8 nut bridge (the bridge only spans the middle 28 mm). The slide pads and the stop dogs are on the flats and do not cross this lane.
+4. The top KW12, on the left flat, is the full-stroke home. The lower KW12 is the collapsed home. StallGuard on the TMC2209 is the backup if a switch fails. The printed dogs are the hard stops, about 3 mm before the tubes pull apart.
+5. Zip-tie the sleeve to the bar inside `col_inner_0`, and again through the two holes beside the cap hole. Those two ties are the strain relief. The cap tie is the one that moves with the torso.
+6. After the torso is on, the sleeve comes through the hole in the chest shelf and splits to the Pi, the two bus adapters, and the lidar USB going back down.
 
 ## 5. Base shell
 

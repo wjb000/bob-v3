@@ -105,7 +105,9 @@ def wiring_svg() -> str:
         dd = " ".join(f"{x:.0f},{y:.0f}" for x, y in pts)
         col = WIRING.COLORS[kind]
         dash = ' stroke-dasharray="5 4"' if kind == "estop" else ""
-        tip = html.escape(f"{N[a][0]} → {N[b][0]}: {what}. {wire} {conn} {fuse}".strip())
+        rec = WIRING.wire_records()[i]
+        length = f" {rec['len_mm']} mm." if rec["len_mm"] else ""
+        tip = html.escape(f"{N[a][0]} → {N[b][0]}: {what}. {wire} {conn} {fuse}.{length}".strip())
         lab = ""
         if kind.startswith("power") and wire:
             seg = max(zip(pts, pts[1:]), key=lambda s2: abs(s2[1][0] - s2[0][0]))
@@ -144,11 +146,11 @@ def wiring_svg() -> str:
 
 
 def wiring_table() -> str:
-    rows = ["<tr><th></th><th>From</th><th>To</th><th>What</th><th>Wire</th><th>Connector</th><th>Fuse</th></tr>"]
-    for a, b, kind, what, wire, conn, fuse in WIRING.WIRES:
+    rows = ["<tr><th></th><th>From</th><th>To</th><th>What</th><th>Wire</th><th>Length</th><th>Connector</th><th>Fuse</th></tr>"]
+    for (a, b, kind, what, wire, conn, fuse), rec in zip(WIRING.WIRES, WIRING.wire_records()):
         rows.append(f'<tr><td><i class="sw" style="background:{WIRING.COLORS[kind]}"></i></td><td>{html.escape(WIRING.NODES[a][0])}</td>'
                     f'<td>{html.escape(WIRING.NODES[b][0])}</td><td>{html.escape(what)}</td><td>{html.escape(wire)}</td>'
-                    f'<td>{html.escape(conn)}</td><td>{html.escape(fuse)}</td></tr>')
+                    f'<td>{rec["len_mm"]} mm</td><td>{html.escape(conn)}</td><td>{html.escape(fuse)}</td></tr>')
     return "\n".join(rows)
 
 COLORS = {"shell": [22, 23, 26], "dark": [13, 13, 14], "frame": [41, 43, 48], "accent": [0, 127, 255],
@@ -305,7 +307,10 @@ def main():
                 parts=manifest["parts"], hardware=manifest["hardware"], stability=manifest["stability"],
                 bom=dict(rows=rows, total=total, have=have), checks=checks,
                 wiring=dict(nodes={k: dict(label=v[0], item=v[4]) for k, v in WIRING.NODES.items()},
-                            wires=[dict(a=a, b=b, kind=k, what=w) for a, b, k, w, *_ in WIRING.WIRES], colors=WIRING.COLORS),
+                            wires=[dict(a=a, b=b, kind=k, what=w, gauge=g, conn=c, fuse=f,
+                                        len_mm=rec["len_mm"], path=rec["path"])
+                                   for (a, b, k, w, g, c, f), rec in zip(WIRING.WIRES, WIRING.wire_records())],
+                            colors=WIRING.COLORS),
                 mass_kg=round(manifest["robot_mass_g"] / 1000, 1), print_kg=round(manifest["print_mass_g"] / 1000, 2))
     # The site caches .glb and images for a year (vercel.json), so every URL carries a content hash.
     import hashlib
@@ -315,6 +320,13 @@ def main():
 
     data["glb"] = f"bob_v3.glb?v={ver(dst / 'bob_v3.glb')}"
     (dst / "data.json").write_text(json.dumps(data, separators=(",", ":")))
+    vjs = dst / "viewer.js"
+    if vjs.exists():
+        import re as _re
+        vtxt = vjs.read_text()
+        vtxt2, n = _re.subn(r"data\.json(?:\?v=[0-9a-f]+)?", f"data.json?v={ver(dst / 'data.json')}", vtxt, count=1)
+        if n:
+            vjs.write_text(vtxt2)
 
     # ---- tables in index.html
     page = dst / "index.html"
@@ -383,6 +395,9 @@ def main():
         return f'{m.group(1)}/bob-v3/{m.group(2)}?v={ver(f)}"' if f.exists() else m.group(0)
 
     t = _re.sub(r'((?:src|href|poster)=")/bob-v3/(img/[^"?]+|bob-v3-[a-z-]+\.zip)(?:\?v=[0-9a-f]+)?"', bust, t)
+    if (dst / "viewer.js").exists():
+        t = _re.sub(r'(/bob-v3/viewer\.js)(?:\?v=[0-9a-f]+)?',
+                    lambda m: f"{m.group(1)}?v={ver(dst / 'viewer.js')}", t, count=1)
     # numbers tagged data-k are refilled on every publish
     fills = {
         "mass": f"{data['mass_kg']} kg", "nprints": str(manifest["total_prints"]), "total": money(total),

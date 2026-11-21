@@ -1,6 +1,6 @@
 # Bob v3
 
-A two-armed home robot you can print on a 200 mm printer. It has a rounded wheeled base, a four-stage telescoping column that grows out of the base, two seven-axis arms with parallel grippers, and a head with a depth camera and two round "eye" displays. Everything structural and everything you see is printed PETG, plus three steel ballast pads in the base. You buy the motors, the electronics, a short leadscrew, GT2 belts and screws.
+A two-armed home robot you can print on a 200 mm printer. It has a rounded-square base, a four-stage telescoping column that grows out of the base, two seven-axis arms with parallel grippers, and a head with a depth camera and two round "eye" displays. Everything structural and everything you see is printed PETG, plus three steel ballast pads low in the rear of the base. You buy the motors, the electronics, a short leadscrew, GT2 belts and screws.
 
 Page: [wyat.dev/bob-v3](https://www.wyat.dev/bob-v3/). It shows the 3D model, the print files, the wiring, the BOM and the sim results.
 
@@ -8,15 +8,23 @@ This is a design that has been checked in CAD and in physics simulation. It has 
 
 | | |
 | --- | --- |
-| Size | Ø400 mm round base (turns in its own footprint), 240 mm wide torso sitting on the column, 382 mm nested column that extends 558 mm (22 in). At the bottom of travel the torso sits 40 mm above the base. The head top goes from 0.70 m to 1.26 m. |
+| Size | 470 mm square base with 104 mm corner radii (turns in a 664 mm diagonal), 240 mm wide torso sitting on the column, 382 mm nested column that extends 558 mm (22 in). At the bottom of travel the torso sits 40 mm above the base, so the hands still reach the floor. The head top goes from about 0.70 m to 1.26 m. |
 | Reach | With the lift down, the hands touch the floor about 0.28 m past the nose. A 0.91 m counter is in reach. Straight overhead the fingertip reaches 1.64 m (5 ft 5 in) with no self-collision. A point 0.40 m forward at 1.55 m is beyond the arm. |
-| Payload | 0.5 kg per hand straight out is past the STS3095 rated torque and near stall. Keep the load close to the chest, elbow bent, when the lift is up. There is no stronger STS-series servo in the same 30 × 65 × 48 mm cup. |
+| Payload | 0.5 kg (1.1 lb) per hand straight out is past the STS3095 rated torque and near stall. That rating does not change with the base. Keep the arms in, elbow bent, whenever the lift is high. A load held close to the chest is well inside the same servos. There is no stronger STS-series servo in the same cup, and the printed 5:1 modules are not coming back. |
 | Joints | 19 driven: 2 hub wheels, lift, head pan and tilt, and 7 per arm (six joints plus the gripper). |
 | Gripper | Geared parallel jaw, Nori-style TPU fingers, 0–80 mm, about 40 N per finger. |
-| Mass | 11.4 kg (printed parts at 4 walls / 20%, bought parts at listed mass). Wiring and screws are about 1.7 kg more, booked on the base and the lift in the sim. |
-| Prints | 132 prints from 86 files, about 5.0 kg of filament, all inside 200 × 200 × 200 mm. |
-| Cost | About $2,751 for every part at the linked stores, or $2,476 if you reuse the Bob v2 Pi 5, battery and charger. The extra over the previous $2,686 is a second GT2 pulley pack, PET sleeving, and about 5.0 kg of 1018 bar. Every BOM line links to a specific product. See [BOM.md](BOM.md). |
+| Mass | 17.3 kg with the printed parts at their wall and infill settings and the bought parts at their listed mass. About 5.0 kg of that is the three rear steel pads. |
+| Prints | 165 prints from 90 files, about 5.9 kg of filament, all inside 200 × 200 × 200 mm. Still six 1 kg spools. |
+| Cost | About $2,751 for every part at the linked stores, or $2,476 if you reuse the Bob v2 Pi 5, battery and charger. The square base, the stop dogs, the drag-chain links and the joint fairings are printed, so this pass does not add a purchased line. The extra over the older $2,686 total is still the second GT2 pulley pack, the PET sleeve, and the 1018 bar. See [BOM.md](BOM.md). |
 | Compute | Raspberry Pi 5 on the robot; big models run on a desktop GPU over Wi-Fi. A wide RGB camera in the head, a USB camera on each wrist, RPLIDAR C1 in the base. |
+
+## This revision
+
+The base is a 470 × 470 mm rounded square, corner radius 104 mm, with the cyan light strip in the bottom edge and the red e-stop on the rear of the top. Casters sit at ±176 mm, drive wheels at ±200 mm. Three 1018 pads, about 5 kg together, sit low and aft so a shove at the head has to lift that steel. The turning diagonal is 664 mm.
+
+The lift was already four stages and 558 mm (22 in). This pass finishes the parts that make that travel real: inward and outward stop dogs on every tube, a second KW12 at the top of the outer tube, a zip-tie bar on each sliding stage, and a six-link drag chain in the base trough. Collapsed shoulder height stays 452 mm, so the hands still touch the floor. Full extension puts the fingertip near 1.64 m (5 ft 5 in).
+
+Shoulders, the clevis, the elbow and the wrist sleeve now have a second rib or a rounded bead over the square edge. The added plastic stays inside the joint swing and off the servo bodies. It does not raise the continuous payload. The shoulder still sags a few degrees with 0.5 kg straight out. Bring the arms in when the column is up.
 
 ## Direct bus servos
 
@@ -83,15 +91,15 @@ python3.12 -m venv .venv
 
 | Check | Result |
 | --- | --- |
-| Stands at home | drift 0.3 mm, tilt 0.01° |
-| Arm torque, 0.5 kg in each hand | passes on 80% of peak. Shoulder pitch is at 64% of peak, 268% of the continuous rating. Keep the load in close when the lift is high. |
-| Holds both arms straight out with 0.5 kg each | the base does not tip (0.04°). The shoulder sags 4.2°, so this check fails the 3° tracking limit. No actuator saturated. |
-| Lift 0 → 558 mm | 18.6 s at 25 mm/s. The TR8×2 holds with the power off. |
-| Drives 0.6 m/s, stops at 1–6 m/s² with the torso up and arms out | passes, max tilt 0.23° |
-| Shove at the head, torso up, arms out, 0.5 kg each | tips at 18.2 N forward and 24.0 N back. The check wants 25 N both ways, so this still fails. |
-| Steepest ramp in that worst pose | passes: 12.4° nose down, 23.1° nose up, 22.1° sideways |
-| Workspace sample, 6000 poses | collision-free samples reach 1.59 m. An overhead pose reaches 1.64 m with no contact. The 1.60 m sample cutoff still fails. |
-| Floor, counter, charge socket by IK | reached. The 1.55 m shelf point 0.40 m forward is not. |
+| Stands at home | drift 0.4 mm, tilt 0.01° |
+| Arm torque, 0.5 kg in each hand | passes on peak. Shoulder pitch is at 64% of peak, 270% of the continuous rating. Keep the load in close when the lift is high. |
+| Holds both arms straight out with 0.5 kg each | the base does not tip (0.01°). The shoulder sags 4.3°, so this check fails the 3° tracking limit. No actuator saturated. |
+| Lift 0 → 558 mm | 18.6 s at 25 mm/s. The TR8×2 holds with the power off, within 1.1 mm at 64 N. |
+| Drives 0.6 m/s, stops at 1–6 m/s² with the torso up and arms out | passes, max tilt 0.12° |
+| Shove at the head, torso up, arms out, 0.5 kg each | passes: 31.6 N forward and 29.3 N back before it tips. The check wants 25 N both ways. |
+| Steepest ramp in that worst pose | passes: 20.0° nose down, 27.5° nose up, 25.9° sideways |
+| Workspace sample, 6000 poses | an arms-up pose reaches 1.64 m. A point on the floor in front of the nose is in the samples. |
+| Floor, counter, charge socket by IK | a floor point just past the nose, the counter and the charge socket are reached. The 1.55 m shelf point 0.40 m forward is not: the arm is not long enough, so bring the base closer. |
 | Scripted pick off a 0.75 m table | 62% of 40 random placements |
 
 To train your own policy, see [sim/README.md](sim/README.md).

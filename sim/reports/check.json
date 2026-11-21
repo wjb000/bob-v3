@@ -1,9 +1,9 @@
 {
  "stand": {
   "ok": true,
-  "drift_mm": 0.3,
+  "drift_mm": 0.35,
   "tilt_deg": 0.01,
-  "max_track_err": 0.0194
+  "max_track_err": 0.0196
  },
  "torque": {
   "ok": true,
@@ -11,23 +11,23 @@
   "rows": [
    {
     "joint": "shoulder_pitch",
-    "worst_Nm": 5.92,
+    "worst_Nm": 5.96,
     "rated_Nm": 2.21,
     "peak_Nm": 9.32,
-    "of_rated": 2.68,
+    "of_rated": 2.7,
     "of_peak": 0.64
    },
    {
     "joint": "shoulder_roll",
-    "worst_Nm": 5.53,
+    "worst_Nm": 5.57,
     "rated_Nm": 2.21,
     "peak_Nm": 9.32,
-    "of_rated": 2.5,
-    "of_peak": 0.59
+    "of_rated": 2.52,
+    "of_peak": 0.6
    },
    {
     "joint": "upper_arm_yaw",
-    "worst_Nm": 2.8,
+    "worst_Nm": 2.81,
     "rated_Nm": 1.57,
     "peak_Nm": 4.9,
     "of_rated": 1.79,
@@ -35,7 +35,7 @@
    },
    {
     "joint": "elbow",
-    "worst_Nm": 2.86,
+    "worst_Nm": 2.88,
     "rated_Nm": 2.21,
     "peak_Nm": 9.32,
     "of_rated": 1.3,
@@ -47,7 +47,7 @@
     "rated_Nm": 1.57,
     "peak_Nm": 4.9,
     "of_rated": 0.7,
-    "of_peak": 0.22
+    "of_peak": 0.23
    },
    {
     "joint": "wrist_roll",
@@ -60,41 +60,41 @@
   ],
   "poses": {
    "arm forward": {
-    "shoulder_pitch": -5.92,
+    "shoulder_pitch": -5.96,
     "shoulder_roll": -0.0,
-    "upper_arm_yaw": -0.0,
-    "elbow": -2.86,
+    "upper_arm_yaw": -0.01,
+    "elbow": -2.88,
     "wrist_pitch": -1.1,
     "wrist_roll": -0.0
    },
    "arm sideways": {
     "shoulder_pitch": 0.36,
-    "shoulder_roll": 5.53,
-    "upper_arm_yaw": -0.34,
+    "shoulder_roll": 5.57,
+    "upper_arm_yaw": -0.35,
     "elbow": -0.96,
     "wrist_pitch": -0.36,
     "wrist_roll": 0.0
    },
    "forearm out": {
-    "shoulder_pitch": -2.85,
-    "shoulder_roll": 0.31,
+    "shoulder_pitch": -2.86,
+    "shoulder_roll": 0.32,
     "upper_arm_yaw": 0.29,
-    "elbow": -2.85,
+    "elbow": -2.86,
     "wrist_pitch": -1.1,
     "wrist_roll": -0.0
    },
    "wrist out": {
-    "shoulder_pitch": -2.85,
-    "shoulder_roll": 0.31,
+    "shoulder_pitch": -2.86,
+    "shoulder_roll": 0.32,
     "upper_arm_yaw": 0.29,
-    "elbow": -2.85,
+    "elbow": -2.86,
     "wrist_pitch": -1.1,
     "wrist_roll": -0.0
    },
    "yaw loaded": {
-    "shoulder_pitch": -3.16,
+    "shoulder_pitch": -3.19,
     "shoulder_roll": -0.0,
-    "upper_arm_yaw": -2.8,
+    "upper_arm_yaw": -2.81,
     "elbow": 0.0,
     "wrist_pitch": 0.0,
     "wrist_roll": -0.01
@@ -103,14 +103,14 @@
  },
  "hold": {
   "ok": false,
-  "worst_err_deg": 4.23,
-  "tilt_deg": 0.04,
+  "worst_err_deg": 4.26,
+  "tilt_deg": 0.01,
   "saturated": {},
   "errors": {
-   "l_shoulder_pitch": 4.23,
+   "l_shoulder_pitch": 4.26,
    "l_elbow": 0.17,
    "l_wrist_pitch": 1.05,
-   "r_shoulder_pitch": 4.23,
+   "r_shoulder_pitch": 4.26,
    "r_elbow": 0.17,
    "r_wrist_pitch": 1.05
   }
@@ -121,52 +121,52 @@
   "speed_mm_s": 25.0,
   "time_s": 18.6,
   "worst_lag_mm": 5.43,
-  "hold_err_mm": 1.06,
-  "hold_force_N": 63.7
+  "hold_err_mm": 1.07,
+  "hold_force_N": 64.1
  },
  "brake": {
   "ok": true,
   "speed_mps": 0.59,
-  "max_tilt_deg": 0.23,
+  "max_tilt_deg": 0.12,
   "tilt_by_decel": {
-   "1.0": 0.07,
-   "2.0": 0.17,
-   "4.0": 0.22,
-   "6.0": 0.23
+   "1.0": 0.03,
+   "2.0": 0.05,
+   "4.0": 0.12,
+   "6.0": 0.12
   }
  },
  "push": {
-  "ok": false,
-  "push_forward_N": 18.2,
-  "push_back_N": 24.0
+  "ok": true,
+  "push_forward_N": 31.6,
+  "push_back_N": 29.3
  },
  "slope": {
   "ok": true,
   "com_m": [
-   0.03,
-   -0.007,
-   0.408
+   0.019,
+   -0.006,
+   0.398
   ],
-  "down_deg": 12.4,
-  "up_deg": 23.1,
-  "side_deg": 22.1
+  "down_deg": 20.0,
+  "up_deg": 27.5,
+  "side_deg": 25.9
  },
  "reach": {
-  "ok": false,
+  "ok": true,
   "samples": 6000,
-  "valid": 5331,
-  "z_max_m": 1.589,
-  "floor_reach_x_m": 0.382,
-  "lowest_in_front_m": 0.045,
+  "valid": 5110,
+  "z_max_m": 1.641,
+  "floor_reach_x_m": 0.268,
+  "lowest_in_front_m": 0.051,
   "counter_reach_x_m": 0.624,
   "side_reach_y_m": 0.788
  },
  "tasks": {
   "ok": false,
   "targets": {
-   "floor 40 mm object, 0.36 m ahead": {
-    "lift_m": 0.05,
-    "hand_tilt_rad": 0.35
+   "floor, in front of the nose": {
+    "lift_m": 0.0,
+    "hand_tilt_rad": 0.7
    },
    "kitchen counter 0.91 m": {
     "lift_m": 0.25,

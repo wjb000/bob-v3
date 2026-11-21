@@ -64,6 +64,35 @@ def _pads_outside(d, z0, z1):
     ]
 
 
+def _flat_dogs(d, z0, z1, outward):
+    """Four stop blocks on the flats, beside the slide pads (pads are only 10 mm wide at centre).
+
+    An outward dog grows off the tube. An inward dog grows into the bore from the wall.
+    They overlap in radius and are placed so they meet with about 1 mm of axial gap at full stroke.
+    """
+    depth = 3.3
+    # On the flat, beside the 10 mm pad. The inner tube's flat only runs out to about 13 mm.
+    a, b = -12.0, -6.0
+    cx = P.COL_X
+    face = d / 2 if outward else d / 2 - P.COL_WALL
+    lo, hi = (face - 0.7, face + depth) if outward else (face - depth, face + 0.7)
+    return [
+        box(cx + lo, cx + hi, a, b, z0, z1),
+        box(cx - hi, cx - lo, a, b, z0, z1),
+        box(cx + a, cx + b, lo, hi, z0, z1),
+        box(cx + a, cx + b, -hi, -lo, z0, z1),
+    ]
+
+
+def _tie_bar(d, z):
+    """Shallow zip-tie bridge on the rear inner wall. 2.4 mm deep, so it stays in the slide gap."""
+    face = d / 2 - P.COL_WALL
+    cx = P.COL_X
+    bar = box(cx - face - 0.8, cx - face + 2.4, 8, 22, z, z + 8)
+    hole = cyl_between("x", (15, z + 4), cx - face - 2, cx - face + 4, 3.2)
+    return bar, hole
+
+
 def _wall_boss(d, z0, z1, x, y):
     """A 16 x 12 mm block in the wall, only 2 mm into the cavity so nested tubes still fit."""
     w = 16.0
@@ -139,6 +168,11 @@ def outer_segment(i, z0, z1, n) -> cq.Shape:
             adds.append(cbox(P.COL_X, sy * (P.COL_OUTER_D / 2 - 2), z1 - 18, 16, 12, 12))
             tools.append(cyl_between("y", (P.COL_X, z1 - 18), sy * (P.COL_OUTER_D / 2 - 14), sy * (P.COL_OUTER_D / 2 + 2), 3.4))
         hw("M3x10 socket head (belt anchor)", 2)
+        adds.extend(_flat_dogs(P.COL_OUTER_D, z1 - 19, z1 - 13, outward=False))
+        # Slot on the front flat, beside the pad. The rear flat is the yoke web.
+        tools.append(box(9, 17, P.COL_X + P.COL_OUTER_D / 2 - P.COL_WALL - 0.3, P.COL_X + P.COL_OUTER_D / 2 + 2,
+                         z1 - 36, z1 - 26))
+        hw("Micro limit switch (KW12, top of travel)", 1)
     s = fuse(s, *adds)
     s = s.intersect(rrect(P.COL_X, 0, z0, z1 + 1, P.COL_OUTER_D + 40, P.COL_OUTER_D + 40, P.COL_OUTER_R + 16))
     return cut(s, *tools)
@@ -164,6 +198,14 @@ def mid_segment(i, z0, z1, n) -> cq.Shape:
                          14, 30, z0 - 1, z0 + 80))
         hw("TR8x2 brass flange nut", 1)
         hw("M3x10 thread-forming (T8 nut)", 4)
+        # Outward dogs and the top-limit flag. At full stroke these sit just under the outer stops.
+        adds.extend(_flat_dogs(P.COL_MID_D, z0 + 158, z0 + 164, outward=True))
+        face = P.COL_MID_D / 2
+        adds.append(box(9, 17, face - 0.8, face + 2.4, z0 + 152, z0 + 158))
+        bar, hole = _tie_bar(P.COL_MID_D, z0 + 96)
+        adds.append(bar)
+        tools.append(hole)
+        hw("4 in zip tie (column umbilical)", 1)
     if i == n - 1:
         adds.extend(_pads_inside(P.COL_MID_D, z1 - 8 - PAD_L, z1 - 8))
         for sy in (1, -1):
@@ -177,6 +219,7 @@ def mid_segment(i, z0, z1, n) -> cq.Shape:
         hw("GT2 20T pulley, 5 mm bore", 2)
         hw("M5x20 shoulder screw (pulley)", 2)
         hw("M3x10 socket head (belt anchor)", 2)
+        adds.extend(_flat_dogs(P.COL_MID_D, z1 - 73, z1 - 67, outward=False))
     s = fuse(s, *adds)
     s = s.intersect(rrect(P.COL_X, 0, min(z0, P.NUT_Z - 8), z1 + 1, P.COL_MID_D + 20, P.COL_MID_D + 20, P.COL_MID_R + 8))
     return cut(s, *tools)
@@ -195,6 +238,11 @@ def upper_segment(i, z0, z1, n) -> cq.Shape:
             tools.append(cyl_between("y", (P.COL_X, z0 + 20),
                                      sy * (P.COL_UPPER_D / 2 - 10), sy * (P.COL_UPPER_D / 2 + 2), 3.4))
         hw("M3x10 socket head (belt clamp)", 2)
+        adds.extend(_flat_dogs(P.COL_UPPER_D, z0 + 6, z0 + 12, outward=True))
+        bar, hole = _tie_bar(P.COL_UPPER_D, z0 + 78)
+        adds.append(bar)
+        tools.append(hole)
+        hw("4 in zip tie (column umbilical)", 1)
     if i == n - 1:
         adds.extend(_pads_inside(P.COL_UPPER_D, z1 - 8 - PAD_L, z1 - 8))
         for sy in (1, -1):
@@ -204,6 +252,7 @@ def upper_segment(i, z0, z1, n) -> cq.Shape:
                                      sy * (P.COL_UPPER_D / 2 - 12), sy * (P.COL_UPPER_D / 2 + 4), 5.2))
         hw("GT2 20T pulley, 5 mm bore", 2)
         hw("M5x20 shoulder screw (pulley)", 2)
+        adds.extend(_flat_dogs(P.COL_UPPER_D, z1 - 74, z1 - 68, outward=False))
     s = fuse(s, *adds)
     s = s.intersect(rrect(P.COL_X, 0, z0, z1 + 1, P.COL_UPPER_D + 20, P.COL_UPPER_D + 20, P.COL_UPPER_R + 8))
     return cut(s, *tools)
@@ -227,6 +276,7 @@ def inner_segment(i, z0, z1, n) -> cq.Shape:
         tools.append(cyl_between("x", (15, z0 + 68), P.COL_X - face - 2, P.COL_X - face + 10, 4.2))
         hw("M3x10 socket head (belt clamp)", 2)
         hw("4 in zip tie (column umbilical)", 1)
+        adds.extend(_flat_dogs(P.COL_INNER_D, z0 + 5, z0 + 11, outward=True))
     s = fuse(s, *adds)
     s = s.intersect(rrect(P.COL_X, 0, z0, z1 + 1, P.COL_INNER_D + 20, P.COL_INNER_D + 20, P.COL_INNER_R + 8))
     return cut(s, *tools)
@@ -329,4 +379,11 @@ def bought() -> list[Bought]:
                    sy * (P.COL_UPPER_D / 2 + 2), sy * (P.COL_UPPER_D / 2 + 5),
                    P.COL_MID_Z0 + 30, z_b)
         out.append(Bought(f"gt2_belt_b_{s}", belt, "lift_upper", "mast", "metal", 8, "gt2belt", look="black"))
+    # Top-of-travel KW12 on the front of the outer tube. The torso has a groove there.
+    # The leaf stops about 1 mm short of the mid-tube flag at full stroke.
+    z1 = P.COL_Z0 + P.COL_OUTER_LEN
+    face = P.COL_OUTER_D / 2
+    body = box(8, 18, face + 1.6, face + 8.0, z1 - 40, z1 - 24)
+    leaf = box(10, 16, face - P.COL_WALL - 0.4, face + 1.6, z1 - 34, z1 - 28)
+    out.append(Bought("limit_top", fuse(body, leaf), "base", "mast", "electronics", 4, "kw12", look="black"))
     return out
