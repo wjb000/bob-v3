@@ -103,133 +103,195 @@
  },
  "hold": {
   "ok": false,
-  "worst_err_deg": 4.26,
+  "worst_err_deg": 3.69,
   "tilt_deg": 0.05,
   "saturated": {},
   "errors": {
-   "l_shoulder_pitch": 4.26,
-   "l_elbow": 0.17,
-   "l_wrist_pitch": 1.05,
-   "r_shoulder_pitch": 4.26,
-   "r_elbow": 0.17,
-   "r_wrist_pitch": 1.05
+   "r_shoulder_pitch": 3.69,
+   "l_shoulder_pitch": 3.69,
+   "r_shoulder_roll": 0.0,
+   "l_shoulder_roll": 0.02,
+   "r_upper_arm_yaw": 0.16,
+   "l_upper_arm_yaw": 0.17,
+   "r_elbow": 1.37,
+   "l_elbow": 1.37,
+   "r_wrist_pitch": 0.34,
+   "l_wrist_pitch": 0.34
   }
  },
  "lift": {
   "ok": true,
-  "travel_mm": 558,
+  "travel_mm": 462,
   "speed_mm_s": 25.0,
-  "time_s": 22.6,
-  "down_time_s": 22.4,
-  "worst_lag_mm": 5.43,
-  "hold_err_mm": 1.07,
-  "bottom_err_mm": 1.98,
-  "hold_force_N": 64.1,
+  "time_s": 18.8,
+  "down_time_s": 18.5,
+  "worst_lag_mm": 5.42,
+  "hold_err_mm": 1.06,
+  "bottom_err_mm": 1.99,
+  "hold_force_N": 63.1,
   "stage_err_mm": 0.04,
-  "base_tilt_deg": 0.041,
+  "base_tilt_deg": 0.027,
   "contacts": [],
   "penetration_mm": 0.0
  },
  "tip": {
   "ok": true,
   "poses": {
-   "lift up, both arms straight forward": {
+   "lift up, worst pose the interlock allows": {
     "com_mm": [
-     99.3,
-     5.0,
-     544.2
+     43.2,
+     13.8,
+     449.5
     ],
-    "margin_mm": 47.8,
+    "margin_mm": 76.6,
+    "tilt_deg": 0.03
+   },
+   "lift mid, worst pose the interlock allows": {
+    "com_mm": [
+     43.7,
+     13.8,
+     375.6
+    ],
+    "margin_mm": 76.6,
+    "tilt_deg": 0.03
+   },
+   "lift down, worst pose the interlock allows": {
+    "com_mm": [
+     82.8,
+     14.0,
+     241.7
+    ],
+    "margin_mm": 50.2,
     "tilt_deg": 0.05
-   },
-   "lift up, both arms straight sideways": {
-    "com_mm": [
-     9.9,
-     5.0,
-     544.8
-    ],
-    "margin_mm": 105.0,
-    "tilt_deg": 0.01
-   },
-   "lift up, arms reaching down in front": {
-    "com_mm": [
-     76.8,
-     5.0,
-     491.9
-    ],
-    "margin_mm": 62.2,
-    "tilt_deg": 0.04
    },
    "lift down, floor pick": {
     "com_mm": [
-     68.4,
-     5.0,
-     223.4
+     15.2,
+     2.1,
+     194.7
     ],
-    "margin_mm": 152.8,
-    "tilt_deg": 0.01
+    "margin_mm": 150.9,
+    "tilt_deg": 0.06
    }
   },
-  "worst_margin_mm": 47.8
+  "worst_margin_mm": 50.2
  },
  "brake": {
   "ok": true,
   "speed_mps": 0.59,
-  "max_tilt_deg": 0.3,
+  "max_tilt_deg": 0.16,
   "tilt_by_decel": {
-   "1.0": 0.08,
-   "2.0": 0.23,
-   "4.0": 0.29,
-   "6.0": 0.3
+   "1.0": 0.05,
+   "2.0": 0.1,
+   "4.0": 0.14,
+   "6.0": 0.16
   }
  },
  "push": {
   "ok": false,
-  "push_forward_N": 14.1,
-  "push_back_N": 24.6
+  "push_forward_N": 20.5,
+  "push_back_N": 19.3
  },
  "slope": {
-  "ok": false,
+  "ok": true,
   "com_m": [
-   0.095,
-   0.005,
-   0.518
+   0.043,
+   0.011,
+   0.453
   ],
-  "down_deg": 9.4,
-  "up_deg": 24.7,
-  "side_deg": 15.6
+  "down_deg": 16.5,
+  "up_deg": 20.5,
+  "side_deg": 17.1
  },
  "reach": {
   "ok": true,
   "samples": 6000,
-  "valid": 5394,
-  "z_max_m": 1.641,
-  "floor_reach_x_m": 0.285,
-  "lowest_in_front_m": 0.045,
-  "counter_reach_x_m": 0.624,
+  "valid": 5365,
+  "z_max_m": 1.503,
+  "floor_reach_x_m": 0.448,
+  "lowest_in_front_m": 0.023,
+  "counter_reach_x_m": 0.574,
   "side_reach_y_m": 0.788
  },
  "tasks": {
-  "ok": false,
+  "ok": true,
   "targets": {
    "floor, in front of the nose": {
-    "lift_m": 0.0,
-    "hand_tilt_rad": 0.7
+    "lift_m": 0.05,
+    "hand_tilt_rad": 0.35
    },
    "kitchen counter 0.91 m": {
-    "lift_m": 0.25,
+    "lift_m": 0.3,
     "hand_tilt_rad": 1.4
    },
-   "top shelf 1.55 m": null,
-   "own charge socket, base top": {
-    "lift_m": 0.1,
+   "top shelf 1.25 m": {
+    "lift_m": 0.45,
     "hand_tilt_rad": 1.4
+   },
+   "own charge socket, base top": {
+    "lift_m": 0.15,
+    "hand_tilt_rad": 0.0
    }
   }
  },
  "pick": {
   "ok": true,
   "episodes": 40,
-  "success_rate": 1.0
+  "success_rate": 0.95
+ },
+ "interlock": {
+  "ok": false,
+  "blocks_reach": {
+   "0.00": {
+    "blocked": true,
+    "hand_x_m": 0.53,
+    "unloaded_x_m": 0.638
+   },
+   "0.30": {
+    "blocked": true,
+    "hand_x_m": 0.157,
+    "unloaded_x_m": 0.638
+   },
+   "0.46": {
+    "blocked": true,
+    "hand_x_m": 0.157,
+    "unloaded_x_m": 0.638
+   }
+  },
+  "worst_poses_allowed": {
+   "low": true,
+   "mid": true,
+   "top": true
+  },
+  "stability_by_lift": {
+   "0.000": {
+    "push_forward_N": 23.4,
+    "push_back_N": 47.5,
+    "down_deg": 20.6,
+    "up_deg": 40.1,
+    "meets": false
+   },
+   "0.300": {
+    "push_forward_N": 25.2,
+    "push_back_N": 22.9,
+    "down_deg": 19.5,
+    "up_deg": 24.1,
+    "meets": false
+   },
+   "0.462": {
+    "push_forward_N": 20.5,
+    "push_back_N": 19.3,
+    "down_deg": 16.5,
+    "up_deg": 20.5,
+    "meets": false
+   }
+  },
+  "limits": {
+   "lift_free_m": 0.01,
+   "x_cap_low_m": 0.53,
+   "x_cap_high_m": 0.16,
+   "x_rear_m": 0.04,
+   "z_below_shoulder_high_m": -0.0
+  }
  }
 }

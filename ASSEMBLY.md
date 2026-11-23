@@ -16,16 +16,17 @@ Tools you need:
 
 ## 1. Floor pan
 
-1. Press inserts into every Ø4.0 hole in the nine `base_pan_*` tiles. That is about 90 inserts.
+1. Press inserts into every Ø4.0 hole in the nine `base_pan_*` tiles.
 2. Lay the tiles ribs-down and join every seam with `joiner_tab`s and M3×10 screws from the top.
 3. Wheels: screw each DDSM115 to its `wheel_bracket_l/r` through the stub end (3 × M2.5 × 10 on the Ø15.2 circle), then bolt the brackets to the pan (4 × M3×10 each). Spin the wheels by hand; the tire must clear the pan cut-out.
 
-## 2. Casters and lidar
+The base is 360 × 360 mm, so every pan and shell tile fits a 200 mm bed. Nothing in the base is glued: every joint is a screw into an insert or a nut.
 
-1. Press two 608ZZ into each `caster_wheel`. Bolt the wheel into its `caster_fork` with an M8×40 and a nyloc, snug but free.
-2. Press a 608ZZ into the pocket under each `caster_bridge`. Hang the fork from it with an M8×40, two washers and a nyloc. It should swivel freely.
-3. Bolt the bridges onto the pan, 4 × M3×10 each. Put the robot on a flat floor. Both casters and both tires must touch. Shim under a bridge if one caster floats.
-4. Bolt `lidar_mount` to the front bridge and the RPLIDAR C1 to the mount.
+## 2. Ball casters and lidar
+
+1. Two CY-15A ball transfers (5/8 in steel ball) replace swivel casters: one 177 mm ahead of the wheel axle, one 127 mm behind it. Each one bolts up through the solid pad under the pan with 2 × M3×20 and an M3 nut in the hex pocket on top. No bearings, forks or bridges.
+2. Put the robot on a flat floor. Both balls and both tires must touch. Shim under a ball transfer with a washer if one floats.
+3. Bolt `lidar_mount` to the pan and the RPLIDAR C1 to the mount.
 
 ## 3. Power and base electronics
 
@@ -33,13 +34,13 @@ Follow the wiring diagram on the page.
 
 1. Strap the 36 V pack into the two `battery_cradle` halves.
 2. Front shelves (`shelf_front_l/r`): the DDSM Driver HAT (A), the TMC2209, the BNO085, the contactor, the fuse block and the two Pololu regulators.
-3. Rear shelves (`shelf_rear_l/r`): the two DROK 12 V 10 A converters, one per arm.
+3. Rear shelf (`shelf_rear_l`): the two DROK 12 V 10 A converters, one per arm. The other rear corner is the battery and the e-stop, so it has no shelf.
 4. Wire the power path: pack → main fuse → main switch → fuse block. The Pololu 5 V regulator is always on and feeds the Pi. The contactor sits between the fuse block and the two arm converters and the Pololu 12 V regulator (wheels and lift). The e-stop's NC contacts are in series with the contactor coil.
 5. First power-up on a current-limited bench supply at 36 V, 1 A. Check each rail before connecting any load.
 
 ## 4. Telescoping column
 
-Four tubes. The screw drives the middle tube. Belt A makes the upper tube travel twice that far. Belt B makes the inner tube travel three times as far, 558 mm, 22 in. At the bottom the torso still sits 40 mm above the base.
+Four tubes. The screw drives the middle tube. Belt A makes the upper tube travel twice that far. Belt B makes the inner tube travel three times as far, 462 mm, 18.2 in. At the bottom the torso still sits 40 mm above the base.
 
 1. Bolt `cable_trough` down, 2 × M3×12. Pin the six `col_draglink` prints into a short chain in that trough.
 2. Bolt `col_outer_0` to the pan, 8 × M3×10 through the foot flange. Fit the lower KW12 on its pad. Bolt the NEMA 17 onto the pedestal (4 × M3×8), shaft up, coupler on the shaft.
@@ -55,7 +56,7 @@ Four tubes. The screw drives the middle tube. Belt A makes the upper tube travel
 
 One PET sleeve carries the chest power (5 V to the Pi, 12 V to both servo buses) and the lidar USB. Head and wrist camera cables stay in the chest and the arms. Each sliding tube has a shallow zip-tie bar on its rear inner wall, and the trough holds a six-link drag chain so the sleeve pays out instead of rubbing a tube edge.
 
-1. Zip-tie the sleeve to the closed end of `cable_trough` and through the drag-chain links. The coil in the trough is the service loop for the 558 mm of travel. Do not leave a loose loop in the bore.
+1. Zip-tie the sleeve to the closed end of `cable_trough` and through the drag-chain links. The coil in the trough is the service loop for the 462 mm of travel. Do not leave a loose loop in the bore.
 2. The tongue of the trough leads into the rear window of `col_outer_0` (left of the centre, y about 14 to 30 mm). The middle tube has a matching notch that is open at its bottom edge, so the rising wall cannot shear the sleeve.
 3. From there the sleeve goes up inside the bores. Zip-tie it to the bar on the middle tube, the upper tube, and the inner tube. Keep it on the left of the T8 nut bridge (the bridge only spans the middle 28 mm). The slide pads and the stop dogs are on the flats and do not cross this lane.
 4. The top KW12, on the left flat, is the full-stroke home. The lower KW12 is the collapsed home. StallGuard on the TMC2209 is the backup if a switch fails. The printed dogs are the hard stops, about 3 mm before the tubes pull apart.

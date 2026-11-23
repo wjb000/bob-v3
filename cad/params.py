@@ -126,19 +126,18 @@ CHARGE_XY = (125.0, -110.0)  # GX16 on the base top, front-right, where the righ
 CHARGE_HOLE = 20.0  # clears the GX16 nut (19 mm); the 21 mm flange stays on the skin
 
 # ---------------------------------------------------------------- base
-# Rounded rectangle, 440 long x 360 wide, no steel ballast. The width is set by
-# the DDSM115 tires tucked in to y = ±150 under the raised battery.
-# Without steel, the arms reaching forward are what tips it, so the base is not
-# centred on the axle: the front caster sits 192 mm ahead of the axle and the
-# rear one 132 mm behind it (as close as the cable trough lets it), and the shell
-# centre is 30 mm ahead of the axle. In MuJoCo the front caster has to touch down
-# at least 180 mm ahead of the axle before a straight-arm hold with 0.5 kg per
-# hand at the top of the lift stops tipping it (sim/check.py hold and tip).
-BASE_L = 440.0
+# Rounded square, 360 x 360, no steel ballast. The width is set by the DDSM115
+# tires tucked in to y = ±150 under the raised battery. Swivel casters need a
+# swing hole in the pan that keeps them far from the rim, so the base uses two
+# CY-15A ball transfers bolted under the pan, close to the front and rear rims.
+# The arms and head put the CoM ahead of the column, so the shell centre sits
+# 25 mm ahead of the wheel axis. Reaching out with a load at height is blocked
+# in software (sim/interlock.py); see sim/check.py for what that buys.
+BASE_L = 360.0
 BASE_W = 360.0
-BASE_CX = 30.0  # shell centre, ahead of the wheel axis
-BASE_R = 90.0  # corner radius, not a plan radius
-BASE_TOP = 212.0  # top surface of the shell
+BASE_CX = 25.0  # shell centre, ahead of the wheel axis: the arms and head put the CoM forward
+BASE_R = 70.0  # corner radius, not a plan radius
+BASE_TOP = 200.0  # top surface of the shell
 BASE_WALL = 3.0
 SHELL_BOTTOM = 30.0
 GRID_X = (-90.0, 90.0)  # tile cuts, clear of the column well (x = ±50). Mid tile is 180 mm.
@@ -154,15 +153,17 @@ AXLE_Z = WHEEL_OD / 2.0
 WHEEL_ARCH_R = 60.0
 WHEEL_CUT_X = 58.0  # pan cutout half-length around the tire
 WHEEL_CUT_Y = WHEEL_Y - 24.0  # pan cutout starts here, outboard of the axle bolts
-CASTER_XF = 192.0  # front caster swivel, on the front flat
-CASTER_XR = 132.0  # rear caster swivel, behind the cable trough
-CASTER_WHEEL = 40.0
-CASTER_WHEEL_W = 22.0
-CASTER_TRAIL = 12.0
-CASTER_HOLE = 84.0  # pan cutout the fork swings in
-CASTER_PLATE_Z = 56.0  # bottom of the swivel bridge plate
+CASTER_XF = 177.0  # front ball transfer, near the front rim (no swivel, no hole in the pan)
+CASTER_XR = 127.0  # rear ball transfer, near the rear rim
+CASTER_WHEEL = 15.875  # 5/8 in steel ball (CY-15A ball transfer)
+CASTER_WHEEL_W = 15.875
+CASTER_TRAIL = 0.0  # ball transfer: the contact is under the mount
+CASTER_HOLE = 0.0  # no pan cutout: the ball transfer bolts under the pan
+CASTER_PLATE_Z = 56.0  # unused since the ball transfers
+BALL_XFER = (32.0, 48.0, 20.0)  # CY-15A: x, y (long side across the robot), height to the flange top
+BALL_XFER_PITCH = 38.0  # two M3 mounting holes, along y
 
-LIDAR_X = CASTER_XF  # on the front caster bridge
+LIDAR_X = 150.0  # on its own ring, standing on the pan behind the front rim
 LIDAR_Z0 = 108.0  # bottom of the lidar
 LIDAR_SCAN_Z = 134.0  # optical plane, roughly
 
@@ -187,12 +188,12 @@ COL_Z0 = PAN_TOP  # outer sits on the pan
 COL_MID_Z0 = COL_Z0 + 8.0  # middle tube sits on the motor pedestal, not on the pan
 COL_UPPER_Z0 = 146.0  # above the T8 nut bridge (bridge top is NUT_Z + 8)
 COL_INNER_Z0 = 150.0
-COL_OUTER_LEN = 382.0  # 2 × 191 mm prints
-COL_MID_LEN = 376.0  # 2 × 188 mm. Top stays under the cap.
-COL_UPPER_LEN = 278.0  # 2 × 139 mm
-COL_INNER_LEN = 280.0  # 2 × 140 mm. Cap underside stays at 430 so the shoulder does not rise.
-STAGE_TRAVEL = 186.0  # middle tube. Upper travels 2×, inner travels 3×.
-LIFT_TRAVEL = 3 * STAGE_TRAVEL  # 558 mm, 22.0 in
+COL_OUTER_LEN = 344.0  # 2 × 172 mm prints
+COL_MID_LEN = 336.0  # 2 × 168 mm. Top stays under the cap.
+COL_UPPER_LEN = 238.0  # 2 × 119 mm
+COL_INNER_LEN = 238.0  # 2 × 119 mm. Sets the collapsed shoulder height.
+STAGE_TRAVEL = 154.0  # middle tube. Upper travels 2×, inner travels 3×.
+LIFT_TRAVEL = 3 * STAGE_TRAVEL  # 462 mm, 18.2 in
 COL_OVERLAP = 80.0  # minimum tube engagement at full stretch, every stage
 
 # Motor stands on the pan inside the outer tube, shaft up.
@@ -204,7 +205,7 @@ SCREW_Z0 = NEMA_FACE_Z + 2.0
 SCREW_LEN = STAGE_TRAVEL + 80.0  # 266 mm, cut from a 500 mm TR8×2
 NUT_Z = 130.0  # on the middle tube. Bridge is 124–138, clear of the coupler and below the upper tube.
 
-SHOULDER_Z0 = COL_INNER_Z0 + COL_INNER_LEN + 22.0  # 452 mm. Do not raise this or the hands miss the floor.
+SHOULDER_Z0 = COL_INNER_Z0 + COL_INNER_LEN + 22.0  # 410 mm. The torso bottom clears the base top by 40 mm here.
 COL_TOP0 = COL_Z0 + COL_OUTER_LEN  # outer top at lift = 0
 COL_INNER_TOP0 = COL_INNER_Z0 + COL_INNER_LEN
 
@@ -224,7 +225,7 @@ MAST_TOP = COL_TOP0
 TORSO_X0 = COL_X - 150.0 / 2.0  # back face; depth is centred on the column
 TORSO_D = 150.0
 TORSO_HW = 120.0  # half width
-TORSO_BELOW = 200.0
+TORSO_BELOW = 170.0
 TORSO_ABOVE = 50.0
 TORSO_SPLIT = -80.0  # upper / lower tier
 TORSO_R = 32.0
@@ -318,12 +319,12 @@ def check() -> None:
         errs.append("torso hits the base at the bottom of travel")
     if WHEEL_Y + WHEEL_W / 2 > BASE_W / 2 - 4:
         errs.append("tire rubs the shell")
-    if CASTER_XF + CASTER_HOLE / 2 + 8 > BASE_CX + BASE_L / 2 - PAN_INSET:
-        errs.append("front caster hole breaks the pan rim")
-    if CASTER_XR + CASTER_HOLE / 2 + 8 > BASE_L / 2 - BASE_CX - PAN_INSET:
-        errs.append("rear caster hole breaks the pan rim")
-    if min(CASTER_XF, CASTER_XR) - CASTER_HOLE / 2 < COL_OUTER_D / 2 + 16:
-        errs.append("caster hole meets the column foot")
+    if CASTER_XF + BALL_XFER[0] / 2 + 4 > BASE_CX + BASE_L / 2 - PAN_INSET:
+        errs.append("front ball transfer overhangs the pan rim")
+    if CASTER_XR + BALL_XFER[0] / 2 + 4 > BASE_L / 2 - BASE_CX - PAN_INSET:
+        errs.append("rear ball transfer overhangs the pan rim")
+    if min(CASTER_XF, CASTER_XR) - BALL_XFER[0] / 2 < COL_OUTER_D / 2 + 16:
+        errs.append("ball transfer meets the column foot")
     if BASE_R > min(BASE_L, BASE_W) / 2:
         errs.append("corner radius larger than the base")
     spans = (

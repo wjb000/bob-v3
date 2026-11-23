@@ -8,21 +8,21 @@ This is a design that has been checked in CAD and in physics simulation. It has 
 
 | | |
 | --- | --- |
-| Size | 440 × 360 mm base with 90 mm corner radii, set 30 mm forward of the wheel axle (turns in a 547 mm circle), 240 mm wide torso sitting on the column, 382 mm nested column that extends 558 mm (22 in). At the bottom of travel the torso sits 40 mm above the base, so the hands still reach the floor. The head top goes from about 0.70 m to 1.26 m. |
-| Reach | With the lift down, the hands touch the floor about 0.28 m past the nose. A 0.91 m counter is in reach. Straight overhead the fingertip reaches 1.64 m (5 ft 5 in) with no self-collision. A point 0.40 m forward at 1.55 m is beyond the arm. |
-| Payload | 0.5 kg (1.1 lb) per hand straight out is past the STS3095 rated torque and near stall. That rating does not change with the base. Keep the arms in, elbow bent, whenever the lift is high. A load held close to the chest is well inside the same servos. There is no stronger STS-series servo in the same cup, and the printed 5:1 modules are not coming back. |
+| Size | 360 × 360 mm square base with 70 mm corner radii, set 25 mm forward of the wheel axle (turns in place inside a 488 mm circle), 240 mm wide torso sitting on the column, 344 mm nested column that extends 462 mm (18.2 in). At the bottom of travel the torso sits 40 mm above the base, so the hands still reach the floor. The top of the head goes from 0.64 m stowed to 1.11 m at full lift (was 0.69 m and 1.24 m). |
+| Reach | With the lift down, the hands touch the floor about 0.24 m past the nose. A 0.91 m counter is in reach. Straight overhead the fingertip reaches 1.50 m with no self-collision. A shelf point 0.30 m forward at 1.25 m is in reach; the old 1.55 m point is not. |
+| Payload | 0.5 kg (1.1 lb) per hand. A reach-limit interlock in the controller (`sim/interlock.py`) blocks reaching out with a load: with the column at the bottom the hands may go out to the carry pose (0.53 m ahead of the axle); once the column rises they stay within 0.16 m of the axle and no higher than the shoulders, tucked at the chest or down by the sides. A grasp made further out can be lifted and pulled in, never pushed further out. |
 | Joints | 19 driven: 2 hub wheels, lift, head pan and tilt, and 7 per arm (six joints plus the gripper). |
 | Gripper | Geared parallel jaw, Nori-style TPU fingers, 0–80 mm, about 40 N per finger. |
-| Mass | 11.9 kg with the printed parts at their wall and infill settings and the bought parts at their listed mass. No steel ballast. |
-| Prints | 165 prints from 90 files, about 5.9 kg of filament, all inside 200 × 200 × 200 mm. Still six 1 kg spools. |
-| Cost | About $2,703 for every part at the linked stores, or $2,428 if you reuse the Bob v2 Pi 5, battery and charger. The square base, the stop dogs, the drag-chain links and the joint fairings are printed, so this pass does not add a purchased line. The extra over the older $2,686 total is the second GT2 pulley pack and the PET sleeve. See [BOM.md](BOM.md). |
+| Mass | 11.3 kg with the printed parts at their wall and infill settings and the bought parts at their listed mass. No steel ballast. |
+| Prints | 152 prints from 83 files, about 4.9 kg of filament, all inside 200 × 200 × 200 mm. |
+| Cost | About $2,650 for every part at the linked stores, or $2,375 if you reuse the Bob v2 Pi 5, battery and charger. Two $7 ball transfers replace the swivel casters and their six 608ZZ bearings. See [BOM.md](BOM.md). |
 | Compute | Raspberry Pi 5 on the robot; big models run on a desktop GPU over Wi-Fi. A wide RGB camera in the head, a USB camera on each wrist, RPLIDAR C1 in the base. |
 
 ## This revision
 
-The base is a 440 × 360 mm rounded rectangle, corner radius 90 mm, with the cyan light strip in the bottom edge and the red e-stop on the rear of the top. It sits 30 mm forward of the wheel axle: the front caster is 192 mm ahead of the axle and the rear caster 132 mm behind, drive wheels at ±150 mm. The long front caster arm is what keeps Bob from tipping forward with the torso up and the arms out, now that there is no steel ballast. It turns in place in a 547 mm circle, against a 664 mm diagonal on the old 470 mm square base. The cost is margin against a shove and a ramp; see the simulation table.
+The base is a 360 × 360 mm square with 70 mm corner radii, the cyan light strip in the bottom edge and the red e-stop on the rear of the top. It sits 25 mm forward of the wheel axle, drive wheels at ±150 mm. Two steel ball transfers (CY-15A, 5/8 in ball) bolt up under solid pads in the pan, 177 mm ahead of the axle and 127 mm behind it. A swivel caster needs a swing hole that the square base had no room for; the ball transfers put the front contact 67 mm further forward than a swivel caster could sit. It turns in place inside a 488 mm circle (547 mm on the 440 × 360 base). Every pan and shell tile fits a 200 mm bed and every joint is a screw into an insert or a nut, no glue. The empty rear-right shelf is gone.
 
-The lift was already four stages and 558 mm (22 in). This pass finishes the parts that make that travel real: inward and outward stop dogs on every tube, a second KW12 at the top of the outer tube, a zip-tie bar on each sliding stage, and a six-link drag chain in the base trough. Collapsed shoulder height stays 452 mm, so the hands still touch the floor. Full extension puts the fingertip near 1.64 m (5 ft 5 in).
+The robot is shorter and the proportions closer to square: the collapsed shoulder is 410 mm (was 452), the base top 200 mm, and each tube is shorter, so the lift travels 462 mm (18.2 in, was 558 mm). The head top is 0.64 m stowed and 1.11 m at full lift (was 0.69 m and 1.24 m). The lift still runs bottom → top → bottom in the sim with 0.5 kg per hand.
 
 Shoulders, the clevis, the elbow and the wrist sleeve now have a second rib or a rounded bead over the square edge. The added plastic stays inside the joint swing and off the servo bodies. It does not raise the continuous payload. The shoulder still sags a few degrees with 0.5 kg straight out. Bring the arms in when the column is up.
 
@@ -92,16 +92,17 @@ python3.12 -m venv .venv
 | Check | Result |
 | --- | --- |
 | Stands at home | drift 0.01 mm, tilt 0.02° |
-| Arm torque, 0.5 kg in each hand | passes on peak. Shoulder pitch is at 64% of peak, 270% of the continuous rating. Keep the load in close when the lift is high. |
-| Holds both arms straight out with 0.5 kg each | the base does not tip (0.05°). The shoulder sags 4.3°, so this check fails the 3° tracking limit. No actuator saturated. |
-| Lift 0 → 558 mm → 0, arms in the carry pose, 0.5 kg each | 22.6 s up and 22.4 s down at 25 mm/s. The middle and upper tubes follow at 1/3 and 2/3 within 0.04 mm, nothing on the robot touches anything else, and the base tilts 0.04°. Holds within 1.1 mm at 64 N. |
-| Drives 0.59 m/s, stops at 1–6 m/s² with the torso up and arms out | passes, max tilt 0.3° |
-| Centre of mass inside the wheel-and-caster footprint | passes in four poses (lift up with arms forward, sideways and reaching down; lift down at the floor). Worst margin 47.8 mm. |
-| Shove at the head, torso up, arms out, 0.5 kg each | fails: it tips at 14.1 N forward and 24.6 N back. The check wants 25 N both ways. The old base passed with 5 kg of steel (31.6 N / 29.3 N). |
-| Steepest ramp in that worst pose | fails: 9.4° nose down, 24.7° nose up, 15.6° sideways (old base with steel: 20.0°, 27.5°, 25.9°) |
-| Workspace sample, 6000 poses | an arms-up pose reaches 1.64 m. A point on the floor in front of the nose is in the samples. |
-| Floor, counter, charge socket by IK | a floor point just past the nose, the counter and the charge socket are reached. The 1.55 m shelf point 0.40 m forward is not: the arm is not long enough, so bring the base closer. |
-| Scripted pick off a 0.75 m table | 100% of 40 random placements |
+| Arm torque, 0.5 kg in each hand | passes on peak. Shoulder pitch is at 64% of peak, 270% of the continuous rating. |
+| Holds 0.5 kg each at the furthest pose the interlock allows (column down) | the base does not tip (0.05°). The shoulder sags 3.7°, so this check fails the 3° tracking limit. No actuator saturated. |
+| Lift 0 → 462 mm → 0, hands tucked at the chest (allowed by the interlock at every height), 0.5 kg each | 18.8 s up and 18.5 s down at 25 mm/s. The middle and upper tubes follow at 1/3 and 2/3 within 0.04 mm, nothing on the robot touches anything else, and the base tilts 0.03°. Holds within 1.1 mm at 63 N. |
+| Drives 0.59 m/s and stops at 1–6 m/s², torso up, worst allowed pose, 0.5 kg each | passes, max tilt 0.16° |
+| Centre of mass inside the wheel-and-ball footprint | passes in four poses (the worst the interlock allows at the bottom, middle and top of the lift, and a floor pick). Worst margin 50.2 mm. |
+| Shove at the head, torso up, worst allowed pose, 0.5 kg each | fails: it tips at 20.5 N forward and 19.3 N back. The check wants 25 N both ways. |
+| Steepest ramp in that pose | 16.5° nose down, 20.5° nose up, 17.1° sideways (target 20° nose down) |
+| Reach-limit interlock | blocks reaching straight out with a load at every lift height. Worst allowed pose, 0.5 kg each: column down 23.4 N forward / 47.5 N back, 20.6° nose down; lift 0.30 m 25.2 N / 22.9 N, 19.5°; full lift 20.5 N / 19.3 N, 16.5°. No height meets both 25 N and 20°. Above the bottom of the lift the 25 N shove is not met with any arm pose, even with empty hands (about 20 N forward and 18 N back at full lift), so the check is marked failing. |
+| Workspace sample, 6000 poses | an arms-up pose reaches 1.50 m. A point on the floor in front of the nose is in the samples. |
+| Floor, counter, shelf, charge socket by IK | a floor point just past the nose, the 0.91 m counter, a 1.25 m shelf point 0.30 m forward and the charge socket are reached. |
+| Scripted pick off a 0.75 m table, interlock on | 95% of 40 random placements |
 
 To train your own policy, see [sim/README.md](sim/README.md).
 

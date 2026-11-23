@@ -3,35 +3,35 @@
  "frame": "x forward, y left, z up, origin on the floor between the wheels",
  "links": {
   "base": {
-   "mass_g": 5565.6,
+   "mass_g": 5148.5,
    "com": [
-    10.2,
-    12.0,
-    120.5
+    7.5,
+    12.5,
+    118.3
    ]
   },
   "lift_mid": {
-   "mass_g": 372.6,
+   "mass_g": 342.0,
    "com": [
     0.4,
     -0.2,
-    228.7
+    209.9
    ]
   },
   "lift_upper": {
-   "mass_g": 207.6,
+   "mass_g": 183.5,
    "com": [
     -0.0,
     -0.0,
-    290.7
+    269.7
    ]
   },
   "lift": {
-   "mass_g": 2145.0,
+   "mass_g": 2062.0,
    "com": [
-    -3.8,
-    0.6,
-    407.9
+    -3.2,
+    0.7,
+    373.6
    ]
   },
   "head_tilt": {
@@ -39,7 +39,7 @@
    "com": [
     38.4,
     0.1,
-    622.3
+    580.3
    ]
   },
   "head_pan": {
@@ -47,7 +47,7 @@
    "com": [
     14.2,
     -4.9,
-    543.7
+    501.7
    ]
   },
   "l_link1": {
@@ -55,7 +55,7 @@
    "com": [
     6.0,
     169.7,
-    452.0
+    410.0
    ]
   },
   "l_link2": {
@@ -63,7 +63,7 @@
    "com": [
     0.7,
     157.0,
-    366.9
+    324.9
    ]
   },
   "l_link3": {
@@ -71,7 +71,7 @@
    "com": [
     9.4,
     156.3,
-    207.5
+    165.5
    ]
   },
   "l_link4": {
@@ -79,7 +79,7 @@
    "com": [
     9.0,
     160.1,
-    52.6
+    10.6
    ]
   },
   "l_link5": {
@@ -87,7 +87,7 @@
    "com": [
     17.4,
     157.4,
-    -51.4
+    -93.4
    ]
   },
   "l_link6": {
@@ -95,7 +95,7 @@
    "com": [
     11.9,
     157.0,
-    -119.5
+    -161.5
    ]
   },
   "l_link7": {
@@ -103,7 +103,7 @@
    "com": [
     13.7,
     159.7,
-    -159.9
+    -201.9
    ]
   },
   "l_link8": {
@@ -111,7 +111,7 @@
    "com": [
     4.4,
     154.3,
-    -160.0
+    -202.0
    ]
   },
   "r_link1": {
@@ -119,7 +119,7 @@
    "com": [
     6.0,
     -169.7,
-    452.0
+    410.0
    ]
   },
   "r_link2": {
@@ -127,7 +127,7 @@
    "com": [
     0.7,
     -157.0,
-    366.9
+    324.9
    ]
   },
   "r_link3": {
@@ -135,7 +135,7 @@
    "com": [
     9.4,
     -156.3,
-    207.5
+    165.5
    ]
   },
   "r_link4": {
@@ -143,7 +143,7 @@
    "com": [
     9.0,
     -160.1,
-    52.6
+    10.6
    ]
   },
   "r_link5": {
@@ -151,7 +151,7 @@
    "com": [
     17.4,
     -157.4,
-    -51.4
+    -93.4
    ]
   },
   "r_link6": {
@@ -159,7 +159,7 @@
    "com": [
     11.9,
     -157.0,
-    -119.5
+    -161.5
    ]
   },
   "r_link7": {
@@ -167,7 +167,7 @@
    "com": [
     13.7,
     -159.7,
-    -159.9
+    -201.9
    ]
   },
   "r_link8": {
@@ -175,7 +175,7 @@
    "com": [
     4.4,
     -154.3,
-    -160.0
+    -202.0
    ]
   },
   "wheel_l": {
@@ -195,7 +195,7 @@
    ]
   }
  },
- "total_mass_g": 11870.3,
+ "total_mass_g": 11315.5,
  "joints": [
   {
    "name": "lift",
@@ -214,7 +214,7 @@
    ],
    "range": [
     0.0,
-    0.558
+    0.462
    ],
    "actuator": "nema",
    "mimic": "",
@@ -237,7 +237,7 @@
    ],
    "range": [
     0.0,
-    0.186
+    0.154
    ],
    "actuator": "",
    "mimic": "lift",
@@ -260,7 +260,7 @@
    ],
    "range": [
     0.0,
-    0.372
+    0.308
    ],
    "actuator": "",
    "mimic": "lift",
@@ -320,7 +320,7 @@
    "anchor": [
     5.0,
     0,
-    503.0
+    461.0
    ],
    "axis": [
     0,
@@ -343,7 +343,7 @@
    "anchor": [
     5.0,
     0,
-    552.0
+    510.0
    ],
    "axis": [
     0,
@@ -366,7 +366,7 @@
    "anchor": [
     9.0,
     117.0,
-    452.0
+    410.0
    ],
    "axis": [
     0,
@@ -389,7 +389,7 @@
    "anchor": [
     9.0,
     157.0,
-    452.0
+    410.0
    ],
    "axis": [
     1,
@@ -412,7 +412,7 @@
    "anchor": [
     9.0,
     157.0,
-    339.0
+    297.0
    ],
    "axis": [
     0,
@@ -435,7 +435,7 @@
    "anchor": [
     9.0,
     157.0,
-    200.0
+    158.0
    ],
    "axis": [
     0,
@@ -458,7 +458,7 @@
    "anchor": [
     9.0,
     157.0,
-    0.0
+    -42.0
    ],
    "axis": [
     0,
@@ -481,7 +481,7 @@
    "anchor": [
     9.0,
     157.0,
-    -85.0
+    -127.0
    ],
    "axis": [
     0,
@@ -504,7 +504,7 @@
    "anchor": [
     9.0,
     157.0,
-    -138.0
+    -180.0
    ],
    "axis": [
     0,
@@ -527,7 +527,7 @@
    "anchor": [
     9.0,
     157.0,
-    -138.0
+    -180.0
    ],
    "axis": [
     0,
@@ -550,7 +550,7 @@
    "anchor": [
     9.0,
     -117.0,
-    452.0
+    410.0
    ],
    "axis": [
     0,
@@ -573,7 +573,7 @@
    "anchor": [
     9.0,
     -157.0,
-    452.0
+    410.0
    ],
    "axis": [
     -1,
@@ -596,7 +596,7 @@
    "anchor": [
     9.0,
     -157.0,
-    339.0
+    297.0
    ],
    "axis": [
     0,
@@ -619,7 +619,7 @@
    "anchor": [
     9.0,
     -157.0,
-    200.0
+    158.0
    ],
    "axis": [
     0,
@@ -642,7 +642,7 @@
    "anchor": [
     9.0,
     -157.0,
-    0.0
+    -42.0
    ],
    "axis": [
     0,
@@ -665,7 +665,7 @@
    "anchor": [
     9.0,
     -157.0,
-    -85.0
+    -127.0
    ],
    "axis": [
     0,
@@ -688,7 +688,7 @@
    "anchor": [
     9.0,
     -157.0,
-    -138.0
+    -180.0
    ],
    "axis": [
     0,
@@ -711,7 +711,7 @@
    "anchor": [
     9.0,
     -157.0,
-    -138.0
+    -180.0
    ],
    "axis": [
     0,
@@ -729,7 +729,7 @@
  ],
  "poses": {
   "zero": {
-   "lift": 0.42
+   "lift": 0.455
   },
   "home": {
    "lift": 0.1,
@@ -788,7 +788,7 @@
    "r_wrist_roll": 0.0
   },
   "shelf": {
-   "lift": 0.558,
+   "lift": 0.462,
    "head_tilt": -0.35,
    "l_shoulder_pitch": -2.9,
    "l_shoulder_roll": 0.0,
@@ -835,7 +835,7 @@
    "kind": "print",
    "color": "shell",
    "material": "PETG",
-   "mass_g": 68.1,
+   "mass_g": 48.9,
    "print": "base_shell_rear_r",
    "note": "Print top-down. Heat-set inserts in the seam bosses."
   },
@@ -847,7 +847,7 @@
    "kind": "print",
    "color": "shell",
    "material": "PETG",
-   "mass_g": 118.0,
+   "mass_g": 98.2,
    "print": "base_shell_rear_c",
    "note": "Print top-down. Heat-set inserts in the seam bosses."
   },
@@ -859,7 +859,7 @@
    "kind": "print",
    "color": "shell",
    "material": "PETG",
-   "mass_g": 66.8,
+   "mass_g": 48.1,
    "print": "base_shell_rear_l",
    "note": "Print top-down. Heat-set inserts in the seam bosses."
   },
@@ -871,7 +871,7 @@
    "kind": "print",
    "color": "shell",
    "material": "PETG",
-   "mass_g": 80.6,
+   "mass_g": 76.3,
    "print": "base_shell_mid_r",
    "note": "Print top-down. Heat-set inserts in the seam bosses."
   },
@@ -895,7 +895,7 @@
    "kind": "print",
    "color": "shell",
    "material": "PETG",
-   "mass_g": 80.6,
+   "mass_g": 76.3,
    "print": "base_shell_mid_l",
    "note": "Print top-down. Heat-set inserts in the seam bosses."
   },
@@ -907,7 +907,7 @@
    "kind": "print",
    "color": "shell",
    "material": "PETG",
-   "mass_g": 95.2,
+   "mass_g": 70.8,
    "print": "base_shell_front_r",
    "note": "Print top-down. Heat-set inserts in the seam bosses."
   },
@@ -919,7 +919,7 @@
    "kind": "print",
    "color": "shell",
    "material": "PETG",
-   "mass_g": 136.1,
+   "mass_g": 111.7,
    "print": "base_shell_front_c",
    "note": "Print top-down. Heat-set inserts in the seam bosses."
   },
@@ -931,7 +931,7 @@
    "kind": "print",
    "color": "shell",
    "material": "PETG",
-   "mass_g": 96.3,
+   "mass_g": 71.9,
    "print": "base_shell_front_l",
    "note": "Print top-down. Heat-set inserts in the seam bosses."
   },
@@ -943,7 +943,7 @@
    "kind": "print",
    "color": "frame",
    "material": "PETG",
-   "mass_g": 27.3,
+   "mass_g": 18.2,
    "print": "base_pan_rear_r",
    "note": "Structure. Skin down on the bed, ribs up. 4 walls."
   },
@@ -955,7 +955,7 @@
    "kind": "print",
    "color": "frame",
    "material": "PETG",
-   "mass_g": 67.8,
+   "mass_g": 69.3,
    "print": "base_pan_rear_c",
    "note": "Structure. Skin down on the bed, ribs up. 4 walls."
   },
@@ -967,7 +967,7 @@
    "kind": "print",
    "color": "frame",
    "material": "PETG",
-   "mass_g": 28.3,
+   "mass_g": 18.4,
    "print": "base_pan_rear_l",
    "note": "Structure. Skin down on the bed, ribs up. 4 walls."
   },
@@ -991,7 +991,7 @@
    "kind": "print",
    "color": "frame",
    "material": "PETG",
-   "mass_g": 144.5,
+   "mass_g": 145.2,
    "print": "base_pan_mid_c",
    "note": "Structure. Skin down on the bed, ribs up. 4 walls."
   },
@@ -1015,7 +1015,7 @@
    "kind": "print",
    "color": "frame",
    "material": "PETG",
-   "mass_g": 46.6,
+   "mass_g": 34.4,
    "print": "base_pan_front_r",
    "note": "Structure. Skin down on the bed, ribs up. 4 walls."
   },
@@ -1027,7 +1027,7 @@
    "kind": "print",
    "color": "frame",
    "material": "PETG",
-   "mass_g": 113.6,
+   "mass_g": 104.7,
    "print": "base_pan_front_c",
    "note": "Structure. Skin down on the bed, ribs up. 4 walls."
   },
@@ -1039,7 +1039,7 @@
    "kind": "print",
    "color": "frame",
    "material": "PETG",
-   "mass_g": 45.6,
+   "mass_g": 33.5,
    "print": "base_pan_front_l",
    "note": "Structure. Skin down on the bed, ribs up. 4 walls."
   },
@@ -1068,30 +1068,6 @@
    "note": "Holds a DDSM115 by its stub (3 x M2.5 x 10). 5 walls, 40% infill."
   },
   {
-   "name": "caster_bridge_front",
-   "file": "caster_bridge_front.stl",
-   "link": "base",
-   "group": "base",
-   "kind": "print",
-   "color": "frame",
-   "material": "PETG",
-   "mass_g": 63.8,
-   "print": "caster_bridge_front",
-   "note": "Swivel 608ZZ pocket underneath. Inserts on top for the lidar mount."
-  },
-  {
-   "name": "caster_bridge_rear",
-   "file": "caster_bridge_rear.stl",
-   "link": "base",
-   "group": "base",
-   "kind": "print",
-   "color": "frame",
-   "material": "PETG",
-   "mass_g": 64.0,
-   "print": "caster_bridge_rear",
-   "note": ""
-  },
-  {
    "name": "lidar_mount",
    "file": "lidar_mount.stl",
    "link": "base",
@@ -1099,57 +1075,9 @@
    "kind": "print",
    "color": "dark",
    "material": "PETG",
-   "mass_g": 33.6,
+   "mass_g": 51.1,
    "print": "lidar_mount",
-   "note": "Lifts the RPLIDAR C1 to the slot in the shell."
-  },
-  {
-   "name": "caster_fork_front",
-   "file": "caster_fork_front.stl",
-   "link": "base",
-   "group": "base",
-   "kind": "print",
-   "color": "dark",
-   "material": "PETG",
-   "mass_g": 17.8,
-   "print": "caster_fork_front",
-   "note": ""
-  },
-  {
-   "name": "caster_wheel_front",
-   "file": "caster_wheel_front.stl",
-   "link": "base",
-   "group": "base",
-   "kind": "print",
-   "color": "dark",
-   "material": "PETG",
-   "mass_g": 14.9,
-   "print": "caster_wheel_front",
-   "note": "Two 608ZZ pressed in. TPU 95A if your printer does it, PETG otherwise."
-  },
-  {
-   "name": "caster_fork_rear",
-   "file": "caster_fork_rear.stl",
-   "link": "base",
-   "group": "base",
-   "kind": "print",
-   "color": "dark",
-   "material": "PETG",
-   "mass_g": 17.8,
-   "print": "caster_fork_rear",
-   "note": ""
-  },
-  {
-   "name": "caster_wheel_rear",
-   "file": "caster_wheel_rear.stl",
-   "link": "base",
-   "group": "base",
-   "kind": "print",
-   "color": "dark",
-   "material": "PETG",
-   "mass_g": 14.9,
-   "print": "caster_wheel_rear",
-   "note": "Two 608ZZ pressed in. TPU 95A if your printer does it, PETG otherwise."
+   "note": "Lifts the RPLIDAR C1 to the slot in the shell. Three M3 into the pan."
   },
   {
    "name": "battery_cradle_l",
@@ -1210,18 +1138,6 @@
    "mass_g": 25.8,
    "print": "shelf_front_r",
    "note": "Motor drivers and the ESP32 on the 20 mm grid."
-  },
-  {
-   "name": "shelf_rear_r",
-   "file": "shelf_rear_r.stl",
-   "link": "base",
-   "group": "base",
-   "kind": "print",
-   "color": "frame",
-   "material": "PETG",
-   "mass_g": 21.7,
-   "print": "shelf_rear_r",
-   "note": "Bucks, fuse block, contactor."
   },
   {
    "name": "cable_trough",
@@ -1315,7 +1231,7 @@
    "kind": "print",
    "color": "shell",
    "material": "PETG",
-   "mass_g": 236.3,
+   "mass_g": 218.6,
    "print": "col_outer_0",
    "note": "Foot flange, motor pedestal, homing pad."
   },
@@ -1327,7 +1243,7 @@
    "kind": "print",
    "color": "shell",
    "material": "PETG",
-   "mass_g": 182.2,
+   "mass_g": 164.5,
    "print": "col_outer_1",
    "note": "Top of the outer tube. Slide pads and belt anchors."
   },
@@ -1339,7 +1255,7 @@
    "kind": "print",
    "color": "shell",
    "material": "PETG",
-   "mass_g": 162.8,
+   "mass_g": 147.5,
    "print": "col_mid_0",
    "note": "T8 nut pocket, cable notch, outer slide pads."
   },
@@ -1351,7 +1267,7 @@
    "kind": "print",
    "color": "shell",
    "material": "PETG",
-   "mass_g": 147.8,
+   "mass_g": 132.5,
    "print": "col_mid_1",
    "note": "Belt A pulleys, belt B anchors, inner slide pads."
   },
@@ -1363,7 +1279,7 @@
    "kind": "print",
    "color": "shell",
    "material": "PETG",
-   "mass_g": 88.5,
+   "mass_g": 76.5,
    "print": "col_upper_0",
    "note": "Belt A clamps and outer slide pads."
   },
@@ -1375,7 +1291,7 @@
    "kind": "print",
    "color": "shell",
    "material": "PETG",
-   "mass_g": 87.1,
+   "mass_g": 75.0,
    "print": "col_upper_1",
    "note": "Belt B pulleys and inner slide pads."
   },
@@ -1387,7 +1303,7 @@
    "kind": "print",
    "color": "shell",
    "material": "PETG",
-   "mass_g": 65.7,
+   "mass_g": 56.7,
    "print": "col_inner_0",
    "note": "Belt B clamps, sleeve tie, outer slide pads."
   },
@@ -1399,7 +1315,7 @@
    "kind": "print",
    "color": "shell",
    "material": "PETG",
-   "mass_g": 61.6,
+   "mass_g": 52.5,
    "print": "col_inner_1",
    "note": "Prints standing. Inserts in the top bosses."
   },
@@ -1423,7 +1339,7 @@
    "kind": "print",
    "color": "frame",
    "material": "PETG",
-   "mass_g": 118.2,
+   "mass_g": 95.1,
    "print": "torso_back_plate",
    "note": "Yokes bolt to the front face. The Pi and the bus adapters sit beside the column."
   },
@@ -1471,7 +1387,7 @@
    "kind": "print",
    "color": "shell",
    "material": "PETG",
-   "mass_g": 105.7,
+   "mass_g": 84.7,
    "print": "torso_lower_l",
    "note": "Lower tier prints floor-down; upper tier prints top-down."
   },
@@ -1483,7 +1399,7 @@
    "kind": "print",
    "color": "shell",
    "material": "PETG",
-   "mass_g": 106.1,
+   "mass_g": 85.1,
    "print": "torso_lower_r",
    "note": "Lower tier prints floor-down; upper tier prints top-down."
   },
@@ -1495,7 +1411,7 @@
    "kind": "print",
    "color": "shell",
    "material": "PETG",
-   "mass_g": 142.1,
+   "mass_g": 142.2,
    "print": "torso_upper_l",
    "note": "Lower tier prints floor-down; upper tier prints top-down."
   },
@@ -1507,7 +1423,7 @@
    "kind": "print",
    "color": "shell",
    "material": "PETG",
-   "mass_g": 142.1,
+   "mass_g": 142.2,
    "print": "torso_upper_r",
    "note": "Lower tier prints floor-down; upper tier prints top-down."
   },
@@ -2167,7 +2083,7 @@
    "kind": "print",
    "color": "frame",
    "material": "PETG",
-   "mass_g": 1.6,
+   "mass_g": 1.5,
    "print": "joiner_tab",
    "note": "Joiner tab"
   },
@@ -2179,7 +2095,7 @@
    "kind": "print",
    "color": "frame",
    "material": "PETG",
-   "mass_g": 1.6,
+   "mass_g": 1.5,
    "print": "joiner_tab",
    "note": "Joiner tab"
   },
@@ -2191,7 +2107,7 @@
    "kind": "print",
    "color": "frame",
    "material": "PETG",
-   "mass_g": 1.6,
+   "mass_g": 1.5,
    "print": "joiner_tab",
    "note": "Joiner tab"
   },
@@ -2263,7 +2179,7 @@
    "kind": "print",
    "color": "frame",
    "material": "PETG",
-   "mass_g": 1.5,
+   "mass_g": 1.7,
    "print": "joiner_tab",
    "note": "Joiner tab"
   },
@@ -2275,7 +2191,7 @@
    "kind": "print",
    "color": "frame",
    "material": "PETG",
-   "mass_g": 1.5,
+   "mass_g": 1.7,
    "print": "joiner_tab",
    "note": "Joiner tab"
   },
@@ -2287,7 +2203,7 @@
    "kind": "print",
    "color": "frame",
    "material": "PETG",
-   "mass_g": 1.5,
+   "mass_g": 1.7,
    "print": "joiner_tab",
    "note": "Joiner tab"
   },
@@ -2335,7 +2251,7 @@
    "kind": "print",
    "color": "frame",
    "material": "PETG",
-   "mass_g": 1.7,
+   "mass_g": 1.6,
    "print": "joiner_tab",
    "note": "Joiner tab"
   },
@@ -2347,7 +2263,7 @@
    "kind": "print",
    "color": "frame",
    "material": "PETG",
-   "mass_g": 1.7,
+   "mass_g": 1.6,
    "print": "joiner_tab",
    "note": "Joiner tab"
   },
@@ -2359,7 +2275,7 @@
    "kind": "print",
    "color": "frame",
    "material": "PETG",
-   "mass_g": 1.7,
+   "mass_g": 1.6,
    "print": "joiner_tab",
    "note": "Joiner tab"
   },
@@ -2498,36 +2414,36 @@
   {
    "name": "joiner_45",
    "file": "joiner_45.stl",
-   "link": "base",
-   "group": "base",
+   "link": "lift",
+   "group": "torso",
    "kind": "print",
    "color": "frame",
    "material": "PETG",
-   "mass_g": 1.6,
+   "mass_g": 1.7,
    "print": "joiner_tab",
    "note": "Joiner tab"
   },
   {
    "name": "joiner_46",
    "file": "joiner_46.stl",
-   "link": "base",
-   "group": "base",
+   "link": "lift",
+   "group": "torso",
    "kind": "print",
    "color": "frame",
    "material": "PETG",
-   "mass_g": 1.6,
+   "mass_g": 1.7,
    "print": "joiner_tab",
    "note": "Joiner tab"
   },
   {
    "name": "joiner_47",
    "file": "joiner_47.stl",
-   "link": "base",
-   "group": "base",
+   "link": "lift",
+   "group": "torso",
    "kind": "print",
    "color": "frame",
    "material": "PETG",
-   "mass_g": 1.6,
+   "mass_g": 1.7,
    "print": "joiner_tab",
    "note": "Joiner tab"
   },
@@ -2587,7 +2503,7 @@
    "kind": "print",
    "color": "frame",
    "material": "PETG",
-   "mass_g": 1.7,
+   "mass_g": 1.6,
    "print": "joiner_tab",
    "note": "Joiner tab"
   },
@@ -2599,7 +2515,7 @@
    "kind": "print",
    "color": "frame",
    "material": "PETG",
-   "mass_g": 1.7,
+   "mass_g": 1.6,
    "print": "joiner_tab",
    "note": "Joiner tab"
   },
@@ -2611,7 +2527,7 @@
    "kind": "print",
    "color": "frame",
    "material": "PETG",
-   "mass_g": 1.7,
+   "mass_g": 1.6,
    "print": "joiner_tab",
    "note": "Joiner tab"
   },
@@ -2666,8 +2582,8 @@
   {
    "name": "joiner_59",
    "file": "joiner_59.stl",
-   "link": "lift",
-   "group": "torso",
+   "link": "head_tilt",
+   "group": "head",
    "kind": "print",
    "color": "frame",
    "material": "PETG",
@@ -2678,8 +2594,8 @@
   {
    "name": "joiner_60",
    "file": "joiner_60.stl",
-   "link": "lift",
-   "group": "torso",
+   "link": "head_tilt",
+   "group": "head",
    "kind": "print",
    "color": "frame",
    "material": "PETG",
@@ -2690,8 +2606,8 @@
   {
    "name": "joiner_61",
    "file": "joiner_61.stl",
-   "link": "lift",
-   "group": "torso",
+   "link": "head_tilt",
+   "group": "head",
    "kind": "print",
    "color": "frame",
    "material": "PETG",
@@ -2719,49 +2635,13 @@
    "kind": "print",
    "color": "frame",
    "material": "PETG",
-   "mass_g": 1.6,
+   "mass_g": 1.7,
    "print": "joiner_tab",
    "note": "Joiner tab"
   },
   {
    "name": "joiner_64",
    "file": "joiner_64.stl",
-   "link": "head_tilt",
-   "group": "head",
-   "kind": "print",
-   "color": "frame",
-   "material": "PETG",
-   "mass_g": 1.6,
-   "print": "joiner_tab",
-   "note": "Joiner tab"
-  },
-  {
-   "name": "joiner_65",
-   "file": "joiner_65.stl",
-   "link": "head_tilt",
-   "group": "head",
-   "kind": "print",
-   "color": "frame",
-   "material": "PETG",
-   "mass_g": 1.6,
-   "print": "joiner_tab",
-   "note": "Joiner tab"
-  },
-  {
-   "name": "joiner_66",
-   "file": "joiner_66.stl",
-   "link": "head_tilt",
-   "group": "head",
-   "kind": "print",
-   "color": "frame",
-   "material": "PETG",
-   "mass_g": 1.7,
-   "print": "joiner_tab",
-   "note": "Joiner tab"
-  },
-  {
-   "name": "joiner_67",
-   "file": "joiner_67.stl",
    "link": "head_tilt",
    "group": "head",
    "kind": "print",
@@ -3245,26 +3125,26 @@
    "bom": "ledstrip"
   },
   {
-   "name": "caster_bolt_f",
-   "file": "caster_bolt_f.stl",
+   "name": "ball_caster_f",
+   "file": "ball_caster_f.stl",
    "link": "base",
    "group": "base",
    "kind": "metal",
    "color": "steel",
    "material": "bought",
-   "mass_g": 30,
-   "bom": "m8"
+   "mass_g": 35,
+   "bom": "ballxfer"
   },
   {
-   "name": "caster_bolt_r",
-   "file": "caster_bolt_r.stl",
+   "name": "ball_caster_r",
+   "file": "ball_caster_r.stl",
    "link": "base",
    "group": "base",
    "kind": "metal",
    "color": "steel",
    "material": "bought",
-   "mass_g": 30,
-   "bom": "m8"
+   "mass_g": 35,
+   "bom": "ballxfer"
   },
   {
    "name": "lift_motor",
@@ -4247,21 +4127,21 @@
   }
  ],
  "dims": {
-  "shoulder_z0": 452.0,
-  "lift_travel": 558.0,
+  "shoulder_z0": 410.0,
+  "lift_travel": 462.0,
   "base": [
-   440.0,
    360.0,
-   212.0
+   360.0,
+   200.0
   ],
   "wheel_od": 100.7,
   "wheel_w": 43.0,
   "wheel_y": 150.0,
-  "caster_x": 192.0,
-  "caster_x_rear": 132.0,
-  "base_cx": 30.0,
-  "caster_trail": 12.0,
-  "caster_wheel": 40.0,
-  "mast_top": 419.0
+  "caster_x": 177.0,
+  "caster_x_rear": 127.0,
+  "base_cx": 25.0,
+  "caster_trail": 0.0,
+  "caster_wheel": 15.875,
+  "mast_top": 381.0
  }
 }

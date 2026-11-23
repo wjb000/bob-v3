@@ -173,7 +173,7 @@ def routes():
         ("pi", "esp"): _column_down(pi, _pt("base", 0.0, -104.0, shelf)),
         ("hub", "cam"): _neck(hub, cam),
         ("hub", "wcam"): _arm("l", hub, (palm_l,)) + [_pt("lift", 0.0, -20.0, 380.0)] + _arm("r", hub, (palm_r,))[1:],
-        ("hub", "lidar"): _column_down(hub, _pt("base", 192.0, 0.0, 140.0)),
+        ("hub", "lidar"): _column_down(hub, _pt("base", 150.0, 0.0, 140.0)),
         ("hub", "s3"): _neck(hub, s3),
         ("hub", "audio"): _neck(hub, mic),
         ("busl", "stl"): _arm("l", bus_l),
