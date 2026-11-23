@@ -171,25 +171,58 @@ def ramp_lift(m, d, a, target, dt):
 
 
 def test_lift():
+    """Carry pose, 0.5 kg in each hand: run the column bottom -> top -> bottom at the screw speed.
+
+    Checks the torso tracks the ramp, the middle and upper tubes stay at 1/3 and 2/3 of the
+    lift (the GT2 cascades), nothing but the wheels and casters touches anything, and the
+    base does not rock.
+    """
     m, d = load()
     add_payload(m, PAYLOAD)
     key(m, d, "home")
     a = act(m, "lift")
     lo, hi = m.actuator_ctrlrange[a]
-    d.ctrl[a] = jq(m, d, "lift")
-    t_up = None
-    worst_lag = 0.0
-    for i in range(int(40.0 / m.opt.timestep)):
-        ramp_lift(m, d, a, hi, m.opt.timestep)
+    jl, jm, ju = (m.jnt_qposadr[m.joint(n).id] for n in ("lift", "lift_mid", "lift_upper"))
+    # start at the bottom, settled
+    d.qpos[jl], d.qpos[jm], d.qpos[ju] = lo, lo / 3, 2 * lo / 3
+    d.ctrl[a] = lo
+    mujoco.mj_forward(m, d)
+    for _ in range(int(1.0 / m.opt.timestep)):
         mujoco.mj_step(m, d)
-        worst_lag = max(worst_lag, abs(d.ctrl[a] - jq(m, d, "lift")))
-        if t_up is None and jq(m, d, "lift") > hi - 0.002:
-            t_up = d.time
-    err_up = abs(jq(m, d, "lift") - hi) * 1000
-    f = float(d.actuator_force[a])
-    report("lift", t_up is not None and err_up < 2.0 and abs(f) < m.actuator_forcerange[a, 1] * 0.9,
-           travel_mm=round((hi - lo) * 1000), speed_mm_s=LIFT_SPEED * 1000, time_s=round(t_up or -1, 1),
-           worst_lag_mm=round(worst_lag * 1000, 2), hold_err_mm=round(err_up, 2), hold_force_N=round(f, 1))
+    t_up = t_down = None
+    worst_lag = worst_stage = worst_pen = max_tilt = 0.0
+    touching = set()
+    leg, t0, err_up, f_top = "up", d.time, None, None
+    for _ in range(int(60.0 / m.opt.timestep)):
+        ramp_lift(m, d, a, hi if leg == "up" else lo, m.opt.timestep)
+        mujoco.mj_step(m, d)
+        L = d.qpos[jl]
+        worst_lag = max(worst_lag, abs(d.ctrl[a] - L))
+        worst_stage = max(worst_stage, abs(d.qpos[jm] - L / 3), abs(d.qpos[ju] - 2 * L / 3))
+        max_tilt = max(max_tilt, tilt_deg(d))
+        for c in d.contact[:d.ncon]:
+            n1, n2 = m.geom(c.geom1).name, m.geom(c.geom2).name
+            if "floor" in (n1, n2):
+                continue
+            touching.add(f"{m.body(m.geom_bodyid[c.geom1]).name}|{m.body(m.geom_bodyid[c.geom2]).name}")
+            worst_pen = max(worst_pen, -c.dist)
+        if leg == "up" and L > hi - 0.002 and d.ctrl[a] >= hi:
+            t_up = d.time - t0
+            for _ in range(int(1.0 / m.opt.timestep)):  # hold at the top
+                mujoco.mj_step(m, d)
+            err_up = abs(d.qpos[jl] - hi) * 1000
+            f_top = float(d.actuator_force[a])
+            leg, t0 = "down", d.time
+        elif leg == "down" and L < lo + 0.002 and d.ctrl[a] <= lo:
+            t_down = d.time - t0
+            break
+    err_down = abs(d.qpos[jl] - lo) * 1000
+    ok = (t_up is not None and t_down is not None and err_up < 2.0 and err_down < 2.0 and worst_stage < 0.002
+          and not touching and max_tilt < 1.0 and abs(f_top) < m.actuator_forcerange[a, 1] * 0.9)
+    report("lift", ok, travel_mm=round((hi - lo) * 1000), speed_mm_s=LIFT_SPEED * 1000, time_s=round(t_up or -1, 1),
+           down_time_s=round(t_down or -1, 1), worst_lag_mm=round(worst_lag * 1000, 2), hold_err_mm=round(err_up or -1, 2),
+           bottom_err_mm=round(err_down, 2), hold_force_N=round(f_top or 0, 1), stage_err_mm=round(worst_stage * 1000, 2),
+           base_tilt_deg=round(max_tilt, 3), contacts=sorted(touching), penetration_mm=round(worst_pen * 1000, 2))
 
 
 # ---------------------------------------------------------------- 5 brake
@@ -283,6 +316,87 @@ def test_slope():
     report("slope", min(ang.values()) > 10, com_m=[round(float(v), 3) for v in com], **ang)
 
 
+def _support_polygon(m, d):
+    """Floor contact points (x, y) of the two tires and two casters, counter-clockwise."""
+    pts = []
+    for c in d.contact[:d.ncon]:
+        n1, n2 = m.geom(c.geom1).name, m.geom(c.geom2).name
+        if "floor" in (n1, n2):
+            pts.append((float(c.pos[0]), float(c.pos[1])))
+    P_ = np.array(pts)
+    c0 = P_.mean(axis=0)
+    ang = np.arctan2(P_[:, 1] - c0[1], P_[:, 0] - c0[0])
+    return P_[np.argsort(ang)]
+
+
+def _margin(poly, com_xy):
+    """Smallest distance from the CoM to any edge of the convex hull of the contacts (mm), and its edge."""
+    import itertools
+    pts = poly
+    best = None
+    n = len(pts)
+    # convex hull edges: an edge (i, j) where every other point is on one side
+    for i, j in itertools.combinations(range(n), 2):
+        a, b = pts[i], pts[j]
+        e = b - a
+        L = float(np.hypot(*e))
+        if L < 1e-6:
+            continue
+        side = [(e[0] * (p_[1] - a[1]) - e[1] * (p_[0] - a[0])) for k, p_ in enumerate(pts) if k not in (i, j)]
+        if not (all(s >= -1e-9 for s in side) or all(s <= 1e-9 for s in side)):
+            continue
+        s_com = e[0] * (com_xy[1] - a[1]) - e[1] * (com_xy[0] - a[0])
+        inside_sign = np.sign(sum(side)) if side else 1.0
+        dist = s_com / L * inside_sign
+        if best is None or dist < best:
+            best = dist
+    return best * 1000
+
+
+def test_tip():
+    """Static tip margin in the poses that load it most, 0.5 kg in each hand, after a 3 s settle.
+
+    Margin is the shortest distance from the ground projection of the CoM to an edge of the
+    contact polygon (two tires, two casters). Positive is inside. Tilt is the settled base tilt.
+    """
+    hi = None
+    rows = {}
+    for name, pose in (
+        ("lift up, both arms straight forward", {"lift": "hi", "shoulder_pitch": -1.57, "elbow": 0.0, "wrist_pitch": 0.0}),
+        ("lift up, both arms straight sideways", {"lift": "hi", "shoulder_pitch": 0.0, "shoulder_roll": 1.57, "elbow": 0.0, "wrist_pitch": 0.0}),
+        ("lift up, arms reaching down in front", {"lift": "hi", "shoulder_pitch": -0.9, "elbow": 0.0, "wrist_pitch": 0.0}),
+        ("lift down, floor pick", {"lift": 0.0, "shoulder_pitch": -0.805, "elbow": 0.0, "wrist_pitch": 0.0}),
+    ):
+        m, d = load()
+        add_payload(m, PAYLOAD)
+        key(m, d, "home")
+        hi = float(m.jnt_range[m.joint("lift").id][1])
+        tgt = {}
+        for k, v in pose.items():
+            v = hi if v == "hi" else v
+            if k == "lift":
+                tgt["lift"] = v
+            else:
+                for s in ("l", "r"):
+                    tgt[f"{s}_{k}"] = v
+        for k, v in tgt.items():
+            d.qpos[m.jnt_qposadr[m.joint(k).id]] = v
+            d.ctrl[act(m, k)] = v
+        L = tgt.get("lift", jq(m, d, "lift"))
+        d.qpos[m.jnt_qposadr[m.joint("lift_mid").id]] = L / 3
+        d.qpos[m.jnt_qposadr[m.joint("lift_upper").id]] = 2 * L / 3
+        mujoco.mj_forward(m, d)
+        for _ in range(int(3.0 / m.opt.timestep)):
+            mujoco.mj_step(m, d)
+        com = d.subtree_com[m.body("base").id].copy()
+        # include the payload bodies (children of the hands, so already in the base subtree)
+        poly = _support_polygon(m, d)
+        rows[name] = dict(com_mm=[round(float(v) * 1000, 1) for v in com], margin_mm=round(_margin(poly, com[:2]), 1),
+                          tilt_deg=round(tilt_deg(d), 2))
+    ok = all(r["margin_mm"] > 20 and r["tilt_deg"] < 1.0 for r in rows.values())
+    report("tip", ok, poses=rows, worst_margin_mm=min(r["margin_mm"] for r in rows.values()))
+
+
 # ---------------------------------------------------------------- 6 reach
 
 def test_reach(n=6000, seed=0):
@@ -297,7 +411,7 @@ def test_reach(n=6000, seed=0):
     lift_adr = m.jnt_qposadr[m.joint("lift").id]
     lift_hi = m.jnt_range[m.joint("lift").id][1]
     pts = []
-    nose = 0.235  # half of the 470 mm square base
+    nose = 0.250  # front face of the base (cad/params.py BASE_L / 2 + BASE_CX)
     for i in range(n):
         key(m, d, "home")
         d.qpos[lift_adr] = rng.uniform(0, lift_hi)
@@ -407,7 +521,7 @@ def test_pick(n=40):
 
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
-    tests = [test_stand, test_torque, test_hold, test_lift, test_brake, test_push, test_slope, test_reach, test_tasks, test_pick]
+    tests = [test_stand, test_torque, test_hold, test_lift, test_tip, test_brake, test_push, test_slope, test_reach, test_tasks, test_pick]
     only = sys.argv[1:]
     try:
         for t in tests:

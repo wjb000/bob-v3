@@ -60,8 +60,11 @@ HOME = {
     "lift": 0.10,
     "head_tilt": 0.25,
     **{f"{s}_{k}": v for s in ("l", "r") for k, v in {
-        "shoulder_pitch": -0.35, "shoulder_roll": 0.10, "elbow": -1.55, "wrist_pitch": 0.35, "gripper": 0.012, "gripper_b": 0.012}.items()},
+        "shoulder_pitch": -0.80, "shoulder_roll": 0.10, "elbow": -1.40, "wrist_pitch": 0.35, "gripper": 0.012, "gripper_b": 0.012}.items()},
 }
+# HOME is also the carry pose: elbows forward and above the base top, so the lift can run
+# its whole travel (0 to LIFT_TRAVEL) in this pose without an arm touching the base.
+# export.py checks it at the bottom and the top of travel.
 POSES = {
     "zero": {"lift": 0.42},  # arms hang straight; any lower and the fingers meet the base shell
     "home": HOME,

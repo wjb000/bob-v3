@@ -240,7 +240,7 @@ def main():
             ct, ca = CLS["wheel"]
             r = d["caster_wheel"] / 2000
             for sx, nm in ((1, "front"), (-1, "rear")):
-                x = sx * d["caster_x"] / 1000 - d["caster_trail"] / 1000
+                x = (d["caster_x"] if sx > 0 else -d.get("caster_x_rear", d["caster_x"])) / 1000 - d["caster_trail"] / 1000
                 w(f'{pad}  <geom name="caster_{nm}" class="col" type="sphere" size="{r:.4f}" pos="{x:.4f} 0 {r:.4f}" '
                   f'contype="{ct}" conaffinity="{ca}" condim="1" priority="1" friction="0 0 0" mass="0"/>')  # swivel casters: no drag
         if link == "head_tilt":
@@ -328,6 +328,11 @@ def keyframes() -> str:
             v = pose.get(jn, 0.0)
             q[m.jnt_qposadr[m.actuator_trnid[i, 0]]] = v
             ctrl[i] = 0.0 if jn.startswith("wheel") else v
+        # Mimic joints (column tubes, second finger) start where their equality puts them,
+        # so a keyframe does not open with the tubes snapping into place.
+        for j in SCENE["joints"]:
+            if j.get("mimic"):
+                q[m.jnt_qposadr[m.joint(j["name"]).id]] = pose.get(j["mimic"], 0.0) * float(j.get("mimic_coef") or 1.0)
         out.append(f'    <key name="{name}" qpos="{" ".join(f"{v:.6g}" for v in q)}" ctrl="{" ".join(f"{v:.6g}" for v in ctrl)}"/>')
     out.append("  </keyframe>")
     return "\n".join(out) + "\n"

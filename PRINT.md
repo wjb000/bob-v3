@@ -1,6 +1,6 @@
 # Print list
 
-90 unique files, 165 prints, about 5.9 kg of filament at the settings below.
+90 unique files, 162 prints, about 5.5 kg of filament at the settings below.
 Every part fits a 200 x 200 x 200 mm volume (Prusa MK4, Ender-3, Bambu A1/P1/X1, Core One).
 The STLs in `cad/stl/` are already oriented: flat face down, no rotating. Grams are at 4 walls and 20% gyroid.
 
@@ -14,28 +14,28 @@ The STLs in `cad/stl/` are already oriented: flat face down, no rotating. Grams 
 - Supports: the Support column is measured from each oriented STL (faces steeper than 45° not on the bed).
   'none' means under 5 cm². Use tree supports, touching the build plate only where you can.
 
-## Base (2.38 kg)
+## Base (1.93 kg)
 
 | File | Qty | Colour | Bed mm | g each | Support | Note |
 | --- | ---: | --- | --- | ---: | --- | --- |
-| `base_shell_rear_r.stl` | 1 | white PETG | 145 x 145 x 182 | 132 | 34 cm² | Print top-down. Heat-set inserts in the seam bosses. |
-| `base_shell_rear_c.stl` | 1 | white PETG | 145 x 180 x 182 | 125 | 18 cm² | Print top-down. Heat-set inserts in the seam bosses. |
-| `base_shell_rear_l.stl` | 1 | white PETG | 145 x 145 x 182 | 131 | 34 cm² | Print top-down. Heat-set inserts in the seam bosses. |
-| `base_shell_mid_r.stl` | 1 | white PETG | 180 x 145 x 182 | 105 | 6 cm² | Print top-down. Heat-set inserts in the seam bosses. |
-| `base_shell_mid_c.stl` | 1 | white PETG | 180 x 180 x 12 | 51 | none | Print top-down. Heat-set inserts in the seam bosses. |
-| `base_shell_mid_l.stl` | 1 | white PETG | 180 x 145 x 182 | 104 | 6 cm² | Print top-down. Heat-set inserts in the seam bosses. |
-| `base_shell_front_r.stl` | 1 | white PETG | 145 x 145 x 182 | 128 | 35 cm² | Print top-down. Heat-set inserts in the seam bosses. |
-| `base_shell_front_c.stl` | 1 | white PETG | 145 x 180 x 182 | 118 | 20 cm² | Print top-down. Heat-set inserts in the seam bosses. |
-| `base_shell_front_l.stl` | 1 | white PETG | 145 x 145 x 182 | 128 | 35 cm² | Print top-down. Heat-set inserts in the seam bosses. |
-| `base_pan_rear_r.stl` | 1 | grey PETG | 137 x 137 x 15 | 75 | none | Structure. Skin down on the bed, ribs up. 4 walls. |
-| `base_pan_rear_c.stl` | 1 | grey PETG | 137 x 180 x 15 | 96 | none | Structure. Skin down on the bed, ribs up. 4 walls. |
-| `base_pan_rear_l.stl` | 1 | grey PETG | 137 x 137 x 15 | 75 | none | Structure. Skin down on the bed, ribs up. 4 walls. |
-| `base_pan_mid_r.stl` | 1 | grey PETG | 180 x 137 x 15 | 89 | none | Structure. Skin down on the bed, ribs up. 4 walls. |
-| `base_pan_mid_c.stl` | 1 | grey PETG | 180 x 180 x 15 | 133 | none | Structure. Skin down on the bed, ribs up. 4 walls. |
-| `base_pan_mid_l.stl` | 1 | grey PETG | 180 x 137 x 15 | 84 | none | Structure. Skin down on the bed, ribs up. 4 walls. |
-| `base_pan_front_r.stl` | 1 | grey PETG | 137 x 137 x 15 | 74 | none | Structure. Skin down on the bed, ribs up. 4 walls. |
-| `base_pan_front_c.stl` | 1 | grey PETG | 137 x 180 x 15 | 93 | none | Structure. Skin down on the bed, ribs up. 4 walls. |
-| `base_pan_front_l.stl` | 1 | grey PETG | 137 x 137 x 15 | 72 | none | Structure. Skin down on the bed, ribs up. 4 walls. |
+| `base_shell_rear_r.stl` | 1 | white PETG | 100 x 82 x 182 | 68 | 21 cm² | Print top-down. Heat-set inserts in the seam bosses. |
+| `base_shell_rear_c.stl` | 1 | white PETG | 100 x 197 x 182 | 118 | 23 cm² | Print top-down. Heat-set inserts in the seam bosses. |
+| `base_shell_rear_l.stl` | 1 | white PETG | 100 x 82 x 182 | 67 | 21 cm² | Print top-down. Heat-set inserts in the seam bosses. |
+| `base_shell_mid_r.stl` | 1 | white PETG | 180 x 82 x 182 | 81 | 6 cm² | Print top-down. Heat-set inserts in the seam bosses. |
+| `base_shell_mid_c.stl` | 1 | white PETG | 180 x 197 x 12 | 57 | none | Print top-down. Heat-set inserts in the seam bosses. |
+| `base_shell_mid_l.stl` | 1 | white PETG | 180 x 82 x 182 | 81 | 6 cm² | Print top-down. Heat-set inserts in the seam bosses. |
+| `base_shell_front_r.stl` | 1 | white PETG | 160 x 82 x 182 | 95 | 24 cm² | Print top-down. Heat-set inserts in the seam bosses. |
+| `base_shell_front_c.stl` | 1 | white PETG | 160 x 197 x 182 | 136 | 25 cm² | Print top-down. Heat-set inserts in the seam bosses. |
+| `base_shell_front_l.stl` | 1 | white PETG | 160 x 82 x 182 | 96 | 24 cm² | Print top-down. Heat-set inserts in the seam bosses. |
+| `base_pan_rear_r.stl` | 1 | grey PETG | 92 x 74 x 15 | 27 | none | Structure. Skin down on the bed, ribs up. 4 walls. |
+| `base_pan_rear_c.stl` | 1 | grey PETG | 92 x 197 x 15 | 68 | none | Structure. Skin down on the bed, ribs up. 4 walls. |
+| `base_pan_rear_l.stl` | 1 | grey PETG | 92 x 74 x 15 | 28 | none | Structure. Skin down on the bed, ribs up. 4 walls. |
+| `base_pan_mid_r.stl` | 1 | grey PETG | 180 x 74 x 15 | 45 | none | Structure. Skin down on the bed, ribs up. 4 walls. |
+| `base_pan_mid_c.stl` | 1 | grey PETG | 180 x 197 x 15 | 144 | none | Structure. Skin down on the bed, ribs up. 4 walls. |
+| `base_pan_mid_l.stl` | 1 | grey PETG | 180 x 74 x 15 | 42 | none | Structure. Skin down on the bed, ribs up. 4 walls. |
+| `base_pan_front_r.stl` | 1 | grey PETG | 152 x 74 x 15 | 47 | none | Structure. Skin down on the bed, ribs up. 4 walls. |
+| `base_pan_front_c.stl` | 1 | grey PETG | 152 x 197 x 15 | 114 | none | Structure. Skin down on the bed, ribs up. 4 walls. |
+| `base_pan_front_l.stl` | 1 | grey PETG | 152 x 74 x 15 | 46 | none | Structure. Skin down on the bed, ribs up. 4 walls. |
 | `wheel_bracket_l.stl` | 1 | grey PETG | 52 x 30 x 37 | 33 | 5 cm² | Holds a DDSM115 by its stub (3 x M2.5 x 10). 5 walls, 40% infill. |
 | `wheel_bracket_r.stl` | 1 | grey PETG | 52 x 30 x 37 | 33 | 5 cm² | Holds a DDSM115 by its stub (3 x M2.5 x 10). 5 walls, 40% infill. |
 | `caster_bridge_front.stl` | 1 | grey PETG | 66 x 136 x 29 | 64 | none | Swivel 608ZZ pocket underneath. Inserts on top for the lidar mount. |
@@ -45,15 +45,15 @@ The STLs in `cad/stl/` are already oriented: flat face down, no rotating. Grams 
 | `caster_wheel_front.stl` | 1 | black PETG | 40 x 40 x 22 | 15 | none | Two 608ZZ pressed in. TPU 95A if your printer does it, PETG otherwise. |
 | `caster_fork_rear.stl` | 1 | black PETG | 46 x 46 x 36 | 18 | none |  |
 | `caster_wheel_rear.stl` | 1 | black PETG | 40 x 40 x 22 | 15 | none | Two 608ZZ pressed in. TPU 95A if your printer does it, PETG otherwise. |
-| `battery_cradle_l.stl` | 1 | grey PETG | 115 x 83 x 94 | 34 | 40 cm² | Two halves meet under the pack; the strap holds them together. |
-| `battery_cradle_r.stl` | 1 | grey PETG | 115 x 83 x 94 | 34 | 40 cm² | Two halves meet under the pack; the strap holds them together. |
+| `battery_cradle_l.stl` | 1 | grey PETG | 115 x 95 x 94 | 35 | 43 cm² | Two halves meet under the pack; the strap holds them together. |
+| `battery_cradle_r.stl` | 1 | grey PETG | 115 x 95 x 94 | 35 | 43 cm² | Two halves meet under the pack; the strap holds them together. |
 | `shelf_front_l.stl` | 1 | grey PETG | 70 x 75 x 109 | 28 | none | Motor drivers and the ESP32 on the 20 mm grid. |
 | `shelf_rear_l.stl` | 1 | grey PETG | 47 x 55 x 109 | 20 | none | Bucks, fuse block, contactor. |
 | `shelf_front_r.stl` | 1 | grey PETG | 60 x 75 x 109 | 26 | none | Motor drivers and the ESP32 on the 20 mm grid. |
 | `shelf_rear_r.stl` | 1 | grey PETG | 50 x 60 x 109 | 22 | none | Bucks, fuse block, contactor. |
 | `cable_trough.stl` | 1 | grey PETG | 42 x 88 x 51 | 30 | 22 cm² | Service loop for the column umbilical. Zip-tie the sleeve at the closed end. 4 walls. |
 | `col_draglink.stl` | 6 | black PETG | 18 x 11 x 8 | 1 | none | Drag-chain link. Six of them fold in the base trough for the column sleeve. |
-| `joiner_tab.stl` | 71 | grey PETG | 30 x 14 x 4 | 1 | none | Joins shell and pan tiles from inside. M3x10 into heat-set inserts. |
+| `joiner_tab.stl` | 68 | grey PETG | 30 x 14 x 4 | 1 | none | Joins shell and pan tiles from inside. M3x10 into heat-set inserts. |
 
 ## Column (1.06 kg)
 
