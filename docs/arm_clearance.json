@@ -1,0 +1,423 @@
+{
+ "mated": [
+  "struct:l_link6 | struct:l_link7",
+  "struct:l_link6 | struct:l_link8"
+ ],
+ "sweep": {
+  "hanging:l_shoulder_pitch": [
+   -3.1,
+   1.0,
+   [
+    -3.1,
+    1.0
+   ]
+  ],
+  "hanging:l_shoulder_roll": [
+   -0.03,
+   1.75,
+   [
+    -0.2,
+    1.75
+   ]
+  ],
+  "hanging:l_upper_arm_yaw": [
+   -1.6,
+   1.6,
+   [
+    -1.6,
+    1.6
+   ]
+  ],
+  "hanging:l_elbow": [
+   -1.63,
+   0.0,
+   [
+    -2.35,
+    0.0
+   ]
+  ],
+  "hanging:l_wrist_pitch": [
+   -1.8,
+   2.0,
+   [
+    -2.3,
+    2.3
+   ]
+  ],
+  "hanging:l_wrist_roll": [
+   -2.8,
+   2.8,
+   [
+    -2.8,
+    2.8
+   ]
+  ],
+  "forward:l_shoulder_pitch": [
+   -3.1,
+   1.0,
+   [
+    -3.1,
+    1.0
+   ]
+  ],
+  "forward:l_shoulder_roll": [
+   -0.12,
+   1.75,
+   [
+    -0.2,
+    1.75
+   ]
+  ],
+  "forward:l_upper_arm_yaw": [
+   -1.6,
+   1.6,
+   [
+    -1.6,
+    1.6
+   ]
+  ],
+  "forward:l_elbow": [
+   -1.63,
+   0.0,
+   [
+    -2.35,
+    0.0
+   ]
+  ],
+  "forward:l_wrist_pitch": [
+   -1.8,
+   2.0,
+   [
+    -2.3,
+    2.3
+   ]
+  ],
+  "forward:l_wrist_roll": [
+   -2.8,
+   2.8,
+   [
+    -2.8,
+    2.8
+   ]
+  ],
+  "forward+bent:l_shoulder_pitch": [
+   -3.1,
+   1.0,
+   [
+    -3.1,
+    1.0
+   ]
+  ],
+  "forward+bent:l_shoulder_roll": [
+   -0.12,
+   1.75,
+   [
+    -0.2,
+    1.75
+   ]
+  ],
+  "forward+bent:l_upper_arm_yaw": [
+   -1.6,
+   1.6,
+   [
+    -1.6,
+    1.6
+   ]
+  ],
+  "forward+bent:l_elbow": [
+   -1.63,
+   0.0,
+   [
+    -2.35,
+    0.0
+   ]
+  ],
+  "forward+bent:l_wrist_pitch": [
+   -1.8,
+   2.0,
+   [
+    -2.3,
+    2.3
+   ]
+  ],
+  "forward+bent:l_wrist_roll": [
+   -2.8,
+   2.8,
+   [
+    -2.8,
+    2.8
+   ]
+  ],
+  "out+bent:l_shoulder_pitch": [
+   -3.1,
+   1.0,
+   [
+    -3.1,
+    1.0
+   ]
+  ],
+  "out+bent:l_shoulder_roll": [
+   -0.03,
+   1.75,
+   [
+    -0.2,
+    1.75
+   ]
+  ],
+  "out+bent:l_upper_arm_yaw": [
+   -1.6,
+   1.6,
+   [
+    -1.6,
+    1.6
+   ]
+  ],
+  "out+bent:l_elbow": [
+   -1.63,
+   0.0,
+   [
+    -2.35,
+    0.0
+   ]
+  ],
+  "out+bent:l_wrist_pitch": [
+   -1.8,
+   2.0,
+   [
+    -2.3,
+    2.3
+   ]
+  ],
+  "out+bent:l_wrist_roll": [
+   -2.8,
+   2.8,
+   [
+    -2.8,
+    2.8
+   ]
+  ]
+ },
+ "steps": 47,
+ "random": 600,
+ "random_hits": {
+  "struct:l_link3 | struct:l_link4": 186,
+  "elbow_cover_b_l | struct:l_link4": 64,
+  "struct:l_link2 | torso/head": 25,
+  "struct:l_link4 | torso/head": 13,
+  "struct:l_link6 | torso/head": 22,
+  "struct:l_link5 | torso/head": 17,
+  "struct:l_link8 | torso/head": 16,
+  "struct:l_link7 | torso/head": 18,
+  "struct:l_link4 | struct:l_link5": 81,
+  "shoulder_cover_top_l | struct:l_link8": 6,
+  "struct:l_link2 | struct:l_link8": 11,
+  "clevis_cover_b_l | struct:l_link6": 15,
+  "clevis_cover_a_l | struct:l_link6": 12,
+  "struct:l_link2 | struct:l_link7": 13,
+  "clevis_cover_b_l | struct:l_link8": 13,
+  "clevis_cover_a_l | struct:l_link7": 11,
+  "clevis_cover_a_l | struct:l_link8": 13,
+  "shoulder_cover_bot_l | struct:l_link6": 14,
+  "struct:l_link2 | struct:l_link6": 15,
+  "shoulder_cover_bot_l | struct:l_link8": 19,
+  "shoulder_cover_bot_l | struct:l_link7": 19,
+  "struct:l_link1 | struct:l_link7": 15,
+  "struct:l_link1 | struct:l_link8": 15,
+  "shoulder_cover_top_l | struct:l_link7": 8,
+  "clevis_cover_b_l | struct:l_link7": 11,
+  "clevis_cover_a_l | torso/head": 14,
+  "struct:l_link3 | torso/head": 12,
+  "struct:l_link1 | struct:l_link6": 4,
+  "struct:l_link3 | struct:l_link6": 6,
+  "shoulder_cover_top_l | struct:l_link6": 3,
+  "elbow_cover_b_l | torso/head": 2,
+  "struct:l_link3 | struct:l_link7": 1,
+  "struct:l_link3 | struct:l_link8": 1
+ },
+ "sweep_pairs": {
+  "clevis_cover_a_l | torso/head": {
+   "hanging:l_shoulder_roll": [
+    -0.2,
+    -0.158,
+    -0.115
+   ],
+   "out+bent:l_shoulder_roll": [
+    -0.2,
+    -0.158,
+    -0.115
+   ]
+  },
+  "struct:l_link2 | torso/head": {
+   "hanging:l_shoulder_roll": [
+    -0.2,
+    -0.158,
+    -0.115,
+    -0.073
+   ],
+   "forward:l_shoulder_roll": [
+    -0.2,
+    -0.158
+   ],
+   "forward+bent:l_shoulder_roll": [
+    -0.2,
+    -0.158
+   ],
+   "out+bent:l_shoulder_roll": [
+    -0.2,
+    -0.158,
+    -0.115,
+    -0.073
+   ]
+  },
+  "struct:l_link3 | torso/head": {
+   "hanging:l_shoulder_roll": [
+    -0.2,
+    -0.158,
+    -0.115
+   ],
+   "out+bent:l_shoulder_roll": [
+    -0.2,
+    -0.158,
+    -0.115
+   ]
+  },
+  "struct:l_link3 | struct:l_link4": {
+   "hanging:l_elbow": [
+    -2.35,
+    -2.299,
+    -2.248,
+    -2.197,
+    -2.146,
+    -2.095,
+    -2.043,
+    -1.992,
+    -1.941,
+    -1.89,
+    -1.839,
+    -1.788,
+    -1.737,
+    -1.686
+   ],
+   "forward:l_elbow": [
+    -2.35,
+    -2.299,
+    -2.248,
+    -2.197,
+    -2.146,
+    -2.095,
+    -2.043,
+    -1.992,
+    -1.941,
+    -1.89,
+    -1.839,
+    -1.788,
+    -1.737,
+    -1.686
+   ],
+   "forward+bent:l_elbow": [
+    -2.35,
+    -2.299,
+    -2.248,
+    -2.197,
+    -2.146,
+    -2.095,
+    -2.043,
+    -1.992,
+    -1.941,
+    -1.89,
+    -1.839,
+    -1.788,
+    -1.737,
+    -1.686
+   ],
+   "out+bent:l_elbow": [
+    -2.35,
+    -2.299,
+    -2.248,
+    -2.197,
+    -2.146,
+    -2.095,
+    -2.043,
+    -1.992,
+    -1.941,
+    -1.89,
+    -1.839,
+    -1.788,
+    -1.737,
+    -1.686
+   ]
+  },
+  "elbow_cover_b_l | struct:l_link4": {
+   "hanging:l_elbow": [
+    -2.35,
+    -2.299,
+    -2.248,
+    -2.197,
+    -2.146
+   ],
+   "forward:l_elbow": [
+    -2.35,
+    -2.299,
+    -2.248,
+    -2.197,
+    -2.146
+   ],
+   "forward+bent:l_elbow": [
+    -2.35,
+    -2.299,
+    -2.248,
+    -2.197,
+    -2.146
+   ],
+   "out+bent:l_elbow": [
+    -2.35,
+    -2.299,
+    -2.248,
+    -2.197,
+    -2.146
+   ]
+  },
+  "struct:l_link4 | struct:l_link5": {
+   "hanging:l_wrist_pitch": [
+    -2.3,
+    -2.2,
+    -2.1,
+    -2.0,
+    -1.9,
+    2.1,
+    2.2,
+    2.3
+   ],
+   "forward:l_wrist_pitch": [
+    -2.3,
+    -2.2,
+    -2.1,
+    -2.0,
+    -1.9,
+    2.1,
+    2.2,
+    2.3
+   ],
+   "forward+bent:l_wrist_pitch": [
+    -2.3,
+    -2.2,
+    -2.1,
+    -2.0,
+    -1.9,
+    2.1,
+    2.2,
+    2.3
+   ],
+   "out+bent:l_wrist_pitch": [
+    -2.3,
+    -2.2,
+    -2.1,
+    -2.0,
+    -1.9,
+    2.1,
+    2.2,
+    2.3
+   ]
+  }
+ }
+}

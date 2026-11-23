@@ -51,43 +51,43 @@
    ]
   },
   "l_link1": {
-   "mass_g": 210.8,
+   "mass_g": 288.1,
    "com": [
-    6.0,
-    169.7,
+    7.5,
+    169.3,
     410.0
    ]
   },
   "l_link2": {
-   "mass_g": 147.0,
+   "mass_g": 177.7,
    "com": [
-    0.7,
+    2.5,
     157.0,
-    324.9
+    324.6
    ]
   },
   "l_link3": {
-   "mass_g": 258.6,
+   "mass_g": 324.2,
    "com": [
-    9.4,
-    156.3,
-    165.5
+    9.0,
+    154.4,
+    163.0
    ]
   },
   "l_link4": {
-   "mass_g": 219.0,
+   "mass_g": 215.0,
    "com": [
     9.0,
-    160.1,
-    10.6
+    159.8,
+    8.2
    ]
   },
   "l_link5": {
-   "mass_g": 96.5,
+   "mass_g": 111.3,
    "com": [
-    17.4,
-    157.4,
-    -93.4
+    16.1,
+    157.3,
+    -97.6
    ]
   },
   "l_link6": {
@@ -115,43 +115,43 @@
    ]
   },
   "r_link1": {
-   "mass_g": 210.8,
+   "mass_g": 288.1,
    "com": [
-    6.0,
-    -169.7,
+    7.5,
+    -169.3,
     410.0
    ]
   },
   "r_link2": {
-   "mass_g": 147.0,
+   "mass_g": 177.7,
    "com": [
-    0.7,
+    2.5,
     -157.0,
-    324.9
+    324.6
    ]
   },
   "r_link3": {
-   "mass_g": 258.6,
+   "mass_g": 324.2,
    "com": [
-    9.4,
-    -156.3,
-    165.5
+    9.0,
+    -154.4,
+    163.0
    ]
   },
   "r_link4": {
-   "mass_g": 219.0,
+   "mass_g": 215.0,
    "com": [
     9.0,
-    -160.1,
-    10.6
+    -159.8,
+    8.2
    ]
   },
   "r_link5": {
-   "mass_g": 96.5,
+   "mass_g": 111.3,
    "com": [
-    17.4,
-    -157.4,
-    -93.4
+    16.1,
+    -157.3,
+    -97.6
    ]
   },
   "r_link6": {
@@ -195,7 +195,7 @@
    ]
   }
  },
- "total_mass_g": 11315.5,
+ "total_mass_g": 11684.3,
  "joints": [
   {
    "name": "lift",
@@ -1543,7 +1543,7 @@
    "kind": "print",
    "color": "shell",
    "material": "PETG",
-   "mass_g": 16.3,
+   "mass_g": 45.9,
    "print": "shoulder_l",
    "note": "J1 output to the J2 cup. Screw it to J1 before J2 goes in."
   },
@@ -1555,7 +1555,7 @@
    "kind": "print",
    "color": "frame",
    "material": "PETG",
-   "mass_g": 72.0,
+   "mass_g": 80.9,
    "print": "clevis_l",
    "note": "J2 output, holds J3."
   },
@@ -1567,7 +1567,7 @@
    "kind": "print",
    "color": "shell",
    "material": "PETG",
-   "mass_g": 30.0,
+   "mass_g": 43.5,
    "print": "upper_arm_a_l",
    "note": "Clamshell half. Prints on the split face."
   },
@@ -1579,7 +1579,7 @@
    "kind": "print",
    "color": "shell",
    "material": "PETG",
-   "mass_g": 34.1,
+   "mass_g": 43.5,
    "print": "upper_arm_b_l",
    "note": "Clamshell half with the nut traps."
   },
@@ -1591,7 +1591,7 @@
    "kind": "print",
    "color": "frame",
    "material": "PETG",
-   "mass_g": 41.6,
+   "mass_g": 38.8,
    "print": "elbow_l",
    "note": "J4 output to the forearm flange."
   },
@@ -1603,7 +1603,7 @@
    "kind": "print",
    "color": "shell",
    "material": "PETG",
-   "mass_g": 51.2,
+   "mass_g": 50.6,
    "print": "forearm_a_l",
    "note": ""
   },
@@ -1615,7 +1615,7 @@
    "kind": "print",
    "color": "shell",
    "material": "PETG",
-   "mass_g": 51.2,
+   "mass_g": 50.6,
    "print": "forearm_b_l",
    "note": ""
   },
@@ -1627,7 +1627,7 @@
    "kind": "print",
    "color": "dark",
    "material": "PETG",
-   "mass_g": 41.5,
+   "mass_g": 56.3,
    "print": "wrist_l",
    "note": "J5 horn and idler, holds J6."
   },
@@ -1704,6 +1704,78 @@
    "note": "Nori-style TPU 95A finger."
   },
   {
+   "name": "shoulder_cover_top_l",
+   "file": "shoulder_cover_top_l.stl",
+   "link": "l_link1",
+   "group": "arm",
+   "kind": "print",
+   "color": "shell",
+   "material": "PETG",
+   "mass_g": 24.1,
+   "print": "shoulder_cover_top_l",
+   "note": "Shoulder cover half. Two M3x10 into inserts in the shoulder tab. Prints on the split face."
+  },
+  {
+   "name": "shoulder_cover_bot_l",
+   "file": "shoulder_cover_bot_l.stl",
+   "link": "l_link1",
+   "group": "arm",
+   "kind": "print",
+   "color": "shell",
+   "material": "PETG",
+   "mass_g": 23.6,
+   "print": "shoulder_cover_bot_l",
+   "note": "Shoulder cover half. Two M3x10 into inserts in the shoulder tab. Prints on the split face."
+  },
+  {
+   "name": "clevis_cover_a_l",
+   "file": "clevis_cover_a_l.stl",
+   "link": "l_link2",
+   "group": "arm",
+   "kind": "print",
+   "color": "shell",
+   "material": "PETG",
+   "mass_g": 10.9,
+   "print": "clevis_cover_a_l",
+   "note": "Clevis cover half. Two M3x10 into inserts in the clevis span. Prints on the split face."
+  },
+  {
+   "name": "clevis_cover_b_l",
+   "file": "clevis_cover_b_l.stl",
+   "link": "l_link2",
+   "group": "arm",
+   "kind": "print",
+   "color": "shell",
+   "material": "PETG",
+   "mass_g": 10.9,
+   "print": "clevis_cover_b_l",
+   "note": "Clevis cover half. Two M3x10 into inserts in the clevis span. Prints on the split face."
+  },
+  {
+   "name": "elbow_cover_a_l",
+   "file": "elbow_cover_a_l.stl",
+   "link": "l_link3",
+   "group": "arm",
+   "kind": "print",
+   "color": "shell",
+   "material": "PETG",
+   "mass_g": 21.5,
+   "print": "elbow_cover_a_l",
+   "note": "Elbow cover half. Clamped by the two upper-arm collar bolts (M3x50 + nut); snaps shut at the bottom. Prints on the split face."
+  },
+  {
+   "name": "elbow_cover_b_l",
+   "file": "elbow_cover_b_l.stl",
+   "link": "l_link3",
+   "group": "arm",
+   "kind": "print",
+   "color": "shell",
+   "material": "PETG",
+   "mass_g": 21.2,
+   "print": "elbow_cover_b_l",
+   "note": "Elbow cover half. Clamped by the two upper-arm collar bolts (M3x50 + nut); snaps shut at the bottom. Prints on the split face."
+  },
+  {
    "name": "shoulder_r",
    "file": "shoulder_r.stl",
    "link": "r_link1",
@@ -1711,7 +1783,7 @@
    "kind": "print",
    "color": "shell",
    "material": "PETG",
-   "mass_g": 16.3,
+   "mass_g": 45.9,
    "print": "shoulder_r",
    "note": "J1 output to the J2 cup. Screw it to J1 before J2 goes in."
   },
@@ -1723,7 +1795,7 @@
    "kind": "print",
    "color": "frame",
    "material": "PETG",
-   "mass_g": 72.0,
+   "mass_g": 80.9,
    "print": "clevis_r",
    "note": "J2 output, holds J3."
   },
@@ -1735,7 +1807,7 @@
    "kind": "print",
    "color": "shell",
    "material": "PETG",
-   "mass_g": 30.0,
+   "mass_g": 43.5,
    "print": "upper_arm_a_r",
    "note": "Clamshell half. Prints on the split face."
   },
@@ -1747,7 +1819,7 @@
    "kind": "print",
    "color": "shell",
    "material": "PETG",
-   "mass_g": 34.1,
+   "mass_g": 43.5,
    "print": "upper_arm_b_r",
    "note": "Clamshell half with the nut traps."
   },
@@ -1759,7 +1831,7 @@
    "kind": "print",
    "color": "frame",
    "material": "PETG",
-   "mass_g": 41.6,
+   "mass_g": 38.8,
    "print": "elbow_r",
    "note": "J4 output to the forearm flange."
   },
@@ -1771,7 +1843,7 @@
    "kind": "print",
    "color": "shell",
    "material": "PETG",
-   "mass_g": 51.2,
+   "mass_g": 50.6,
    "print": "forearm_a_r",
    "note": ""
   },
@@ -1783,7 +1855,7 @@
    "kind": "print",
    "color": "shell",
    "material": "PETG",
-   "mass_g": 51.2,
+   "mass_g": 50.6,
    "print": "forearm_b_r",
    "note": ""
   },
@@ -1795,7 +1867,7 @@
    "kind": "print",
    "color": "dark",
    "material": "PETG",
-   "mass_g": 41.5,
+   "mass_g": 56.3,
    "print": "wrist_r",
    "note": "J5 horn and idler, holds J6."
   },
@@ -1870,6 +1942,78 @@
    "mass_g": 6.3,
    "print": "finger_b_r",
    "note": "Nori-style TPU 95A finger."
+  },
+  {
+   "name": "shoulder_cover_top_r",
+   "file": "shoulder_cover_top_r.stl",
+   "link": "r_link1",
+   "group": "arm",
+   "kind": "print",
+   "color": "shell",
+   "material": "PETG",
+   "mass_g": 24.1,
+   "print": "shoulder_cover_top_r",
+   "note": "Shoulder cover half. Two M3x10 into inserts in the shoulder tab. Prints on the split face."
+  },
+  {
+   "name": "shoulder_cover_bot_r",
+   "file": "shoulder_cover_bot_r.stl",
+   "link": "r_link1",
+   "group": "arm",
+   "kind": "print",
+   "color": "shell",
+   "material": "PETG",
+   "mass_g": 23.6,
+   "print": "shoulder_cover_bot_r",
+   "note": "Shoulder cover half. Two M3x10 into inserts in the shoulder tab. Prints on the split face."
+  },
+  {
+   "name": "clevis_cover_a_r",
+   "file": "clevis_cover_a_r.stl",
+   "link": "r_link2",
+   "group": "arm",
+   "kind": "print",
+   "color": "shell",
+   "material": "PETG",
+   "mass_g": 10.9,
+   "print": "clevis_cover_a_r",
+   "note": "Clevis cover half. Two M3x10 into inserts in the clevis span. Prints on the split face."
+  },
+  {
+   "name": "clevis_cover_b_r",
+   "file": "clevis_cover_b_r.stl",
+   "link": "r_link2",
+   "group": "arm",
+   "kind": "print",
+   "color": "shell",
+   "material": "PETG",
+   "mass_g": 10.9,
+   "print": "clevis_cover_b_r",
+   "note": "Clevis cover half. Two M3x10 into inserts in the clevis span. Prints on the split face."
+  },
+  {
+   "name": "elbow_cover_a_r",
+   "file": "elbow_cover_a_r.stl",
+   "link": "r_link3",
+   "group": "arm",
+   "kind": "print",
+   "color": "shell",
+   "material": "PETG",
+   "mass_g": 21.5,
+   "print": "elbow_cover_a_r",
+   "note": "Elbow cover half. Clamped by the two upper-arm collar bolts (M3x50 + nut); snaps shut at the bottom. Prints on the split face."
+  },
+  {
+   "name": "elbow_cover_b_r",
+   "file": "elbow_cover_b_r.stl",
+   "link": "r_link3",
+   "group": "arm",
+   "kind": "print",
+   "color": "shell",
+   "material": "PETG",
+   "mass_g": 21.2,
+   "print": "elbow_cover_b_r",
+   "note": "Elbow cover half. Clamped by the two upper-arm collar bolts (M3x50 + nut); snaps shut at the bottom. Prints on the split face."
   },
   {
    "name": "joiner_00",

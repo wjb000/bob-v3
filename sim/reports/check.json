@@ -3,7 +3,7 @@
   "ok": true,
   "drift_mm": 0.01,
   "tilt_deg": 0.02,
-  "max_track_err": 0.027
+  "max_track_err": 0.0294
  },
  "torque": {
   "ok": true,
@@ -11,42 +11,42 @@
   "rows": [
    {
     "joint": "shoulder_pitch",
-    "worst_Nm": 5.96,
+    "worst_Nm": 6.22,
     "rated_Nm": 2.21,
     "peak_Nm": 9.32,
-    "of_rated": 2.7,
-    "of_peak": 0.64
+    "of_rated": 2.82,
+    "of_peak": 0.67
    },
    {
     "joint": "shoulder_roll",
-    "worst_Nm": 4.13,
+    "worst_Nm": 4.31,
     "rated_Nm": 2.21,
     "peak_Nm": 9.32,
-    "of_rated": 1.87,
-    "of_peak": 0.44
+    "of_rated": 1.95,
+    "of_peak": 0.46
    },
    {
     "joint": "upper_arm_yaw",
-    "worst_Nm": 2.81,
+    "worst_Nm": 2.85,
     "rated_Nm": 1.57,
     "peak_Nm": 4.9,
-    "of_rated": 1.79,
-    "of_peak": 0.57
+    "of_rated": 1.82,
+    "of_peak": 0.58
    },
    {
     "joint": "elbow",
-    "worst_Nm": 2.88,
+    "worst_Nm": 2.92,
     "rated_Nm": 2.21,
     "peak_Nm": 9.32,
-    "of_rated": 1.3,
+    "of_rated": 1.32,
     "of_peak": 0.31
    },
    {
     "joint": "wrist_pitch",
-    "worst_Nm": 1.1,
+    "worst_Nm": 1.12,
     "rated_Nm": 1.57,
     "peak_Nm": 4.9,
-    "of_rated": 0.7,
+    "of_rated": 0.71,
     "of_peak": 0.23
    },
    {
@@ -60,41 +60,41 @@
   ],
   "poses": {
    "arm forward": {
-    "shoulder_pitch": -5.96,
+    "shoulder_pitch": -6.22,
     "shoulder_roll": -0.0,
-    "upper_arm_yaw": -0.01,
-    "elbow": -2.88,
-    "wrist_pitch": -1.1,
+    "upper_arm_yaw": 0.0,
+    "elbow": -2.92,
+    "wrist_pitch": -1.12,
     "wrist_roll": 0.0
    },
    "arm sideways": {
     "shoulder_pitch": 0.27,
-    "shoulder_roll": 4.13,
+    "shoulder_roll": 4.31,
     "upper_arm_yaw": -0.26,
-    "elbow": -2.02,
-    "wrist_pitch": -0.75,
+    "elbow": -2.05,
+    "wrist_pitch": -0.76,
     "wrist_roll": 0.0
    },
    "forearm out": {
-    "shoulder_pitch": -2.86,
-    "shoulder_roll": 0.32,
+    "shoulder_pitch": -2.9,
+    "shoulder_roll": 0.33,
     "upper_arm_yaw": 0.29,
-    "elbow": -2.86,
-    "wrist_pitch": -1.1,
+    "elbow": -2.9,
+    "wrist_pitch": -1.11,
     "wrist_roll": 0.0
    },
    "wrist out": {
-    "shoulder_pitch": -2.86,
-    "shoulder_roll": 0.32,
+    "shoulder_pitch": -2.9,
+    "shoulder_roll": 0.33,
     "upper_arm_yaw": 0.29,
-    "elbow": -2.86,
-    "wrist_pitch": -1.1,
+    "elbow": -2.9,
+    "wrist_pitch": -1.11,
     "wrist_roll": 0.0
    },
    "yaw loaded": {
-    "shoulder_pitch": -3.19,
+    "shoulder_pitch": -3.4,
     "shoulder_roll": -0.0,
-    "upper_arm_yaw": -2.81,
+    "upper_arm_yaw": -2.85,
     "elbow": 0.0,
     "wrist_pitch": 0.0,
     "wrist_roll": -0.01
@@ -103,18 +103,18 @@
  },
  "hold": {
   "ok": false,
-  "worst_err_deg": 3.69,
+  "worst_err_deg": 3.87,
   "tilt_deg": 0.05,
   "saturated": {},
   "errors": {
-   "r_shoulder_pitch": 3.69,
-   "l_shoulder_pitch": 3.69,
-   "r_shoulder_roll": 0.0,
-   "l_shoulder_roll": 0.02,
-   "r_upper_arm_yaw": 0.16,
+   "r_shoulder_pitch": 3.86,
+   "l_shoulder_pitch": 3.87,
+   "r_shoulder_roll": 0.01,
+   "l_shoulder_roll": 0.01,
+   "r_upper_arm_yaw": 0.17,
    "l_upper_arm_yaw": 0.17,
-   "r_elbow": 1.37,
-   "l_elbow": 1.37,
+   "r_elbow": 1.39,
+   "l_elbow": 1.39,
    "r_wrist_pitch": 0.34,
    "l_wrist_pitch": 0.34
   }
@@ -125,10 +125,10 @@
   "speed_mm_s": 25.0,
   "time_s": 18.8,
   "down_time_s": 18.5,
-  "worst_lag_mm": 5.42,
-  "hold_err_mm": 1.06,
-  "bottom_err_mm": 1.99,
-  "hold_force_N": 63.1,
+  "worst_lag_mm": 5.48,
+  "hold_err_mm": 1.12,
+  "bottom_err_mm": 1.97,
+  "hold_force_N": 66.7,
   "stage_err_mm": 0.04,
   "base_tilt_deg": 0.027,
   "contacts": [],
@@ -139,74 +139,74 @@
   "poses": {
    "lift up, worst pose the interlock allows": {
     "com_mm": [
-     43.2,
-     13.8,
-     449.5
+     45.1,
+     12.8,
+     459.0
     ],
-    "margin_mm": 76.6,
+    "margin_mm": 76.1,
     "tilt_deg": 0.03
    },
    "lift mid, worst pose the interlock allows": {
     "com_mm": [
-     43.7,
-     13.8,
-     375.6
+     45.6,
+     12.9,
+     382.9
     ],
-    "margin_mm": 76.6,
+    "margin_mm": 76.2,
     "tilt_deg": 0.03
    },
    "lift down, worst pose the interlock allows": {
     "com_mm": [
-     82.8,
+     84.4,
      14.0,
-     241.7
+     245.7
     ],
-    "margin_mm": 50.2,
+    "margin_mm": 49.2,
     "tilt_deg": 0.05
    },
    "lift down, floor pick": {
     "com_mm": [
-     15.2,
+     15.9,
      2.1,
-     194.7
+     197.9
     ],
-    "margin_mm": 150.9,
+    "margin_mm": 151.8,
     "tilt_deg": 0.06
    }
   },
-  "worst_margin_mm": 50.2
+  "worst_margin_mm": 49.2
  },
  "brake": {
   "ok": true,
-  "speed_mps": 0.59,
-  "max_tilt_deg": 0.16,
+  "speed_mps": 0.56,
+  "max_tilt_deg": 0.17,
   "tilt_by_decel": {
-   "1.0": 0.05,
+   "1.0": 0.06,
    "2.0": 0.1,
-   "4.0": 0.14,
-   "6.0": 0.16
+   "4.0": 0.15,
+   "6.0": 0.17
   }
  },
  "push": {
   "ok": false,
-  "push_forward_N": 20.5,
-  "push_back_N": 19.3
+  "push_forward_N": 23.4,
+  "push_back_N": 19.9
  },
  "slope": {
   "ok": true,
   "com_m": [
-   0.043,
-   0.011,
-   0.453
+   0.045,
+   0.01,
+   0.463
   ],
-  "down_deg": 16.5,
-  "up_deg": 20.5,
-  "side_deg": 17.1
+  "down_deg": 15.9,
+  "up_deg": 20.3,
+  "side_deg": 16.9
  },
  "reach": {
   "ok": true,
   "samples": 6000,
-  "valid": 5365,
+  "valid": 5310,
   "z_max_m": 1.503,
   "floor_reach_x_m": 0.448,
   "lowest_in_front_m": 0.023,
@@ -265,24 +265,24 @@
   },
   "stability_by_lift": {
    "0.000": {
-    "push_forward_N": 23.4,
-    "push_back_N": 47.5,
-    "down_deg": 20.6,
-    "up_deg": 40.1,
-    "meets": false
+    "push_forward_N": 26.4,
+    "push_back_N": 49.2,
+    "down_deg": 20.0,
+    "up_deg": 39.8,
+    "meets": true
    },
    "0.300": {
     "push_forward_N": 25.2,
-    "push_back_N": 22.9,
-    "down_deg": 19.5,
-    "up_deg": 24.1,
+    "push_back_N": 23.4,
+    "down_deg": 18.9,
+    "up_deg": 23.9,
     "meets": false
    },
    "0.462": {
-    "push_forward_N": 20.5,
-    "push_back_N": 19.3,
-    "down_deg": 16.5,
-    "up_deg": 20.5,
+    "push_forward_N": 23.4,
+    "push_back_N": 19.9,
+    "down_deg": 15.9,
+    "up_deg": 20.3,
     "meets": false
    }
   },
