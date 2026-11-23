@@ -3,11 +3,11 @@
  "frame": "x forward, y left, z up, origin on the floor between the wheels",
  "links": {
   "base": {
-   "mass_g": 10992.7,
+   "mass_g": 5565.6,
    "com": [
-    -75.8,
-    -11.4,
-    111.8
+    10.2,
+    12.0,
+    120.5
    ]
   },
   "lift_mid": {
@@ -182,20 +182,20 @@
    "mass_g": 465.0,
    "com": [
     -0.0,
-    200.0,
-    50.3
+    150.0,
+    50.4
    ]
   },
   "wheel_r": {
    "mass_g": 465.0,
    "com": [
     -0.0,
-    -200.0,
+    -150.0,
     50.4
    ]
   }
  },
- "total_mass_g": 17297.4,
+ "total_mass_g": 11870.3,
  "joints": [
   {
    "name": "lift",
@@ -273,7 +273,7 @@
    "child": "wheel_l",
    "anchor": [
     0.0,
-    200.0,
+    150.0,
     50.35
    ],
    "axis": [
@@ -296,7 +296,7 @@
    "child": "wheel_r",
    "anchor": [
     0.0,
-    -200.0,
+    -150.0,
     50.35
    ],
    "axis": [
@@ -734,15 +734,15 @@
   "home": {
    "lift": 0.1,
    "head_tilt": 0.25,
-   "l_shoulder_pitch": -0.35,
+   "l_shoulder_pitch": -0.8,
    "l_shoulder_roll": 0.1,
-   "l_elbow": -1.55,
+   "l_elbow": -1.4,
    "l_wrist_pitch": 0.35,
    "l_gripper": 0.012,
    "l_gripper_b": 0.012,
-   "r_shoulder_pitch": -0.35,
+   "r_shoulder_pitch": -0.8,
    "r_shoulder_roll": 0.1,
-   "r_elbow": -1.55,
+   "r_elbow": -1.4,
    "r_wrist_pitch": 0.35,
    "r_gripper": 0.012,
    "r_gripper_b": 0.012
@@ -816,9 +816,9 @@
    "l_wrist_pitch": 0.0,
    "l_gripper": 0.012,
    "l_gripper_b": 0.012,
-   "r_shoulder_pitch": -0.35,
+   "r_shoulder_pitch": -0.8,
    "r_shoulder_roll": 0.1,
-   "r_elbow": -1.55,
+   "r_elbow": -1.4,
    "r_wrist_pitch": 0.35,
    "r_gripper": 0.012,
    "r_gripper_b": 0.012,
@@ -835,7 +835,7 @@
    "kind": "print",
    "color": "shell",
    "material": "PETG",
-   "mass_g": 132.1,
+   "mass_g": 68.1,
    "print": "base_shell_rear_r",
    "note": "Print top-down. Heat-set inserts in the seam bosses."
   },
@@ -847,7 +847,7 @@
    "kind": "print",
    "color": "shell",
    "material": "PETG",
-   "mass_g": 124.6,
+   "mass_g": 118.0,
    "print": "base_shell_rear_c",
    "note": "Print top-down. Heat-set inserts in the seam bosses."
   },
@@ -859,7 +859,7 @@
    "kind": "print",
    "color": "shell",
    "material": "PETG",
-   "mass_g": 130.8,
+   "mass_g": 66.8,
    "print": "base_shell_rear_l",
    "note": "Print top-down. Heat-set inserts in the seam bosses."
   },
@@ -871,7 +871,7 @@
    "kind": "print",
    "color": "shell",
    "material": "PETG",
-   "mass_g": 105.4,
+   "mass_g": 80.6,
    "print": "base_shell_mid_r",
    "note": "Print top-down. Heat-set inserts in the seam bosses."
   },
@@ -883,7 +883,7 @@
    "kind": "print",
    "color": "shell",
    "material": "PETG",
-   "mass_g": 51.0,
+   "mass_g": 57.4,
    "print": "base_shell_mid_c",
    "note": "Print top-down. Heat-set inserts in the seam bosses."
   },
@@ -895,7 +895,7 @@
    "kind": "print",
    "color": "shell",
    "material": "PETG",
-   "mass_g": 104.5,
+   "mass_g": 80.6,
    "print": "base_shell_mid_l",
    "note": "Print top-down. Heat-set inserts in the seam bosses."
   },
@@ -907,7 +907,7 @@
    "kind": "print",
    "color": "shell",
    "material": "PETG",
-   "mass_g": 127.7,
+   "mass_g": 95.2,
    "print": "base_shell_front_r",
    "note": "Print top-down. Heat-set inserts in the seam bosses."
   },
@@ -919,7 +919,7 @@
    "kind": "print",
    "color": "shell",
    "material": "PETG",
-   "mass_g": 118.0,
+   "mass_g": 136.1,
    "print": "base_shell_front_c",
    "note": "Print top-down. Heat-set inserts in the seam bosses."
   },
@@ -931,7 +931,7 @@
    "kind": "print",
    "color": "shell",
    "material": "PETG",
-   "mass_g": 128.0,
+   "mass_g": 96.3,
    "print": "base_shell_front_l",
    "note": "Print top-down. Heat-set inserts in the seam bosses."
   },
@@ -943,7 +943,7 @@
    "kind": "print",
    "color": "frame",
    "material": "PETG",
-   "mass_g": 74.9,
+   "mass_g": 27.3,
    "print": "base_pan_rear_r",
    "note": "Structure. Skin down on the bed, ribs up. 4 walls."
   },
@@ -955,7 +955,7 @@
    "kind": "print",
    "color": "frame",
    "material": "PETG",
-   "mass_g": 95.9,
+   "mass_g": 67.8,
    "print": "base_pan_rear_c",
    "note": "Structure. Skin down on the bed, ribs up. 4 walls."
   },
@@ -967,7 +967,7 @@
    "kind": "print",
    "color": "frame",
    "material": "PETG",
-   "mass_g": 74.7,
+   "mass_g": 28.3,
    "print": "base_pan_rear_l",
    "note": "Structure. Skin down on the bed, ribs up. 4 walls."
   },
@@ -979,7 +979,7 @@
    "kind": "print",
    "color": "frame",
    "material": "PETG",
-   "mass_g": 89.4,
+   "mass_g": 45.4,
    "print": "base_pan_mid_r",
    "note": "Structure. Skin down on the bed, ribs up. 4 walls."
   },
@@ -991,7 +991,7 @@
    "kind": "print",
    "color": "frame",
    "material": "PETG",
-   "mass_g": 132.9,
+   "mass_g": 144.5,
    "print": "base_pan_mid_c",
    "note": "Structure. Skin down on the bed, ribs up. 4 walls."
   },
@@ -1003,7 +1003,7 @@
    "kind": "print",
    "color": "frame",
    "material": "PETG",
-   "mass_g": 84.5,
+   "mass_g": 42.4,
    "print": "base_pan_mid_l",
    "note": "Structure. Skin down on the bed, ribs up. 4 walls."
   },
@@ -1015,7 +1015,7 @@
    "kind": "print",
    "color": "frame",
    "material": "PETG",
-   "mass_g": 74.1,
+   "mass_g": 46.6,
    "print": "base_pan_front_r",
    "note": "Structure. Skin down on the bed, ribs up. 4 walls."
   },
@@ -1027,7 +1027,7 @@
    "kind": "print",
    "color": "frame",
    "material": "PETG",
-   "mass_g": 92.6,
+   "mass_g": 113.6,
    "print": "base_pan_front_c",
    "note": "Structure. Skin down on the bed, ribs up. 4 walls."
   },
@@ -1039,7 +1039,7 @@
    "kind": "print",
    "color": "frame",
    "material": "PETG",
-   "mass_g": 72.4,
+   "mass_g": 45.6,
    "print": "base_pan_front_l",
    "note": "Structure. Skin down on the bed, ribs up. 4 walls."
   },
@@ -1159,7 +1159,7 @@
    "kind": "print",
    "color": "frame",
    "material": "PETG",
-   "mass_g": 33.5,
+   "mass_g": 35.4,
    "print": "battery_cradle_l",
    "note": "Two halves meet under the pack; the strap holds them together."
   },
@@ -1171,7 +1171,7 @@
    "kind": "print",
    "color": "frame",
    "material": "PETG",
-   "mass_g": 33.5,
+   "mass_g": 35.4,
    "print": "battery_cradle_r",
    "note": "Two halves meet under the pack; the strap holds them together."
   },
@@ -2203,7 +2203,7 @@
    "kind": "print",
    "color": "frame",
    "material": "PETG",
-   "mass_g": 1.6,
+   "mass_g": 1.5,
    "print": "joiner_tab",
    "note": "Joiner tab"
   },
@@ -2215,7 +2215,7 @@
    "kind": "print",
    "color": "frame",
    "material": "PETG",
-   "mass_g": 1.6,
+   "mass_g": 1.5,
    "print": "joiner_tab",
    "note": "Joiner tab"
   },
@@ -2227,7 +2227,7 @@
    "kind": "print",
    "color": "frame",
    "material": "PETG",
-   "mass_g": 1.6,
+   "mass_g": 1.5,
    "print": "joiner_tab",
    "note": "Joiner tab"
   },
@@ -2239,7 +2239,7 @@
    "kind": "print",
    "color": "frame",
    "material": "PETG",
-   "mass_g": 1.6,
+   "mass_g": 1.5,
    "print": "joiner_tab",
    "note": "Joiner tab"
   },
@@ -2251,7 +2251,7 @@
    "kind": "print",
    "color": "frame",
    "material": "PETG",
-   "mass_g": 1.6,
+   "mass_g": 1.5,
    "print": "joiner_tab",
    "note": "Joiner tab"
   },
@@ -2263,7 +2263,7 @@
    "kind": "print",
    "color": "frame",
    "material": "PETG",
-   "mass_g": 1.6,
+   "mass_g": 1.5,
    "print": "joiner_tab",
    "note": "Joiner tab"
   },
@@ -2299,7 +2299,7 @@
    "kind": "print",
    "color": "frame",
    "material": "PETG",
-   "mass_g": 1.5,
+   "mass_g": 1.7,
    "print": "joiner_tab",
    "note": "Joiner tab"
   },
@@ -2311,7 +2311,7 @@
    "kind": "print",
    "color": "frame",
    "material": "PETG",
-   "mass_g": 1.5,
+   "mass_g": 1.7,
    "print": "joiner_tab",
    "note": "Joiner tab"
   },
@@ -2323,7 +2323,7 @@
    "kind": "print",
    "color": "frame",
    "material": "PETG",
-   "mass_g": 1.5,
+   "mass_g": 1.7,
    "print": "joiner_tab",
    "note": "Joiner tab"
   },
@@ -2335,7 +2335,7 @@
    "kind": "print",
    "color": "frame",
    "material": "PETG",
-   "mass_g": 1.5,
+   "mass_g": 1.7,
    "print": "joiner_tab",
    "note": "Joiner tab"
   },
@@ -2347,7 +2347,7 @@
    "kind": "print",
    "color": "frame",
    "material": "PETG",
-   "mass_g": 1.5,
+   "mass_g": 1.7,
    "print": "joiner_tab",
    "note": "Joiner tab"
   },
@@ -2359,7 +2359,7 @@
    "kind": "print",
    "color": "frame",
    "material": "PETG",
-   "mass_g": 1.5,
+   "mass_g": 1.7,
    "print": "joiner_tab",
    "note": "Joiner tab"
   },
@@ -2371,7 +2371,7 @@
    "kind": "print",
    "color": "frame",
    "material": "PETG",
-   "mass_g": 1.7,
+   "mass_g": 1.6,
    "print": "joiner_tab",
    "note": "Joiner tab"
   },
@@ -2383,7 +2383,7 @@
    "kind": "print",
    "color": "frame",
    "material": "PETG",
-   "mass_g": 1.7,
+   "mass_g": 1.6,
    "print": "joiner_tab",
    "note": "Joiner tab"
   },
@@ -2395,7 +2395,7 @@
    "kind": "print",
    "color": "frame",
    "material": "PETG",
-   "mass_g": 1.7,
+   "mass_g": 1.6,
    "print": "joiner_tab",
    "note": "Joiner tab"
   },
@@ -2407,7 +2407,7 @@
    "kind": "print",
    "color": "frame",
    "material": "PETG",
-   "mass_g": 1.7,
+   "mass_g": 1.6,
    "print": "joiner_tab",
    "note": "Joiner tab"
   },
@@ -2419,7 +2419,7 @@
    "kind": "print",
    "color": "frame",
    "material": "PETG",
-   "mass_g": 1.7,
+   "mass_g": 1.6,
    "print": "joiner_tab",
    "note": "Joiner tab"
   },
@@ -2431,7 +2431,7 @@
    "kind": "print",
    "color": "frame",
    "material": "PETG",
-   "mass_g": 1.7,
+   "mass_g": 1.6,
    "print": "joiner_tab",
    "note": "Joiner tab"
   },
@@ -2534,36 +2534,36 @@
   {
    "name": "joiner_48",
    "file": "joiner_48.stl",
-   "link": "base",
-   "group": "base",
+   "link": "lift",
+   "group": "torso",
    "kind": "print",
    "color": "frame",
    "material": "PETG",
-   "mass_g": 1.6,
+   "mass_g": 1.7,
    "print": "joiner_tab",
    "note": "Joiner tab"
   },
   {
    "name": "joiner_49",
    "file": "joiner_49.stl",
-   "link": "base",
-   "group": "base",
+   "link": "lift",
+   "group": "torso",
    "kind": "print",
    "color": "frame",
    "material": "PETG",
-   "mass_g": 1.6,
+   "mass_g": 1.7,
    "print": "joiner_tab",
    "note": "Joiner tab"
   },
   {
    "name": "joiner_50",
    "file": "joiner_50.stl",
-   "link": "base",
-   "group": "base",
+   "link": "lift",
+   "group": "torso",
    "kind": "print",
    "color": "frame",
    "material": "PETG",
-   "mass_g": 1.6,
+   "mass_g": 1.7,
    "print": "joiner_tab",
    "note": "Joiner tab"
   },
@@ -2623,7 +2623,7 @@
    "kind": "print",
    "color": "frame",
    "material": "PETG",
-   "mass_g": 1.7,
+   "mass_g": 1.6,
    "print": "joiner_tab",
    "note": "Joiner tab"
   },
@@ -2635,7 +2635,7 @@
    "kind": "print",
    "color": "frame",
    "material": "PETG",
-   "mass_g": 1.7,
+   "mass_g": 1.6,
    "print": "joiner_tab",
    "note": "Joiner tab"
   },
@@ -2647,7 +2647,7 @@
    "kind": "print",
    "color": "frame",
    "material": "PETG",
-   "mass_g": 1.7,
+   "mass_g": 1.6,
    "print": "joiner_tab",
    "note": "Joiner tab"
   },
@@ -2702,8 +2702,8 @@
   {
    "name": "joiner_62",
    "file": "joiner_62.stl",
-   "link": "lift",
-   "group": "torso",
+   "link": "head_tilt",
+   "group": "head",
    "kind": "print",
    "color": "frame",
    "material": "PETG",
@@ -2714,8 +2714,8 @@
   {
    "name": "joiner_63",
    "file": "joiner_63.stl",
-   "link": "lift",
-   "group": "torso",
+   "link": "head_tilt",
+   "group": "head",
    "kind": "print",
    "color": "frame",
    "material": "PETG",
@@ -2726,8 +2726,8 @@
   {
    "name": "joiner_64",
    "file": "joiner_64.stl",
-   "link": "lift",
-   "group": "torso",
+   "link": "head_tilt",
+   "group": "head",
    "kind": "print",
    "color": "frame",
    "material": "PETG",
@@ -2755,49 +2755,13 @@
    "kind": "print",
    "color": "frame",
    "material": "PETG",
-   "mass_g": 1.6,
+   "mass_g": 1.7,
    "print": "joiner_tab",
    "note": "Joiner tab"
   },
   {
    "name": "joiner_67",
    "file": "joiner_67.stl",
-   "link": "head_tilt",
-   "group": "head",
-   "kind": "print",
-   "color": "frame",
-   "material": "PETG",
-   "mass_g": 1.6,
-   "print": "joiner_tab",
-   "note": "Joiner tab"
-  },
-  {
-   "name": "joiner_68",
-   "file": "joiner_68.stl",
-   "link": "head_tilt",
-   "group": "head",
-   "kind": "print",
-   "color": "frame",
-   "material": "PETG",
-   "mass_g": 1.6,
-   "print": "joiner_tab",
-   "note": "Joiner tab"
-  },
-  {
-   "name": "joiner_69",
-   "file": "joiner_69.stl",
-   "link": "head_tilt",
-   "group": "head",
-   "kind": "print",
-   "color": "frame",
-   "material": "PETG",
-   "mass_g": 1.7,
-   "print": "joiner_tab",
-   "note": "Joiner tab"
-  },
-  {
-   "name": "joiner_70",
-   "file": "joiner_70.stl",
    "link": "head_tilt",
    "group": "head",
    "kind": "print",
@@ -3301,39 +3265,6 @@
    "material": "bought",
    "mass_g": 30,
    "bom": "m8"
-  },
-  {
-   "name": "ballast_port",
-   "file": "ballast_port.stl",
-   "link": "base",
-   "group": "base",
-   "kind": "metal",
-   "color": "steel",
-   "material": "bought",
-   "mass_g": 1464.4,
-   "bom": "ballast"
-  },
-  {
-   "name": "ballast_keel",
-   "file": "ballast_keel.stl",
-   "link": "base",
-   "group": "base",
-   "kind": "metal",
-   "color": "steel",
-   "material": "bought",
-   "mass_g": 976.7,
-   "bom": "ballast"
-  },
-  {
-   "name": "ballast_aft",
-   "file": "ballast_aft.stl",
-   "link": "base",
-   "group": "base",
-   "kind": "metal",
-   "color": "steel",
-   "material": "bought",
-   "mass_g": 2532.1,
-   "bom": "ballast"
   },
   {
    "name": "lift_motor",
@@ -4319,14 +4250,16 @@
   "shoulder_z0": 452.0,
   "lift_travel": 558.0,
   "base": [
-   470.0,
-   470.0,
+   440.0,
+   360.0,
    212.0
   ],
   "wheel_od": 100.7,
   "wheel_w": 43.0,
-  "wheel_y": 200.0,
-  "caster_x": 176.0,
+  "wheel_y": 150.0,
+  "caster_x": 192.0,
+  "caster_x_rear": 132.0,
+  "base_cx": 30.0,
   "caster_trail": 12.0,
   "caster_wheel": 40.0,
   "mast_top": 419.0

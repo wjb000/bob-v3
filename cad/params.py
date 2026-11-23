@@ -122,42 +122,47 @@ EYE_GLASS = 32.4
 LIDAR_D = 55.6  # Slamtec RPLIDAR C1
 LIDAR_H = 41.3
 ESTOP_HOLE = 22.5  # 22 mm panel e-stop
-CHARGE_XY = (150.0, -125.0)  # GX16 on the base top, front-right, where the right hand reaches
+CHARGE_XY = (125.0, -110.0)  # GX16 on the base top, front-right, where the right hand reaches
 CHARGE_HOLE = 20.0  # clears the GX16 nut (19 mm); the 21 mm flange stays on the skin
 
 # ---------------------------------------------------------------- base
-# Rounded square, as small as the shove test allows. A 400 mm circle put the
-# front caster only 120 mm ahead of the wheel axis, and a shove at the head
-# tipped it at 18 N. The flat edges of a square let the casters sit further
-# out. Corner radius is large so the shell matches the reference render.
-# Diagonal is 26 in, which still turns in a hallway.
-BASE_L = 470.0
-BASE_W = 470.0
-BASE_R = 104.0  # corner radius, not a plan radius
+# Rounded rectangle, 440 long x 360 wide, no steel ballast. The width is set by
+# the DDSM115 tires tucked in to y = ±150 under the raised battery.
+# Without steel, the arms reaching forward are what tips it, so the base is not
+# centred on the axle: the front caster sits 192 mm ahead of the axle and the
+# rear one 132 mm behind it (as close as the cable trough lets it), and the shell
+# centre is 30 mm ahead of the axle. In MuJoCo the front caster has to touch down
+# at least 180 mm ahead of the axle before a straight-arm hold with 0.5 kg per
+# hand at the top of the lift stops tipping it (sim/check.py hold and tip).
+BASE_L = 440.0
+BASE_W = 360.0
+BASE_CX = 30.0  # shell centre, ahead of the wheel axis
+BASE_R = 90.0  # corner radius, not a plan radius
 BASE_TOP = 212.0  # top surface of the shell
 BASE_WALL = 3.0
 SHELL_BOTTOM = 30.0
 GRID_X = (-90.0, 90.0)  # tile cuts, clear of the column well (x = ±50). Mid tile is 180 mm.
-GRID_Y = (-90.0, 90.0)
+GRID_Y = (-98.5, 98.5)  # between the two rows of wheel-bracket bolts, so each bracket also ties the side tile to the middle one
 
 PAN_INSET = 8.0  # pan outline sits this far inside the shell
 PAN_BOTTOM = 22.0  # rib bottoms (ground clearance)
 PAN_TOP = 37.0
 PAN_SKIN = 4.0
 
-WHEEL_Y = 200.0  # wheel centre, each side. Tires sit just inside the flat side of the shell.
+WHEEL_Y = 150.0  # wheel centre, each side. Tires sit just inside the flat side of the shell, under the battery.
 AXLE_Z = WHEEL_OD / 2.0
 WHEEL_ARCH_R = 60.0
 WHEEL_CUT_X = 58.0  # pan cutout half-length around the tire
-WHEEL_CUT_Y = 176.0  # pan cutout starts here, outboard of the axle bolts
-CASTER_X = 176.0  # on the front and rear flats, as far out as the fork hole allows
+WHEEL_CUT_Y = WHEEL_Y - 24.0  # pan cutout starts here, outboard of the axle bolts
+CASTER_XF = 192.0  # front caster swivel, on the front flat
+CASTER_XR = 132.0  # rear caster swivel, behind the cable trough
 CASTER_WHEEL = 40.0
 CASTER_WHEEL_W = 22.0
 CASTER_TRAIL = 12.0
 CASTER_HOLE = 84.0  # pan cutout the fork swings in
 CASTER_PLATE_Z = 56.0  # bottom of the swivel bridge plate
 
-LIDAR_X = CASTER_X  # on the front caster bridge
+LIDAR_X = CASTER_XF  # on the front caster bridge
 LIDAR_Z0 = 108.0  # bottom of the lidar
 LIDAR_SCAN_Z = 134.0  # optical plane, roughly
 
@@ -313,9 +318,11 @@ def check() -> None:
         errs.append("torso hits the base at the bottom of travel")
     if WHEEL_Y + WHEEL_W / 2 > BASE_W / 2 - 4:
         errs.append("tire rubs the shell")
-    if CASTER_X + CASTER_HOLE / 2 + 8 > BASE_L / 2 - PAN_INSET:
-        errs.append("caster hole breaks the pan rim")
-    if CASTER_X - CASTER_HOLE / 2 < COL_OUTER_D / 2 + 16:
+    if CASTER_XF + CASTER_HOLE / 2 + 8 > BASE_CX + BASE_L / 2 - PAN_INSET:
+        errs.append("front caster hole breaks the pan rim")
+    if CASTER_XR + CASTER_HOLE / 2 + 8 > BASE_L / 2 - BASE_CX - PAN_INSET:
+        errs.append("rear caster hole breaks the pan rim")
+    if min(CASTER_XF, CASTER_XR) - CASTER_HOLE / 2 < COL_OUTER_D / 2 + 16:
         errs.append("caster hole meets the column foot")
     if BASE_R > min(BASE_L, BASE_W) / 2:
         errs.append("corner radius larger than the base")

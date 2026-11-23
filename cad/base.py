@@ -23,18 +23,21 @@ SHELL_LX, SHELL_LY = P.BASE_L, P.BASE_W
 INNER_LX, INNER_LY = SHELL_LX - 2 * P.BASE_WALL, SHELL_LY - 2 * P.BASE_WALL
 PAN_LX, PAN_LY = SHELL_LX - 2 * P.PAN_INSET, SHELL_LY - 2 * P.PAN_INSET
 PAN_R = P.BASE_R - P.PAN_INSET
+BX = P.BASE_CX  # the shell and pan are centred here, not on the axle
+CASTERS = (P.CASTER_XF, -P.CASTER_XR)
 TOP_CHAMFER = 24.0
 
 MAST_HOLE = (P.COL_X - P.COL_OUTER_D / 2 - 4, P.COL_X + P.COL_OUTER_D / 2 + 4, P.COL_OUTER_D / 2 + 4)
 MAST_FLANGE = 12.0  # column foot overhang on the pan
-ESTOP_XY = (-200.0, 115.0)  # rear-left of the top, clear of the rear caster plate
+ESTOP_XY = (-122.0, 112.0)  # rear-left of the top, behind the battery, clear of the rear caster plate
 LIGHT_Z = (172.0, 178.0)
 
 # Pack turned so its 200 mm side runs fore-aft and it sits on +y, off the caster centreline.
-# Above the wheel brackets (they top out near z = 75) and clear of the column (y ≤ 50).
+# The cradle floor (BATT_Z0 - 8) rides 3 mm over the top of the left tire, so the
+# wheels can tuck in under the pack. Clear of the column (y ≤ 50).
 BATT_C = (0.0, 100.0)
 BATT_LX, BATT_LY = P.BATT[1], P.BATT[0]  # 200 along x, 80 along y
-BATT_Z0 = 100.0
+BATT_Z0 = 112.0
 SHELF_Z = 142.0
 SHELF_T = 4.0
 
@@ -63,8 +66,8 @@ def _caster_pts(cx):
 
 # Shelves stay on the open side (−y) and one rear pocket. +y is the battery.
 # Clear of the wheel brackets (x ±26, y −135..−105 on this side).
-FRONT_SHELF_PTS = [(55, -95), (90, -95), (72, -140)]
-REAR_SHELF_PTS = [(-55, -95), (-90, -95), (-72, -140)]
+FRONT_SHELF_PTS = [(55, -112), (90, -112), (72, -140)]
+REAR_SHELF_PTS = [(-55, -112), (-90, -112), (-72, -140)]
 FRONT_SHELF_R_PTS = [(120, -118), (140, -116), (126, -132)]
 REAR_SHELF_R_PTS = [(-132, 96), (-150, 108), (-128, 128)]
 # On the cradle side walls (x ≈ ±105). The old feet sat in the opening and the half fell apart.
@@ -76,16 +79,16 @@ def _lug_points():
     """Lugs on the flats of the rounded-square shell, clear of the wheel cuts and the caster holes."""
     hx, hy = PAN_LX / 2 - 18, PAN_LY / 2 - 18
     pts = []
-    for x in (-120.0, -60.0, 60.0, 120.0):
+    for x in (BX - 150.0, -60.0, 60.0, BX + 140.0):
         for sy in (1, -1):
             y = sy * hy
             if abs(y) > P.WHEEL_CUT_Y - 16 and abs(x) < P.WHEEL_CUT_X + 28:
                 continue
             pts.append((x, y))
     for y in (-80.0, 80.0):
-        for sx in (1, -1):
-            x = sx * hx
-            if math.hypot(x - sx * P.CASTER_X, y) < P.CASTER_HOLE / 2 + 24:
+        for sx, cx in zip((1, -1), CASTERS):
+            x = BX + sx * hx
+            if math.hypot(x - cx, y) < P.CASTER_HOLE / 2 + 24:
                 continue
             pts.append((x, y))
     return pts
@@ -96,8 +99,8 @@ def _register():
     PAN_PTS["col"] = _col_foot_pts()
     PAN_PTS["axle_l"] = _axle_pts(1)
     PAN_PTS["axle_r"] = _axle_pts(-1)
-    PAN_PTS["caster_f"] = _caster_pts(P.CASTER_X)
-    PAN_PTS["caster_r"] = _caster_pts(-P.CASTER_X)
+    PAN_PTS["caster_f"] = _caster_pts(CASTERS[0])
+    PAN_PTS["caster_r"] = _caster_pts(CASTERS[1])
     PAN_PTS["shelf_fl"] = FRONT_SHELF_PTS
     PAN_PTS["shelf_fr"] = FRONT_SHELF_R_PTS
     PAN_PTS["shelf_rl"] = REAR_SHELF_PTS
@@ -128,7 +131,7 @@ TAB = (30.0, 14.0, 4.0)
 def _on_top(q):
     """True when a point sits on the top skin, inside the chamfer of the rounded square."""
     lim = rr_boundary("y", q[1], SHELL_LX, SHELL_LY, P.BASE_R) - TOP_CHAMFER - 14
-    return abs(q[0]) <= lim and abs(q[1]) <= SHELL_LY / 2 - TOP_CHAMFER - 14
+    return abs(q[0] - BX) <= lim and abs(q[1]) <= SHELL_LY / 2 - TOP_CHAMFER - 14
 
 
 def _top_seam_pairs():
@@ -148,7 +151,7 @@ def _top_seam_pairs():
                 continue
             pairs.append(("x", a, b))
     for gy in P.GRID_Y:
-        for x in range(-200, 201, 46):
+        for x in range(-224, 291, 46):
             if any(abs(x - gx) < 16 for gx in P.GRID_X):
                 continue
             a, b = (x, gy - JOIN_OFF), (x, gy + JOIN_OFF)
@@ -170,6 +173,7 @@ def _wall_normal(x, y):
     """Inward normal of the rounded-square inner wall at a point on it."""
     hx, hy = INNER_LX / 2, INNER_LY / 2
     r = max(P.BASE_R - P.BASE_WALL, 1.0)
+    x = x - BX
     ax, ay = abs(x), abs(y)
     if ay >= hy - r - 1 and ax <= hx - r + 1:
         return (0.0, -1.0 if y > 0 else 1.0, 0.0)
@@ -194,7 +198,7 @@ def _wall_seam_pairs():
     rin = P.BASE_R - P.BASE_WALL
 
     def wall_y(x):
-        return rr_boundary("x", x, INNER_LX, INNER_LY, rin)
+        return rr_boundary("x", x - BX, INNER_LX, INNER_LY, rin)
 
     def wall_x(y):
         return rr_boundary("y", y, INNER_LX, INNER_LY, rin)
@@ -216,7 +220,7 @@ def _wall_seam_pairs():
                 if sx > 0 and 112 < z < 160:
                     continue  # lidar slot
                 ya, yb = gy - JOIN_OFF, gy + JOIN_OFF
-                out.append(pair((sx * wall_x(ya), ya, z), (sx * wall_x(yb), yb, z), "end"))
+                out.append(pair((BX + sx * wall_x(ya), ya, z), (BX + sx * wall_x(yb), yb, z), "end"))
     return out
 
 
@@ -242,7 +246,7 @@ def joiner_tab() -> cq.Shape:
 # ---------------------------------------------------------------- shell
 
 def _shell_full() -> cq.Shape:
-    s = rrect_shell(0, 0, P.SHELL_BOTTOM, P.BASE_TOP, SHELL_LX, SHELL_LY, P.BASE_R, P.BASE_WALL,
+    s = rrect_shell(BX, 0, P.SHELL_BOTTOM, P.BASE_TOP, SHELL_LX, SHELL_LY, P.BASE_R, P.BASE_WALL,
                     chamfer_top=TOP_CHAMFER, open_bot=True)
     adds = []
     # top-seam bosses hang under the skin
@@ -259,13 +263,13 @@ def _shell_full() -> cq.Shape:
             adds.append(cyl((q[0] - n[0] * 1, q[1] - n[1] * 1, q[2]), n, 10, depth + 1))
     # lugs onto the pan
     for x, y in LUG_PTS:
-        r = math.hypot(x, y)
-        ux, uy = x / r, y / r
+        r = math.hypot(x - BX, y)
+        ux, uy = (x - BX) / r, y / r
         lug = fuse(cyl((x, y, P.PAN_TOP), "z", 14, 8), cbox(x + ux * 14, y + uy * 14, P.PAN_TOP + 4, 28, 28, 8))
         adds.append(lug)
     # stiffening rim inside the chamfer line
     s = fuse(s, *adds)
-    s = s.intersect(rrect(0, 0, P.SHELL_BOTTOM, P.BASE_TOP, SHELL_LX, SHELL_LY, P.BASE_R, chamfer_top=TOP_CHAMFER))
+    s = s.intersect(rrect(BX, 0, P.SHELL_BOTTOM, P.BASE_TOP, SHELL_LX, SHELL_LY, P.BASE_R, chamfer_top=TOP_CHAMFER))
 
     tools = []
     for _, a, b in _top_seam_pairs():
@@ -289,14 +293,14 @@ def _shell_full() -> cq.Shape:
     # lidar window: a 200 degree band, with four thin pillars so the lower band stays attached
     tools.append(lidar_window())
     # light line: a groove around the shell for an LED strip under a diffuser
-    tools.append(rrect_shell(0, 0, LIGHT_Z[0], LIGHT_Z[1], SHELL_LX + 2, SHELL_LY + 2, P.BASE_R + 1, 2.5, open_top=True, open_bot=True))
+    tools.append(rrect_shell(BX, 0, LIGHT_Z[0], LIGHT_Z[1], SHELL_LX + 2, SHELL_LY + 2, P.BASE_R + 1, 2.5, open_top=True, open_bot=True))
     # e-stop, charge port, main switch, vents
     tools.append(cyl((ESTOP_XY[0], ESTOP_XY[1], P.BASE_TOP - 10), "z", P.ESTOP_HOLE, 20))
     tools.append(cyl((P.CHARGE_XY[0], P.CHARGE_XY[1], P.BASE_TOP - 10), "z", P.CHARGE_HOLE, 20))  # charge socket, top
-    tools.append(cyl((-SHELL_LX / 2 - 5, 40, 95), "x", 20.2, 20))
+    tools.append(cyl((BX - SHELL_LX / 2 - 5, 40, 95), "x", 20.2, 20))
     for i in range(7):
         y = -36 + 12 * i
-        tools.append(rrect(-SHELL_LX / 2, y, 125, 160, 20, 5, 2.4))
+        tools.append(rrect(BX - SHELL_LX / 2, y, 125, 160, 20, 5, 2.4))
     return cut(s, *tools)
 
 
@@ -335,7 +339,7 @@ def split_one(full, region, name) -> cq.Shape:
 
 
 def _cells():
-    xs = [-SHELL_LX / 2 - 10, *P.GRID_X, SHELL_LX / 2 + 10]
+    xs = [BX - SHELL_LX / 2 - 10, *P.GRID_X, BX + SHELL_LX / 2 + 10]
     ys = [-SHELL_LY / 2 - 10, *P.GRID_Y, SHELL_LY / 2 + 10]
     out = []
     names_x = ["rear", "mid", "front"]
@@ -383,41 +387,64 @@ def joiner_placed() -> list[cq.Shape]:
 def _pan_seam_pairs():
     pairs = []
     taken = _all_pan_pts()
+    def spaced(vals, gap=42):
+        out, last = [], None
+        for v in vals:
+            if last is None or v - last >= gap:
+                out.append(v)
+                last = v
+        return out
+
     for gx in P.GRID_X:
-        for y in range(-200, 201, 42):
+        for y in range(-200, 201, 7):
             a, b = (gx - JOIN_OFF, y), (gx + JOIN_OFF, y)
-            ok = all(_pan_inside(q, 12) for q in (a, b)) and all(_clear(q, taken, 24) for q in (a, b))
+            ok = all(_pan_inside(q, 12) for q in (a, b)) and all(_clear(q, taken, 18) for q in (a, b))
             ok = ok and all(abs(y - gy) > 18 for gy in P.GRID_Y)
-            ok = ok and not any(_in_cut(q, 8) for q in (a, b))
+            ok = ok and not any(_in_cut(q, 8) for q in (a, b)) and not any(_under_bracket(q) for q in (a, b))
             mx0, mx1, my = MAST_HOLE
             ok = ok and not any(mx0 - 28 < q[0] < mx1 + 28 and abs(q[1]) < my + 28 for q in (a, b))
             if ok:
                 pairs.append(("x", a, b))
+    keep = []
+    for gx in P.GRID_X:
+        ys = spaced([a[1] for k, a, b in pairs if k == "x" and a[0] == gx - JOIN_OFF])
+        keep += [("x", (gx - JOIN_OFF, y), (gx + JOIN_OFF, y)) for y in ys]
+    pairs = keep
     for gy in P.GRID_Y:
-        for x in range(-200, 201, 42):
+        for x in range(-230, 291, 7):
             a, b = (x, gy - JOIN_OFF), (x, gy + JOIN_OFF)
-            ok = all(_pan_inside(q, 12) for q in (a, b)) and all(_clear(q, taken, 24) for q in (a, b))
+            ok = all(_pan_inside(q, 12) for q in (a, b)) and all(_clear(q, taken, 18) for q in (a, b))
             ok = ok and all(abs(x - gx) > 18 for gx in P.GRID_X)
-            ok = ok and not any(_in_cut(q, 8) for q in (a, b))
+            ok = ok and not any(_in_cut(q, 8) for q in (a, b)) and not any(_under_bracket(q) for q in (a, b))
             mx0, mx1, my = MAST_HOLE
             ok = ok and not any(mx0 - 28 < q[0] < mx1 + 28 and abs(q[1]) < my + 28 for q in (a, b))
             # keep tabs out from under the battery cradle walls
             ok = ok and not (abs(x - BATT_C[0]) < BATT_LX / 2 + 18 and abs(gy - BATT_C[1]) < BATT_LY / 2 + 18)
             if ok:
                 pairs.append(("y", a, b))
-    return pairs
+    keep = [p_ for p_ in pairs if p_[0] == "x"]
+    for gy in P.GRID_Y:
+        xs = spaced([a[0] for k, a, b in pairs if k == "y" and a[1] == gy - JOIN_OFF])
+        keep += [("y", (x, gy - JOIN_OFF), (x, gy + JOIN_OFF)) for x in xs]
+    return keep
+
+
+def _under_bracket(q, margin=12.0):
+    """Inside a wheel bracket's footprint on the pan (x ±26, 30 mm inboard of the stub face)."""
+    yf = P.WHEEL_Y - P.DDSM_STUB_END
+    return abs(q[0]) < 26 + margin and yf - 30 - margin < abs(q[1]) < yf + margin
 
 
 def _pan_inside(q, margin):
     x, y = q
-    return abs(x) <= rr_boundary("y", y, PAN_LX, PAN_LY, PAN_R) - margin and abs(y) <= PAN_LY / 2 - margin
+    return abs(x - BX) <= rr_boundary("y", y, PAN_LX, PAN_LY, PAN_R) - margin and abs(y) <= PAN_LY / 2 - margin
 
 
 def _in_cut(q, margin):
     x, y = q
     if abs(x) < P.WHEEL_CUT_X + margin and abs(y) > P.WHEEL_CUT_Y - margin:
         return True
-    for cx in (P.CASTER_X, -P.CASTER_X):
+    for cx in CASTERS:
         if math.hypot(x - cx, y) < P.CASTER_HOLE / 2 + margin:
             return True
     return False
@@ -425,21 +452,21 @@ def _in_cut(q, margin):
 
 def _pan_full() -> cq.Shape:
     z0, z1 = P.PAN_BOTTOM, P.PAN_TOP
-    skin = rrect(0, 0, z1 - P.PAN_SKIN, z1, PAN_LX, PAN_LY, PAN_R)
-    rim = rrect_shell(0, 0, z0, z1, PAN_LX, PAN_LY, PAN_R, 4.0, open_top=True, open_bot=True)
+    skin = rrect(BX, 0, z1 - P.PAN_SKIN, z1, PAN_LX, PAN_LY, PAN_R)
+    rim = rrect_shell(BX, 0, z0, z1, PAN_LX, PAN_LY, PAN_R, 4.0, open_top=True, open_bot=True)
     ribs = []
     for x in range(-280, 281, 60):
         ribs.append(box(x - 1.5, x + 1.5, -PAN_LY / 2, PAN_LY / 2, z0, z1 - 1))
     for y in range(-220, 221, 60):
-        ribs.append(box(-PAN_LX / 2, PAN_LX / 2, y - 1.5, y + 1.5, z0, z1 - 1))
+        ribs.append(box(BX - PAN_LX / 2, BX + PAN_LX / 2, y - 1.5, y + 1.5, z0, z1 - 1))
     # ribs either side of every cut line, so each tile edge is stiff
     for gx in P.GRID_X:
         for d in (-2.5, 2.5):
             ribs.append(box(gx + d - 1.5, gx + d + 1.5, -PAN_LY / 2, PAN_LY / 2, z0, z1 - 1))
     for gy in P.GRID_Y:
         for d in (-2.5, 2.5):
-            ribs.append(box(-PAN_LX / 2, PAN_LX / 2, gy + d - 1.5, gy + d + 1.5, z0, z1 - 1))
-    grid = fuse(*ribs).intersect(rrect(0, 0, z0, z1, PAN_LX - 2, PAN_LY - 2, PAN_R - 1))
+            ribs.append(box(BX - PAN_LX / 2, BX + PAN_LX / 2, gy + d - 1.5, gy + d + 1.5, z0, z1 - 1))
+    grid = fuse(*ribs).intersect(rrect(BX, 0, z0, z1, PAN_LX - 2, PAN_LY - 2, PAN_R - 1))
     bosses = []
     pts = _all_pan_pts() + [q for _, a, b in _pan_seam_pairs() for q in (a, b)]
     for x, y in pts:
@@ -450,13 +477,13 @@ def _pan_full() -> cq.Shape:
         y0 = P.WHEEL_CUT_Y if sy > 0 else -PAN_LY
         y1 = PAN_LY if sy > 0 else -P.WHEEL_CUT_Y
         rims.append(box(-P.WHEEL_CUT_X - 4, P.WHEEL_CUT_X + 4, y0 - 4 * sy if sy > 0 else y0, y1 if sy > 0 else y1 + 4, z0, z1))
-    for cx in (P.CASTER_X, -P.CASTER_X):
+    for cx in CASTERS:
         rims.append(tube_between("z", (cx, 0), z0, z1, P.CASTER_HOLE + 8, P.CASTER_HOLE - 1))
-    pan = fuse(skin, rim, grid, *bosses, *rims).intersect(rrect(0, 0, z0, z1, PAN_LX, PAN_LY, PAN_R))
+    pan = fuse(skin, rim, grid, *bosses, *rims).intersect(rrect(BX, 0, z0, z1, PAN_LX, PAN_LY, PAN_R))
     tools = []
     for sy in (1, -1):
         tools.append(box(-P.WHEEL_CUT_X, P.WHEEL_CUT_X, sy * P.WHEEL_CUT_Y, sy * 400, 0, 100))
-    for cx in (P.CASTER_X, -P.CASTER_X):
+    for cx in CASTERS:
         tools.append(cyl((cx, 0, 0), "z", P.CASTER_HOLE, 100))
     for x, y in pts:
         tools.append(cyl((x, y, z1 - P.M3_INSERT_DEPTH), "z", P.M3_INSERT, P.M3_INSERT_DEPTH + 1))
@@ -607,7 +634,7 @@ def _shelf(pts, outline_box, side, front) -> cq.Shape:
     if side < 0:
         y0, y1 = -y1, -y0
     plate = rrect((x0 + x1) / 2, (y0 + y1) / 2, SHELF_Z, SHELF_Z + SHELF_T, x1 - x0, y1 - y0, 8)
-    plate = plate.intersect(rrect(0, 0, 0, 300, INNER_LX - 14, INNER_LY - 14, P.BASE_R - 14))
+    plate = plate.intersect(rrect(BX, 0, 0, 300, INNER_LX - 14, INNER_LY - 14, P.BASE_R - 14))
     legs = []
     for x, y in pts:
         legs.append(cyl((x, y, P.PAN_TOP), "z", 11, SHELF_Z - P.PAN_TOP + 1))
@@ -672,32 +699,14 @@ def bought() -> list[Bought]:
         zz = z + (8.5 if name == "esp32" else 0.0)  # the devkit stands on its pin headers
         out += V.boughts(name, V.place(pcs, (x, y, zz)), "base", "base", "electronics", m, key)
     out += V.boughts("estop", V.place(V.estop(), (ESTOP_XY[0], ESTOP_XY[1], P.BASE_TOP)), "base", "base", "electronics", 80, "estop")
-    glow = rrect_shell(0, 0, LIGHT_Z[0] + 0.5, LIGHT_Z[1] - 0.5, SHELL_LX - 0.6, SHELL_LY - 0.6, P.BASE_R - 0.3, 1.2, open_top=True, open_bot=True)
+    glow = rrect_shell(BX, 0, LIGHT_Z[0] + 0.5, LIGHT_Z[1] - 0.5, SHELL_LX - 0.6, SHELL_LY - 0.6, P.BASE_R - 0.3, 1.2, open_top=True, open_bot=True)
     out.append(Bought("light_base", glow, "base", "base", "electronics", 15, "ledstrip", look="glow"))
-    for cx in (P.CASTER_X, -P.CASTER_X):
+    for cx in CASTERS:
         out.append(Bought(f"caster_bolt_{'f' if cx > 0 else 'r'}", cyl((cx, 0, P.CASTER_PLATE_Z - 12), "z", 8, 30), "base", "base", "metal", 30, "m8",
                           look="steel"))
-    for name, *dims in BALLAST:
-        solid, mass = _steel(*dims)
-        out.append(Bought(name, solid, "base", "base", "metal", mass, "ballast", look="steel"))
+    # No steel ballast. The three 1018 pads (about 5 kg) are gone; the smaller base
+    # keeps the pack, the drivers and the lift motor low instead.
     return out
-
-
-# 1018 steel, stacked from 1/2 × 2 in bar. Low and rearward: the fore-aft tip is the failure.
-# Each box is (x0, x1, y0, y1, z0, z1). About 5.0 kg, same bar as before.
-# port: right-rear corner, beside the wheel and under nothing hot. keel: inboard of the rear caster.
-# aft: above the rear caster bridge (the fork ends at z=66), clear of the M8 swivel bolt which ends at z=74.
-STEEL_G_CM3 = 7.85
-BALLAST = (
-    ("ballast_port", -210.0, -145.0, -120.0, -85.0, 44.0, 126.0),
-    ("ballast_keel", -120.0, -88.0, -60.0, -24.0, 42.0, 150.0),
-    ("ballast_aft", -220.0, -150.0, -32.0, 32.0, 86.0, 158.0),
-)
-
-
-def _steel(x0, x1, y0, y1, z0, z1):
-    mass = abs((x1 - x0) * (y1 - y0) * (z1 - z0)) / 1000.0 * STEEL_G_CM3
-    return box(x0, x1, y0, y1, z0, z1), round(mass, 1)
 
 
 def drag_link() -> cq.Shape:
@@ -742,12 +751,12 @@ def parts() -> list[Part]:
     for side, s in ((1, "l"), (-1, "r")):
         out.append(Part(f"wheel_bracket_{s}", wheel_bracket(side), "base", "base", color="frame",
                         note="Holds a DDSM115 by its stub (3 x M2.5 x 10). 5 walls, 40% infill."))
-    out.append(Part("caster_bridge_front", caster_bridge(P.CASTER_X, lidar=True), "base", "base", color="frame", rot=(180, 0, 0),
+    out.append(Part("caster_bridge_front", caster_bridge(CASTERS[0], lidar=True), "base", "base", color="frame", rot=(180, 0, 0),
                     note="Swivel 608ZZ pocket underneath. Inserts on top for the lidar mount."))
-    out.append(Part("caster_bridge_rear", caster_bridge(-P.CASTER_X), "base", "base", color="frame", rot=(180, 0, 0)))
-    out.append(Part("lidar_mount", lidar_mount(P.CASTER_X), "base", "base", color="dark", rot=(0, 0, 0),
+    out.append(Part("caster_bridge_rear", caster_bridge(CASTERS[1]), "base", "base", color="frame", rot=(180, 0, 0)))
+    out.append(Part("lidar_mount", lidar_mount(CASTERS[0]), "base", "base", color="dark", rot=(0, 0, 0),
                     note="Lifts the RPLIDAR C1 to the slot in the shell."))
-    for cx, s in ((P.CASTER_X, "front"), (-P.CASTER_X, "rear")):
+    for cx, s in ((CASTERS[0], "front"), (CASTERS[1], "rear")):
         out.append(Part(f"caster_fork_{s}", caster_fork(cx), "base", "base", color="dark", rot=(180, 0, 0)))
         out.append(Part(f"caster_wheel_{s}", caster_wheel(cx), "base", "base", color="dark", rot=(90, 0, 0),
                         note="Two 608ZZ pressed in. TPU 95A if your printer does it, PETG otherwise."))

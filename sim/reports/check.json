@@ -1,9 +1,9 @@
 {
  "stand": {
   "ok": true,
-  "drift_mm": 0.35,
-  "tilt_deg": 0.01,
-  "max_track_err": 0.0196
+  "drift_mm": 0.01,
+  "tilt_deg": 0.02,
+  "max_track_err": 0.027
  },
  "torque": {
   "ok": true,
@@ -19,11 +19,11 @@
    },
    {
     "joint": "shoulder_roll",
-    "worst_Nm": 5.57,
+    "worst_Nm": 4.13,
     "rated_Nm": 2.21,
     "peak_Nm": 9.32,
-    "of_rated": 2.52,
-    "of_peak": 0.6
+    "of_rated": 1.87,
+    "of_peak": 0.44
    },
    {
     "joint": "upper_arm_yaw",
@@ -65,14 +65,14 @@
     "upper_arm_yaw": -0.01,
     "elbow": -2.88,
     "wrist_pitch": -1.1,
-    "wrist_roll": -0.0
+    "wrist_roll": 0.0
    },
    "arm sideways": {
-    "shoulder_pitch": 0.36,
-    "shoulder_roll": 5.57,
-    "upper_arm_yaw": -0.35,
-    "elbow": -0.96,
-    "wrist_pitch": -0.36,
+    "shoulder_pitch": 0.27,
+    "shoulder_roll": 4.13,
+    "upper_arm_yaw": -0.26,
+    "elbow": -2.02,
+    "wrist_pitch": -0.75,
     "wrist_roll": 0.0
    },
    "forearm out": {
@@ -81,7 +81,7 @@
     "upper_arm_yaw": 0.29,
     "elbow": -2.86,
     "wrist_pitch": -1.1,
-    "wrist_roll": -0.0
+    "wrist_roll": 0.0
    },
    "wrist out": {
     "shoulder_pitch": -2.86,
@@ -89,7 +89,7 @@
     "upper_arm_yaw": 0.29,
     "elbow": -2.86,
     "wrist_pitch": -1.1,
-    "wrist_roll": -0.0
+    "wrist_roll": 0.0
    },
    "yaw loaded": {
     "shoulder_pitch": -3.19,
@@ -104,7 +104,7 @@
  "hold": {
   "ok": false,
   "worst_err_deg": 4.26,
-  "tilt_deg": 0.01,
+  "tilt_deg": 0.05,
   "saturated": {},
   "errors": {
    "l_shoulder_pitch": 4.26,
@@ -119,45 +119,93 @@
   "ok": true,
   "travel_mm": 558,
   "speed_mm_s": 25.0,
-  "time_s": 18.6,
+  "time_s": 22.6,
+  "down_time_s": 22.4,
   "worst_lag_mm": 5.43,
   "hold_err_mm": 1.07,
-  "hold_force_N": 64.1
+  "bottom_err_mm": 1.98,
+  "hold_force_N": 64.1,
+  "stage_err_mm": 0.04,
+  "base_tilt_deg": 0.041,
+  "contacts": [],
+  "penetration_mm": 0.0
+ },
+ "tip": {
+  "ok": true,
+  "poses": {
+   "lift up, both arms straight forward": {
+    "com_mm": [
+     99.3,
+     5.0,
+     544.2
+    ],
+    "margin_mm": 47.8,
+    "tilt_deg": 0.05
+   },
+   "lift up, both arms straight sideways": {
+    "com_mm": [
+     9.9,
+     5.0,
+     544.8
+    ],
+    "margin_mm": 105.0,
+    "tilt_deg": 0.01
+   },
+   "lift up, arms reaching down in front": {
+    "com_mm": [
+     76.8,
+     5.0,
+     491.9
+    ],
+    "margin_mm": 62.2,
+    "tilt_deg": 0.04
+   },
+   "lift down, floor pick": {
+    "com_mm": [
+     68.4,
+     5.0,
+     223.4
+    ],
+    "margin_mm": 152.8,
+    "tilt_deg": 0.01
+   }
+  },
+  "worst_margin_mm": 47.8
  },
  "brake": {
   "ok": true,
   "speed_mps": 0.59,
-  "max_tilt_deg": 0.12,
+  "max_tilt_deg": 0.3,
   "tilt_by_decel": {
-   "1.0": 0.03,
-   "2.0": 0.05,
-   "4.0": 0.12,
-   "6.0": 0.12
+   "1.0": 0.08,
+   "2.0": 0.23,
+   "4.0": 0.29,
+   "6.0": 0.3
   }
  },
  "push": {
-  "ok": true,
-  "push_forward_N": 31.6,
-  "push_back_N": 29.3
+  "ok": false,
+  "push_forward_N": 14.1,
+  "push_back_N": 24.6
  },
  "slope": {
-  "ok": true,
+  "ok": false,
   "com_m": [
-   0.019,
-   -0.006,
-   0.398
+   0.095,
+   0.005,
+   0.518
   ],
-  "down_deg": 20.0,
-  "up_deg": 27.5,
-  "side_deg": 25.9
+  "down_deg": 9.4,
+  "up_deg": 24.7,
+  "side_deg": 15.6
  },
  "reach": {
   "ok": true,
   "samples": 6000,
-  "valid": 5110,
+  "valid": 5394,
   "z_max_m": 1.641,
-  "floor_reach_x_m": 0.268,
-  "lowest_in_front_m": 0.051,
+  "floor_reach_x_m": 0.285,
+  "lowest_in_front_m": 0.045,
   "counter_reach_x_m": 0.624,
   "side_reach_y_m": 0.788
  },
@@ -180,8 +228,8 @@
   }
  },
  "pick": {
-  "ok": false,
+  "ok": true,
   "episodes": 40,
-  "success_rate": 0.625
+  "success_rate": 1.0
  }
 }

@@ -287,8 +287,13 @@ def main() -> int:
              # full pan at level gaze; looking up while turned is interlocked in software below 0.51 m of lift
              "pan_left": {**robot.HOME, "head_pan": P.LIMITS["head_pan"][1]},
              "pan_right": {**robot.HOME, "head_pan": P.LIMITS["head_pan"][0]},
-             "pan_down": {**robot.HOME, "head_pan": P.LIMITS["head_pan"][1], "head_tilt": P.LIMITS["head_tilt"][1]}}
-    for pose_name in ("home", "zero", "floor", "shelf", "look_down", "look_up", "pan_left", "pan_right", "pan_down"):
+             "pan_down": {**robot.HOME, "head_pan": P.LIMITS["head_pan"][1], "head_tilt": P.LIMITS["head_tilt"][1]},
+             # the lift runs its whole travel in the carry pose
+             "lift_bottom": {**robot.HOME, "lift": 0.0},
+             "lift_middle": {**robot.HOME, "lift": P.LIFT_TRAVEL / 2000.0},
+             "lift_top": {**robot.HOME, "lift": P.LIFT_TRAVEL / 1000.0}}
+    for pose_name in ("home", "zero", "floor", "shelf", "look_down", "look_up", "pan_left", "pan_right", "pan_down",
+                      "lift_bottom", "lift_middle", "lift_top"):
         T = robot.link_transforms(robot.POSES.get(pose_name) or extra[pose_name], joints)
         pool = [(it["name"], it["link"], placed_at(s, T[it["link"]])) for it, s in zip(items, solids)]
         # The pinion turns with the fingers on the real gripper; here it is frozen, so its mesh with the racks is expected.
@@ -324,8 +329,8 @@ def main() -> int:
             m += L["mass_g"]
             mc += L["mass_g"] * c[:3]
         com = mc / m
-        front = P.CASTER_X - P.CASTER_TRAIL
-        rear = -P.CASTER_X + P.CASTER_TRAIL
+        front = P.CASTER_XF - P.CASTER_TRAIL
+        rear = -P.CASTER_XR - P.CASTER_TRAIL
         margin_f, margin_b = front - com[0], com[0] - rear
         margin_s = P.WHEEL_Y - abs(com[1])
         stability[pose_name] = dict(com_mm=[round(v, 1) for v in com], margin_front_mm=round(margin_f, 1),
@@ -353,7 +358,7 @@ def main() -> int:
                      range=list(j.range), actuator=j.actuator, mimic=j.mimic, mimic_coef=j.mimic_coef) for j in joints],
         poses=robot.POSES, items=items,
         dims=dict(shoulder_z0=P.SHOULDER_Z0, lift_travel=P.LIFT_TRAVEL, base=[P.BASE_L, P.BASE_W, P.BASE_TOP],
-                  wheel_od=P.WHEEL_OD, wheel_w=P.WHEEL_W, wheel_y=P.WHEEL_Y, caster_x=P.CASTER_X, caster_trail=P.CASTER_TRAIL,
+                  wheel_od=P.WHEEL_OD, wheel_w=P.WHEEL_W, wheel_y=P.WHEEL_Y, caster_x=P.CASTER_XF, caster_x_rear=P.CASTER_XR, base_cx=P.BASE_CX, caster_trail=P.CASTER_TRAIL,
                   caster_wheel=P.CASTER_WHEEL, mast_top=P.COL_TOP0),
     )
     (CAD / "scene.json").write_text(json.dumps(scene, indent=1) + "\n")

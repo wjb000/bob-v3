@@ -361,7 +361,8 @@ def main():
     t = fill(t, "PRINTS", "\n".join(out))
     # checks
     names = {"stand": "Stands still at home", "torque": "Arm torque, 0.5 kg in the hand", "hold": "Holds both arms straight out with 0.5 kg",
-             "lift": f"Lift 0 → {scene['dims']['lift_travel']:.0f} mm at 25 mm/s", "brake": "Drives 0.6 m/s, stops at up to 6 m/s²", "push": "Shove at the head, torso up, arms out",
+             "lift": f"Lift 0 → {scene['dims']['lift_travel']:.0f} mm → 0 at 25 mm/s, carry pose, 0.5 kg per hand",
+             "tip": "Tip margin, lift up and arms out, 0.5 kg per hand", "brake": "Drives 0.6 m/s, stops at up to 6 m/s²", "push": "Shove at the head, torso up, arms out",
              "slope": "Steepest ramp, worst pose", "reach": "Workspace sampling", "tasks": "Floor, counter and top shelf by IK",
              "pick": "Scripted pick off a 0.75 m table"}
     out = []
@@ -370,8 +371,11 @@ def main():
             "stand": lambda v: f"drift {v['drift_mm']} mm, tilt {v['tilt_deg']}°",
             "torque": lambda v: ", ".join(f"{r['joint'].replace('_', ' ')} {r['worst_Nm']} N·m ({100 * r['of_rated']:.0f}% rated)" for r in v["rows"][:5]),
             "hold": lambda v: f"worst error {v['worst_err_deg']}°, tilt {v.get('tilt_deg', 0)}°" + ("" if not v.get("saturated") else ", saturated"),
+            "tip": lambda v: "; ".join(f"{n}: CoM {r['margin_mm']} mm inside, tilt {r['tilt_deg']}°" for n, r in v["poses"].items()),
             "lift": lambda v: (
-                f"{v['time_s']} s, holds within {v['hold_err_mm']} mm at {v['hold_force_N']} N"
+                f"{v['time_s']} s up, {v.get('down_time_s', '?')} s down, holds within {v['hold_err_mm']} mm at {v['hold_force_N']} N, "
+                + ("tubes track 1/3 and 2/3 of the travel (error under 0.01 in), " if v.get('stage_err_mm', 1) < 0.25 else f"tubes within {v.get('stage_err_mm', '?')} mm of 1/3 and 2/3, ")
+                + ("no contact" if not v.get("contacts") else "touches " + ", ".join(v["contacts"]))
                 if abs(v.get("travel_mm", -1) - scene["dims"]["lift_travel"]) < 5
                 else "self-locking screw, holds with the power off"),
             "brake": lambda v: f"max tilt {v['max_tilt_deg']}° at {v['speed_mps']} m/s",

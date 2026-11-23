@@ -41,7 +41,7 @@ Follow the wiring diagram on the page.
 
 Four tubes. The screw drives the middle tube. Belt A makes the upper tube travel twice that far. Belt B makes the inner tube travel three times as far, 558 mm, 22 in. At the bottom the torso still sits 40 mm above the base.
 
-1. Set the three steel ballast pads on the pan. They are not bolted: the port pad goes on the right-rear flat, clear of the corner radius, the keel just behind the column, and the aft pad above the rear caster bridge. Keep them out of the caster holes and clear of the swivel bolt. Bolt `cable_trough` down, 2 × M3×12. Pin the six `col_draglink` prints into a short chain in that trough.
+1. Bolt `cable_trough` down, 2 × M3×12. Pin the six `col_draglink` prints into a short chain in that trough.
 2. Bolt `col_outer_0` to the pan, 8 × M3×10 through the foot flange. Fit the lower KW12 on its pad. Bolt the NEMA 17 onto the pedestal (4 × M3×8), shaft up, coupler on the shaft.
 3. Drop the centre base tile (`base_shell_mid_c`) over the outer tube. It just rests there for now.
 4. Stack `col_outer_1` on `col_outer_0`, 4 × M3×14. Fit the two belt anchors at the top, and the upper KW12 on the left side flat (+Y) so its leaf reaches through the slot. The stop dogs on that piece face inward. The speaker and the belt-anchor bosses occupy the front flat, so the switch does not go there.

@@ -155,11 +155,11 @@ def routes():
     palm_l = _pt("l_link6", -16.0, 157.0, -70.0)
     palm_r = _pt("r_link6", -16.0, -157.0, -70.0)
     return {
-        ("charge", "batt"): [_pt("base", 150.0, -125.0, 212.0), _pt("base", 80.0, -40.0, shelf), _pt("base", 0.0, 80.0, 120.0)],
-        ("batt", "fuse"): [_pt("base", 0.0, 80.0, 120.0), _pt("base", 0.0, 20.0, shelf), _pt("base", 0.0, -72.0, shelf)],
+        ("charge", "batt"): [_pt("base", 125.0, -110.0, 212.0), _pt("base", 80.0, -40.0, shelf), _pt("base", 0.0, 80.0, 130.0)],
+        ("batt", "fuse"): [_pt("base", 0.0, 80.0, 130.0), _pt("base", 0.0, 20.0, shelf), _pt("base", 0.0, -72.0, shelf)],
         ("fuse", "b5"): [_pt("base", 0.0, -72.0, shelf), _pt("base", 0.0, -162.0, shelf)],
         ("fuse", "cont"): [_pt("base", 0.0, -72.0, shelf), _pt("base", -80.0, -80.0, shelf), _pt("base", -130.0, -96.0, shelf)],
-        ("estop", "cont"): [_pt("base", -200.0, 115.0, 212.0), _pt("base", -180.0, 40.0, 180.0), _pt("base", -130.0, -96.0, shelf)],
+        ("estop", "cont"): [_pt("base", -122.0, 112.0, 212.0), _pt("base", -140.0, 40.0, 180.0), _pt("base", -130.0, -96.0, shelf)],
         ("cont", "b12a"): [_pt("base", -130.0, -96.0, shelf), _pt("base", -72.0, -112.0, shelf), _pt("base", 72.0, -112.0, shelf)],
         ("cont", "b12m"): [_pt("base", -130.0, -96.0, shelf), _pt("base", -40.0, -120.0, shelf), _pt("base", 0.0, -132.0, shelf)],
         ("b5", "pi"): _column_up(_pt("base", 0.0, -162.0, shelf), pi),
@@ -173,18 +173,18 @@ def routes():
         ("pi", "esp"): _column_down(pi, _pt("base", 0.0, -104.0, shelf)),
         ("hub", "cam"): _neck(hub, cam),
         ("hub", "wcam"): _arm("l", hub, (palm_l,)) + [_pt("lift", 0.0, -20.0, 380.0)] + _arm("r", hub, (palm_r,))[1:],
-        ("hub", "lidar"): _column_down(hub, _pt("base", 176.0, 0.0, 140.0)),
+        ("hub", "lidar"): _column_down(hub, _pt("base", 192.0, 0.0, 140.0)),
         ("hub", "s3"): _neck(hub, s3),
         ("hub", "audio"): _neck(hub, mic),
         ("busl", "stl"): _arm("l", bus_l),
         ("busr", "str"): _arm("r", bus_r),
         ("esp", "wheels"): [
             _pt("base", 0.0, -104.0, shelf), _pt("base", 0.0, 40.0, 80.0),
-            _pt("base", 0.0, 170.0, 55.0), _pt("base", 0.0, -170.0, 55.0),
+            _pt("base", 0.0, 120.0, 55.0), _pt("base", 0.0, -120.0, 55.0),
         ],
         ("esp", "tmc"): [_pt("base", 0.0, -104.0, shelf), _pt("base", -80.0, -50.0, shelf), _pt("base", -130.0, -20.0, shelf)],
         ("esp", "imu"): [_pt("base", 0.0, -104.0, shelf), _pt("base", -80.0, -70.0, shelf), _pt("base", -130.0, -45.0, shelf)],
-        ("esp", "estop"): [_pt("base", 0.0, -104.0, shelf), _pt("base", -160.0, 0.0, 170.0), _pt("base", -200.0, 115.0, 200.0)],
+        ("esp", "estop"): [_pt("base", 0.0, -104.0, shelf), _pt("base", -140.0, 0.0, 170.0), _pt("base", -122.0, 112.0, 200.0)],
         ("tmc", "nema"): [
             _pt("base", -130.0, -20.0, shelf), _pt("base", -40.0, -10.0, 100.0), _pt("base", 0.0, 0.0, 70.0),
             _pt("base", 20.0, 40.0, 130.0), _pt("base", 13.0, 56.0, 388.0),

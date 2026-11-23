@@ -24,6 +24,16 @@ import bob_env  # noqa: E402
 import expert as E  # noqa: E402
 
 DT = 0.04
+SHELF_Z = 1.188  # shelf board centre; top at 1.20 m, front edge 0.42 m ahead of the axle
+
+
+def tilt_now(d):
+    w, x, y, z = d.qpos[3:7]
+    return math.degrees(math.acos(max(-1.0, min(1.0, 1 - 2 * (x * x + y * y)))))
+
+
+def lift_top(m):
+    return float(m.jnt_range[m.joint("lift").id][1])
 LIFT_SPEED = 0.025
 JOINT_NAMES = None
 
@@ -38,9 +48,9 @@ def scene(table=False, shelf=False, cubes=()):
       <geom type="box" size="0.30 0.45 0.02" pos="0 0 0.73" rgba="0.62 0.47 0.33 1" contype="8" conaffinity="15"/>
     </body>""")
     if shelf:
-        parts.append("""
+        parts.append(f"""
     <body name="shelf" pos="0.56 -0.2 0">
-      <geom type="box" size="0.14 0.25 0.012" pos="0 0 1.49" rgba="0.62 0.47 0.33 1" contype="8" conaffinity="15"/>
+      <geom type="box" size="0.14 0.25 0.012" pos="0 0 {SHELF_Z}" rgba="0.62 0.47 0.33 1" contype="8" conaffinity="15"/>
     </body>""")
     for i, (x, y, z) in enumerate(cubes):
         parts.append(f"""
@@ -258,19 +268,22 @@ def task_shelf():
     home(m, d)
     rec = Rec(m, d)
     rec.snap()
-    q1 = ik_both(m, d, {"r": (0.38, -0.20, 1.58)}, [1.4, 1.2, 1.6, 1.0], 0.65)
-    q = ik_both(m, d, {"r": (0.48, -0.20, 1.555)}, [1.4, 1.2, 1.6], 0.65)
-    move(rec, {"lift": 0.65, "head_tilt": -0.35}, 4.0)
-    # fold the arm up close to the body, rise in front of the shelf edge, then reach over it
-    move(rec, {"r_shoulder_pitch": -2.6, "r_elbow": -1.9, "r_wrist_pitch": 1.2}, 2.5)
+    top = lift_top(m)
+    q1 = ik_both(m, d, {"r": (0.38, -0.20, SHELF_Z + 0.09)}, [1.4, 1.2, 1.6, 1.0], top)
+    q = ik_both(m, d, {"r": (0.48, -0.20, SHELF_Z + 0.065)}, [1.4, 1.2, 1.6], top)
+    # bring the hand up in front of the chest while the torso is low, so it rises clear of the
+    # shelf's front edge with the lift, then reach in over the board
+    q0 = ik_both(m, d, {"r": (0.30, -0.20, SHELF_Z + 0.22)}, [1.4, 1.2, 1.6, 1.0], top)
+    move(rec, arm_targets("r", q0["r"]), 2.5)
+    move(rec, {"lift": top, "head_tilt": -0.35}, 4.0)
     move(rec, {**arm_targets("r", q1["r"]), "r_gripper": 0.035}, 2.5)
     move(rec, arm_targets("r", q["r"]), 2.0)
     rec.run(1.0)
     tip = d.site_xpos[m.site("tcp_r").id]
-    return done(rec, "shelf", "Reach up to a 1.5 m shelf",
-                "The stepper raises the torso the full 650 mm at its real 25 mm/s. The right arm folds up close to the body, then reaches to the shelf.",
+    return done(rec, "shelf", f"Reach up to a {SHELF_Z + 0.012:.1f} m shelf",
+                f"The stepper raises the torso the full {top * 1000:.0f} mm at its real 25 mm/s. The right hand comes up in front of the chest, rises clear of the shelf edge with the lift, then reaches in over the board.",
                 f"Hand at {tip[2]:.2f} m, {abs(tip[0] - 0.42) * 100:.0f} cm {'past' if tip[0] > 0.42 else 'short of'} the shelf's front edge. "
-                f"The lift took {0.65 / LIFT_SPEED:.0f} s.",
+                f"The lift took {top / LIFT_SPEED:.0f} s.",
                 {"shelf": True})
 
 
@@ -295,7 +308,7 @@ def task_hold():
     tau = abs(d.actuator_force[act(m, "l_shoulder_pitch")])
     return done(rec, "hold", "Hold 0.5 kg in each hand, arms straight out",
                 "The worst gravity load for the shoulders and elbows. The blue blocks are the 0.5 kg payloads.",
-                f"Worst joint sag {err:.1f}°. Shoulder pitch at {tau:.1f} N·m of its 20.8 N·m peak.", {}, ["payload", "payload"])
+                f"Worst joint sag {err:.1f}°. Shoulder pitch at {tau:.1f} N·m of its {m.actuator_forcerange[act(m, 'r_shoulder_pitch'), 1]:.1f} N·m peak.", {}, ["payload", "payload"])
 
 
 def task_drive():
@@ -337,9 +350,12 @@ def task_push():
     home(m, d)
     rec = Rec(m, d)
     rec.snap()
-    move(rec, {"lift": 0.65, "l_shoulder_pitch": -1.2, "r_shoulder_pitch": -1.2, "l_elbow": -0.3, "r_elbow": -0.3}, 3.0)
+    move(rec, {"lift": lift_top(m), "l_shoulder_pitch": -1.2, "r_shoulder_pitch": -1.2, "l_elbow": -0.3, "r_elbow": -0.3}, 3.0)
     hb = m.body("head_tilt").id
-    F = 25.0
+    # A shove a bit under the tipping point that sim/check.py measured for this same pose.
+    chk = HERE / "reports" / "check.json"
+    tip_n = json.loads(chk.read_text())["push"]["push_forward_N"] if chk.exists() else 15.0
+    F = float(math.floor(0.8 * tip_n))
 
     def push():
         d.xfrc_applied[hb, 0] = F
@@ -354,8 +370,8 @@ def task_push():
         max_t = max(max_t, math.degrees(math.acos(max(-1.0, min(1.0, 1 - 2 * (x * x + y * y))))))
     rec.run(2.0)
     return done(rec, "push", "Shove at the head, worst pose",
-                f"Torso at the top, arms forward. A {F:.0f} N push at the head for 1.5 s. The check finds the tipping point at about 30 N.",
-                f"Worst tilt {max_t:.1f}°. It settles back.", {})
+                f"Torso at the top, arms forward. A {F:.0f} N push at the head for 1.5 s. The check finds the tipping point at {tip_n:.0f} N.",
+                f"Worst tilt {max_t:.1f}°. " + ("It settles back." if tilt_now(d) < 2.0 else "It tips over."), {})
 
 
 def task_wave():
@@ -381,7 +397,7 @@ def main():
         tasks.append(t)
     data = {"cube": 45, "payload": 60,
             "table": {"center": [620, 0, 730], "size": [600, 900, 40], "legs": [[880, 410], [880, -410], [360, 410], [360, -410]]},
-            "shelf": {"center": [560, -200, 1490], "size": [280, 500, 24]},
+            "shelf": {"center": [560, -200, round(SHELF_Z * 1000)], "size": [280, 500, 24]},
             "tasks": tasks}
     out.write_text(json.dumps(data, separators=(",", ":")))
     print(f"-> {out} ({out.stat().st_size // 1024} KB)")
