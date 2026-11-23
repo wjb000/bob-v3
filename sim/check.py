@@ -5,13 +5,14 @@
 
 1 stand     settle at home for 3 s, base must not move or tilt
 2 torque    gravity torque at every arm joint, worst pose, 0.5 kg in the hand, vs rated and peak
-3 hold      hold the arm straight out with 0.5 kg using the modelled actuators
+3 hold      hold 0.5 kg per hand at the furthest pose the interlock allows, modelled actuators
 4 lift      raise the torso over its full travel and back, measure time and error
-5 brake     drive at 0.8 m/s with the lift up and arms out, stop at 1-6 m/s^2, measure tilt
-6 push      horizontal shove at the head that tips it, torso up and arms out
+5 brake     drive at 0.6 m/s with the lift up, 0.5 kg per hand in the worst pose the interlock allows, stop at 1-6 m/s^2
+6 push      horizontal shove at the head that tips it, same pose
 7 slope     steepest ramp it can stand on, same pose
+11 interlock reach-limit interlock: blocks reaching out with a load, and push/slope at the worst allowed pose by lift
 8 reach     sample the arm workspace without self-collision
-9 tasks     IK to a floor object, a 0.91 m counter and a 1.55 m shelf, collision-free
+9 tasks     IK to a floor object, a 0.91 m counter and a 1.25 m shelf, collision-free
 10 pick     scripted pick of a cube off a 0.75 m table, 40 random placements
 """
 
@@ -30,6 +31,23 @@ XML = HERE / "bob_v3.xml"
 OUT = HERE / "reports"
 PAYLOAD = 0.5  # kg
 RESULTS = {}
+
+# Worst poses the reach-limit interlock (sim/interlock.py) still allows with a load, from
+# tests/envelope_scan.py (random arm poses, ranked by the static nose-down ramp angle).
+IL_WORST_LOW = {"shoulder_pitch": -1.63, "shoulder_roll": -0.09, "upper_arm_yaw": 0.39, "elbow": -0.35, "wrist_pitch": 1.54}  # column at the bottom
+# Above the bottom the worst allowed pose is the same at every height: hands tucked at the chest.
+IL_WORST_TUCK = {"shoulder_pitch": -1.16, "shoulder_roll": 0.38, "upper_arm_yaw": -1.24, "elbow": -1.56, "wrist_pitch": -1.95}
+IL_WORST_MID = IL_WORST_TUCK  # lift 0.3 m
+IL_WORST_TOP = IL_WORST_TUCK  # top of the lift
+
+
+def both(pose):
+    """The same arm pose on both sides (roll mirrored)."""
+    out = {}
+    for k, v in pose.items():
+        out[f"r_{k}"] = v
+        out[f"l_{k}"] = -v if k in ("shoulder_roll", "upper_arm_yaw") else v
+    return out
 
 
 def load():
@@ -71,6 +89,8 @@ def add_payload(m, kg):
         p = m.site_pos[tcp]
         m.body_mass[b] = m0 + kg
         m.body_ipos[b] = (m0 * c0 + kg * p) / (m0 + kg)
+    # Recompute the derived constants (subtree masses), or subtree_com ignores the payload.
+    mujoco.mj_setConst(m, mujoco.MjData(m))
 
 
 # ---------------------------------------------------------------- 1 stand
@@ -143,8 +163,7 @@ def test_hold():
     m, d = load()
     add_payload(m, PAYLOAD)
     key(m, d, "home")
-    targets = {"lift": 0.4, "l_shoulder_pitch": -1.5708, "l_elbow": 0.0, "l_wrist_pitch": 0.0,
-               "r_shoulder_pitch": -1.5708, "r_elbow": 0.0, "r_wrist_pitch": 0.0}
+    targets = {"lift": 0.0, **both(IL_WORST_LOW)}
     for k, v in targets.items():
         d.ctrl[act(m, k)] = v
     for _ in range(int(4.0 / m.opt.timestep)):
@@ -171,7 +190,7 @@ def ramp_lift(m, d, a, target, dt):
 
 
 def test_lift():
-    """Carry pose, 0.5 kg in each hand: run the column bottom -> top -> bottom at the screw speed.
+    """Hands tucked at the chest (allowed by the reach limit at every height with a load), 0.5 kg in each hand: run the column bottom -> top -> bottom at the screw speed.
 
     Checks the torso tracks the ramp, the middle and upper tubes stay at 1/3 and 2/3 of the
     lift (the GT2 cascades), nothing but the wheels and casters touches anything, and the
@@ -180,6 +199,9 @@ def test_lift():
     m, d = load()
     add_payload(m, PAYLOAD)
     key(m, d, "home")
+    for k, v in both(IL_WORST_TOP).items():
+        d.qpos[m.jnt_qposadr[m.joint(k).id]] = v
+        d.ctrl[act(m, k)] = v
     a = act(m, "lift")
     lo, hi = m.actuator_ctrlrange[a]
     jl, jm, ju = (m.jnt_qposadr[m.joint(n).id] for n in ("lift", "lift_mid", "lift_upper"))
@@ -228,9 +250,9 @@ def test_lift():
 # ---------------------------------------------------------------- 5 brake
 
 def torso_up(m):
-    """Arms forward at the top of the lift. The old 0.65 m target is above the joint."""
+    """Top of the lift, 0.5 kg per hand, the worst arm pose the interlock allows up there."""
     hi = float(m.jnt_range[m.joint("lift").id][1])
-    return {"lift": hi, "l_shoulder_pitch": -1.2, "r_shoulder_pitch": -1.2, "l_elbow": -0.3, "r_elbow": -0.3}
+    return {"lift": hi, **both(IL_WORST_TOP)}
 
 
 def _drive(decel, v=0.6):
@@ -270,7 +292,12 @@ def test_brake():
 
 
 def test_push():
-    """Torso up, arms out with 0.5 kg: the horizontal force at the head that starts a tip, front and back."""
+    """Torso up, 0.5 kg per hand, worst allowed pose: the horizontal force at the head that starts a tip, front and back."""
+    out = _push()
+    report("push", min(out.values()) >= 25, **out)
+
+
+def _push():
     out = {}
     for sign, name in ((1, "push_forward_N"), (-1, "push_back_N")):
         lo, hi = 0.0, 300.0
@@ -283,6 +310,9 @@ def test_push():
             for k, v in up.items():
                 d.ctrl[act(m, k)] = v
                 d.qpos[m.jnt_qposadr[m.joint(k).id]] = v
+            L = up.get("lift", 0.0)
+            d.qpos[m.jnt_qposadr[m.joint("lift_mid").id]] = L / 3
+            d.qpos[m.jnt_qposadr[m.joint("lift_upper").id]] = 2 * L / 3
             for _ in range(int(1.0 / m.opt.timestep)):
                 mujoco.mj_step(m, d)
             hb = m.body("head_tilt").id
@@ -295,16 +325,24 @@ def test_push():
                     break
             lo, hi = (lo, f) if tip else (f, hi)
         out[name] = round(lo, 1)
-    report("push", min(out.values()) > 25, **out)
+    return out
 
 
 def test_slope():
     """Static: the steepest ramp the robot stands on (worst pose), from the CoM and the contact points."""
+    ang, com = _slope()
+    report("slope", min(ang.values()) > 10, com_m=com, **ang)
+
+
+def _slope():
     m, d = load()
     add_payload(m, PAYLOAD)
     key(m, d, "home")
-    for k, v in torso_up(m).items():
+    up = torso_up(m)
+    for k, v in up.items():
         d.qpos[m.jnt_qposadr[m.joint(k).id]] = v
+    d.qpos[m.jnt_qposadr[m.joint("lift_mid").id]] = up["lift"] / 3
+    d.qpos[m.jnt_qposadr[m.joint("lift_upper").id]] = 2 * up["lift"] / 3
     mujoco.mj_forward(m, d)
     com = d.subtree_com[m.body("base").id]
     fx = m.geom_pos[m.geom("caster_front").id][0]
@@ -313,7 +351,7 @@ def test_slope():
     ang = dict(down_deg=round(math.degrees(math.atan2(fx - com[0], com[2])), 1),
                up_deg=round(math.degrees(math.atan2(com[0] - rx, com[2])), 1),
                side_deg=round(math.degrees(math.atan2(side - abs(com[1]), com[2])), 1))
-    report("slope", min(ang.values()) > 10, com_m=[round(float(v), 3) for v in com], **ang)
+    return ang, [round(float(v), 3) for v in com]
 
 
 def _support_polygon(m, d):
@@ -362,9 +400,9 @@ def test_tip():
     hi = None
     rows = {}
     for name, pose in (
-        ("lift up, both arms straight forward", {"lift": "hi", "shoulder_pitch": -1.57, "elbow": 0.0, "wrist_pitch": 0.0}),
-        ("lift up, both arms straight sideways", {"lift": "hi", "shoulder_pitch": 0.0, "shoulder_roll": 1.57, "elbow": 0.0, "wrist_pitch": 0.0}),
-        ("lift up, arms reaching down in front", {"lift": "hi", "shoulder_pitch": -0.9, "elbow": 0.0, "wrist_pitch": 0.0}),
+        ("lift up, worst pose the interlock allows", {"lift": "hi", **IL_WORST_TOP}),
+        ("lift mid, worst pose the interlock allows", {"lift": 0.3, **IL_WORST_MID}),
+        ("lift down, worst pose the interlock allows", {"lift": 0.0, **IL_WORST_LOW}),
         ("lift down, floor pick", {"lift": 0.0, "shoulder_pitch": -0.805, "elbow": 0.0, "wrist_pitch": 0.0}),
     ):
         m, d = load()
@@ -378,7 +416,7 @@ def test_tip():
                 tgt["lift"] = v
             else:
                 for s in ("l", "r"):
-                    tgt[f"{s}_{k}"] = v
+                    tgt[f"{s}_{k}"] = -v if s == "l" and k in ("shoulder_roll", "upper_arm_yaw") else v
         for k, v in tgt.items():
             d.qpos[m.jnt_qposadr[m.joint(k).id]] = v
             d.ctrl[act(m, k)] = v
@@ -411,7 +449,7 @@ def test_reach(n=6000, seed=0):
     lift_adr = m.jnt_qposadr[m.joint("lift").id]
     lift_hi = m.jnt_range[m.joint("lift").id][1]
     pts = []
-    nose = 0.250  # front face of the base (cad/params.py BASE_L / 2 + BASE_CX)
+    nose = 0.205  # front face of the base (cad/params.py BASE_L / 2 + BASE_CX)
     for i in range(n):
         key(m, d, "home")
         d.qpos[lift_adr] = rng.uniform(0, lift_hi)
@@ -441,7 +479,7 @@ def test_reach(n=6000, seed=0):
                lowest_in_front_m=round(float(front[:, 2].min()), 3),
                counter_reach_x_m=round(float(counter[:, 0].max()), 3) if len(counter) else None,
                side_reach_y_m=round(float(-P[:, 1].min()), 3))
-    ok = len(floor) > 0 and len(counter) > 0 and out["z_max_m"] > 1.6
+    ok = len(floor) > 0 and len(counter) > 0 and out["z_max_m"] > 1.45
     report("reach", ok, **out)
     np.save(OUT / "reach_r.npy", P)
 
@@ -449,7 +487,7 @@ def test_reach(n=6000, seed=0):
 # ---------------------------------------------------------------- 9 tasks
 
 def test_tasks():
-    """IK to real household targets, no self-collision: floor, counter, top shelf."""
+    """IK to real household targets, no self-collision: floor, counter, top shelf (the shorter column tops out near 1.5 m)."""
     sys.path.insert(0, str(HERE))
     import bob_env
     import expert
@@ -468,9 +506,9 @@ def test_tasks():
     q4[lq] = 0.0
     q4[ik.qadr] = [-0.805, 0.0, 0.0, 0.0, 0.0, 0.0]
     seeds.append(q4)
-    targets = {"floor, in front of the nose": [0.465, -0.157, 0.016],
+    targets = {"floor, in front of the nose": [0.420, -0.157, 0.016],
                "kitchen counter 0.91 m": [0.55, -0.2, 0.93],
-               "top shelf 1.55 m": [0.40, -0.2, 1.55],
+               "top shelf 1.25 m": [0.30, -0.2, 1.25],
                "own charge socket, base top": [0.150, -0.125, 0.265]}
     l_adr = np.array([m.jnt_qposadr[m.joint(f"l_{n}").id] for n in
                       ("shoulder_pitch", "shoulder_roll", "upper_arm_yaw", "elbow", "wrist_pitch", "wrist_roll")])
@@ -519,9 +557,63 @@ def test_pick(n=40):
     report("pick", rate >= 0.85, episodes=n, success_rate=round(rate, 3))
 
 
+# ---------------------------------------------------------------- 11 interlock
+
+def test_interlock():
+    """The reach-limit interlock blocks reaching out with a load, and how stable the worst allowed pose is.
+
+    Targets: 25 N shove at the head front and back, 20 degree nose-down ramp, 0.5 kg per hand.
+    """
+    sys.path.insert(0, str(HERE))
+    import interlock as IL
+    m, d = load()
+    il = IL.Interlock(m)
+    key(m, d, "home")
+    lq = m.jnt_qposadr[m.joint("lift").id]
+    hi = float(m.jnt_range[m.joint("lift").id][1])
+
+    def q_of(lift, pose):
+        q = d.qpos.copy()
+        q[lq] = lift
+        for k, v in both(pose).items():
+            q[m.jnt_qposadr[m.joint(k).id]] = v
+        return q
+
+    straight = {"shoulder_pitch": -1.57, "elbow": 0.0, "wrist_pitch": 0.0}
+    blocked = {}
+    for lift, start in ((0.0, IL_WORST_LOW), (0.3, IL_WORST_MID), (hi, IL_WORST_TOP)):
+        q0, q1 = q_of(lift, start), q_of(lift, straight)
+        il.grasp_x = None
+        qc, hit = il.clamp(q0, q1, loaded=True)
+        x = max(p[0] for p, _ in il.hands(qc).values())
+        free, _ = il.clamp(q0, q1, loaded=False)
+        blocked[f"{lift:.2f}"] = dict(blocked=bool(hit), hand_x_m=round(float(x), 3),
+                                      unloaded_x_m=round(float(max(p[0] for p, _ in il.hands(free).values())), 3))
+    allowed = {n: il.ok(q_of(L, p), True) for n, L, p in (("low", 0.0, IL_WORST_LOW), ("mid", 0.3, IL_WORST_MID), ("top", hi, IL_WORST_TOP))}
+    global torso_up
+    keep = torso_up
+    rows = {}
+    try:
+        for lift, pose in ((0.0, IL_WORST_LOW), (0.3, IL_WORST_MID), (hi, IL_WORST_TOP)):
+            torso_up = lambda m_, L=lift, P_=pose: {"lift": L, **both(P_)}  # noqa: E731
+            push = _push()
+            ang, com = _slope()
+            rows[f"{lift:.3f}"] = dict(**push, down_deg=ang["down_deg"], up_deg=ang["up_deg"],
+                                       meets=bool(min(push.values()) >= 25 and ang["down_deg"] >= 20))
+    finally:
+        torso_up = keep
+    for k, r in rows.items():
+        print(f"        lift {k} m  {r}")
+    ok = all(b["blocked"] for b in blocked.values()) and all(allowed.values())
+    report("interlock", ok and all(r["meets"] for r in rows.values()), blocks_reach=blocked, worst_poses_allowed=allowed,
+           stability_by_lift=rows, limits=dict(lift_free_m=IL.LIFT_FREE_M, x_cap_low_m=IL.X_CAP_LOW_M,
+                                               x_cap_high_m=IL.X_CAP_HIGH_M, x_rear_m=IL.X_REAR_M,
+                                               z_below_shoulder_high_m=-IL.Z_CAP_HIGH_M))
+
+
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
-    tests = [test_stand, test_torque, test_hold, test_lift, test_tip, test_brake, test_push, test_slope, test_reach, test_tasks, test_pick]
+    tests = [test_stand, test_torque, test_hold, test_lift, test_tip, test_brake, test_push, test_slope, test_reach, test_tasks, test_pick, test_interlock]
     only = sys.argv[1:]
     try:
         for t in tests:

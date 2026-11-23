@@ -301,7 +301,19 @@ def main():
     for f in (ROOT / "docs" / "img").glob("*"):
         shutil.copy(f, dst / "img" / f.name)
 
-    data = dict(scene=dict(joints=scene["joints"], poses=scene["poses"], links=scene["links"], dims=scene["dims"],
+    # reach-limit interlock for the viewer: the rule from sim/interlock.py and each hand's tool point
+    # in the zero pose (the viewer's link matrices move zero-pose points)
+    import mujoco
+    sys.path.insert(0, str(ROOT / "sim"))
+    import interlock as IL
+    mm = mujoco.MjModel.from_xml_path(str(ROOT / "sim" / "bob_v3.xml"))
+    md = mujoco.MjData(mm)
+    mujoco.mj_kinematics(mm, md)
+    b0 = md.xpos[mm.body("base").id]
+    interlock = dict(lift_free_m=IL.LIFT_FREE_M, x_cap_low_mm=IL.X_CAP_LOW_M * 1000, x_cap_high_mm=IL.X_CAP_HIGH_M * 1000,
+                     x_rear_mm=IL.X_REAR_M * 1000, z_low_mm=IL.Z_CAP_LOW_M * 1000, z_high_mm=IL.Z_CAP_HIGH_M * 1000,
+                     tip_mm={s: [round(float(v) * 1000, 1) for v in md.site_xpos[mm.site(f"tcp_{s}").id] - b0] for s in "lr"})
+    data = dict(interlock=interlock, scene=dict(joints=scene["joints"], poses=scene["poses"], links=scene["links"], dims=scene["dims"],
                            items=[{k: it.get(k) for k in ("name", "link", "group", "kind", "color", "material", "mass_g", "print", "note", "bom")}
                                   for it in scene["items"]]),
                 parts=manifest["parts"], hardware=manifest["hardware"], stability=manifest["stability"],
@@ -360,11 +372,12 @@ def main():
                        f'<td class="n">{p["qty"]}</td><td>{col}</td><td class="n">{bed}</td><td class="n">{p["grams"] * p["qty"]:.0f} g</td></tr>')
     t = fill(t, "PRINTS", "\n".join(out))
     # checks
-    names = {"stand": "Stands still at home", "torque": "Arm torque, 0.5 kg in the hand", "hold": "Holds both arms straight out with 0.5 kg",
-             "lift": f"Lift 0 → {scene['dims']['lift_travel']:.0f} mm → 0 at 25 mm/s, carry pose, 0.5 kg per hand",
-             "tip": "Tip margin, lift up and arms out, 0.5 kg per hand", "brake": "Drives 0.6 m/s, stops at up to 6 m/s²", "push": "Shove at the head, torso up, arms out",
+    names = {"stand": "Stands still at home", "torque": "Arm torque, 0.5 kg in the hand", "hold": "Holds 0.5 kg per hand at the furthest pose the reach limit allows",
+             "lift": f"Lift 0 → {scene['dims']['lift_travel']:.0f} mm → 0 at 25 mm/s, hands tucked at the chest, 0.5 kg per hand",
+             "tip": "Tip margin, worst poses the reach limit allows, 0.5 kg per hand", "brake": "Drives 0.6 m/s, stops at up to 6 m/s², torso up, 0.5 kg per hand", "push": "Shove at the head, torso up, worst allowed pose, 0.5 kg per hand",
              "slope": "Steepest ramp, worst pose", "reach": "Workspace sampling", "tasks": "Floor, counter and top shelf by IK",
-             "pick": "Scripted pick off a 0.75 m table"}
+             "pick": "Scripted pick off a 0.75 m table, reach limit on",
+             "interlock": "Reach limit with a load: blocks reaching out; 25 N shove and 20° ramp at the worst allowed pose"}
     out = []
     for k, v in checks.items():
         detail = {
@@ -384,6 +397,9 @@ def main():
             "reach": lambda v: f"hand to {v['z_max_m']} m up, {v['side_reach_y_m']} m sideways, counter reach {v['counter_reach_x_m']} m",
             "tasks": lambda v: ", ".join(f"{n.split(',')[0]}: lift {x['lift_m']} m" for n, x in v["targets"].items() if x),
             "pick": lambda v: f"{100 * v['success_rate']:.0f}% of {v['episodes']} random placements",
+            "interlock": lambda v: ("blocks reaching straight out at every lift height; "
+                                    + "; ".join(f"lift {float(L):.3f} m: {r['push_forward_N']} N forward, {r['push_back_N']} N back, {r['down_deg']}° nose down"
+                                                for L, r in v["stability_by_lift"].items())),
         }[k](v)
         out.append(f'<tr><td>{"✓" if v["ok"] else "✗"}</td><td>{names.get(k, k)}</td><td class="d2">{html.escape(detail)}</td></tr>')
     t = fill(t, "CHECKS", "\n".join(out))

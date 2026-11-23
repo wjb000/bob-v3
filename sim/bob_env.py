@@ -27,6 +27,11 @@ import mujoco
 import numpy as np
 from gymnasium import spaces
 
+import sys
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from interlock import Interlock  # noqa: E402
+
 ROOT = Path(__file__).resolve().parent
 ARM = ["shoulder_pitch", "shoulder_roll", "upper_arm_yaw", "elbow", "wrist_pitch", "wrist_roll"]
 CTRL_DT = 0.04
@@ -132,6 +137,8 @@ class BobV3Env(gym.Env):
         self.cube_body = self.m.body("cube").id if task == "pick" else -1
         self.cube_q = self.m.jnt_qposadr[self.m.joint("cube").id] if task == "pick" else -1
         self.touch = [self.m.sensor("touch_a_r").id, self.m.sensor("touch_b_r").id]
+        self.interlock = Interlock(self.m)
+        self.interlock_hits = 0
         self.action_space = spaces.Box(-1.0, 1.0, (8,), np.float32)
         self.target = np.zeros(3)
         mujoco.mj_forward(self.m, self.d)
@@ -175,7 +182,8 @@ class BobV3Env(gym.Env):
         super().reset(seed=seed)
         mujoco.mj_resetDataKeyframe(self.m, self.d, self.m.key("home").id)
         rng = self.np_random
-        lift = 0.50 if self.task == "pick" else rng.uniform(0.0, 0.4)  # shoulder ~0.27 m above the table top
+        lhi = float(self.m.jnt_range[self.m.joint("lift").id][1])
+        lift = min(0.50, lhi) if self.task == "pick" else rng.uniform(0.0, min(0.4, lhi))  # shoulder ~0.27 m above the table top
         self.d.qpos[self.lift_q] = lift
         self.d.ctrl[self.lift_act] = lift
         if self.task == "pick":
@@ -192,6 +200,7 @@ class BobV3Env(gym.Env):
         for _ in range(20):
             mujoco.mj_step(self.m, self.d)
         self.steps = 0
+        self.interlock.grasp_x = None
         return self._obs(), {}
 
     def step(self, action):
@@ -204,6 +213,15 @@ class BobV3Env(gym.Env):
         d.ctrl[self.grip_act] = glo + (a[6] + 1) / 2 * (ghi - glo)
         llo, lhi = self.m.actuator_ctrlrange[self.lift_act]
         d.ctrl[self.lift_act] = np.clip(d.ctrl[self.lift_act] + a[7] * LIFT_SPEED * CTRL_DT, llo, lhi)
+        # reach-limit interlock (sim/interlock.py): a loaded hand may not reach out
+        q_t = d.qpos.copy()
+        q_t[self.arm_q] = d.ctrl[self.arm_act]
+        q_t[self.lift_q] = d.ctrl[self.lift_act]
+        q_c, hit = self.interlock.clamp(d.qpos, q_t, self.loaded())
+        if hit:
+            self.interlock_hits += 1
+            d.ctrl[self.arm_act] = q_c[self.arm_q]
+            d.ctrl[self.lift_act] = q_c[self.lift_q]
         for _ in range(self.nsub):
             mujoco.mj_step(self.m, d)
         self.steps += 1
@@ -211,6 +229,10 @@ class BobV3Env(gym.Env):
         terminated = bool(success)
         truncated = self.steps >= self.max_steps
         return self._obs(), reward, terminated, truncated, {"is_success": success}
+
+    def loaded(self) -> bool:
+        """The controller's payload flag: both pads pressed (a real build reads gripper current)."""
+        return self.cube_body >= 0 and all(self.d.sensordata[self.m.sensor_adr[s]] > 0.5 for s in self.touch)
 
     def _reward(self):
         d = self.d

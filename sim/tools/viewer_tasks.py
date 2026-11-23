@@ -24,7 +24,7 @@ import bob_env  # noqa: E402
 import expert as E  # noqa: E402
 
 DT = 0.04
-SHELF_Z = 1.188  # shelf board centre; top at 1.20 m, front edge 0.42 m ahead of the axle
+SHELF_Z = 0.988  # shelf board centre; top at 1.00 m, front edge 0.42 m ahead of the axle
 
 
 def tilt_now(d):
@@ -181,6 +181,16 @@ def done(rec, task_id, title, desc, result, props, objs=None):
 
 # ---------------------------------------------------------------- tasks
 
+def _check():
+    chk = HERE / "reports" / "check.json"
+    return json.loads(chk.read_text()) if chk.exists() else {}
+
+
+def _pick_rate():
+    r = _check().get("pick", {}).get("success_rate")
+    return f"{r * 100:.0f}%" if r is not None else "most picks"
+
+
 def task_pick_expert():
     env = bob_env.BobV3Env("pick", max_steps=400)
     ex = E.Expert(env)
@@ -200,7 +210,7 @@ def task_pick_expert():
             z = env.d.xpos[env.cube_body][2] - 0.7725
             return done(rec, "pick", "Pick a cube off a table",
                         "Scripted closed-loop expert: IK to above the cube, descend, close the rack-and-pinion gripper, lift. "
-                        "This expert gets 97% over 100 random placements.",
+                        f"This expert gets {_pick_rate()} over 40 random placements in sim/check.py.",
                         f"Cube lifted {z * 1000:.0f} mm, held by both pads.", {"table": True}, ["cube"])
     raise RuntimeError("no successful pick")
 
@@ -298,16 +308,15 @@ def task_hold():
     home(m, d)
     rec = Rec(m, d, payload_boxes=True)
     rec.snap()
-    move(rec, {"lift": 0.4}, 3.0)
-    out = {}
-    for s in ("l", "r"):
-        out.update({f"{s}_shoulder_pitch": -1.5708, f"{s}_elbow": 0.0, f"{s}_wrist_pitch": 0.0, f"{s}_shoulder_roll": 0.0, f"{s}_gripper": 0.0})
+    import check as C
+    move(rec, {"lift": 0.0}, 3.0)
+    out = {**C.both(C.IL_WORST_LOW), "l_gripper": 0.0, "r_gripper": 0.0}
     move(rec, out, 3.0)
     rec.run(2.0)
     err = max(abs(math.degrees(d.qpos[m.jnt_qposadr[m.joint(k).id]] - v)) for k, v in out.items() if "gripper" not in k)
     tau = abs(d.actuator_force[act(m, "l_shoulder_pitch")])
-    return done(rec, "hold", "Hold 0.5 kg in each hand, arms straight out",
-                "The worst gravity load for the shoulders and elbows. The blue blocks are the 0.5 kg payloads.",
+    return done(rec, "hold", "Hold 0.5 kg in each hand at the reach limit",
+                "Column down, arms as far out as the reach-limit interlock allows with a load. The blue blocks are the 0.5 kg payloads.",
                 f"Worst joint sag {err:.1f}°. Shoulder pitch at {tau:.1f} N·m of its {m.actuator_forcerange[act(m, 'r_shoulder_pitch'), 1]:.1f} N·m peak.", {}, ["payload", "payload"])
 
 
@@ -350,11 +359,12 @@ def task_push():
     home(m, d)
     rec = Rec(m, d)
     rec.snap()
-    move(rec, {"lift": lift_top(m), "l_shoulder_pitch": -1.2, "r_shoulder_pitch": -1.2, "l_elbow": -0.3, "r_elbow": -0.3}, 3.0)
+    import check as C
+    move(rec, C.torso_up(m), 3.0)
     hb = m.body("head_tilt").id
     # A shove a bit under the tipping point that sim/check.py measured for this same pose.
     chk = HERE / "reports" / "check.json"
-    tip_n = json.loads(chk.read_text())["push"]["push_forward_N"] if chk.exists() else 15.0
+    tip_n = json.loads(chk.read_text())["push"]["push_forward_N"] if chk.exists() and "push" in json.loads(chk.read_text()) else 15.0
     F = float(math.floor(0.8 * tip_n))
 
     def push():
@@ -370,7 +380,7 @@ def task_push():
         max_t = max(max_t, math.degrees(math.acos(max(-1.0, min(1.0, 1 - 2 * (x * x + y * y))))))
     rec.run(2.0)
     return done(rec, "push", "Shove at the head, worst pose",
-                f"Torso at the top, arms forward. A {F:.0f} N push at the head for 1.5 s. The check finds the tipping point at {tip_n:.0f} N.",
+                f"Torso at the top, the worst arm pose the reach limit allows with a load. A {F:.0f} N push at the head for 1.5 s. The check finds the tipping point at {tip_n:.0f} N.",
                 f"Worst tilt {max_t:.1f}°. " + ("It settles back." if tilt_now(d) < 2.0 else "It tips over."), {})
 
 

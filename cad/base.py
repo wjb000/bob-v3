@@ -61,7 +61,9 @@ def _axle_pts(side):
 
 
 def _caster_pts(cx):
-    return [(cx - 25, -60), (cx - 25, 60), (cx + 25, -60), (cx + 25, 60)]
+    # The two mounting holes of a CY-15A ball transfer, its long side across the robot.
+    h = P.BALL_XFER_PITCH / 2
+    return [(cx, -h), (cx, h)]
 
 
 # Shelves stay on the open side (−y) and one rear pocket. +y is the battery.
@@ -69,7 +71,7 @@ def _caster_pts(cx):
 FRONT_SHELF_PTS = [(55, -112), (90, -112), (72, -140)]
 REAR_SHELF_PTS = [(-55, -112), (-90, -112), (-72, -140)]
 FRONT_SHELF_R_PTS = [(120, -118), (140, -116), (126, -132)]
-REAR_SHELF_R_PTS = [(-132, 96), (-150, 108), (-128, 128)]
+REAR_SHELF_R_PTS = [(-128, 92), (-138, 112), (-124, 128)]
 # On the cradle side walls (x ≈ ±105). The old feet sat in the opening and the half fell apart.
 CRADLE_PTS = [(107, 88), (107, 128), (-107, 88), (-107, 128)]
 LUG_PTS = []
@@ -94,17 +96,19 @@ def _lug_points():
     return pts
 
 
+def _lidar_mount_pts(cx):
+    return [(cx + 31 * math.cos(a), 31 * math.sin(a)) for a in (math.pi / 6, 5 * math.pi / 6, 3 * math.pi / 2)]
+
+
 def _register():
     PAN_PTS.clear()
     PAN_PTS["col"] = _col_foot_pts()
     PAN_PTS["axle_l"] = _axle_pts(1)
     PAN_PTS["axle_r"] = _axle_pts(-1)
-    PAN_PTS["caster_f"] = _caster_pts(CASTERS[0])
-    PAN_PTS["caster_r"] = _caster_pts(CASTERS[1])
+    PAN_PTS["lidar"] = _lidar_mount_pts(P.LIDAR_X)
     PAN_PTS["shelf_fl"] = FRONT_SHELF_PTS
     PAN_PTS["shelf_fr"] = FRONT_SHELF_R_PTS
     PAN_PTS["shelf_rl"] = REAR_SHELF_PTS
-    PAN_PTS["shelf_rr"] = REAR_SHELF_R_PTS
     PAN_PTS["cradle"] = CRADLE_PTS
     PAN_PTS["cable"] = [(-78.0, 24.0), (-78.0, 42.0)]
     LUG_PTS[:] = _lug_points()
@@ -444,9 +448,10 @@ def _in_cut(q, margin):
     x, y = q
     if abs(x) < P.WHEEL_CUT_X + margin and abs(y) > P.WHEEL_CUT_Y - margin:
         return True
-    for cx in CASTERS:
-        if math.hypot(x - cx, y) < P.CASTER_HOLE / 2 + margin:
-            return True
+    if P.CASTER_HOLE > 0:
+        for cx in CASTERS:
+            if math.hypot(x - cx, y) < P.CASTER_HOLE / 2 + margin:
+                return True
     return False
 
 
@@ -477,14 +482,23 @@ def _pan_full() -> cq.Shape:
         y0 = P.WHEEL_CUT_Y if sy > 0 else -PAN_LY
         y1 = PAN_LY if sy > 0 else -P.WHEEL_CUT_Y
         rims.append(box(-P.WHEEL_CUT_X - 4, P.WHEEL_CUT_X + 4, y0 - 4 * sy if sy > 0 else y0, y1 if sy > 0 else y1 + 4, z0, z1))
+    # solid pads the ball transfers bolt to
     for cx in CASTERS:
-        rims.append(tube_between("z", (cx, 0), z0, z1, P.CASTER_HOLE + 8, P.CASTER_HOLE - 1))
+        rims.append(box(cx - P.BALL_XFER[0] / 2 - 2, cx + P.BALL_XFER[0] / 2 + 2,
+                        -P.BALL_XFER[1] / 2 - 2, P.BALL_XFER[1] / 2 + 2, z0, z1))
     pan = fuse(skin, rim, grid, *bosses, *rims).intersect(rrect(BX, 0, z0, z1, PAN_LX, PAN_LY, PAN_R))
+    # The pads stand 2 mm proud of the rib bottoms, so the 20 mm transfers just touch the floor.
+    feet = [box(cx - P.BALL_XFER[0] / 2 - 2, cx + P.BALL_XFER[0] / 2 + 2,
+                -P.BALL_XFER[1] / 2 - 2, P.BALL_XFER[1] / 2 + 2, P.BALL_XFER[2], z0 + 1) for cx in CASTERS]
+    pan = fuse(pan, *feet)
     tools = []
     for sy in (1, -1):
         tools.append(box(-P.WHEEL_CUT_X, P.WHEEL_CUT_X, sy * P.WHEEL_CUT_Y, sy * 400, 0, 100))
-    for cx in CASTERS:
-        tools.append(cyl((cx, 0, 0), "z", P.CASTER_HOLE, 100))
+    for x, y in _caster_pts(CASTERS[0]) + _caster_pts(CASTERS[1]):
+        tools.append(cyl((x, y, 0), "z", P.M3, 100))  # screw up from below, nut on top of the pad
+        tools.append(hexagon(x, y, z1 - 3.0, z1 + 1, 6.4))
+    hw("M3x20 socket head (ball transfer)", 4)
+    hw("M3 nut", 4)
     for x, y in pts:
         tools.append(cyl((x, y, z1 - P.M3_INSERT_DEPTH), "z", P.M3_INSERT, P.M3_INSERT_DEPTH + 1))
         tools.append(cyl((x, y, z0 - 1), "z", 2.5, 20))  # vent the insert hole
@@ -532,7 +546,7 @@ def wheel_bracket(side) -> cq.Shape:
 def caster_bridge(cx, lidar=False) -> cq.Shape:
     z0, z1 = P.PAN_TOP, P.CASTER_PLATE_Z
     legs = [cyl((x, y, z0), "z", 16, z1 - z0) for x, y in _caster_pts(cx)]
-    plate = rrect(cx, 0, z1, z1 + 10, 62, 136, 14)
+    plate = rrect(cx + math.copysign(1.5, cx), 0, z1, z1 + 10, 63, 136, 14)  # nudged outboard, clear of the cable trough
     parts = [plate, *legs]
     s = fuse(*parts)
     tools = [cyl((cx, 0, z1 - 1), "z", 22.2, 7 + 1), cyl((cx, 0, z1 - 1), "z", P.M8, 20),
@@ -550,13 +564,9 @@ def caster_bridge(cx, lidar=False) -> cq.Shape:
     return cut(s, *tools)
 
 
-def _lidar_mount_pts(cx):
-    return [(cx + 31 * math.cos(a), 31 * math.sin(a)) for a in (math.pi / 6, 5 * math.pi / 6, 3 * math.pi / 2)]
-
-
 def lidar_mount(cx) -> cq.Shape:
-    """Ring that lifts the RPLIDAR C1 to the scan slot. Bolts to the front caster bridge."""
-    z0 = P.CASTER_PLATE_Z + 10
+    """Ring that lifts the RPLIDAR C1 to the scan slot. Bolts to inserts in the pan."""
+    z0 = P.PAN_TOP
     ring = tube_between("z", (cx, 0), z0, P.LIDAR_Z0, 52, 40)
     flange = cyl((cx, 0, z0), "z", 74, 4)
     top = tube_between("z", (cx, 0), P.LIDAR_Z0 - 3, P.LIDAR_Z0, 58, 30)
@@ -662,7 +672,7 @@ def front_shelf(side) -> cq.Shape:
 def rear_shelf(side) -> cq.Shape:
     if side > 0:
         return _shelf(FRONT_SHELF_R_PTS, (108, 155, -155, -100), 1, True)
-    return _shelf(REAR_SHELF_R_PTS, (-158, -108, 78, 138), 1, False)
+    return _shelf(REAR_SHELF_R_PTS, (-146, -112, 80, 136), 1, False)
 
 
 # ---------------------------------------------------------------- bought envelopes
@@ -702,8 +712,14 @@ def bought() -> list[Bought]:
     glow = rrect_shell(BX, 0, LIGHT_Z[0] + 0.5, LIGHT_Z[1] - 0.5, SHELL_LX - 0.6, SHELL_LY - 0.6, P.BASE_R - 0.3, 1.2, open_top=True, open_bot=True)
     out.append(Bought("light_base", glow, "base", "base", "electronics", 15, "ledstrip", look="glow"))
     for cx in CASTERS:
-        out.append(Bought(f"caster_bolt_{'f' if cx > 0 else 'r'}", cyl((cx, 0, P.CASTER_PLATE_Z - 12), "z", 8, 30), "base", "base", "metal", 30, "m8",
-                          look="steel"))
+        s = "f" if cx > 0 else "r"
+        lx, ly, h = P.BALL_XFER
+        r = P.CASTER_WHEEL / 2
+        flange = rrect(cx, 0, h - 3, h, lx, ly, 6)
+        flange = cut(flange, *[cyl((x, y, h - 4), "z", 4.0, 6) for x, y in _caster_pts(cx)])
+        cup = cyl((cx, 0, r + 1), "z", 24, h - 3 - r - 1)
+        ball = cq.Workplane("XY").sphere(r).translate((cx, 0, r)).val()
+        out.append(Bought(f"ball_caster_{s}", fuse(flange, cup, ball), "base", "base", "metal", 35, "ballxfer", look="steel"))
     # No steel ballast. The three 1018 pads (about 5 kg) are gone; the smaller base
     # keeps the pack, the drivers and the lift motor low instead.
     return out
@@ -751,15 +767,8 @@ def parts() -> list[Part]:
     for side, s in ((1, "l"), (-1, "r")):
         out.append(Part(f"wheel_bracket_{s}", wheel_bracket(side), "base", "base", color="frame",
                         note="Holds a DDSM115 by its stub (3 x M2.5 x 10). 5 walls, 40% infill."))
-    out.append(Part("caster_bridge_front", caster_bridge(CASTERS[0], lidar=True), "base", "base", color="frame", rot=(180, 0, 0),
-                    note="Swivel 608ZZ pocket underneath. Inserts on top for the lidar mount."))
-    out.append(Part("caster_bridge_rear", caster_bridge(CASTERS[1]), "base", "base", color="frame", rot=(180, 0, 0)))
-    out.append(Part("lidar_mount", lidar_mount(CASTERS[0]), "base", "base", color="dark", rot=(0, 0, 0),
-                    note="Lifts the RPLIDAR C1 to the slot in the shell."))
-    for cx, s in ((CASTERS[0], "front"), (CASTERS[1], "rear")):
-        out.append(Part(f"caster_fork_{s}", caster_fork(cx), "base", "base", color="dark", rot=(180, 0, 0)))
-        out.append(Part(f"caster_wheel_{s}", caster_wheel(cx), "base", "base", color="dark", rot=(90, 0, 0),
-                        note="Two 608ZZ pressed in. TPU 95A if your printer does it, PETG otherwise."))
+    out.append(Part("lidar_mount", lidar_mount(P.LIDAR_X), "base", "base", color="dark", rot=(0, 0, 0),
+                    note="Lifts the RPLIDAR C1 to the slot in the shell. Three M3 into the pan."))
     cradle = battery_cradle()
     for sy, s in ((1, "l"), (-1, "r")):
         # The pack sits on +y, so the two halves meet on x = 0, not on the centreline.
@@ -770,8 +779,9 @@ def parts() -> list[Part]:
     for side, s in ((1, "l"), (-1, "r")):
         out.append(Part(f"shelf_front_{s}", front_shelf(side), "base", "base", color="frame", rot=(180, 0, 0),
                         note="Motor drivers and the ESP32 on the 20 mm grid."))
-        out.append(Part(f"shelf_rear_{s}", rear_shelf(side), "base", "base", color="frame", rot=(180, 0, 0),
-                        note="Bucks, fuse block, contactor."))
+        if side > 0:  # the +y rear corner is battery and e-stop only, so it has no shelf
+            out.append(Part(f"shelf_rear_{s}", rear_shelf(side), "base", "base", color="frame", rot=(180, 0, 0),
+                            note="Bucks, fuse block, contactor."))
     out.append(Part("cable_trough", cable_trough(), "base", "base", color="frame", rot=(0, 0, 0),
                     note="Service loop for the column umbilical. Zip-tie the sleeve at the closed end. 4 walls."))
     link = drag_link()

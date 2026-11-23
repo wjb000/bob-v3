@@ -22,7 +22,7 @@ TX0 = P.TORSO_X0
 TX1 = TX0 + P.TORSO_D
 TCX = (TX0 + TX1) / 2
 BP_X0, BP_X1 = TX0 + 4.0, TX0 + 12.0  # back plate
-BP_Z = (-176.0, -22.0)  # bottom stays above the belly joiner tabs
+BP_Z = (-146.0, -22.0)  # bottom stays above the belly joiner tabs
 YOKE_FACE_X = BP_X1
 
 
@@ -54,7 +54,7 @@ def back_plate(sz=S0) -> cq.Shape:
 
 def _shell_back_pts(sz):
     # Outboard of the column (the tube occupies y = ±50).
-    return [(sy * 62.0, sz + dz) for sy in (1, -1) for dz in (-172.0, -110.0, -55.0)]
+    return [(sy * 62.0, sz + dz) for sy in (1, -1) for dz in (-142.0, -100.0, -55.0)]
 
 
 def _yoke_web_pts(sz):
@@ -161,7 +161,7 @@ def _torso_seam_pairs(sz):
     """(a, b, inward normal) for joiner tabs. Vertical seam y=0, horizontal seam at the tier split."""
     out = []
     zf = TX1 - P.TORSO_WALL
-    for dz in (-125.0, -40.0, 15.0):
+    for dz in (-145.0, -40.0, 15.0):
         z = sz + dz
         out.append(((zf, -JOIN_OFF, z), (zf, JOIN_OFF, z), (-1, 0, 0)))
     zs = sz + P.TORSO_SPLIT
@@ -263,12 +263,12 @@ def torso_shell(sz=S0) -> cq.Shape:
     for r, n in ((0, 1), (7, 6), (14, 12), (21, 18)):
         for i in range(n):
             a = 2 * math.pi * i / n
-            tools.append(cyl_between("x", (r * math.cos(a), sz - 156 + r * math.sin(a)), TX1 - 6, TX1 + 1, 3.2))
+            tools.append(cyl_between("x", (r * math.cos(a), sz - 114 + r * math.sin(a)), TX1 - 6, TX1 + 1, 3.2))
     # back vents for the Jetson
     for i in range(6):
         for sy in (1, -1):
             y = sy * (40 + 7 * i)
-            tools.append(box(TX0 - 1, TX0 + 5, y - 1.8, y + 1.8, sz - 185, sz - 125))
+            tools.append(box(TX0 - 1, TX0 + 5, y - 1.8, y + 1.8, sz - 155, sz - 100))
     hw("M3x10 socket head", 2 * len(_torso_seam_pairs(sz)) + len(_shell_back_pts(sz)) + len(_torso_top_pts()))
     hw("M3 heat-set insert", 2 * len(_torso_seam_pairs(sz)))
     return cut(s, *tools)
@@ -311,7 +311,7 @@ def bought(sz=S0) -> list[Bought]:
     for name, y in (("servo_bus", 72), ("servo_bus_r", -72)):
         out += V.boughts(name, V.place(V.usb_board(44, 30, 14, ports=2), (30, y, sz - 126), xdir=(1, 0, 0), zdir=(0, 0, 1)),
                          "lift", "torso", "electronics", 25, "busadapter")
-    out += V.boughts("speaker", V.place(V.speaker(), (TX1 - 10, 0, sz - 156), xdir=(0, 1, 0), zdir=(1, 0, 0)), "lift", "torso", "electronics", 40, "speaker")
+    out += V.boughts("speaker", V.place(V.speaker(), (TX1 - 10, 0, sz - 114), xdir=(0, 1, 0), zdir=(1, 0, 0)), "lift", "torso", "electronics", 40, "speaker")
     out += V.boughts("pan_servo", V.place(V.sts3215(), (NECK_X, 0, sz + 47)), "lift", "torso", "actuator", P.STS_MASS, "sts3215")
     out.append(Bought("light_chest", rrect(TX1 - 2.2, 0, sz - 63.5, sz - 58.5, 3.0, 118, 2.5), "lift", "torso", "electronics", 5, "ledstrip", look="glow"))
     return out

@@ -66,7 +66,7 @@ HOME = {
 # its whole travel (0 to LIFT_TRAVEL) in this pose without an arm touching the base.
 # export.py checks it at the bottom and the top of travel.
 POSES = {
-    "zero": {"lift": 0.42},  # arms hang straight; any lower and the fingers meet the base shell
+    "zero": {"lift": 0.455},  # arms hang straight; any lower and the fingers meet the base shell
     "home": HOME,
     # counter, floor and shelf are IK solutions to the targets sim/check.py verifies (same values both arms: they mirror)
     "counter": {**HOME, "lift": 0.35, "head_tilt": 0.55,

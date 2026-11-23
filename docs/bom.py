@@ -95,11 +95,12 @@ BOM = [
     ("Fasteners", "Metric socket cap screw kit, M2-M8, 441 pieces", 1, 67.55,
      "https://www.albanycountyfasteners.com/metric-socket-cap-screw-assortment-kit-p/1060-090.htm",
      "M2 for horns and cameras. Buy M2.5 x 10 separately for the DDSM115 stubs.", False),
-    ("Fasteners", "608ZZ bearing, 8 x 22 x 7 mm", 6, 9.99,
-     "https://vxb.com/products/608zz-electric-motor-bearing-8x22x7mm-chrome-steel", "Casters.", False),
+    ("Fasteners", "TOVOT CY-15A 5/8 in steel ball transfer, 44 lb, 4 pack", 1, 6.99,
+     "https://www.amazon.com/dp/B07YYSW494",
+     "The two casters, bolted under the pan; two spares. 48 x 32 x 20 mm, holes 39 mm apart. Price from the listing; the store blocks automated checks. Best on hard floors.", False),
 
     ("Filament", "Prusament PETG, 1 kg", 6, 23.99, "https://www.prusa3d.com/product/prusament-petg-anthracite-grey-1kg-nfc/",
      "Pick colours: white shells, grey structure, black trim.", False),
     ("Filament", "Bambu Lab TPU 95A HF, 1 kg", 1, 25.19, "https://us.store.bambulab.com/products/tpu-95a-hf",
-     "Compliant TPU fingers (Nori-style) and caster tires.", False),
+     "Compliant TPU fingers (Nori-style).", False),
 ]

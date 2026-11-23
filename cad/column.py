@@ -199,9 +199,10 @@ def mid_segment(i, z0, z1, n) -> cq.Shape:
         hw("TR8x2 brass flange nut", 1)
         hw("M3x10 thread-forming (T8 nut)", 4)
         # Outward dogs and the top-limit flag. At full stroke these sit just under the outer stops.
-        adds.extend(_flat_dogs(P.COL_MID_D, z0 + 158, z0 + 164, outward=True))
+        dz = P.COL_Z0 + P.COL_OUTER_LEN - 30 - P.STAGE_TRAVEL - P.COL_MID_Z0  # 5 mm under the outer stops at full stroke
+        adds.extend(_flat_dogs(P.COL_MID_D, z0 + dz, z0 + dz + 6, outward=True))
         face = P.COL_MID_D / 2
-        adds.append(box(9, 17, face - 0.8, face + 2.4, z0 + 152, z0 + 158))
+        adds.append(box(9, 17, face - 0.8, face + 2.4, z0 + dz - 6, z0 + dz))
         bar, hole = _tie_bar(P.COL_MID_D, z0 + 96)
         adds.append(bar)
         tools.append(hole)
@@ -219,7 +220,8 @@ def mid_segment(i, z0, z1, n) -> cq.Shape:
         hw("GT2 20T pulley, 5 mm bore", 2)
         hw("M5x20 shoulder screw (pulley)", 2)
         hw("M3x10 socket head (belt anchor)", 2)
-        adds.extend(_flat_dogs(P.COL_MID_D, z1 - 73, z1 - 67, outward=False))
+        k = (P.COL_MID_Z0 + P.COL_MID_LEN) - (P.COL_UPPER_Z0 + 16 + P.STAGE_TRAVEL)  # 4 mm over the upper dogs at full stroke
+        adds.extend(_flat_dogs(P.COL_MID_D, z1 - k, z1 - k + 6, outward=False))
     s = fuse(s, *adds)
     s = s.intersect(rrect(P.COL_X, 0, min(z0, P.NUT_Z - 8), z1 + 1, P.COL_MID_D + 20, P.COL_MID_D + 20, P.COL_MID_R + 8))
     return cut(s, *tools)
@@ -252,7 +254,8 @@ def upper_segment(i, z0, z1, n) -> cq.Shape:
                                      sy * (P.COL_UPPER_D / 2 - 12), sy * (P.COL_UPPER_D / 2 + 4), 5.2))
         hw("GT2 20T pulley, 5 mm bore", 2)
         hw("M5x20 shoulder screw (pulley)", 2)
-        adds.extend(_flat_dogs(P.COL_UPPER_D, z1 - 74, z1 - 68, outward=False))
+        k = (P.COL_UPPER_Z0 + P.COL_UPPER_LEN) - (P.COL_INNER_Z0 + 14 + P.STAGE_TRAVEL)  # 3 mm over the inner dogs at full stroke
+        adds.extend(_flat_dogs(P.COL_UPPER_D, z1 - k, z1 - k + 6, outward=False))
     s = fuse(s, *adds)
     s = s.intersect(rrect(P.COL_X, 0, z0, z1 + 1, P.COL_UPPER_D + 20, P.COL_UPPER_D + 20, P.COL_UPPER_R + 8))
     return cut(s, *tools)
