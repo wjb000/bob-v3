@@ -13,14 +13,14 @@ This is a design that has been checked in CAD and in physics simulation. It has 
 | Payload | 0.5 kg (1.1 lb) per hand. A reach-limit interlock in the controller (`sim/interlock.py`) blocks reaching out with a load: with the column at the bottom the hands may go out to the carry pose (0.53 m ahead of the axle); once the column rises they stay within 0.16 m of the axle and no higher than the shoulders, tucked at the chest or down by the sides. A grasp made further out can be lifted and pulled in, never pushed further out. |
 | Joints | 19 driven: 2 hub wheels, lift, head pan and tilt, and 7 per arm (six joints plus the gripper). |
 | Gripper | Geared parallel jaw, Nori-style TPU fingers, 0–80 mm, about 40 N per finger. |
-| Mass | 11.7 kg with the printed parts at their wall and infill settings and the bought parts at their listed mass. No steel ballast. |
+| Mass | 13.45 kg in the sim: 11.7 kg of parts (the printed parts at their wall and infill settings and the bought parts at their listed mass) plus 1.76 kg the sim adds for wiring, screws and small hardware (1.2 kg in the base, 0.56 kg on the lift stages). No steel ballast. |
 | Prints | 164 prints from 95 files, about 5.3 kg of filament, all inside 200 × 200 × 200 mm. |
-| Cost | About $2,650 for every part at the linked stores, or $2,375 if you reuse the Bob v2 Pi 5, battery and charger. Two $7 ball transfers replace the swivel casters and their six 608ZZ bearings. See [BOM.md](BOM.md). |
+| Cost | About $2,886 for every part at the linked stores, or $2,611 if you reuse the Bob v2 Pi 5, battery and charger. Four igus polymer ball transfers ($16.94 each at one piece) replace the swivel casters and their six 608ZZ bearings. See [BOM.md](BOM.md). |
 | Compute | Raspberry Pi 5 on the robot; big models run on a desktop GPU over Wi-Fi. A wide RGB camera in the head, a USB camera on each wrist, RPLIDAR C1 in the base. |
 
 ## This revision
 
-The base is a 360 × 360 mm square with 70 mm corner radii, the cyan light strip in the bottom edge and the red e-stop on the rear of the top. It sits 25 mm forward of the wheel axle, drive wheels at ±150 mm. Two steel ball transfers (CY-15A, 5/8 in ball) bolt up under solid pads in the pan, 177 mm ahead of the axle and 127 mm behind it. A swivel caster needs a swing hole that the square base had no room for; the ball transfers put the front contact 67 mm further forward than a swivel caster could sit. It turns in place inside a 488 mm circle (547 mm on the 440 × 360 base). Every pan and shell tile fits a 200 mm bed and every joint is a screw into an insert or a nut, no glue. The empty rear-right shelf is gone.
+The base is a 360 × 360 mm square with 70 mm corner radii, the cyan light strip in the bottom edge and the red e-stop on the rear of the top. It sits 25 mm forward of the wheel axle, drive wheels at ±150 mm. Four igus xiros BB-515-B180-POM-ES polymer ball transfers (15 mm POM ball on stainless support balls, no metal ball on the floor) press into printed feet under the pan, two 177 mm ahead of the axle and two 127 mm behind it, each pair at ±45 mm. The balls sit 1 mm above the floor with the robot level, so the tires carry most of the weight and a ball only touches when the base leans. A swivel caster needs a swing hole that the square base had no room for; the ball transfers put the front contact 67 mm further forward than a swivel caster could sit, and two per end put a support corner under each side instead of one ball on the centreline. It turns in place inside a 488 mm circle (547 mm on the 440 × 360 base). Every pan and shell tile fits a 200 mm bed and every joint is a screw into an insert or a nut, no glue. The empty rear-right shelf is gone.
 
 The robot is shorter and the proportions closer to square: the collapsed shoulder is 410 mm (was 452), the base top 200 mm, and each tube is shorter, so the lift travels 462 mm (18.2 in, was 558 mm). The head top is 0.64 m stowed and 1.11 m at full lift (was 0.69 m and 1.24 m). The lift still runs bottom → top → bottom in the sim with 0.5 kg per hand.
 
@@ -91,18 +91,18 @@ python3.12 -m venv .venv
 
 | Check | Result |
 | --- | --- |
-| Stands at home | drift 0.01 mm, tilt 0.02° |
+| Stands at home | drift 0.02 mm, tilt 0.21° (it settles onto the front pair of balls) |
 | Arm torque, 0.5 kg in each hand | passes on peak. Shoulder pitch is at 67% of peak, 282% of the continuous rating. |
-| Holds 0.5 kg each at the furthest pose the interlock allows (column down) | the base does not tip (0.05°). The shoulder sags 3.9°, so this check fails the 3° tracking limit. No actuator saturated. |
-| Lift 0 → 462 mm → 0, hands tucked at the chest (allowed by the interlock at every height), 0.5 kg each | 18.8 s up and 18.5 s down at 25 mm/s. The middle and upper tubes follow at 1/3 and 2/3 within 0.04 mm, nothing on the robot touches anything else, and the base tilts 0.03°. Holds within 1.1 mm at 67 N. |
-| Drives 0.56 m/s and stops at 1–6 m/s², torso up, worst allowed pose, 0.5 kg each | passes, max tilt 0.17° |
-| Centre of mass inside the wheel-and-ball footprint | passes in four poses (the worst the interlock allows at the bottom, middle and top of the lift, and a floor pick). Worst margin 50.2 mm. |
-| Shove at the head, torso up, worst allowed pose, 0.5 kg each | fails: it tips at 23.4 N forward and 19.9 N back. The check wants 25 N both ways. |
-| Steepest ramp in that pose | 16.5° nose down, 20.5° nose up, 17.1° sideways (target 20° nose down) |
-| Reach-limit interlock | blocks reaching straight out with a load at every lift height. Worst allowed pose, 0.5 kg each: column down 26.4 N forward / 49.2 N back, 20.0° nose down (meets both); lift 0.30 m 25.2 N / 23.4 N, 18.9°; full lift 23.4 N / 19.9 N, 15.9°. Only the bottom of the lift meets both 25 N and 20°. Above the bottom of the lift the 25 N shove is not met with any arm pose, even with empty hands (about 20 N forward and 18 N back at full lift), so the check is marked failing. |
+| Holds 0.5 kg each at the furthest pose the interlock allows (column down) | the base does not tip (0.26°). The shoulder sags 3.9°, so this check fails the 3° tracking limit. No actuator saturated. |
+| Lift 0 → 462 mm → 0, hands tucked at the chest (allowed by the interlock at every height), 0.5 kg each | 18.8 s up and 18.5 s down at 25 mm/s. The middle and upper tubes follow at 1/3 and 2/3 within 0.04 mm, nothing on the robot touches anything else, and the base tilts 0.22°. Holds within 1.1 mm at 67 N. |
+| Drives 0.6 m/s and stops at 1–6 m/s², torso up, worst allowed pose, 0.5 kg each | passes, max tilt 0.46° |
+| Centre of mass inside the wheel-and-ball footprint | passes in four poses (the worst the interlock allows at the bottom, middle and top of the lift, and a floor pick). Worst margin 44.9 mm to the contacts it rests on (the tires and the front pair of balls; the rear pair is 1 mm off the floor until the base leans back). |
+| Shove at the head, torso up, worst allowed pose, 0.5 kg each | passes: it tips at 28.7 N forward and 27.5 N back. The check wants 25 N both ways. |
+| Steepest ramp in that pose | 16.0° nose down, 20.4° nose up, 13.8° left side down, 16.0° right side down (to the true wheel-to-ball edges; target 20° nose down) |
+| Reach-limit interlock | blocks reaching straight out with a load at every lift height. Worst allowed pose, 0.5 kg each: column down 34.6 N forward / 79.1 N back, 20.0° nose down (meets both); lift 0.30 m 32.8 N / 29.9 N, 18.9°; full lift 28.7 N / 27.5 N, 16.0°. The 25 N shove now holds at every lift height; the 20° nose-down ramp holds only with the column down, so the check is marked failing. |
 | Workspace sample, 6000 poses | an arms-up pose reaches 1.50 m. A point on the floor in front of the nose is in the samples. |
 | Floor, counter, shelf, charge socket by IK | a floor point just past the nose, the 0.91 m counter, a 1.25 m shelf point 0.30 m forward and the charge socket are reached. |
-| Scripted pick off a 0.75 m table, interlock on | 95% of 40 random placements |
+| Scripted pick off a 0.75 m table, interlock on | 97.5% of 40 random placements |
 
 To train your own policy, see [sim/README.md](sim/README.md).
 
