@@ -289,7 +289,7 @@ def main():
                 z.write(ROOT / doc, f"bob-v3/{doc}")
     print("sim zip")
     with zipfile.ZipFile(dst / "bob-v3-sim.zip", "w", zipfile.ZIP_DEFLATED) as z:
-        for f in ["bob_v3.xml", "bob_env.py", "expert.py", "train.py", "record_demos.py", "check.py", "README.md"]:
+        for f in ["bob_v3.xml", "bob_env.py", "expert.py", "train.py", "record_demos.py", "check.py", "interlock.py", "README.md"]:
             if (ROOT / "sim" / f).exists():
                 z.write(ROOT / "sim" / f, f"bob-v3-sim/{f}")
         for f in sorted((ROOT / "sim" / "assets").glob("*.stl")):
