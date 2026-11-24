@@ -80,12 +80,18 @@ One PET sleeve carries the chest power (5 V to the Pi, 12 V to both servo buses)
 
 1. `shoulder` onto the J1 horn: 4 × M3×8, reached through the empty J2 cup.
 2. J2 STS3095 into the shoulder cup, tab screws. `clevis` onto the J2 horn.
-3. J3 STS3250 into the clevis cup. Screw both `upper_arm` halves to the J3 horn, put the J4 STS3095 in the cup, and close the clamshell (6 × M3×16 with nuts).
+3. J3 STS3250 into the clevis cup. Screw both `upper_arm` halves to the J3 horn, put the J4 STS3095 in the cup (its tab screws hold the two cup halves together), and close the clamshell (3 × M3×16 with nuts). The two bolt holes left on the inner side, just above the elbow, take the elbow cover's M3×50 bolts in step 7.
 4. `elbow` onto the J4 horn. Put the J5 STS3250 between the `forearm` halves, close them, and bolt the forearm flange to the elbow (4 × M3×16 with nuts).
 5. `wrist` clevis onto the J5 horn, with the idler screw on the other side. Put J6 in the wrist sleeve.
 6. `palm` onto the J6 horn, with J7 inside it. Centre J7 at mid-travel, press the `pinion` onto the horn, slide the PETG `rack`s into their channels so they meet when the servo is at the "closed" end, and bolt on the TPU `finger`s.
-7. Wiring: the Feetech bus runs down the hollow upper arm and the forearm. Leave slack at every joint.
-8. Set the Feetech IDs on each arm's bus: J1–J7 are 1–7; the head pan and tilt are 8 and 9 on the left bus. Multi-turn mode on every arm servo.
+7. Wiring: the Feetech bus runs down the hollow upper arm and the forearm. Cables cross each covered joint next to its axis (the open torso side of the shoulder drum, the hole under the clevis box, the ring on the outer face of the elbow knuckle). Leave slack at every joint.
+8. Covers, after the wiring is checked:
+   - `shoulder_cover_top` and `shoulder_cover_bot`: a drum round the J2 roll axis. Each half takes 2 × M3×10 into heat-set inserts in the shoulder tabs. The side facing the torso is open for the J2 cable.
+   - `clevis_cover_a` and `clevis_cover_b`: a rounded box over the J3 cup. 2 × M3×10 each, into inserts in the clevis span.
+   - `elbow_cover_a` and `elbow_cover_b`: slide the halves on from front and back, press the bottom snap shut, and put the two M3×50 bolts through the collar and the upper arm (nuts in the pockets on the front half).
+   - The wrist skirt is printed on the wrist. Nothing to fit.
+   To reach a servo, take off only that joint's cover: two or four screws, or for the elbow two bolts and the snap.
+9. Set the Feetech IDs on each arm's bus: J1–J7 are 1–7; the head pan and tilt are 8 and 9 on the left bus. Multi-turn mode on every arm servo.
 
 ## 8. Head
 

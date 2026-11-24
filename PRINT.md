@@ -1,6 +1,6 @@
 # Print list
 
-83 unique files, 152 prints, about 4.9 kg of filament at the settings below.
+95 unique files, 164 prints, about 5.3 kg of filament at the settings below.
 Every part fits a 200 x 200 x 200 mm volume (Prusa MK4, Ender-3, Bambu A1/P1/X1, Core One).
 The STLs in `cad/stl/` are already oriented: flat face down, no rotating. Grams are at 4 walls and 20% gyroid.
 
@@ -89,36 +89,48 @@ The STLs in `cad/stl/` are already oriented: flat face down, no rotating. Grams 
 | `head_lower.stl` | 1 | white PETG | 120 x 176 x 24 | 57 | 9 cm² | Floor down. |
 | `head_upper.stl` | 1 | white PETG | 120 x 176 x 120 | 147 | 14 cm² | Top down. Visor fits from inside. |
 
-## Arms (0.83 kg)
+## Arms (1.20 kg)
 
 | File | Qty | Colour | Bed mm | g each | Support | Note |
 | --- | ---: | --- | --- | ---: | --- | --- |
-| `shoulder_l.stl` | 1 | white PETG | 52 x 72 x 67 | 16 | none | J1 output to the J2 cup. Screw it to J1 before J2 goes in. |
-| `clevis_l.stl` | 1 | grey PETG | 137 x 66 x 68 | 72 | 12 cm² | J2 output, holds J3. |
-| `upper_arm_a_l.stl` | 1 | white PETG | 36 x 64 x 165 | 30 | 6 cm² | Clamshell half. Prints on the split face. |
-| `upper_arm_b_l.stl` | 1 | white PETG | 36 x 64 x 165 | 34 | 6 cm² | Clamshell half with the nut traps. |
-| `elbow_l.stl` | 1 | grey PETG | 54 x 77 x 91 | 42 | 7 cm² | J4 output to the forearm flange. |
-| `forearm_a_l.stl` | 1 | white PETG | 162 x 54 x 27 | 51 | 54 cm² |  |
-| `forearm_b_l.stl` | 1 | white PETG | 162 x 54 x 27 | 51 | 52 cm² |  |
-| `wrist_l.stl` | 1 | black PETG | 60 x 98 x 64 | 42 | 58 cm² | J5 horn and idler, holds J6. |
+| `shoulder_l.stl` | 1 | white PETG | 52 x 72 x 88 | 46 | 34 cm² | J1 output to the J2 cup. Screw it to J1 before J2 goes in. |
+| `clevis_l.stl` | 1 | grey PETG | 137 x 64 x 65 | 81 | 69 cm² | J2 output, holds J3. |
+| `upper_arm_a_l.stl` | 1 | white PETG | 187 x 64 x 32 | 44 | 85 cm² | Clamshell half. Prints on the split face. |
+| `upper_arm_b_l.stl` | 1 | white PETG | 187 x 64 x 32 | 44 | 85 cm² | Clamshell half with the nut traps. |
+| `elbow_l.stl` | 1 | grey PETG | 54 x 77 x 95 | 39 | 7 cm² | J4 output to the forearm flange. |
+| `forearm_a_l.stl` | 1 | white PETG | 158 x 54 x 27 | 51 | 53 cm² |  |
+| `forearm_b_l.stl` | 1 | white PETG | 158 x 54 x 27 | 51 | 51 cm² |  |
+| `wrist_l.stl` | 1 | black PETG | 88 x 88 x 113 | 56 | 69 cm² | J5 horn and idler, holds J6. |
 | `palm_l.stl` | 1 | black PETG | 62 x 110 x 58 | 52 | 36 cm² | J6 horn on top, J7 inside, rack channels underneath. |
 | `pinion_l.stl` | 1 | grey PETG | 27 x 27 x 8 | 2 | none | 16T module 1.5 on the J7 horn. 100% infill. |
 | `rack_a_l.stl` | 1 | black PETG | 22 x 70 x 31 | 4 | none | PETG rack and drop. Slides in from the +y end. |
 | `rack_b_l.stl` | 1 | black PETG | 22 x 70 x 31 | 4 | none | PETG rack and drop. Slides in from the -y end. |
 | `finger_a_l.stl` | 1 | TPU 95A | 24 x 48 x 8 | 6 | none | Nori-style TPU 95A finger. Bolts to the rack. |
 | `finger_b_l.stl` | 1 | TPU 95A | 24 x 48 x 8 | 6 | none | Nori-style TPU 95A finger. |
-| `shoulder_r.stl` | 1 | white PETG | 52 x 72 x 67 | 16 | none | J1 output to the J2 cup. Screw it to J1 before J2 goes in. |
-| `clevis_r.stl` | 1 | grey PETG | 137 x 66 x 68 | 72 | 12 cm² | J2 output, holds J3. |
-| `upper_arm_a_r.stl` | 1 | white PETG | 36 x 64 x 165 | 30 | 6 cm² | Clamshell half. Prints on the split face. |
-| `upper_arm_b_r.stl` | 1 | white PETG | 36 x 64 x 165 | 34 | 6 cm² | Clamshell half with the nut traps. |
-| `elbow_r.stl` | 1 | grey PETG | 54 x 77 x 91 | 42 | 7 cm² | J4 output to the forearm flange. |
-| `forearm_a_r.stl` | 1 | white PETG | 162 x 54 x 27 | 51 | 54 cm² |  |
-| `forearm_b_r.stl` | 1 | white PETG | 162 x 54 x 27 | 51 | 52 cm² |  |
-| `wrist_r.stl` | 1 | black PETG | 60 x 98 x 64 | 42 | 58 cm² | J5 horn and idler, holds J6. |
+| `shoulder_cover_top_l.stl` | 1 | white PETG | 57 x 89 x 63 | 24 | 43 cm² | Shoulder cover half. Two M3x10 into inserts in the shoulder tab. Prints on the split face. |
+| `shoulder_cover_bot_l.stl` | 1 | white PETG | 57 x 89 x 63 | 24 | 40 cm² | Shoulder cover half. Two M3x10 into inserts in the shoulder tab. Prints on the split face. |
+| `clevis_cover_a_l.stl` | 1 | white PETG | 62 x 56 x 29 | 11 | 6 cm² | Clevis cover half. Two M3x10 into inserts in the clevis span. Prints on the split face. |
+| `clevis_cover_b_l.stl` | 1 | white PETG | 62 x 56 x 29 | 11 | 6 cm² | Clevis cover half. Two M3x10 into inserts in the clevis span. Prints on the split face. |
+| `elbow_cover_a_l.stl` | 1 | white PETG | 43 x 112 x 62 | 22 | 33 cm² | Elbow cover half. Clamped by the two upper-arm collar bolts (M3x50 + nut); snaps shut at the bottom. Prints on the split face. |
+| `elbow_cover_b_l.stl` | 1 | white PETG | 36 x 112 x 62 | 21 | 31 cm² | Elbow cover half. Clamped by the two upper-arm collar bolts (M3x50 + nut); snaps shut at the bottom. Prints on the split face. |
+| `shoulder_r.stl` | 1 | white PETG | 52 x 72 x 88 | 46 | 34 cm² | J1 output to the J2 cup. Screw it to J1 before J2 goes in. |
+| `clevis_r.stl` | 1 | grey PETG | 137 x 64 x 65 | 81 | 69 cm² | J2 output, holds J3. |
+| `upper_arm_a_r.stl` | 1 | white PETG | 187 x 64 x 32 | 44 | 85 cm² | Clamshell half. Prints on the split face. |
+| `upper_arm_b_r.stl` | 1 | white PETG | 187 x 64 x 32 | 44 | 85 cm² | Clamshell half with the nut traps. |
+| `elbow_r.stl` | 1 | grey PETG | 54 x 77 x 95 | 39 | 7 cm² | J4 output to the forearm flange. |
+| `forearm_a_r.stl` | 1 | white PETG | 158 x 54 x 27 | 51 | 53 cm² |  |
+| `forearm_b_r.stl` | 1 | white PETG | 158 x 54 x 27 | 51 | 51 cm² |  |
+| `wrist_r.stl` | 1 | black PETG | 88 x 88 x 113 | 56 | 69 cm² | J5 horn and idler, holds J6. |
 | `palm_r.stl` | 1 | black PETG | 62 x 110 x 58 | 52 | 36 cm² | J6 horn on top, J7 inside, rack channels underneath. |
 | `pinion_r.stl` | 1 | grey PETG | 27 x 27 x 8 | 2 | none | 16T module 1.5 on the J7 horn. 100% infill. |
 | `rack_a_r.stl` | 1 | black PETG | 22 x 70 x 31 | 4 | none | PETG rack and drop. Slides in from the +y end. |
 | `rack_b_r.stl` | 1 | black PETG | 22 x 70 x 31 | 4 | none | PETG rack and drop. Slides in from the -y end. |
 | `finger_a_r.stl` | 1 | TPU 95A | 24 x 48 x 8 | 6 | none | Nori-style TPU 95A finger. Bolts to the rack. |
 | `finger_b_r.stl` | 1 | TPU 95A | 24 x 48 x 8 | 6 | none | Nori-style TPU 95A finger. |
+| `shoulder_cover_top_r.stl` | 1 | white PETG | 57 x 89 x 63 | 24 | 43 cm² | Shoulder cover half. Two M3x10 into inserts in the shoulder tab. Prints on the split face. |
+| `shoulder_cover_bot_r.stl` | 1 | white PETG | 57 x 89 x 63 | 24 | 40 cm² | Shoulder cover half. Two M3x10 into inserts in the shoulder tab. Prints on the split face. |
+| `clevis_cover_a_r.stl` | 1 | white PETG | 62 x 56 x 29 | 11 | 6 cm² | Clevis cover half. Two M3x10 into inserts in the clevis span. Prints on the split face. |
+| `clevis_cover_b_r.stl` | 1 | white PETG | 62 x 56 x 29 | 11 | 6 cm² | Clevis cover half. Two M3x10 into inserts in the clevis span. Prints on the split face. |
+| `elbow_cover_a_r.stl` | 1 | white PETG | 43 x 112 x 62 | 22 | 33 cm² | Elbow cover half. Clamped by the two upper-arm collar bolts (M3x50 + nut); snaps shut at the bottom. Prints on the split face. |
+| `elbow_cover_b_r.stl` | 1 | white PETG | 36 x 112 x 62 | 21 | 31 cm² | Elbow cover half. Clamped by the two upper-arm collar bolts (M3x50 + nut); snaps shut at the bottom. Prints on the split face. |
 

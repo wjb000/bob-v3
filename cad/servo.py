@@ -35,13 +35,17 @@ def _placed(shape, origin, zdir, xdir):
     return V.place([("", shape, "")], origin, xdir=xdir, zdir=zdir)[0][1]
 
 
-def mount(origin, zdir, xdir, kind="sts3095"):
-    """For the parent link: (cup to fuse, insert holes to cut, keep-out to cut)."""
+def mount(origin, zdir, xdir, kind="sts3095", flange_d=None):
+    """For the parent link: (cup, insert holes, keep-out).
+
+    Cut the keep-out from the rest of the link first, then fuse the cup, then cut the inserts.
+    Cutting the keep-out after the cup is fused removes the cup sleeve."""
     L, W, H, s, hole_l, hole_w = dims(kind)
     wall = 3.5 if kind == "sts3095" else 3.0
     x0, x1 = -s, L - s
     cx = (x0 + x1) / 2
-    flange_d = max(L + 2 * wall, W + 2 * wall, D)  # ≥66 mm so the old arm bridges still catch the cup
+    if flange_d is None:
+        flange_d = max(L + 2 * wall, W + 2 * wall, D)  # ≥66 mm so the old arm bridges still catch the cup
     sleeve = rrect(cx, 0, -H - wall, -2.0, L + 2 * wall, W + 2 * wall, 7.0)
     flange = cyl((0, 0, -5.0), "z", flange_d, 3.0)
     body = fuse(sleeve, flange)

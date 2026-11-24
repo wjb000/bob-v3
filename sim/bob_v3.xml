@@ -115,6 +115,12 @@
     <mesh name="rack_b_l" file="rack_b_l.stl"/>
     <mesh name="finger_a_l" file="finger_a_l.stl"/>
     <mesh name="finger_b_l" file="finger_b_l.stl"/>
+    <mesh name="shoulder_cover_top_l" file="shoulder_cover_top_l.stl"/>
+    <mesh name="shoulder_cover_bot_l" file="shoulder_cover_bot_l.stl"/>
+    <mesh name="clevis_cover_a_l" file="clevis_cover_a_l.stl"/>
+    <mesh name="clevis_cover_b_l" file="clevis_cover_b_l.stl"/>
+    <mesh name="elbow_cover_a_l" file="elbow_cover_a_l.stl"/>
+    <mesh name="elbow_cover_b_l" file="elbow_cover_b_l.stl"/>
     <mesh name="shoulder_r" file="shoulder_r.stl"/>
     <mesh name="clevis_r" file="clevis_r.stl"/>
     <mesh name="upper_arm_a_r" file="upper_arm_a_r.stl"/>
@@ -129,6 +135,12 @@
     <mesh name="rack_b_r" file="rack_b_r.stl"/>
     <mesh name="finger_a_r" file="finger_a_r.stl"/>
     <mesh name="finger_b_r" file="finger_b_r.stl"/>
+    <mesh name="shoulder_cover_top_r" file="shoulder_cover_top_r.stl"/>
+    <mesh name="shoulder_cover_bot_r" file="shoulder_cover_bot_r.stl"/>
+    <mesh name="clevis_cover_a_r" file="clevis_cover_a_r.stl"/>
+    <mesh name="clevis_cover_b_r" file="clevis_cover_b_r.stl"/>
+    <mesh name="elbow_cover_a_r" file="elbow_cover_a_r.stl"/>
+    <mesh name="elbow_cover_b_r" file="elbow_cover_b_r.stl"/>
     <mesh name="joiner_00" file="joiner_00.stl"/>
     <mesh name="joiner_01" file="joiner_01.stl"/>
     <mesh name="joiner_02" file="joiner_02.stl"/>
@@ -577,32 +589,44 @@
         </body>
         <body name="l_link1" pos="0.00900 0.11700 0.41000">
           <joint name="l_shoulder_pitch" type="hinge" axis="0 1 0" range="-3.1 1.0" damping="0.08" armature="0.012" frictionloss="0.06"/>
-          <inertial pos="-0.00301 0.05276 0.00000" mass="0.2108" fullinertia="0.000117893 6.08477e-05 0.000139158 -1.27634e-06 2.72272e-13 2.98892e-10"/>
+          <inertial pos="-0.00146 0.05231 0.00004" mass="0.2881" fullinertia="0.000247181 0.000170269 0.000232758 -1.22001e-06 3.2479e-07 1.08405e-07"/>
           <geom name="shoulder_l" type="mesh" mesh="shoulder_l" material="m_shell" group="1" mass="0"/>
           <geom name="c_shoulder_l" class="col" type="mesh" mesh="shoulder_l" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
+          <geom name="shoulder_cover_top_l" type="mesh" mesh="shoulder_cover_top_l" material="m_shell" group="1" mass="0"/>
+          <geom name="c_shoulder_cover_top_l" class="col" type="mesh" mesh="shoulder_cover_top_l" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
+          <geom name="shoulder_cover_bot_l" type="mesh" mesh="shoulder_cover_bot_l" material="m_shell" group="1" mass="0"/>
+          <geom name="c_shoulder_cover_bot_l" class="col" type="mesh" mesh="shoulder_cover_bot_l" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
           <geom name="j2_l" type="mesh" mesh="j2_l" material="m_alu" group="2" mass="0"/>
           <geom name="j2_l_horn" type="mesh" mesh="j2_l_horn" material="m_steel" group="2" mass="0"/>
           <geom name="j2_l_shaft" type="mesh" mesh="j2_l_shaft" material="m_steel" group="2" mass="0"/>
           <body name="l_link2" pos="0.00000 0.04000 0.00000">
             <joint name="l_shoulder_roll" type="hinge" axis="1 0 0" range="-0.2 1.75" damping="0.08" armature="0.012" frictionloss="0.06"/>
-            <inertial pos="-0.00831 -0.00000 -0.08507" mass="0.1470" fullinertia="0.000107311 0.000130696 7.27539e-05 5.77601e-15 1.94437e-05 -1.9937e-14"/>
+            <inertial pos="-0.00654 0.00000 -0.08542" mass="0.1777" fullinertia="0.000127221 0.000155309 9.81442e-05 -4.92288e-11 1.94338e-05 6.5757e-13"/>
             <geom name="clevis_l" type="mesh" mesh="clevis_l" material="m_frame" group="1" mass="0"/>
             <geom name="c_clevis_l" class="col" type="mesh" mesh="clevis_l" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
+            <geom name="clevis_cover_a_l" type="mesh" mesh="clevis_cover_a_l" material="m_shell" group="1" mass="0"/>
+            <geom name="c_clevis_cover_a_l" class="col" type="mesh" mesh="clevis_cover_a_l" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
+            <geom name="clevis_cover_b_l" type="mesh" mesh="clevis_cover_b_l" material="m_shell" group="1" mass="0"/>
+            <geom name="c_clevis_cover_b_l" class="col" type="mesh" mesh="clevis_cover_b_l" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
             <geom name="j3_l" type="mesh" mesh="j3_l" material="m_alu" group="2" mass="0"/>
             <geom name="j3_l_horn" type="mesh" mesh="j3_l_horn" material="m_white" group="2" mass="0"/>
             <body name="l_link3" pos="0.00000 0.00000 -0.11300">
               <joint name="l_upper_arm_yaw" type="hinge" axis="0 0 1" range="-1.6 1.6" damping="0.05" armature="0.005" frictionloss="0.04"/>
-              <inertial pos="0.00042 -0.00065 -0.13152" mass="0.2586" fullinertia="0.000686195 0.00066416 0.000105907 3.37982e-07 -1.599e-08 -4.38628e-06"/>
+              <inertial pos="-0.00001 -0.00260 -0.13400" mass="0.3242" fullinertia="0.000794092 0.000773938 0.000162858 -5.72878e-08 9.84745e-08 -3.98736e-06"/>
               <geom name="upper_arm_a_l" type="mesh" mesh="upper_arm_a_l" material="m_shell" group="1" mass="0"/>
               <geom name="c_upper_arm_a_l" class="col" type="mesh" mesh="upper_arm_a_l" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
               <geom name="upper_arm_b_l" type="mesh" mesh="upper_arm_b_l" material="m_shell" group="1" mass="0"/>
               <geom name="c_upper_arm_b_l" class="col" type="mesh" mesh="upper_arm_b_l" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
+              <geom name="elbow_cover_a_l" type="mesh" mesh="elbow_cover_a_l" material="m_shell" group="1" mass="0"/>
+              <geom name="c_elbow_cover_a_l" class="col" type="mesh" mesh="elbow_cover_a_l" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
+              <geom name="elbow_cover_b_l" type="mesh" mesh="elbow_cover_b_l" material="m_shell" group="1" mass="0"/>
+              <geom name="c_elbow_cover_b_l" class="col" type="mesh" mesh="elbow_cover_b_l" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
               <geom name="j4_l" type="mesh" mesh="j4_l" material="m_alu" group="2" mass="0"/>
               <geom name="j4_l_horn" type="mesh" mesh="j4_l_horn" material="m_steel" group="2" mass="0"/>
               <geom name="j4_l_shaft" type="mesh" mesh="j4_l_shaft" material="m_steel" group="2" mass="0"/>
               <body name="l_link4" pos="0.00000 0.00000 -0.13900">
                 <joint name="l_elbow" type="hinge" axis="0 1 0" range="-2.35 0.0" damping="0.08" armature="0.012" frictionloss="0.06"/>
-                <inertial pos="-0.00000 0.00311 -0.14733" mass="0.2190" fullinertia="0.000993589 0.00097107 9.98845e-05 6.16028e-09 6.28271e-09 -0.000100901"/>
+                <inertial pos="-0.00000 0.00278 -0.14973" mass="0.2150" fullinertia="0.00093084 0.000910421 9.64724e-05 6.0222e-09 1.02334e-08 -9.28681e-05"/>
                 <geom name="elbow_l" type="mesh" mesh="elbow_l" material="m_frame" group="1" mass="0"/>
                 <geom name="c_elbow_l" class="col" type="mesh" mesh="elbow_l" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
                 <geom name="forearm_a_l" type="mesh" mesh="forearm_a_l" material="m_shell" group="1" mass="0"/>
@@ -613,7 +637,7 @@
                 <geom name="j5_l_horn" type="mesh" mesh="j5_l_horn" material="m_white" group="2" mass="0"/>
                 <body name="l_link5" pos="0.00000 0.00000 -0.20000">
                   <joint name="l_wrist_pitch" type="hinge" axis="0 1 0" range="-2.3 2.3" damping="0.05" armature="0.005" frictionloss="0.04"/>
-                  <inertial pos="0.00838 0.00033 -0.05143" mass="0.0965" fullinertia="7.16314e-05 6.98304e-05 4.41138e-05 2.65745e-07 8.17487e-06 -1.63096e-06"/>
+                  <inertial pos="0.00707 0.00029 -0.05554" mass="0.1113" fullinertia="9.50216e-05 9.39339e-05 6.61525e-05 2.24681e-07 4.33982e-06 -1.76407e-06"/>
                   <geom name="wrist_l" type="mesh" mesh="wrist_l" material="m_dark" group="1" mass="0"/>
                   <geom name="c_wrist_l" class="col" type="mesh" mesh="wrist_l" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
                   <geom name="j6_l" type="mesh" mesh="j6_l" material="m_black" group="2" mass="0"/>
@@ -658,32 +682,44 @@
         </body>
         <body name="r_link1" pos="0.00900 -0.11700 0.41000">
           <joint name="r_shoulder_pitch" type="hinge" axis="0 1 0" range="-3.1 1.0" damping="0.08" armature="0.012" frictionloss="0.06"/>
-          <inertial pos="-0.00301 -0.05276 0.00000" mass="0.2108" fullinertia="0.000117893 6.08477e-05 0.000139158 1.27634e-06 2.72272e-13 -2.98892e-10"/>
+          <inertial pos="-0.00146 -0.05231 0.00004" mass="0.2881" fullinertia="0.000247181 0.000170269 0.000232758 1.22001e-06 3.2479e-07 -1.08405e-07"/>
           <geom name="shoulder_r" type="mesh" mesh="shoulder_r" material="m_shell" group="1" mass="0"/>
           <geom name="c_shoulder_r" class="col" type="mesh" mesh="shoulder_r" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
+          <geom name="shoulder_cover_top_r" type="mesh" mesh="shoulder_cover_top_r" material="m_shell" group="1" mass="0"/>
+          <geom name="c_shoulder_cover_top_r" class="col" type="mesh" mesh="shoulder_cover_top_r" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
+          <geom name="shoulder_cover_bot_r" type="mesh" mesh="shoulder_cover_bot_r" material="m_shell" group="1" mass="0"/>
+          <geom name="c_shoulder_cover_bot_r" class="col" type="mesh" mesh="shoulder_cover_bot_r" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
           <geom name="j2_r" type="mesh" mesh="j2_r" material="m_alu" group="2" mass="0"/>
           <geom name="j2_r_horn" type="mesh" mesh="j2_r_horn" material="m_steel" group="2" mass="0"/>
           <geom name="j2_r_shaft" type="mesh" mesh="j2_r_shaft" material="m_steel" group="2" mass="0"/>
           <body name="r_link2" pos="0.00000 -0.04000 0.00000">
             <joint name="r_shoulder_roll" type="hinge" axis="-1 0 0" range="-0.2 1.75" damping="0.08" armature="0.012" frictionloss="0.06"/>
-            <inertial pos="-0.00831 0.00000 -0.08507" mass="0.1470" fullinertia="0.000107311 0.000130696 7.27539e-05 -5.77601e-15 1.94437e-05 1.9937e-14"/>
+            <inertial pos="-0.00654 -0.00000 -0.08542" mass="0.1777" fullinertia="0.000127221 0.000155309 9.81442e-05 4.92288e-11 1.94338e-05 -6.5757e-13"/>
             <geom name="clevis_r" type="mesh" mesh="clevis_r" material="m_frame" group="1" mass="0"/>
             <geom name="c_clevis_r" class="col" type="mesh" mesh="clevis_r" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
+            <geom name="clevis_cover_a_r" type="mesh" mesh="clevis_cover_a_r" material="m_shell" group="1" mass="0"/>
+            <geom name="c_clevis_cover_a_r" class="col" type="mesh" mesh="clevis_cover_a_r" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
+            <geom name="clevis_cover_b_r" type="mesh" mesh="clevis_cover_b_r" material="m_shell" group="1" mass="0"/>
+            <geom name="c_clevis_cover_b_r" class="col" type="mesh" mesh="clevis_cover_b_r" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
             <geom name="j3_r" type="mesh" mesh="j3_r" material="m_alu" group="2" mass="0"/>
             <geom name="j3_r_horn" type="mesh" mesh="j3_r_horn" material="m_white" group="2" mass="0"/>
             <body name="r_link3" pos="0.00000 0.00000 -0.11300">
               <joint name="r_upper_arm_yaw" type="hinge" axis="0 0 -1" range="-1.6 1.6" damping="0.05" armature="0.005" frictionloss="0.04"/>
-              <inertial pos="0.00042 0.00065 -0.13152" mass="0.2586" fullinertia="0.000686195 0.00066416 0.000105907 -3.37982e-07 -1.599e-08 4.38628e-06"/>
+              <inertial pos="-0.00001 0.00260 -0.13400" mass="0.3242" fullinertia="0.000794092 0.000773938 0.000162858 5.72878e-08 9.84745e-08 3.98736e-06"/>
               <geom name="upper_arm_a_r" type="mesh" mesh="upper_arm_a_r" material="m_shell" group="1" mass="0"/>
               <geom name="c_upper_arm_a_r" class="col" type="mesh" mesh="upper_arm_a_r" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
               <geom name="upper_arm_b_r" type="mesh" mesh="upper_arm_b_r" material="m_shell" group="1" mass="0"/>
               <geom name="c_upper_arm_b_r" class="col" type="mesh" mesh="upper_arm_b_r" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
+              <geom name="elbow_cover_a_r" type="mesh" mesh="elbow_cover_a_r" material="m_shell" group="1" mass="0"/>
+              <geom name="c_elbow_cover_a_r" class="col" type="mesh" mesh="elbow_cover_a_r" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
+              <geom name="elbow_cover_b_r" type="mesh" mesh="elbow_cover_b_r" material="m_shell" group="1" mass="0"/>
+              <geom name="c_elbow_cover_b_r" class="col" type="mesh" mesh="elbow_cover_b_r" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
               <geom name="j4_r" type="mesh" mesh="j4_r" material="m_alu" group="2" mass="0"/>
               <geom name="j4_r_horn" type="mesh" mesh="j4_r_horn" material="m_steel" group="2" mass="0"/>
               <geom name="j4_r_shaft" type="mesh" mesh="j4_r_shaft" material="m_steel" group="2" mass="0"/>
               <body name="r_link4" pos="0.00000 0.00000 -0.13900">
                 <joint name="r_elbow" type="hinge" axis="0 1 0" range="-2.35 0.0" damping="0.08" armature="0.012" frictionloss="0.06"/>
-                <inertial pos="-0.00000 -0.00311 -0.14733" mass="0.2190" fullinertia="0.000993589 0.00097107 9.98845e-05 -6.16028e-09 6.28271e-09 0.000100901"/>
+                <inertial pos="-0.00000 -0.00278 -0.14973" mass="0.2150" fullinertia="0.00093084 0.000910421 9.64724e-05 -6.0222e-09 1.02334e-08 9.28681e-05"/>
                 <geom name="elbow_r" type="mesh" mesh="elbow_r" material="m_frame" group="1" mass="0"/>
                 <geom name="c_elbow_r" class="col" type="mesh" mesh="elbow_r" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
                 <geom name="forearm_a_r" type="mesh" mesh="forearm_a_r" material="m_shell" group="1" mass="0"/>
@@ -694,7 +730,7 @@
                 <geom name="j5_r_horn" type="mesh" mesh="j5_r_horn" material="m_white" group="2" mass="0"/>
                 <body name="r_link5" pos="0.00000 0.00000 -0.20000">
                   <joint name="r_wrist_pitch" type="hinge" axis="0 1 0" range="-2.3 2.3" damping="0.05" armature="0.005" frictionloss="0.04"/>
-                  <inertial pos="0.00838 -0.00033 -0.05143" mass="0.0965" fullinertia="7.16314e-05 6.98304e-05 4.41138e-05 -2.65745e-07 8.17487e-06 1.63096e-06"/>
+                  <inertial pos="0.00707 -0.00029 -0.05554" mass="0.1113" fullinertia="9.50216e-05 9.39339e-05 6.61525e-05 -2.24681e-07 4.33982e-06 1.76407e-06"/>
                   <geom name="wrist_r" type="mesh" mesh="wrist_r" material="m_dark" group="1" mass="0"/>
                   <geom name="c_wrist_r" class="col" type="mesh" mesh="wrist_r" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
                   <geom name="j6_r" type="mesh" mesh="j6_r" material="m_black" group="2" mass="0"/>

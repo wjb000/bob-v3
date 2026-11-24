@@ -39,8 +39,19 @@ SV = {
     "j4": ((X0, J4_FACE_Y, E), (0, 1, 0), (0, 0, -1), "sts3095"),
 }
 
+# arm covers (see arm_covers.py): fixing points on the structural links
+SH_TAB_X = (X0 - 18.0, X0 + 12.0)  # shoulder tabs, x span
+SH_TAB_Y1 = P.J1_FACE_Y + 21.0
+SH_TAB_Z = 34.0  # tab face, from the J2 axis
+SH_SCREW_X = (X0 - 10.0, X0 + 8.0)
+SH_SCREW_Y = P.J1_FACE_Y + 14.0
+CV_SCREW_X = X0 + 22.0  # clevis cover screws, in the span past the J3 cup
+CV_SCREW_Z = (J3_FACE_Z + 15.0, J3_FACE_Z + 37.0)
+EC_BOLTS = ((Y0 - 26.0, E + 37.0), (Y0 - 26.0, E + 51.0))  # upper-arm clamshell bolts that also hold the elbow-cover collar
+
 # wrist-roll servo, shaft down on the arm axis
 J6_BODY_Z = (W - 81.0, W - 46.0)
+WRIST_SKIRT = dict(ri=41.0, ro=43.8, z0=J6_BODY_Z[0] - 12.0, web=2.4)  # clears the palm sleeve corners (R 39.8)
 J6_HORN_Z = J6_BODY_Z[0] - 4.0
 # jaw servo, shaft along +X
 
@@ -139,8 +150,16 @@ def shoulder() -> cq.Shape:
     rib_lo = box(J2_FACE_X + 6, X0 + 10, P.J1_FACE_Y + 4.5, P.J1_FACE_Y + 12, S - 28, S - 12)
     fair = cyl_between("x", (P.J1_FACE_Y + 8, S), J2_FACE_X + 4, X0 + 10, 34)
     fair = fair.intersect(box(J2_FACE_X + 2, X0 + 12, P.J1_FACE_Y + 4, P.J1_FACE_Y + 13, S - 28, S + 28))
-    s = fuse(hub, cup, bridge, rib_hi, rib_lo, fair)
-    tools = [cyl_between("y", (X0, S), P.J1_FACE_Y, Y0 + 40, 14), keep, inserts]
+    # Tabs for the shoulder cover: two heat-set inserts each, top and bottom.
+    tabs = [box(*SH_TAB_X, P.J1_FACE_Y + 4.5, SH_TAB_Y1, S + 24, S + SH_TAB_Z),
+            box(*SH_TAB_X, P.J1_FACE_Y + 4.5, SH_TAB_Y1, S - SH_TAB_Z, S - 24)]
+    s = fuse(cut(fuse(hub, bridge, rib_hi, rib_lo, fair, *tabs), keep), cup)
+    tools = [cyl_between("y", (X0, S), P.J1_FACE_Y, Y0 + 40, 14), inserts]
+    for x in SH_SCREW_X:
+        for sz in (1, -1):
+            z = S + sz * SH_TAB_Z
+            tools.append(cyl_between("z", (x, SH_SCREW_Y), z - sz * P.M3_INSERT_DEPTH, z + sz * 1.0, P.M3_INSERT))
+    hw("M3 heat-set insert", 4)
     # J1 horn screws: heads reached straight through the empty J2 cup
     tools += _horn_holes((X0, 0, S), "y", P.J1_FACE_Y + 3.5, (0, 1, 0), depth=12, kind="sts3095", head_from=5)
     pcd = P.STS3095_HORN_PCD
@@ -160,7 +179,7 @@ def clevis() -> cq.Shape:
 
     x0, x1 = J2_FACE_X - 2 - 6, J2_FACE_X - 4.0
     disc = cyl_between("x", (Y0, S), x0, x1, 52)
-    cup, inserts, keep = G.mount(*SV["j3"][:3], kind=SV["j3"][3])
+    cup, inserts, keep = G.mount(*SV["j3"][:3], kind=SV["j3"][3], flange_d=52.0)
     # thin cheek at the J2 horn; span to the J3 cup stays below the J2 servo body
     cheek = box(x0, x1, Y0 - 24, Y0 + 24, J3_FACE_Z + 3.5, S)
     span = box(x1 - 1, X0 + 28, Y0 - 24, Y0 + 24, J3_FACE_Z + 3.5, J3_FACE_Z + 48)
@@ -168,9 +187,13 @@ def clevis() -> cq.Shape:
     side_a = box(x0, x1, Y0 - 32, Y0 - 20, J3_FACE_Z + 16, S - 22)
     side_b = box(x0, x1, Y0 + 20, Y0 + 32, J3_FACE_Z + 16, S - 22)
     fair = cyl_between("x", (Y0, S - 36), x0, x1, 36)
-    s = fuse(disc, cheek, span, cup, side_a, side_b, fair)
+    s = fuse(cut(fuse(disc, cheek, span, side_a, side_b, fair), keep), cup)
     tools = _horn_holes((0, Y0, S), "x", x1, (-1, 0, 0), depth=10, kind="sts3095", head_from=4)
-    tools += [cyl_between("x", (Y0, S), x0 - 1, x1 + 1, 14), keep, inserts]
+    tools += [cyl_between("x", (Y0, S), x0 - 1, x1 + 1, 14), inserts]
+    for z in CV_SCREW_Z:  # clevis cover screws, into the span's side faces
+        for y in (Y0 - 24, Y0 + 24):
+            tools.append(cyl_between("y", (CV_SCREW_X, z), y - P.M3_INSERT_DEPTH, y + P.M3_INSERT_DEPTH, P.M3_INSERT))
+    hw("M3 heat-set insert", 4)
     hw("M3 heat-set insert", 4)
     hw("M3x10 socket head (servo tabs)", 4)
     return cut(s, *tools)
@@ -185,20 +208,25 @@ def upper_arm() -> cq.Shape:
     d0 = d1 - 6
     disc = cyl_between("z", (X0, Y0), d0, d1, P.ARM_TUBE_D)
     tube = tube_between("z", (X0, Y0), E + 28, d0 + 0.5, P.ARM_TUBE_D, P.ARM_TUBE_D - 6)  # starts above the elbow disc
-    cup, inserts, keep = G.mount(*SV["j4"][:3], kind=SV["j4"][3])
+    cup, inserts, keep = G.mount(*SV["j4"][:3], kind=SV["j4"][3], flange_d=58.0)
     # carry the tube down past the elbow axis to tie into the cup, short of the elbow disc's swing
-    tie = tube_between("z", (X0, Y0), E - 12, E + 28.5, P.ARM_TUBE_D, P.ARM_TUBE_D - 6).intersect(box(0, 300, 0, J4_FACE_Y - 5, E - 20, E + 30))
-    s = fuse(disc, tube, cup, tie)
+    tie = tube_between("z", (X0, Y0), E + 12, E + 28.5, P.ARM_TUBE_D, P.ARM_TUBE_D - 6).intersect(box(-300, 300, 0, J4_FACE_Y - 2, E - 20, E + 30))
+    s = fuse(disc, tube, tie)
     tools = []
     adds = []
-    for y, z in ((Y0 - 26, d0 - 14), (Y0 + 26, d0 - 14), (Y0 - 26, E + 44), (Y0 + 26, E + 44),
-                 (Y0 + 4, E - 37), (Y0 + 16, E - 37)):
+    for y, z in ((Y0 - 26, d0 - 14), (Y0 + 26, d0 - 14), (Y0 + 26, E + 44)):
         b, t = _clam_bolt(y, z)
         adds.append(b)
         tools += t
-    s = fuse(s, *adds)
+    # The two clamshell bolts on the -y side above the elbow also clamp the elbow-cover collar:
+    # a solid column wall to wall, and a plain hole (head and nut sit on the collar).
+    outer = cyl_between("z", (X0, Y0), E + 20, E + 80, P.ARM_TUBE_D)
+    for y, z in EC_BOLTS:
+        adds.append(cyl_between("x", (y, z), X0 - 30, X0 + 30, 10).intersect(outer))
+        tools.append(cyl_between("x", (y, z), X0 - 40, X0 + 40, P.M3))
+    s = fuse(cut(fuse(s, *adds), keep), cup)
     tools += _horn_holes((X0, Y0, 0), "z", d1, (0, 0, -1), depth=10, kind="sts3215", head_from=4)
-    tools += [cyl_between("z", (X0, Y0), d0 - 1, d1 + 1, 14), keep, inserts]
+    tools += [cyl_between("z", (X0, Y0), d0 - 1, d1 + 1, 14), inserts]
     hw("M3 heat-set insert", 4)
     hw("M3x10 socket head (servo tabs)", 4)
     return cut(s, *tools)
@@ -206,7 +234,7 @@ def upper_arm() -> cq.Shape:
 
 # ---------------------------------------------------------------- link 4a: elbow (J4 out to the forearm flange)
 
-ELBOW_FLANGE = (E - 70.0, E - 64.0)
+ELBOW_FLANGE = (E - 74.0, E - 68.0)  # bridge and nose stay outside the elbow cover's swing
 
 
 def elbow() -> cq.Shape:
@@ -218,9 +246,8 @@ def elbow() -> cq.Shape:
     # Second pair of cheeks beside the plate, and a round nose over the square flange edge.
     cheek_l = box(X0 - 26, X0 - 14, y0, y1, ELBOW_FLANGE[1] + 2, E - 10)
     cheek_r = box(X0 + 14, X0 + 26, y0, y1, ELBOW_FLANGE[1] + 2, E - 10)
-    nose = cyl_between("z", (X0, (y0 + y1) / 2), ELBOW_FLANGE[1] + 1, ELBOW_FLANGE[1] + 14, 40)
-    beads = [cyl_between("z", (X0 + sx * 16, (y0 + y1) / 2), ELBOW_FLANGE[1] + 8, E - 12, 10) for sx in (-1, 1)]
-    s = fuse(disc, plate, bridge, flange, cheek_l, cheek_r, nose, *beads)
+    nose = cyl_between("z", (X0, (y0 + y1) / 2), ELBOW_FLANGE[1] + 1, ELBOW_FLANGE[1] + 10, 40)
+    s = fuse(disc, plate, bridge, flange, cheek_l, cheek_r, nose)
     tools = _horn_holes((X0, 0, E), "y", y0, (0, 1, 0), depth=10, kind="sts3095", head_from=4)
     tools.append(cyl_between("y", (X0, E), y0 - 1, y1 + 1, 14))
     for x, y in _forearm_bolts():
@@ -288,10 +315,16 @@ def wrist() -> cq.Shape:
     for x in (sx0, sx1):
         for y in (sy0, sy1):
             parts.append(cyl_between("z", (x, y), wz0, wz1, 7))
+    # Skirt: hides the J6 horn and the top of the palm, clear of the palm's roll circle.
+    sk = WRIST_SKIRT
+    parts.append(tube_between("z", (X0, Y0), sk["z0"], wz0 + 0.01, 2 * sk["ro"], 2 * sk["ri"]))
+    parts.append(cyl_between("z", (X0, Y0), wz0 - sk["web"], wz0 + 0.01, 2 * sk["ro"]))
     s = fuse(*parts)
     tools = [box(j6x0 - 0.3, j6x0 + P.STS_L + 0.3, Y0 - P.STS_W / 2 - 0.3, Y0 + P.STS_W / 2 + 0.3, J6_BODY_Z[0] - 1, J6_BODY_Z[1] + 0.3),
              cyl_between("y", (X0, W), yb0 - 1, yb1 + 1, P.M3)]
     tools += _horn_holes((X0, 0, W), "y", J5_BODY["y"][1] + 4.3, (0, 1, 0), depth=12)
+    # the J6 horn turns inside the web's opening
+    tools.append(cyl_between("z", (X0, Y0), J6_BODY_Z[0] - 6, J6_BODY_Z[0] + 1, 2 * (P.STS_HORN_D / 2 + 1.5)))
     hw("M3x12 shoulder screw (idler)", 1)
     return cut(s, *tools)
 
@@ -461,6 +494,10 @@ def parts(side: str) -> list[Part]:
     add("rack_b", rack(-1), "link8", color="dark", note="PETG rack and drop. Slides in from the -y end.")
     add("finger_a", finger(1), "link7", color="accent", material="TPU", note="Nori-style TPU 95A finger. Bolts to the rack.")
     add("finger_b", finger(-1), "link8", color="accent", material="TPU", note="Nori-style TPU 95A finger.")
+    import arm_covers
+
+    for name, solid, link, note in arm_covers.parts_left():
+        add(name, solid, link, color="shell", note=note)
     return out
 
 
