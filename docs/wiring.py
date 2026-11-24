@@ -18,77 +18,101 @@ Column umbilical
 
 NODES: id -> (label, sub, column, row, cad item for the 3D overlay or None)
 WIRES: (from, to, kind, what, wire, connector, fuse)
-kind: power36 | power12 | power5 | usb | ttl | signal | motor | estop
+kind: power36 | power18 | power12 | power5 | gnd | usb | ttl | signal | motor | estop
+Every power wire is a pair. Its negative half is listed as a gnd wire back to the star ground.
 """
 
 NODES = {
     "charge": ("Charge socket", "GX16, base top", 0, 4, "charge_socket"),
     "batt": ("36 V pack", "10S2P · 158 Wh", 0, 5, "battery"),
+    "gnd": ("Star ground", "every return, base", 0, 6, None),
+    "estop": ("E-stop", "2 NC: coil + sense", 0, 8, "estop"),
     "fuse": ("Main switch + fuses", "58 V fuses, 36 V side", 1, 5, "fuse_block"),
-    "estop": ("E-stop", "NC, 22 mm", 0, 8, "estop"),
+    "cont": ("Contactor", "12 V coil, aux NO", 1, 8, "contactor_relay"),
     "b5": ("5 V regulator", "D36V50F5, in the torso", 2, 5, "reg_5v"),
-    "cont": ("Contactor", "12 V coil, e-stop loop", 1, 8, "contactor_relay"),
+    "b12c": ("12 V always on", "D36V50F12: coil, hub", 2, 6, None),
+    "b12a": ("12 V 20 A ×2", "one per arm, in the torso", 2, 7, "buck_12v"),
+    "b18": ("18 V regulator", "D42V55F18: wheels, lift", 2, 9, "reg_12v"),
     "pi": ("Raspberry Pi 5", "robot computer", 3, 5, "pi5"),
-    "b12c": ("12 V always on", "D36V50F12, contactor coil", 2, 6, None),
-    "b12a": ("12 V 10 A ×2", "DROK, one per arm", 2, 7, "buck_12v"),
-    "b12m": ("12 V regulator", "Pololu D36V50F12", 2, 9, "reg_12v"),
-    "hub": ("USB 3 hub", "bus-powered", 4, 2, "usb_hub"),
-    "busl": ("Bus adapter left", "Feetech TTL", 4, 6, "servo_bus"),
-    "busr": ("Bus adapter right", "Feetech TTL", 4, 7, "servo_bus_r"),
+    "hub": ("USB 3 hub", "12 V powered, 4 ports", 4, 2, "usb_hub"),
+    "busl": ("Bus adapter left", "Feetech TTL, Pi UART2", 4, 6, "servo_bus"),
+    "busr": ("Bus adapter right", "Feetech TTL, Pi UART4", 4, 7, "servo_bus_r"),
     "esp": ("DDSM Driver HAT (A)", "ESP32 + RS485", 4, 10, "ddsm_driver"),
-    "cam": ("Head camera", "USB RGB, wide", 5, 0, "head_cam"),
-    "wcam": ("Wrist cameras ×2", "USB 2", 5, 1, "wrist_cam_l"),
-    "stl": ("Left arm + head", "STS IDs 1–7, 8–9", 5, 6, "j1_l"),
-    "str": ("Right arm", "STS IDs 1–7", 5, 7, "j1_r"),
-    "wheels": ("DDSM115 ×2", "IDs 1 and 2", 5, 10, "hub_l"),
     "tmc": ("TMC2209", "UART, StallGuard", 4, 11, "tmc2209"),
-    "imu": ("BNO085 IMU", "I2C", 5, 12, "imu"),
-    "lidar": ("RPLIDAR C1", "USB", 5, 2, "lidar"),
-    "s3": ("XIAO ESP32-S3 eyes", "SPI to 2 × GC9A01", 5, 4, "esp32s3_head"),
-    "audio": ("Mic + speaker", "USB", 5, 3, "mic_array"),
-    "nema": ("Lift NEMA 17", "+ limit switch", 5, 11, "lift_motor"),
+    "audio": ("Mic array", "ReSpeaker Lite, USB", 5, 3, "mic_array"),
+    "s3": ("XIAO ESP32-S3", "drives the eyes", 5, 4, "esp32s3_head"),
+    "eyes": ("Eyes ×2", "GC9A01 1.28 in, SPI", 5, 5, "eye_l"),
+    "stl": ("Left arm", "STS IDs 1–7", 5, 6, "j1_l"),
+    "str": ("Right arm", "STS IDs 1–7", 5, 7, "j1_r"),
+    "head": ("Head pan + tilt", "STS3215 IDs 8–9", 5, 8, "pan_servo"),
+    "wheels": ("DDSM115 ×2", "IDs 1 and 2", 5, 10, "hub_l"),
+    "nema": ("Lift NEMA 17", "17HS19-2004S1", 5, 11, "lift_motor"),
+    "cam": ("Head camera", "USB RGB, wide", 6, 0, "head_cam"),
+    "wcl": ("Left wrist camera", "UB0234, USB 2", 6, 1, "wrist_cam_l"),
+    "wcr": ("Right wrist camera", "UB0234, USB 2", 6, 2, "wrist_cam_r"),
+    "lidar": ("RPLIDAR C1", "USB", 6, 3, "lidar"),
+    "lim": ("Lift limit switches", "top and bottom", 6, 9, "limit_top"),
+    "imu": ("BNO085 IMU", "I2C", 6, 12, "imu"),
 }
 
 WIRES = [
+    # 36 V, always on
     ("charge", "batt", "power36", "Charge from the hoverboard charger, 42 V 2 A", "18 AWG", "GX16 3-pin", "BMS"),
     ("batt", "fuse", "power36", "Main battery feed through the main fuse to the main switch", "12 AWG", "XT60, 3/8 in ring lug", "30 A, 58 V"),
     ("fuse", "b5", "power36", "Pi rail, 36 V always on, up the column sleeve to the regulator in the torso", "20 AWG", "ferrules", "3 A, 58 V"),
-    ("fuse", "cont", "power36", "Motor feed", "14 AWG", "ring lugs M4", "25 A, 58 V"),
     ("fuse", "b12c", "power36", "Always-on 12 V supply, ahead of the contactor", "20 AWG", "ferrules", "3 A, 58 V"),
+    ("fuse", "cont", "power36", "Motor feed", "14 AWG", "ring lugs M4", "25 A, 58 V"),
+    # e-stop loop and its read-back
     ("b12c", "estop", "estop", "Contactor coil feed, 12 V, through the NC e-stop", "22 AWG", "spade 4.8", "1 A"),
     ("estop", "cont", "estop", "E-stop NC contact on to the coil, diode across the coil", "22 AWG", "spade 4.8", ""),
-    ("cont", "b12a", "power36", "Arm converters", "16 AWG", "ferrules", "15 A, 58 V"),
-    ("cont", "b12m", "power36", "Base converter", "18 AWG", "ferrules", "5 A, 58 V"),
+    ("estop", "esp", "signal", "E-stop sense: second NC contact block, 12 V loop", "22 AWG", "Dupont", ""),
+    ("cont", "esp", "signal", "Contactor aux contact (NO) read-back, 12 V loop", "22 AWG", "Dupont", ""),
+    # 36 V, switched by the contactor
+    ("cont", "b12a", "power36", "Switched 36 V up the column sleeve to the arm converters in the torso", "14 AWG", "ferrules", "20 A, 58 V"),
+    ("cont", "b18", "power36", "Switched 36 V to the wheel and lift regulator", "18 AWG", "ferrules", "5 A, 58 V"),
+    # regulated rails
     ("b5", "pi", "power5", "Pi 5 power, 5 V 5 A, short run in the torso; PSU_MAX_CURRENT=5000 for 1.6 A USB", "18 AWG", "GPIO 5V pins 2 and 4", ""),
-    ("b12a", "busl", "power12", "Left arm + head servos, up the column sleeve", "16 AWG", "5.5/2.1 → bus", "10 A"),
-    ("b12a", "busr", "power12", "Right arm servos, up the column sleeve", "16 AWG", "5.5/2.1 → bus", "10 A"),
-    ("b12m", "esp", "power12", "Wheel and HAT power", "18 AWG", "XT60", "5 A"),
-    ("b12m", "tmc", "power12", "Stepper driver VM", "20 AWG", "JST-XH", "3 A"),
+    ("b12c", "hub", "power12", "Hub DC input (7-36 V), up the column sleeve", "20 AWG", "hub screw terminal", "3 A"),
+    ("b12a", "busl", "power12", "Left arm + head servos, 12 V", "14 AWG", "adapter screw terminal", ""),
+    ("b12a", "busr", "power12", "Right arm servos, 12 V", "14 AWG", "adapter screw terminal", ""),
+    ("b18", "esp", "power18", "Wheel power through the HAT, 18 V (DDSM115 rated 18 V)", "16 AWG", "XT60", ""),
+    ("b18", "tmc", "power18", "Stepper driver VM, 18 V (VM 4.75-28 V)", "20 AWG", "JST-XH", ""),
+    # returns: every power run is a pair; these are the negative halves
+    ("batt", "gnd", "gnd", "Battery negative to the star ground", "12 AWG", "XT60, ring lug", ""),
+    ("gnd", "b5", "gnd", "Pi rail return, paired up the column sleeve", "20 AWG", "ferrules", ""),
+    ("gnd", "b12c", "gnd", "Always-on 12 V return", "20 AWG", "ferrules", ""),
+    ("gnd", "cont", "gnd", "Contactor coil return", "22 AWG", "spade 4.8", ""),
+    ("gnd", "b12a", "gnd", "Arm converter return, paired up the column sleeve", "14 AWG", "ferrules", ""),
+    ("gnd", "b18", "gnd", "Wheel and lift regulator return", "18 AWG", "ferrules", ""),
+    # data: the Pi has 4 USB ports (hub, HAT, eyes, mic); the hub has 4 (three cameras, lidar)
     ("pi", "hub", "usb", "USB 3", "", "USB-A to USB-C", ""),
-    ("pi", "busl", "usb", "USB", "", "USB-C", ""),
-    ("pi", "busr", "usb", "USB", "", "USB-C", ""),
     ("pi", "esp", "usb", "USB serial, JSON commands", "", "USB-C", ""),
+    ("pi", "s3", "usb", "USB serial, through the neck", "", "USB-C", ""),
+    ("pi", "audio", "usb", "USB audio, through the neck", "", "USB-A", ""),
+    ("pi", "busl", "signal", "Pi UART2 (GPIO4/5), adapter jumper on UART", "22 AWG", "Dupont", ""),
+    ("pi", "busr", "signal", "Pi UART4 (GPIO12/13), adapter jumper on UART", "22 AWG", "Dupont", ""),
     ("hub", "cam", "usb", "USB", "", "USB-A", ""),
-    ("hub", "wcam", "usb", "USB 2 ×2", "", "USB-A, down the arms", ""),
+    ("hub", "wcl", "usb", "USB 2, down the left arm", "", "USB-A", ""),
+    ("hub", "wcr", "usb", "USB 2, down the right arm", "", "USB-A", ""),
     ("hub", "lidar", "usb", "USB down the column sleeve", "", "USB-A", ""),
-    ("hub", "s3", "usb", "USB serial", "", "USB-C", ""),
-    ("hub", "audio", "usb", "USB audio", "", "USB-A", ""),
     ("busl", "stl", "ttl", "Half-duplex TTL, 1 Mbit/s", "18 AWG", "Molex 5264 3-pin", ""),
+    ("busl", "head", "ttl", "Half-duplex TTL, 1 Mbit/s, pan in the torso, tilt through the neck", "18 AWG", "Molex 5264 3-pin", ""),
     ("busr", "str", "ttl", "Half-duplex TTL, 1 Mbit/s", "18 AWG", "Molex 5264 3-pin", ""),
-    ("esp", "wheels", "ttl", "RS485 A/B, 115200 baud; 12 V on XH2.54", "18 AWG + twisted pair", "ZH1.5 4-pin + XH2.54", ""),
+    ("s3", "eyes", "signal", "SPI to both displays, one bus, two chip selects", "26 AWG", "module header", ""),
+    ("esp", "wheels", "ttl", "RS485 A/B, 115200 baud; 18 V on XH2.54", "18 AWG + twisted pair", "ZH1.5 4-pin + XH2.54", ""),
     ("esp", "tmc", "signal", "STEP, DIR, EN, UART", "22 AWG", "Dupont", ""),
+    ("esp", "lim", "signal", "Lift limit switches, top and bottom", "22 AWG", "Dupont", ""),
     ("esp", "imu", "signal", "I2C", "26 AWG", "Qwiic", ""),
-    ("esp", "estop", "signal", "E-stop sense (second NC contact)", "22 AWG", "Dupont", ""),
-    ("tmc", "nema", "motor", "Stepper A/B, limit switch to the ESP32", "22 AWG", "JST-PH 4-pin", ""),
+    ("tmc", "nema", "motor", "Stepper A/B", "22 AWG", "JST-PH 4-pin", ""),
 ]
 
 COLORS = {
-    "power36": "#ff5a4f", "power12": "#ffd43b", "power5": "#c8f542",
+    "power36": "#ff5a4f", "power18": "#ff922b", "power12": "#ffd43b", "power5": "#c8f542", "gnd": "#dee2e6",
     "usb": "#4da3ff", "ttl": "#63e6be", "signal": "#b197fc", "motor": "#adb5bd", "estop": "#ff2d2d",
 }
 LABELS = {
-    "power36": "36 V", "power12": "12 V", "power5": "5 V", "usb": "USB",
-    "ttl": "Servo TTL", "signal": "Logic", "motor": "Motor phases", "estop": "E-stop loop",
+    "power36": "36 V", "power18": "18 V", "power12": "12 V", "power5": "5 V", "gnd": "Return",
+    "usb": "USB", "ttl": "Servo TTL", "signal": "Logic", "motor": "Motor phases", "estop": "E-stop loop",
 }
 
 
@@ -155,45 +179,70 @@ def routes():
     hub = _pt("lift", 0.0, -78.0, 392.0)
     pi = _pt("lift", 0.0, 78.0, 392.0)
     reg5 = _pt("lift", -20.0, 78.0, 370.0)  # 5 V regulator beside the Pi; the torso CAD moves it here
+    conv = _pt("lift", -30.0, 0.0, 300.0)  # arm converters, torso; the torso CAD moves them here
+    conv_l = _pt("lift", -30.0, 40.0, 300.0)
+    conv_r = _pt("lift", -30.0, -40.0, 300.0)
     cam = _pt("head_tilt", 65.0, 0.0, 648.0)
     s3 = _pt("head_tilt", 1.0, 0.0, 587.0)
     mic = _pt("head_tilt", 21.0, 0.0, 683.0)
+    eyes = _pt("head_tilt", 55.0, 0.0, 640.0)
+    pan = _pt("lift", 5.0, 0.0, 450.0)
     palm_l = _pt("l_link6", -16.0, 157.0, -70.0)
     palm_r = _pt("r_link6", -16.0, -157.0, -70.0)
+    batt = _pt("base", 0.0, 80.0, 130.0)
+    fuse = _pt("base", 0.0, -72.0, shelf)
+    gnd = _pt("base", 20.0, -50.0, shelf)
+    cont = _pt("base", -130.0, -96.0, shelf)
+    b12c = _pt("base", -40.0, -150.0, shelf)
+    b18 = _pt("base", 0.0, -132.0, shelf)
+    esp = _pt("base", 0.0, -104.0, shelf)
+    estop = _pt("base", -122.0, 112.0, 212.0)
     return {
-        ("charge", "batt"): [_pt("base", 125.0, -110.0, 212.0), _pt("base", 80.0, -40.0, shelf), _pt("base", 0.0, 80.0, 130.0)],
-        ("batt", "fuse"): [_pt("base", 0.0, 80.0, 130.0), _pt("base", 0.0, 20.0, shelf), _pt("base", 0.0, -72.0, shelf)],
-        ("fuse", "b5"): _column_up(_pt("base", 0.0, -72.0, shelf), reg5),
-        ("fuse", "cont"): [_pt("base", 0.0, -72.0, shelf), _pt("base", -80.0, -80.0, shelf), _pt("base", -130.0, -96.0, shelf)],
-        ("fuse", "b12c"): [_pt("base", 0.0, -72.0, shelf), _pt("base", -40.0, -90.0, shelf), _pt("base", -40.0, -150.0, shelf)],
-        ("b12c", "estop"): [_pt("base", -40.0, -150.0, shelf), _pt("base", -140.0, -60.0, shelf), _pt("base", -140.0, 40.0, 180.0),
-                            _pt("base", -122.0, 112.0, 212.0)],
-        ("estop", "cont"): [_pt("base", -122.0, 112.0, 212.0), _pt("base", -140.0, 40.0, 180.0), _pt("base", -130.0, -96.0, shelf)],
-        ("cont", "b12a"): [_pt("base", -130.0, -96.0, shelf), _pt("base", -72.0, -112.0, shelf), _pt("base", 72.0, -112.0, shelf)],
-        ("cont", "b12m"): [_pt("base", -130.0, -96.0, shelf), _pt("base", -40.0, -120.0, shelf), _pt("base", 0.0, -132.0, shelf)],
+        ("charge", "batt"): [_pt("base", 125.0, -110.0, 212.0), _pt("base", 80.0, -40.0, shelf), batt],
+        ("batt", "fuse"): [batt, _pt("base", 0.0, 20.0, shelf), fuse],
+        ("fuse", "b5"): _column_up(fuse, reg5),
+        ("fuse", "b12c"): [fuse, _pt("base", -40.0, -90.0, shelf), b12c],
+        ("fuse", "cont"): [fuse, _pt("base", -80.0, -80.0, shelf), cont],
+        ("b12c", "estop"): [b12c, _pt("base", -140.0, -60.0, shelf), _pt("base", -140.0, 40.0, 180.0), estop],
+        ("estop", "cont"): [estop, _pt("base", -140.0, 40.0, 180.0), cont],
+        ("estop", "esp"): [_pt("base", -122.0, 112.0, 200.0), _pt("base", -140.0, 0.0, 170.0), esp],
+        ("cont", "esp"): [cont, _pt("base", -60.0, -104.0, shelf), esp],
+        ("cont", "b12a"): _column_up(cont, conv),
+        ("cont", "b18"): [cont, _pt("base", -40.0, -120.0, shelf), b18],
         ("b5", "pi"): [reg5, pi],
-        ("b12a", "busl"): _column_up(_pt("base", -72.0, -112.0, shelf), bus_l),
-        ("b12a", "busr"): _column_up(_pt("base", 72.0, -112.0, shelf), bus_r),
-        ("b12m", "esp"): [_pt("base", 0.0, -132.0, shelf), _pt("base", 0.0, -104.0, shelf)],
-        ("b12m", "tmc"): [_pt("base", 0.0, -132.0, shelf), _pt("base", -80.0, -60.0, shelf), _pt("base", -130.0, -20.0, shelf)],
-        ("pi", "hub"): [_pt("lift", 0.0, 78.0, 392.0), _pt("lift", 0.0, 0.0, 400.0), hub],
+        ("b12c", "hub"): _column_up(b12c, hub),
+        ("b12a", "busl"): [conv_l, _pt("lift", 0.0, 60.0, 310.0), bus_l],
+        ("b12a", "busr"): [conv_r, _pt("lift", 0.0, -60.0, 310.0), bus_r],
+        ("b18", "esp"): [b18, esp],
+        ("b18", "tmc"): [b18, _pt("base", -80.0, -60.0, shelf), _pt("base", -130.0, -20.0, shelf)],
+        ("batt", "gnd"): [batt, _pt("base", 20.0, 20.0, shelf), gnd],
+        ("gnd", "b5"): _column_up(gnd, reg5),
+        ("gnd", "b12c"): [gnd, _pt("base", -20.0, -110.0, shelf), b12c],
+        ("gnd", "cont"): [gnd, _pt("base", -80.0, -70.0, shelf), cont],
+        ("gnd", "b12a"): _column_up(gnd, conv),
+        ("gnd", "b18"): [gnd, _pt("base", 10.0, -100.0, shelf), b18],
+        ("pi", "hub"): [pi, _pt("lift", 0.0, 0.0, 400.0), hub],
+        ("pi", "esp"): _column_down(pi, esp),
+        ("pi", "s3"): _neck(pi, s3),
+        ("pi", "audio"): _neck(pi, mic),
         ("pi", "busl"): [pi, _pt("lift", 10.0, 70.0, 360.0), bus_l],
         ("pi", "busr"): [pi, _pt("lift", 10.0, -40.0, 360.0), bus_r],
-        ("pi", "esp"): _column_down(pi, _pt("base", 0.0, -104.0, shelf)),
         ("hub", "cam"): _neck(hub, cam),
-        ("hub", "wcam"): _arm("l", hub, (palm_l,)) + [_pt("lift", 0.0, -20.0, 380.0)] + _arm("r", hub, (palm_r,))[1:],
+        ("hub", "wcl"): _arm("l", hub, (palm_l,)),
+        ("hub", "wcr"): _arm("r", hub, (palm_r,)),
         ("hub", "lidar"): _column_down(hub, _pt("base", 150.0, 0.0, 140.0)),
-        ("hub", "s3"): _neck(hub, s3),
-        ("hub", "audio"): _neck(hub, mic),
         ("busl", "stl"): _arm("l", bus_l),
+        ("busl", "head"): [bus_l, _pt("lift", 20.0, 30.0, 420.0), pan, _pt("head_pan", 5.0, 0.0, 530.0),
+                           _pt("head_tilt", 20.0, 0.0, 580.0)],
         ("busr", "str"): _arm("r", bus_r),
+        ("s3", "eyes"): [s3, _pt("head_tilt", 30.0, 0.0, 620.0), eyes],
         ("esp", "wheels"): [
-            _pt("base", 0.0, -104.0, shelf), _pt("base", 0.0, 40.0, 80.0),
+            esp, _pt("base", 0.0, 40.0, 80.0),
             _pt("base", 0.0, 120.0, 55.0), _pt("base", 0.0, -120.0, 55.0),
         ],
-        ("esp", "tmc"): [_pt("base", 0.0, -104.0, shelf), _pt("base", -80.0, -50.0, shelf), _pt("base", -130.0, -20.0, shelf)],
-        ("esp", "imu"): [_pt("base", 0.0, -104.0, shelf), _pt("base", -80.0, -70.0, shelf), _pt("base", -130.0, -45.0, shelf)],
-        ("esp", "estop"): [_pt("base", 0.0, -104.0, shelf), _pt("base", -140.0, 0.0, 170.0), _pt("base", -122.0, 112.0, 200.0)],
+        ("esp", "tmc"): [esp, _pt("base", -80.0, -50.0, shelf), _pt("base", -130.0, -20.0, shelf)],
+        ("esp", "lim"): [esp, _pt("base", -80.0, -40.0, shelf), _pt("base", -60.0, 20.0, 90.0), _pt("base", 13.0, 56.0, 388.0)],
+        ("esp", "imu"): [esp, _pt("base", -80.0, -70.0, shelf), _pt("base", -130.0, -45.0, shelf)],
         ("tmc", "nema"): [
             _pt("base", -130.0, -20.0, shelf), _pt("base", -40.0, -10.0, 100.0), _pt("base", 0.0, 0.0, 70.0),
             _pt("base", 20.0, 40.0, 130.0), _pt("base", 13.0, 56.0, 388.0),
