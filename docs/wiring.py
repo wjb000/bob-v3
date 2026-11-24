@@ -6,7 +6,9 @@ Column umbilical
   links) and pays out through the rear window of the outer tube, the open
   notch in the middle tube, and the bore of the upper and inner tubes.
   Travel is 558 mm. The sleeve passes the T8 bridge on the left (y about 20 mm).
-  Power to the chest and the lidar USB ride that sleeve. Camera USB stays in
+  Power to the chest and the lidar USB ride that sleeve. The Pi's 5 V
+  regulator sits in the torso: 36 V goes up the sleeve at under 1 A and
+  the 5 A run to the Pi is short. Camera USB stays in
   the chest, the neck, and the arms.
 
   PATHS are polylines in each link's zero-pose CAD frame (mm). A point tagged
@@ -24,7 +26,7 @@ NODES = {
     "batt": ("36 V pack", "10S2P · 158 Wh", 0, 5, "battery"),
     "fuse": ("Main switch + fuses", "58 V fuses, 36 V side", 1, 5, "fuse_block"),
     "estop": ("E-stop", "NC, 22 mm", 0, 8, "estop"),
-    "b5": ("5 V regulator", "Pololu D36V50F5", 2, 5, "reg_5v"),
+    "b5": ("5 V regulator", "D36V50F5, in the torso", 2, 5, "reg_5v"),
     "cont": ("Contactor", "12 V coil, e-stop loop", 1, 8, "contactor_relay"),
     "pi": ("Raspberry Pi 5", "robot computer", 3, 5, "pi5"),
     "b12c": ("12 V always on", "D36V50F12, contactor coil", 2, 6, None),
@@ -50,14 +52,14 @@ NODES = {
 WIRES = [
     ("charge", "batt", "power36", "Charge from the hoverboard charger, 42 V 2 A", "18 AWG", "GX16 3-pin", "BMS"),
     ("batt", "fuse", "power36", "Main battery feed through the main fuse to the main switch", "12 AWG", "XT60, 3/8 in ring lug", "30 A, 58 V"),
-    ("fuse", "b5", "power36", "Pi rail, always on", "20 AWG", "ferrules", "3 A, 58 V"),
+    ("fuse", "b5", "power36", "Pi rail, 36 V always on, up the column sleeve to the regulator in the torso", "20 AWG", "ferrules", "3 A, 58 V"),
     ("fuse", "cont", "power36", "Motor feed", "14 AWG", "ring lugs M4", "25 A, 58 V"),
     ("fuse", "b12c", "power36", "Always-on 12 V supply, ahead of the contactor", "20 AWG", "ferrules", "3 A, 58 V"),
     ("b12c", "estop", "estop", "Contactor coil feed, 12 V, through the NC e-stop", "22 AWG", "spade 4.8", "1 A"),
     ("estop", "cont", "estop", "E-stop NC contact on to the coil, diode across the coil", "22 AWG", "spade 4.8", ""),
     ("cont", "b12a", "power36", "Arm converters", "16 AWG", "ferrules", "15 A, 58 V"),
     ("cont", "b12m", "power36", "Base converter", "18 AWG", "ferrules", "5 A, 58 V"),
-    ("b5", "pi", "power5", "Pi 5 power, 5.1 V 5 A, up the column sleeve", "18 AWG", "GPIO 5V pins", ""),
+    ("b5", "pi", "power5", "Pi 5 power, 5 V 5 A, short run in the torso; PSU_MAX_CURRENT=5000 for 1.6 A USB", "18 AWG", "GPIO 5V pins 2 and 4", ""),
     ("b12a", "busl", "power12", "Left arm + head servos, up the column sleeve", "16 AWG", "5.5/2.1 → bus", "10 A"),
     ("b12a", "busr", "power12", "Right arm servos, up the column sleeve", "16 AWG", "5.5/2.1 → bus", "10 A"),
     ("b12m", "esp", "power12", "Wheel and HAT power", "18 AWG", "XT60", "5 A"),
@@ -152,6 +154,7 @@ def routes():
     bus_r = _pt("lift", 30.0, -72.0, 326.0)
     hub = _pt("lift", 0.0, -78.0, 392.0)
     pi = _pt("lift", 0.0, 78.0, 392.0)
+    reg5 = _pt("lift", -20.0, 78.0, 370.0)  # 5 V regulator beside the Pi; the torso CAD moves it here
     cam = _pt("head_tilt", 65.0, 0.0, 648.0)
     s3 = _pt("head_tilt", 1.0, 0.0, 587.0)
     mic = _pt("head_tilt", 21.0, 0.0, 683.0)
@@ -160,7 +163,7 @@ def routes():
     return {
         ("charge", "batt"): [_pt("base", 125.0, -110.0, 212.0), _pt("base", 80.0, -40.0, shelf), _pt("base", 0.0, 80.0, 130.0)],
         ("batt", "fuse"): [_pt("base", 0.0, 80.0, 130.0), _pt("base", 0.0, 20.0, shelf), _pt("base", 0.0, -72.0, shelf)],
-        ("fuse", "b5"): [_pt("base", 0.0, -72.0, shelf), _pt("base", 0.0, -162.0, shelf)],
+        ("fuse", "b5"): _column_up(_pt("base", 0.0, -72.0, shelf), reg5),
         ("fuse", "cont"): [_pt("base", 0.0, -72.0, shelf), _pt("base", -80.0, -80.0, shelf), _pt("base", -130.0, -96.0, shelf)],
         ("fuse", "b12c"): [_pt("base", 0.0, -72.0, shelf), _pt("base", -40.0, -90.0, shelf), _pt("base", -40.0, -150.0, shelf)],
         ("b12c", "estop"): [_pt("base", -40.0, -150.0, shelf), _pt("base", -140.0, -60.0, shelf), _pt("base", -140.0, 40.0, 180.0),
@@ -168,7 +171,7 @@ def routes():
         ("estop", "cont"): [_pt("base", -122.0, 112.0, 212.0), _pt("base", -140.0, 40.0, 180.0), _pt("base", -130.0, -96.0, shelf)],
         ("cont", "b12a"): [_pt("base", -130.0, -96.0, shelf), _pt("base", -72.0, -112.0, shelf), _pt("base", 72.0, -112.0, shelf)],
         ("cont", "b12m"): [_pt("base", -130.0, -96.0, shelf), _pt("base", -40.0, -120.0, shelf), _pt("base", 0.0, -132.0, shelf)],
-        ("b5", "pi"): _column_up(_pt("base", 0.0, -162.0, shelf), pi),
+        ("b5", "pi"): [reg5, pi],
         ("b12a", "busl"): _column_up(_pt("base", -72.0, -112.0, shelf), bus_l),
         ("b12a", "busr"): _column_up(_pt("base", 72.0, -112.0, shelf), bus_r),
         ("b12m", "esp"): [_pt("base", 0.0, -132.0, shelf), _pt("base", 0.0, -104.0, shelf)],

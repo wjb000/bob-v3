@@ -59,7 +59,8 @@ BOM = [
      "https://www.elecbee.com/en/product-detail/gx16-aviation-connector-male-and-female-one-pair-3pin-straightpanel-mount-solder-type-connector_48546",
      "Charge socket, base top. Matches the hoverboard charger plug. 7 A rating.", False),
     ("Power", "Pololu D36V50F5, 5 V 5.5 A, 25.4 x 25.4 mm", 1, 44.95, "https://www.pololu.com/product/4091",
-     "Pi, always on. 5.5-50 V input.", False),
+     "Pi, always on. Sits in the torso beside the Pi, fed 36 V up the column, so the 5 A run is short. 5.5-50 V input. "
+     "Set PSU_MAX_CURRENT=5000 in the Pi EEPROM so USB gets 1.6 A from GPIO power.", False),
     ("Power", "Pololu D36V50F12, 12 V 4.5 A, 25.4 x 25.4 mm", 2, 44.95, "https://www.pololu.com/product/4095",
      "One always on, ahead of the contactor: the contactor coil through the e-stop. One switched: wheels and the lift stepper. 13.3-50 V input.", False),
     ("Power", "DROK 24-60 V to 12 V 10 A step-down converter", 2, 26.00,
