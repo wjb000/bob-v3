@@ -109,7 +109,7 @@ BOM = [
      "https://www.amazon.com/Alex-Tech-Expandable-Braided-Sleeving/dp/B07BQ9GZN4",
      "One sleeve for the column umbilical. About 1.2 m is in the bore; the rest folds in the base trough. Price not checked by hand.", False),
 
-    ("Fasteners", "CNC Kitchen M3 x 5.7 heat-set inserts, 100 pack", 4, 10.25,
+    ("Fasteners", "CNC Kitchen M3 x 5.7 heat-set inserts, 100 pack", 3, 10.25,
      "https://cnckitchen.store/products/heat-set-insert-m3-x-5-7-100-pieces", "EUR 9.40 each; ships from the EU.", False),
     ("Fasteners", "M3 screw and nut kit, 750 pieces, M3 x 6-30", 1, 49.93,
      "https://vxb.com/products/ultimate-m3-screws-and-nuts-kit-for-3d-printing-75", "Clamshell bolts, servo-tab screws.", False),
