@@ -60,13 +60,13 @@ BOM = [
      "Charge socket, base top. Matches the hoverboard charger plug. 7 A rating.", False),
     ("Power", "Pololu D36V50F5, 5 V 5.5 A, 25.4 x 25.4 mm", 1, 44.95, "https://www.pololu.com/product/4091",
      "Pi, always on. 5.5-50 V input.", False),
-    ("Power", "Pololu D36V50F12, 12 V 4.5 A, 25.4 x 25.4 mm", 1, 44.95, "https://www.pololu.com/product/4095",
-     "Wheels and the lift stepper. 13.3-50 V input.", False),
+    ("Power", "Pololu D36V50F12, 12 V 4.5 A, 25.4 x 25.4 mm", 2, 44.95, "https://www.pololu.com/product/4095",
+     "One always on, ahead of the contactor: the contactor coil through the e-stop. One switched: wheels and the lift stepper. 13.3-50 V input.", False),
     ("Power", "DROK 24-60 V to 12 V 10 A step-down converter", 2, 26.00,
      "https://www.amazon.com/DROK-Waterproof-Converter-Regulator-Transformer/dp/B017SQ2PUG",
      "One per arm. The same listing as the Bob v2 page; price not checked by hand.", False),
     ("Power", "TE Connectivity 2071584-1 relay, 50 A, 12 V coil", 1, 57.00,
-     "https://www.te.com/en/product-2071584-1.html", "E-stop contactor, ECK50B series. TE's page says not currently available; DigiKey lists it at about $57.", False),
+     "https://www.te.com/en/product-2071584-1.html", "E-stop contactor, ECK50B series. Coil 12 V DC, 5.5 W, fed from the always-on 12 V through the e-stop. TE's page says not currently available; DigiKey lists it at about $57.", False),
     ("Power", "Fuji AR22Q2R-01R 22 mm e-stop, 1 NC, 35 mm mushroom", 1, 30.50,
      "https://www.automationdirect.com/adc/shopping/catalog/pushbuttons_-z-_switches_-z-_indicators/emergency_stop_pushbuttons/ar22q2r-01r",
      "Rear of the base top.", False),
@@ -106,4 +106,12 @@ BOM = [
      "Pick colours: white shells, grey structure, black trim.", False),
     ("Filament", "Bambu Lab TPU 95A HF, 1 kg", 1, 25.19, "https://us.store.bambulab.com/products/tpu-95a-hf",
      "Compliant TPU fingers (Nori-style).", False),
+]
+
+# Parts the wiring needs but whose part number or value is not checked against a datasheet yet.
+# Kept off the site and out of BOM.md: publish.py and make_docs.py read BOM only.
+# `python docs/wiring.py` prints this list with the wire budget.
+TBD = [
+    # section, what, qty, why it is open
+    ("Power", "Flyback diode across the contactor coil", 1, "part number and rating not checked yet"),
 ]
