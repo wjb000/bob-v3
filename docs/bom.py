@@ -24,7 +24,7 @@ BOM = [
      "Lift. Price is an estimate: the store blocks automated checks.", False),
 
     ("Motor drivers", "Waveshare Bus Servo Adapter (A), 42 x 33 mm", 2, 4.99,
-     "https://www.waveshare.com/bus-servo-adapter-a.htm", "One per arm; the head servos share the left bus.", False),
+     "https://www.waveshare.com/bus-servo-adapter-a.htm", "One per arm; the head servos share the left bus. 12 V on the screw terminal; UART jumper, to a Pi GPIO UART.", False),
     ("Motor drivers", "Waveshare DDSM Driver HAT (A), 85 x 57 mm, ESP32 + RS485", 1, 21.99,
      "https://www.waveshare.com/ddsm-driver-hat-a.htm", "Base controller: both wheels, the lift driver, IMU, e-stop sense.", False),
     ("Motor drivers", "BIGTREETECH TMC2209 V1.3", 1, 7.89,
@@ -49,7 +49,8 @@ BOM = [
     ("Compute and sensors", "Seeed ReSpeaker Lite (USB 2-mic)", 1, 24.90, "https://www.seeedstudio.com/ReSpeaker-Lite-p-5928.html", "", False),
     ("Compute and sensors", "Adafruit Mini External USB Stereo Speaker", 1, 12.50, "https://www.adafruit.com/product/3369", "", False),
     ("Compute and sensors", "Waveshare USB 3.2 Gen1 hub, 4 port", 1, 21.99,
-     "https://www.waveshare.com/usb3.2-gen1-hub-2in-4out.htm", "Bus-powered from the Pi.", False),
+     "https://www.waveshare.com/usb3.2-gen1-hub-2in-4out.htm",
+     "Powered from the always-on 12 V on its DC terminal (7-36 V): 2 A per port, 5 A total. Head and wrist cameras, lidar.", False),
 
     ("Power", "36 V 10S2P hoverboard battery, 4.4 Ah, 158 Wh", 1, 60.00, "https://www.wyat.dev/bob-v2/",
      "From Bob v2. Measure it: the cradle is drawn for 80 x 200 x 70 mm.", True),
@@ -59,19 +60,39 @@ BOM = [
      "https://www.elecbee.com/en/product-detail/gx16-aviation-connector-male-and-female-one-pair-3pin-straightpanel-mount-solder-type-connector_48546",
      "Charge socket, base top. Matches the hoverboard charger plug. 7 A rating.", False),
     ("Power", "Pololu D36V50F5, 5 V 5.5 A, 25.4 x 25.4 mm", 1, 44.95, "https://www.pololu.com/product/4091",
-     "Pi, always on. 5.5-50 V input.", False),
+     "Pi, always on. Sits in the torso beside the Pi, fed 36 V up the column, so the 5 A run is short. 5.5-50 V input. "
+     "Set PSU_MAX_CURRENT=5000 in the Pi EEPROM so USB gets 1.6 A from GPIO power.", False),
     ("Power", "Pololu D36V50F12, 12 V 4.5 A, 25.4 x 25.4 mm", 1, 44.95, "https://www.pololu.com/product/4095",
-     "Wheels and the lift stepper. 13.3-50 V input.", False),
-    ("Power", "DROK 24-60 V to 12 V 10 A step-down converter", 2, 26.00,
-     "https://www.amazon.com/DROK-Waterproof-Converter-Regulator-Transformer/dp/B017SQ2PUG",
-     "One per arm. The same listing as the Bob v2 page; price not checked by hand.", False),
+     "Always on, ahead of the contactor: the contactor coil through the e-stop, the e-stop and contactor read-back loops, "
+     "and the USB hub. 13.3-50 V input.", False),
+    ("Power", "Pololu D42V55F18, 18 V 4 A, 25.4 x 25.4 mm", 1, 47.95, "https://www.pololu.com/product/5578",
+     "Wheels and the lift stepper, after the contactor. The DDSM115 is rated 18 V; the TMC2209 takes 4.75-28 V. 18-60 V input.", False),
+    ("Power", "Daygreen B20-3648-12 step-down converter, 30-60 V to 12 V 20 A, 74 x 74 x 31 mm", 2, 16.00,
+     "https://daygreen.com/products/48v-to-12v-20a-240w-dc-dc-step-down-converter-voltage-regulator",
+     "One per arm, in the torso, fed 36 V up the column. 0.28 kg, IP68, over-current protection. "
+     "Input starts at 30 V, so the arms stop before the pack is flat.", False),
     ("Power", "TE Connectivity 2071584-1 relay, 50 A, 12 V coil", 1, 57.00,
-     "https://www.te.com/en/product-2071584-1.html", "E-stop contactor, ECK50B series. TE's page says not currently available; DigiKey lists it at about $57.", False),
+     "https://www.te.com/en/product-2071584-1.html", "E-stop contactor, ECK50B series. Coil 12 V DC, 5.5 W, fed from the always-on 12 V through the e-stop. TE's page says not currently available; DigiKey lists it at about $57.", False),
     ("Power", "Fuji AR22Q2R-01R 22 mm e-stop, 1 NC, 35 mm mushroom", 1, 30.50,
      "https://www.automationdirect.com/adc/shopping/catalog/pushbuttons_-z-_switches_-z-_indicators/emergency_stop_pushbuttons/ar22q2r-01r",
-     "Rear of the base top.", False),
+     "Rear of the base top. Its one NC block breaks the contactor coil.", False),
+    ("Power", "Fuji AR9B291 contact block, 1 NC, for the AR22 e-stop", 1, 7.75,
+     "https://www.automationdirect.com/adc/shopping/catalog/pushbuttons_-z-_switches_-z-_indicators/pushbutton_-z-_switch_-z-_indicator_accessories/contact_blocks_-z-_mounting_flanges/ar9b291",
+     "Second NC contact on the e-stop, so the ESP32 can read it. 5 mA minimum current.", False),
     ("Power", "Blue Sea Systems 5025 ST blade fuse block, 6 circuits", 1, 59.99,
-     "https://thornebros.com/products/blue-sea-systems-st-blade-fuse-block-6-circuits-with-negative-bus-and-cover-5025", "", False),
+     "https://thornebros.com/products/blue-sea-systems-st-blade-fuse-block-6-circuits-with-negative-bus-and-cover-5025",
+     "12 V side only: it is rated 32 V DC. The e-stop coil loop and the arm servo feeds.", False),
+    ("Power", "Blue Sea Systems 6006 m-Series mini ON-OFF battery switch, 48 V DC, 300 A", 1, 25.99,
+     "https://www.deanelectronics.com/blue-sea-6006-m-series-mini-battery-switch-single-circuit-on-off-red-6006/",
+     "Main switch, after the main fuse. Switching rating 25 A: press the e-stop before switching off. 3/8 in studs, 0.29 kg.", False),
+    ("Power", "OptiFuse LPR-05B-12OR in-line ATO fuse holder, 58 V DC, 30 A, 12 AWG leads", 6, 15.44,
+     "https://www.chiefenterprises.com/optifuse-lpr-05b-12or-fuse-holder-lpr-05-series-inline-ato-atc-blade-12awg-30a-ip67-58v",
+     "Every fuse on the 36 V side: main, Pi, always-on 12 V, motor feed, arm converters, base converter. 1.08 x 1.17 x 0.46 in.", False),
+    ("Power", "OptiFuse APR58-30A blade fuse, 58 V DC", 1, 1.90, "https://www.circuitspecialists.com/apr58-30a", "Main fuse.", False),
+    ("Power", "OptiFuse APR58-25A blade fuse, 58 V DC", 1, 1.90, "https://www.circuitspecialists.com/apr58-25a", "Motor feed into the contactor.", False),
+    ("Power", "OptiFuse APR58-20A blade fuse, 58 V DC", 1, 1.90, "https://www.circuitspecialists.com/apr58-20a", "Arm converters.", False),
+    ("Power", "OptiFuse APR58-5A blade fuse, 58 V DC", 1, 1.90, "https://www.circuitspecialists.com/apr58-5a", "Base converter.", False),
+    ("Power", "OptiFuse APR58-3A blade fuse, 58 V DC", 2, 1.98, "https://www.circuitspecialists.com/apr58-3a", "Pi and the always-on 12 V.", False),
 
     ("Lift hardware", "TR8x2 leadscrew 500 mm with brass nut (Ø22 flange)", 1, 24.99,
      "https://www.omc-stepperonline.com/tr8-trapezoidal-lead-screw-8mm-2mm-lead-500mm-length-with-copper-nut.html",
@@ -106,4 +127,26 @@ BOM = [
      "Pick colours: white shells, grey structure, black trim.", False),
     ("Filament", "Bambu Lab TPU 95A HF, 1 kg", 1, 25.19, "https://us.store.bambulab.com/products/tpu-95a-hf",
      "Compliant TPU fingers (Nori-style).", False),
+]
+
+# Parts the wiring needs but whose part number or value is not checked against a datasheet yet.
+# Kept off the site and out of BOM.md: publish.py and make_docs.py read BOM only.
+# `python docs/wiring.py` prints this list with the wire budget.
+TBD = [
+    # section, what, qty, why it is open
+    ("Power", "Flyback diode across the contactor coil", 1, "part number and rating not checked yet"),
+    ("Power", "Precharge resistor across the contactor's main contacts", 1,
+     "value needs the input capacitance of the arm converters and the 18 V regulator"),
+    ("Power", "Isolated inputs for the e-stop and contactor read-back loops (optocoupler + resistor)", 2,
+     "part not chosen; the TE aux contact wants 10 mA minimum, the Fuji block 5 mA"),
+    ("Power", "Star-ground stud and ring lugs", 1, "hardware not chosen"),
+    ("Compute and sensors", "Lift limit switches (KW12 in the CAD)", 2,
+     "no part number checked; the CAD has only the top switch (limit_top)"),
+    ("Compute and sensors", "LED strips light_base and light_chest", 2,
+     "drawn in the CAD, no part number, voltage or current yet, so they are not wired"),
+    ("Compute and sensors", "USB port for the Adafruit 3369 speaker", 1,
+     "all 8 ports are used (Pi: hub, HAT, XIAO, mic; hub: 3 cameras, lidar). Use the ReSpeaker Lite's speaker output "
+     "or a second hub; decide with Bob head"),
+    ("Motor drivers", "Bus Servo Adapter (A) UART logic level", 2,
+     "check it is 3.3 V before wiring it to the Pi's GPIO UART"),
 ]
