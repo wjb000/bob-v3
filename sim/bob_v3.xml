@@ -249,8 +249,10 @@
     <mesh name="estop_ring" file="estop_ring.stl"/>
     <mesh name="estop_head" file="estop_head.stl"/>
     <mesh name="light_base" file="light_base.stl"/>
-    <mesh name="ball_caster_f" file="ball_caster_f.stl"/>
-    <mesh name="ball_caster_r" file="ball_caster_r.stl"/>
+    <mesh name="ball_caster_fl" file="ball_caster_fl.stl"/>
+    <mesh name="ball_caster_fr" file="ball_caster_fr.stl"/>
+    <mesh name="ball_caster_rl" file="ball_caster_rl.stl"/>
+    <mesh name="ball_caster_rr" file="ball_caster_rr.stl"/>
     <mesh name="lift_motor" file="lift_motor.stl"/>
     <mesh name="lift_motor_stack" file="lift_motor_stack.stl"/>
     <mesh name="lift_motor_shaft" file="lift_motor_shaft.stl"/>
@@ -347,7 +349,7 @@
     <body name="base" pos="0 0 0.002">
       <freejoint name="root"/>
       <site name="imu" pos="0.13 -0.04 0.14" size="0.01"/>
-      <inertial pos="0.01076 0.01025 0.13212" mass="6.3485" fullinertia="0.0870313 0.0738831 0.092982 0.00167826 0.00060949 -0.000255509"/>
+      <inertial pos="0.01080 0.01024 0.13204" mass="6.3577" fullinertia="0.0873879 0.0742467 0.0933711 0.00167195 0.000596157 -0.000254692"/>
       <geom name="base_shell_rear_r" type="mesh" mesh="base_shell_rear_r" material="m_shell" group="1" mass="0"/>
       <geom name="c_base_shell_rear_r" class="col" type="mesh" mesh="base_shell_rear_r" contype="2" conaffinity="13" friction="0.8 0.01 0.001" mass="0"/>
       <geom name="base_shell_rear_c" type="mesh" mesh="base_shell_rear_c" material="m_shell" group="1" mass="0"/>
@@ -476,8 +478,10 @@
       <geom name="estop_ring" type="mesh" mesh="estop_ring" material="m_yellow" group="2" mass="0"/>
       <geom name="estop_head" type="mesh" mesh="estop_head" material="m_red" group="2" mass="0"/>
       <geom name="light_base" type="mesh" mesh="light_base" material="m_glow" group="2" mass="0"/>
-      <geom name="ball_caster_f" type="mesh" mesh="ball_caster_f" material="m_steel" group="2" mass="0"/>
-      <geom name="ball_caster_r" type="mesh" mesh="ball_caster_r" material="m_steel" group="2" mass="0"/>
+      <geom name="ball_caster_fl" type="mesh" mesh="ball_caster_fl" material="m_black" group="2" mass="0"/>
+      <geom name="ball_caster_fr" type="mesh" mesh="ball_caster_fr" material="m_black" group="2" mass="0"/>
+      <geom name="ball_caster_rl" type="mesh" mesh="ball_caster_rl" material="m_black" group="2" mass="0"/>
+      <geom name="ball_caster_rr" type="mesh" mesh="ball_caster_rr" material="m_black" group="2" mass="0"/>
       <geom name="lift_motor" type="mesh" mesh="lift_motor" material="m_alu" group="2" mass="0"/>
       <geom name="lift_motor_stack" type="mesh" mesh="lift_motor_stack" material="m_black" group="2" mass="0"/>
       <geom name="lift_motor_shaft" type="mesh" mesh="lift_motor_shaft" material="m_steel" group="2" mass="0"/>
@@ -485,8 +489,10 @@
       <geom name="coupler" type="mesh" mesh="coupler" material="m_alu" group="2" mass="0"/>
       <geom name="leadscrew" type="mesh" mesh="leadscrew" material="m_steel" group="2" mass="0"/>
       <geom name="limit_top" type="mesh" mesh="limit_top" material="m_black" group="2" mass="0"/>
-      <geom name="caster_front" class="col" type="sphere" size="0.0079" pos="0.1770 0 0.0079" contype="1" conaffinity="0" condim="1" priority="1" friction="0 0 0" mass="0"/>
-      <geom name="caster_rear" class="col" type="sphere" size="0.0079" pos="-0.1270 0 0.0079" contype="1" conaffinity="0" condim="1" priority="1" friction="0 0 0" mass="0"/>
+      <geom name="caster_front" class="col" type="sphere" size="0.0075" pos="0.1770 0.0450 0.0085" contype="1" conaffinity="0" condim="1" priority="1" friction="0 0 0" mass="0"/>
+      <geom name="caster_front_r" class="col" type="sphere" size="0.0075" pos="0.1770 -0.0450 0.0085" contype="1" conaffinity="0" condim="1" priority="1" friction="0 0 0" mass="0"/>
+      <geom name="caster_rear" class="col" type="sphere" size="0.0075" pos="-0.1270 0.0450 0.0085" contype="1" conaffinity="0" condim="1" priority="1" friction="0 0 0" mass="0"/>
+      <geom name="caster_rear_r" class="col" type="sphere" size="0.0075" pos="-0.1270 -0.0450 0.0085" contype="1" conaffinity="0" condim="1" priority="1" friction="0 0 0" mass="0"/>
       <body name="lift" pos="0.00000 0.00000 0.00000">
         <joint name="lift" type="slide" axis="0 0 1" range="0.0 0.462" damping="1000.0" armature="0.0" frictionloss="15.0"/>
         <inertial pos="-0.00290 0.00056 0.36318" mass="2.4620" fullinertia="0.0216544 0.0136259 0.0152187 -3.94667e-06 -8.99964e-05 1.70431e-05"/>

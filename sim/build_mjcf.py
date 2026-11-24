@@ -239,10 +239,14 @@ def main():
             d = SCENE["dims"]
             ct, ca = CLS["wheel"]
             r = d["caster_wheel"] / 2000
+            cy = d.get("caster_y", 0.0) / 1000
+            lift = d.get("caster_lift", 0.0) / 1000  # ball bottoms sit this far above the tire bottoms
             for sx, nm in ((1, "front"), (-1, "rear")):
                 x = (d["caster_x"] if sx > 0 else -d.get("caster_x_rear", d["caster_x"])) / 1000 - d["caster_trail"] / 1000
-                w(f'{pad}  <geom name="caster_{nm}" class="col" type="sphere" size="{r:.4f}" pos="{x:.4f} 0 {r:.4f}" '
-                  f'contype="{ct}" conaffinity="{ca}" condim="1" priority="1" friction="0 0 0" mass="0"/>')  # swivel casters: no drag
+                # +y ball keeps the old name (check.py reads caster_front / caster_rear x); the -y one is caster_<nm>_r
+                for y, suffix in (((cy, ""), (-cy, "_r")) if cy else ((0.0, ""),)):
+                    w(f'{pad}  <geom name="caster_{nm}{suffix}" class="col" type="sphere" size="{r:.4f}" pos="{x:.4f} {y:.4f} {r + lift:.4f}" '
+                      f'contype="{ct}" conaffinity="{ca}" condim="1" priority="1" friction="0 0 0" mass="0"/>')  # ball transfers: no drag modelled
         if link == "head_tilt":
             cam = next(i for i in SCENE["items"] if i["name"] == "head_cam_glass")
             mesh = trimesh.load_mesh(PLACED / cam["file"])

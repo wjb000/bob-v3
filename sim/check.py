@@ -351,7 +351,33 @@ def _slope():
     ang = dict(down_deg=round(math.degrees(math.atan2(fx - com[0], com[2])), 1),
                up_deg=round(math.degrees(math.atan2(com[0] - rx, com[2])), 1),
                side_deg=round(math.degrees(math.atan2(side - abs(com[1]), com[2])), 1))
+    # side_deg assumes a straight side edge at the wheel. The real side edges run from each tire to the
+    # nearest ball transfer, so also report the true sideways ramp: from the CoM along +y / -y to the
+    # edge of the convex hull of the tire and ball contacts.
+    pts = [m.geom_pos[g][:2] for g in range(m.ngeom) if m.geom(g).name.startswith("caster_")]
+    pts += [m.body_pos[m.body(w).id][:2] for w in ("wheel_l", "wheel_r")]
+    for nm, u in (("side_left_deg", (0.0, 1.0)), ("side_right_deg", (0.0, -1.0))):
+        ang[nm] = round(math.degrees(math.atan2(_ray_to_hull(np.array(pts), com[:2], np.array(u)), com[2])), 1)
     return ang, [round(float(v), 3) for v in com]
+
+
+def _ray_to_hull(P_, c, u):
+    """Distance from c along unit u to the boundary of the convex hull of points P_ (2D)."""
+    import itertools
+    best = math.inf
+    for i, j in itertools.combinations(range(len(P_)), 2):
+        a, b = P_[i], P_[j]
+        e = b - a
+        side = [e[0] * (p_[1] - a[1]) - e[1] * (p_[0] - a[0]) for k, p_ in enumerate(P_) if k not in (i, j)]
+        if not (all(s >= -1e-12 for s in side) or all(s <= 1e-12 for s in side)):
+            continue  # not a hull edge
+        M = np.array([u, a - b]).T
+        if abs(np.linalg.det(M)) < 1e-12:
+            continue
+        t, sp = np.linalg.solve(M, a - c)
+        if t > 0 and -1e-9 <= sp <= 1 + 1e-9:
+            best = min(best, t)
+    return best
 
 
 def _support_polygon(m, d):
