@@ -489,7 +489,7 @@
       <geom name="caster_rear" class="col" type="sphere" size="0.0079" pos="-0.1270 0 0.0079" contype="1" conaffinity="0" condim="1" priority="1" friction="0 0 0" mass="0"/>
       <body name="lift" pos="0.00000 0.00000 0.00000">
         <joint name="lift" type="slide" axis="0 0 1" range="0.0 0.462" damping="1000.0" armature="0.0" frictionloss="15.0"/>
-        <inertial pos="-0.00290 0.00056 0.36318" mass="2.4620" fullinertia="0.0216544 0.0136259 0.0152187 -3.94667e-06 -8.99964e-05 1.70431e-05"/>
+        <inertial pos="-0.00296 0.00055 0.36410" mass="2.5114" fullinertia="0.0221558 0.0137702 0.0156322 -4.03533e-06 -8.25671e-05 1.83207e-05"/>
         <geom name="col_inner_0" type="mesh" mesh="col_inner_0" material="m_shell" group="1" mass="0"/>
         <geom name="c_col_inner_0" class="col" type="mesh" mesh="col_inner_0" contype="2" conaffinity="13" friction="0.8 0.01 0.001" mass="0"/>
         <geom name="col_inner_1" type="mesh" mesh="col_inner_1" material="m_shell" group="1" mass="0"/>
@@ -601,7 +601,7 @@
           <geom name="j2_l_shaft" type="mesh" mesh="j2_l_shaft" material="m_steel" group="2" mass="0"/>
           <body name="l_link2" pos="0.00000 0.04000 0.00000">
             <joint name="l_shoulder_roll" type="hinge" axis="1 0 0" range="-0.2 1.75" damping="0.08" armature="0.012" frictionloss="0.06"/>
-            <inertial pos="-0.00654 0.00000 -0.08542" mass="0.1777" fullinertia="0.000127221 0.000155309 9.81442e-05 -4.92288e-11 1.94338e-05 6.5757e-13"/>
+            <inertial pos="-0.00654 -0.00000 -0.08542" mass="0.1777" fullinertia="0.000127221 0.000155309 9.81442e-05 7.95227e-15 1.94338e-05 2.921e-11"/>
             <geom name="clevis_l" type="mesh" mesh="clevis_l" material="m_frame" group="1" mass="0"/>
             <geom name="c_clevis_l" class="col" type="mesh" mesh="clevis_l" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
             <geom name="clevis_cover_a_l" type="mesh" mesh="clevis_cover_a_l" material="m_shell" group="1" mass="0"/>

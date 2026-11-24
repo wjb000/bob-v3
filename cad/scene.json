@@ -27,11 +27,11 @@
    ]
   },
   "lift": {
-   "mass_g": 2062.0,
+   "mass_g": 2111.4,
    "com": [
-    -3.2,
+    -3.3,
     0.7,
-    373.6
+    374.5
    ]
   },
   "head_tilt": {
@@ -195,7 +195,7 @@
    ]
   }
  },
- "total_mass_g": 11684.3,
+ "total_mass_g": 11733.7,
  "joints": [
   {
    "name": "lift",
@@ -1351,7 +1351,7 @@
    "kind": "print",
    "color": "frame",
    "material": "PETG",
-   "mass_g": 318.4,
+   "mass_g": 343.1,
    "print": "yoke_l",
    "note": "Holds the left J1 STS3095. Prints on its centre face, cup up. 5 walls, 30% infill."
   },
@@ -1363,7 +1363,7 @@
    "kind": "print",
    "color": "frame",
    "material": "PETG",
-   "mass_g": 318.4,
+   "mass_g": 343.1,
    "print": "yoke_r",
    "note": "Mirror of yoke_l."
   },
