@@ -3,11 +3,11 @@
  "frame": "x forward, y left, z up, origin on the floor between the wheels",
  "links": {
   "base": {
-   "mass_g": 5148.5,
+   "mass_g": 5157.7,
    "com": [
     7.5,
     12.5,
-    118.3
+    118.1
    ]
   },
   "lift_mid": {
@@ -195,7 +195,7 @@
    ]
   }
  },
- "total_mass_g": 11684.3,
+ "total_mass_g": 11693.5,
  "joints": [
   {
    "name": "lift",
@@ -955,7 +955,7 @@
    "kind": "print",
    "color": "frame",
    "material": "PETG",
-   "mass_g": 69.3,
+   "mass_g": 77.5,
    "print": "base_pan_rear_c",
    "note": "Structure. Skin down on the bed, ribs up. 4 walls."
   },
@@ -1027,7 +1027,7 @@
    "kind": "print",
    "color": "frame",
    "material": "PETG",
-   "mass_g": 104.7,
+   "mass_g": 113.3,
    "print": "base_pan_front_c",
    "note": "Structure. Skin down on the bed, ribs up. 4 walls."
   },
@@ -3269,25 +3269,47 @@
    "bom": "ledstrip"
   },
   {
-   "name": "ball_caster_f",
-   "file": "ball_caster_f.stl",
+   "name": "ball_caster_fl",
+   "file": "ball_caster_fl.stl",
    "link": "base",
    "group": "base",
    "kind": "metal",
-   "color": "steel",
+   "color": "black",
    "material": "bought",
-   "mass_g": 35,
+   "mass_g": 15.59,
    "bom": "ballxfer"
   },
   {
-   "name": "ball_caster_r",
-   "file": "ball_caster_r.stl",
+   "name": "ball_caster_fr",
+   "file": "ball_caster_fr.stl",
    "link": "base",
    "group": "base",
    "kind": "metal",
-   "color": "steel",
+   "color": "black",
    "material": "bought",
-   "mass_g": 35,
+   "mass_g": 15.59,
+   "bom": "ballxfer"
+  },
+  {
+   "name": "ball_caster_rl",
+   "file": "ball_caster_rl.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "metal",
+   "color": "black",
+   "material": "bought",
+   "mass_g": 15.59,
+   "bom": "ballxfer"
+  },
+  {
+   "name": "ball_caster_rr",
+   "file": "ball_caster_rr.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "metal",
+   "color": "black",
+   "material": "bought",
+   "mass_g": 15.59,
    "bom": "ballxfer"
   },
   {
@@ -4285,7 +4307,9 @@
   "caster_x_rear": 127.0,
   "base_cx": 25.0,
   "caster_trail": 0.0,
-  "caster_wheel": 15.875,
+  "caster_wheel": 15.0,
+  "caster_y": 45.0,
+  "caster_lift": 1.0,
   "mast_top": 381.0
  }
 }
