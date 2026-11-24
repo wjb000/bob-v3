@@ -428,7 +428,9 @@ def main():
                                         len_mm=rec["len_mm"], path=rec["path"], **ELEC.get((a, b), {}))
                                    for (a, b, k, w, g, c, f), rec in zip(WIRING.WIRES, WIRING.wire_records())],
                             colors=WIRING.COLORS),
-                mass_kg=round(manifest["robot_mass_g"] / 1000, 1), print_kg=round(manifest["print_mass_g"] / 1000, 2))
+                # the sim mass: every listed part plus the wiring, screws and small hardware build_mjcf adds per link
+                mass_kg=round(float(mm.body_mass.sum()), 2), parts_kg=round(manifest["robot_mass_g"] / 1000, 2),
+                print_kg=round(manifest["print_mass_g"] / 1000, 2))
     # The site caches .glb and images for a year (vercel.json), so every URL carries a content hash.
     import hashlib
 
@@ -498,7 +500,9 @@ def main():
                 else "self-locking screw, holds with the power off"),
             "brake": lambda v: f"max tilt {v['max_tilt_deg']}° at {v['speed_mps']} m/s",
             "push": lambda v: f"tips at {v['push_forward_N']} N forward, {v['push_back_N']} N back",
-            "slope": lambda v: f"{v['down_deg']}° nose down, {v['up_deg']}° nose up, {v['side_deg']}° sideways",
+            "slope": lambda v: (f"{v['down_deg']}° nose down, {v['up_deg']}° nose up, "
+                                + (f"{v['side_left_deg']}° left side down, {v['side_right_deg']}° right side down"
+                                   if "side_left_deg" in v else f"{v['side_deg']}° sideways")),
             "reach": lambda v: f"hand to {v['z_max_m']} m up, {v['side_reach_y_m']} m sideways, counter reach {v['counter_reach_x_m']} m",
             "tasks": lambda v: ", ".join(f"{n.split(',')[0]}: lift {x['lift_m']} m" for n, x in v["targets"].items() if x),
             "pick": lambda v: f"{100 * v['success_rate']:.0f}% of {v['episodes']} random placements",
