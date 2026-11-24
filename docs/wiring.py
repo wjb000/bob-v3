@@ -16,7 +16,8 @@ Column umbilical
   lift = 0 and the paid-out route at full lift, over hanging and straight arms,
   plus 8 percent for terminations. The coil is not counted twice at full lift.
 
-NODES: id -> (label, sub, column, row, cad item for the 3D overlay or None)
+NODES: id -> (label, sub, column, row, cad item for the 3D overlay or None). Column and row place the
+  node on the schematic: columns 0-2 power, 3-4 control, 5-6 devices. "gnd" is drawn as the return bar.
 WIRES: (from, to, kind, what, wire, connector, fuse)
 kind: power36 | power18 | power12 | power5 | gnd | usb | ttl | signal | motor | estop
 Every power wire is a pair. Its negative half is listed as a gnd wire back to the star ground.
@@ -25,36 +26,36 @@ the wire size and length and checks gauge, fuse, voltage drop and regulator, hub
 """
 
 NODES = {
-    "charge": ("Charge socket", "GX16, base top", 0, 4, "charge_socket"),
-    "batt": ("36 V pack", "10S2P · 158 Wh", 0, 5, "battery"),
-    "gnd": ("Star ground", "every return, base", 0, 6, None),
-    "estop": ("E-stop", "2 NC: coil + sense", 0, 8, "estop"),
-    "fuse": ("Main switch + fuses", "58 V fuses, 36 V side", 1, 5, "fuse_block"),
-    "cont": ("Contactor", "12 V coil, aux NO", 1, 8, "contactor_relay"),
-    "b5": ("5 V regulator", "D36V50F5, in the torso", 2, 5, "reg_5v"),
-    "b12c": ("12 V always on", "D36V50F12: coil, hub", 2, 6, None),
-    "b12a": ("12 V 20 A ×2", "one per arm, in the torso", 2, 7, "buck_12v"),
-    "b18": ("18 V regulator", "D42V55F18: wheels, lift", 2, 9, "reg_12v"),
-    "pi": ("Raspberry Pi 5", "robot computer", 3, 5, "pi5"),
-    "hub": ("USB 3 hub", "12 V powered, 4 ports", 4, 2, "usb_hub"),
-    "busl": ("Bus adapter left", "Feetech TTL, Pi UART2", 4, 6, "servo_bus"),
+    "charge": ("Charge socket", "GX16, base top", 0, 1, "charge_socket"),
+    "batt": ("36 V pack", "10S2P · 158 Wh", 0, 2, "battery"),
+    "gnd": ("Star ground", "every return, base", 0, 10, None),
+    "estop": ("E-stop", "2 NC: coil + sense", 0, 4, "estop"),
+    "fuse": ("Main switch + fuses", "58 V fuses, 36 V side", 1, 2, "fuse_block"),
+    "cont": ("Contactor", "12 V coil, aux NO", 1, 6, "contactor_relay"),
+    "b5": ("5 V regulator", "D36V50F5, in the torso", 2, 1, "reg_5v"),
+    "b12c": ("12 V always on", "D36V50F12: coil, hub", 2, 3, None),
+    "b12a": ("12 V 20 A ×2", "per arm, in the torso", 2, 6, "buck_12v"),
+    "b18": ("18 V regulator", "D42V55F18: wheels, lift", 2, 8, "reg_12v"),
+    "pi": ("Raspberry Pi 5", "robot computer", 3, 1, "pi5"),
+    "hub": ("USB 3 hub", "12 V powered, 4 ports", 4, 0, "usb_hub"),
+    "busl": ("Bus adapter left", "Feetech TTL, Pi UART2", 4, 5, "servo_bus"),
     "busr": ("Bus adapter right", "Feetech TTL, Pi UART4", 4, 7, "servo_bus_r"),
-    "esp": ("DDSM Driver HAT (A)", "ESP32 + RS485", 4, 10, "ddsm_driver"),
-    "tmc": ("TMC2209", "UART, StallGuard", 4, 11, "tmc2209"),
-    "audio": ("Mic array", "ReSpeaker Lite, USB", 5, 3, "mic_array"),
-    "s3": ("XIAO ESP32-S3", "drives the eyes", 5, 4, "esp32s3_head"),
-    "eyes": ("Eyes ×2", "GC9A01 1.28 in, SPI", 5, 5, "eye_l"),
-    "stl": ("Left arm", "STS IDs 1–7", 5, 6, "j1_l"),
+    "esp": ("DDSM Driver HAT (A)", "ESP32 + RS485", 4, 8, "ddsm_driver"),
+    "tmc": ("TMC2209", "UART, StallGuard", 4, 9, "tmc2209"),
+    "audio": ("Mic array", "ReSpeaker Lite, USB", 5, 2, "mic_array"),
+    "s3": ("XIAO ESP32-S3", "drives the eyes", 4, 3, "esp32s3_head"),
+    "eyes": ("Eyes ×2", "GC9A01 1.28 in, SPI", 5, 3, "eye_l"),
+    "stl": ("Left arm", "STS IDs 1–7", 5, 5, "j1_l"),
     "str": ("Right arm", "STS IDs 1–7", 5, 7, "j1_r"),
-    "head": ("Head pan + tilt", "STS3215 IDs 8–9", 5, 8, "pan_servo"),
-    "wheels": ("DDSM115 ×2", "IDs 1 and 2", 5, 10, "hub_l"),
-    "nema": ("Lift NEMA 17", "17HS19-2004S1", 5, 11, "lift_motor"),
+    "head": ("Head pan + tilt", "STS3215 IDs 8–9", 5, 6, "pan_servo"),
+    "wheels": ("DDSM115 ×2", "IDs 1 and 2", 5, 8, "hub_l"),
+    "nema": ("Lift NEMA 17", "17HS19-2004S1", 5, 9, "lift_motor"),
     "cam": ("Head camera", "USB RGB, wide", 6, 0, "head_cam"),
     "wcl": ("Left wrist camera", "UB0234, USB 2", 6, 1, "wrist_cam_l"),
     "wcr": ("Right wrist camera", "UB0234, USB 2", 6, 2, "wrist_cam_r"),
     "lidar": ("RPLIDAR C1", "USB", 6, 3, "lidar"),
     "lim": ("Lift limit switches", "top and bottom", 6, 9, "limit_top"),
-    "imu": ("BNO085 IMU", "I2C", 6, 12, "imu"),
+    "imu": ("BNO085 IMU", "I2C", 6, 8, "imu"),
 }
 
 WIRES = [
@@ -321,7 +322,8 @@ def wire_records():
 # (5 mA min) and the TE aux contact (10 mA min).
 # Assumptions, not datasheet numbers (they stay here and off the site): regulator efficiencies, the
 # arm hold current (from the sim check torques), the stepper supply current, 500 mA for USB devices
-# with no published current, and the AMPACITY design table.
+# with no published current, and the AMPACITY design table. The site shows only the design currents
+# that come out of them, labelled as design values on the wiring diagram.
 
 V_PACK_MIN = 30.0  # 10S at 3.0 V per cell; the arm converters stop at 30 V in
 EFF = {"b5": 0.90, "b12c": 0.90, "b12a": 0.93, "b18": 0.90, "hub": 0.85}  # assumed

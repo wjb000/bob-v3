@@ -33,36 +33,57 @@ import wiring as WIRING  # noqa: E402
 NW, NH, CW, RH, PAD = 150, 46, 176, 64, 16
 
 
+def _wd_fmt_a(a):
+    return f"{a:.2f}" if a < 1 else f"{a:.1f}"
+
+
 def wiring_svg() -> str:
-    """Lay the nodes out on the grid in docs/wiring.py and route every wire on its own lane, with right angles."""
-    NW_, NH_, CW_, RH_, P_ = 172, 42, 232, 58, 24
-    N = WIRING.NODES
-    xy = {k: (P_ + c * CW_, P_ + 34 + r * RH_) for k, (_, _, c, r, _) in N.items()}
-    cols = max(v[2] for v in N.values()) + 1
-    rows = max(v[3] for v in N.values()) + 1
-    W, H = P_ * 2 + (cols - 1) * CW_ + NW_, P_ + 34 + rows * RH_ + 64
+    """Draw docs/wiring.py as a schematic: power on the left (pack, fuses, switch, contactor, regulators, the return bar),
+    control and buses in the middle, devices and sensors on the right. Each wire runs on its own right-angle lane.
+    Rails are coloured by voltage, every fuse is drawn with its rating, the e-stop loop is dashed, and power wires
+    carry volts, design current and gauge."""
+    import re as _re
+    NW_, NH_, RH_, TOP = 164, 44, 62, 78
+    COLX = [20, 274, 588, 842, 1076, 1320, 1548]  # wide gaps where the power branches and returns run
+    N, E = WIRING.NODES, WIRING.elec()
+    rows = max(v[3] for k, v in N.items() if k != "gnd") + 1
+    bar_y = TOP + rows * RH_ + 8
+    BAR_H = 34
+    W = COLX[-1] + NW_ + 20
+    LEG_Y = bar_y + BAR_H + 44
+    H = LEG_Y + 76
+    xy = {k: (COLX[c], TOP + r * RH_) for k, (_, _, c, r, _) in N.items() if k != "gnd"}
     rects = {k: (x, y, x + NW_, y + NH_) for k, (x, y) in xy.items()}
+    bar = (COLX[0], bar_y, COLX[2] + NW_, bar_y + BAR_H)
+
+    def gx(g):  # centre of the gap right of column g
+        return (COLX[g] + NW_ + COLX[g + 1]) / 2 if g + 1 < len(COLX) else COLX[g] + NW_ + 10
+
+    def ry(r):  # centre of the gap above row r
+        return TOP + r * RH_ - (RH_ - NH_) / 2
+
+    def col(k):
+        return N[k][2]
+
     # which side of each node every wire end uses
-    ends = []
-    for i, (a, b, *_ ) in enumerate(WIRING.WIRES):
-        ca, cb = N[a][2], N[b][2]
-        if ca == cb:
-            ends.append(((a, "r"), (b, "r")))
-        elif ca < cb:
-            ends.append(((a, "r"), (b, "l")))
-        else:
-            ends.append(((a, "l"), (b, "r")))
-    side = {}
-    for i, ((a, sa), (b, sb)) in enumerate(ends):
-        side.setdefault((a, sa), []).append((xy[b][1], i, 0))
-        side.setdefault((b, sb), []).append((xy[a][1], i, 1))
+    ends, side = [], {}
+    for i, (a, b, kind, *_ ) in enumerate(WIRING.WIRES):
+        if kind == "gnd":
+            x = b if a == "gnd" else a
+            sd = "r" if col(x) == 0 else "l"
+            ends.append(((x, sd), None))
+            side.setdefault((x, sd), []).append((bar_y, i, 0))
+            continue
+        ca, cb = col(a), col(b)
+        e = ((a, "r"), (b, "r")) if ca == cb else ((a, "r"), (b, "l")) if ca < cb else ((a, "l"), (b, "r"))
+        ends.append(e)
+        side.setdefault(e[0], []).append((xy[b][1], i, 0))
+        side.setdefault(e[1], []).append((xy[a][1], i, 1))
     port = {}
     for (k, sd), lst in side.items():
         lst.sort()
         for j, (_, i, e) in enumerate(lst):
-            y = xy[k][1] + NH_ * (j + 1) / (len(lst) + 1)
-            x = xy[k][0] + (NW_ if sd == "r" else 0)
-            port[(i, e)] = (x, y)
+            port[(i, e)] = (xy[k][0] + (NW_ if sd == "r" else 0), xy[k][1] + NH_ * (j + 1) / (len(lst) + 1))
     gapn, rown = {}, {}
 
     def lane(store, key, base, step=6):
@@ -70,88 +91,171 @@ def wiring_svg() -> str:
         store[key] = k + 1
         return base + ((k + 1) // 2) * step * (1 if k % 2 else -1)
 
-    def gx(g):  # centre of the gap right of column g
-        return P_ + g * CW_ + NW_ + (CW_ - NW_) / 2
-
-    def ry(r):  # centre of the gap above row r
-        return P_ + 34 + r * RH_ - (RH_ - NH_) / 2
-
     def clear(x1, x2, y, skip):
         lo, hi = sorted((x1, x2))
         return not any(k not in skip and r[0] - 4 < hi and r[2] + 4 > lo and r[1] - 3 < y < r[3] + 3 for k, r in rects.items())
 
+    def fuse_at(pts):
+        """Where the fuse symbol sits: on the run into the load if it is long enough, else the run out of the source."""
+        segs = list(zip(pts, pts[1:]))
+        last, first = segs[-1], segs[0]
+        if abs(last[1][0] - last[0][0]) >= 30:
+            s, near = (last[1], last[0]), True
+        elif abs(first[1][0] - first[0][0]) >= 40:
+            s, near = first, False
+        else:
+            s, near = max(segs, key=lambda q: abs(q[1][0] - q[0][0]) + abs(q[1][1] - q[0][1])), False
+        (x0, y0), (x1, y1) = s
+        L = abs(x1 - x0) + abs(y1 - y0)
+        d = min(22.0, L / 2) if near else L / 2
+        ux, uy = ((x1 > x0) - (x1 < x0)), ((y1 > y0) - (y1 < y0))
+        return x0 + ux * d, y0 + uy * d, ux != 0
+
     paths = []
     for i, (a, b, kind, what, wire, conn, fuse) in enumerate(WIRING.WIRES):
-        (xa, ya), (xb, yb) = port[(i, 0)], port[(i, 1)]
-        ca, cb = N[a][2], N[b][2]
-        sk = {a, b}
-        if ca == cb:
-            x = lane(gapn, ca, gx(ca) - 12)
-            pts = [(xa, ya), (x, ya), (x, yb), (xb, yb)]
+        col_ = WIRING.COLORS[kind]
+        rec = WIRING.wire_records()[i]
+        e = E.get((a, b))
+        if kind == "gnd":
+            x = b if a == "gnd" else a
+            xa, ya = port[(i, 0)]
+            g = col(x) if col(x) == 0 else col(x) - 1
+            cx = lane(gapn, g, gx(g))
+            pts = [(xa, ya), (cx, ya), (cx, bar_y)]
         else:
-            d = 1 if cb > ca else -1
-            ga, gb = (ca if d > 0 else ca - 1), (cb - 1 if d > 0 else cb)
-            if clear(xa, gx(gb), ya, sk):
-                x = lane(gapn, gb, gx(gb))
-                pts = [(xa, ya), (x, ya), (x, yb), (xb, yb)]
-            elif clear(gx(ga), xb, yb, sk):
-                x = lane(gapn, ga, gx(ga))
+            (xa, ya), (xb, yb) = port[(i, 0)], port[(i, 1)]
+            ca, cb = col(a), col(b)
+            sk = {a, b}
+            if ca == cb:
+                x = lane(gapn, ca, gx(ca) - 12)
                 pts = [(xa, ya), (x, ya), (x, yb), (xb, yb)]
             else:
-                rb = N[b][3]
-                y = lane(rown, rb, ry(rb), 5)
-                x1, x2 = lane(gapn, ga, gx(ga)), lane(gapn, gb, gx(gb))
-                pts = [(xa, ya), (x1, ya), (x1, y), (x2, y), (x2, yb), (xb, yb)]
+                d = 1 if cb > ca else -1
+                ga, gb = (ca if d > 0 else ca - 1), (cb - 1 if d > 0 else cb)
+                if clear(xa, gx(gb), ya, sk):
+                    x = lane(gapn, gb, gx(gb))
+                    pts = [(xa, ya), (x, ya), (x, yb), (xb, yb)]
+                elif clear(gx(ga), xb, yb, sk):
+                    x = lane(gapn, ga, gx(ga))
+                    pts = [(xa, ya), (x, ya), (x, yb), (xb, yb)]
+                else:
+                    rb = N[b][3]
+                    y = lane(rown, rb, ry(rb), 5)
+                    x1, x2 = lane(gapn, ga, gx(ga)), lane(gapn, gb, gx(gb))
+                    pts = [(xa, ya), (x1, ya), (x1, y), (x2, y), (x2, yb), (xb, yb)]
+        pts = [p for j, p in enumerate(pts) if j in (0, len(pts) - 1) or not (
+            (pts[j - 1][0] == p[0] == pts[j + 1][0]) or (pts[j - 1][1] == p[1] == pts[j + 1][1]))]  # drop straight-through bends
         dd = " ".join(f"{x:.0f},{y:.0f}" for x, y in pts)
-        col = WIRING.COLORS[kind]
         dash = ' stroke-dasharray="5 4"' if kind == "estop" else ""
-        rec = WIRING.wire_records()[i]
         length = f" {rec['len_mm']} mm." if rec["len_mm"] else ""
-        tip = html.escape(f"{N[a][0]} → {N[b][0]}: {what}. {wire} {conn} {fuse}.{length}".strip())
-        lab = ""
-        if kind.startswith("power") and wire:
+        el = ""
+        if e:
+            el = f" {e['volts']:g} V"
+            if e["amps"] > 0:
+                el += f", {_wd_fmt_a(e['amps'])} A design"
+                if e["peak"] > e["amps"] * 1.2:
+                    el += f", {_wd_fmt_a(e['peak'])} A peak"
+            el += "."
+        tip = html.escape(f"{N[a][0]} → {N[b][0]}: {what}.{el} {wire} {conn}{' fuse ' + fuse if fuse else ''}.{length}"
+                          .replace(" .", ".").replace("..", "."))
+        extra = []
+        if kind.startswith("power") and e and wire:
             seg = max(zip(pts, pts[1:]), key=lambda s2: abs(s2[1][0] - s2[0][0]))
-            if abs(seg[1][0] - seg[0][0]) > 60:
-                lab = f'<text class="wl" x="{(seg[0][0] + seg[1][0]) / 2:.0f}" y="{seg[0][1] - 4:.0f}" fill="{col}">{html.escape(wire)}</text>'
-        paths.append(f'<g class="wg" data-kind="{kind}" data-a="{a}" data-b="{b}"><polyline class="w" points="{dd}" stroke="{col}"{dash}><title>{tip}</title></polyline>{lab}'
-                     f'<circle cx="{xa:.0f}" cy="{ya:.0f}" r="2.5" fill="{col}"/><circle cx="{xb:.0f}" cy="{yb:.0f}" r="2.5" fill="{col}"/></g>')
+            room = abs(seg[1][0] - seg[0][0]) - 8
+            for lab in (f"{e['volts']:g} V · {_wd_fmt_a(e['amps'])} A · {wire}", f"{_wd_fmt_a(e['amps'])} A · {wire}"):
+                if room > 5.6 * len(lab):
+                    extra.append(f'<text class="wl" x="{(seg[0][0] + seg[1][0]) / 2:.0f}" y="{seg[0][1] + 12:.0f}" fill="{col_}" '
+                                 f'text-anchor="middle">{html.escape(lab)}</text>')
+                    break
+        m = _re.match(r"(\d+(?:\.\d+)?) A", fuse or "")
+        if m:
+            fx, fy, horiz = fuse_at(pts)
+            w_, h_ = (18, 8) if horiz else (8, 18)
+            extra.append(f'<rect x="{fx - w_ / 2:.0f}" y="{fy - h_ / 2:.0f}" width="{w_}" height="{h_}" rx="2" fill="#121417" stroke="{col_}" stroke-width="1.5"/>'
+                         + (f'<line x1="{fx - 9:.0f}" y1="{fy:.0f}" x2="{fx + 9:.0f}" y2="{fy:.0f}" stroke="{col_}" stroke-width="1"/>' if horiz else
+                            f'<line x1="{fx:.0f}" y1="{fy - 9:.0f}" x2="{fx:.0f}" y2="{fy + 9:.0f}" stroke="{col_}" stroke-width="1"/>'))
+            tx, ty, anc = (fx, fy - 7, "middle") if horiz else (fx + 8, fy + 3, "start")
+            extra.append(f'<text class="wl" x="{tx:.0f}" y="{ty:.0f}" fill="{col_}" text-anchor="{anc}">{m.group(1)} A</text>')
+        if kind == "estop":
+            (xp, _), (xb, yb) = pts[-2], pts[-1]
+            tag = "coil" if b == "cont" else "NC" if b == "estop" else ""
+            if tag:
+                tx, anc = (xb - 4, "end") if xp < xb else (xb + 4, "start")
+                extra.append(f'<text class="wl" x="{tx:.0f}" y="{yb + 12:.0f}" fill="{col_}" text-anchor="{anc}">{tag}</text>')
+        dots = f'<circle cx="{pts[0][0]:.0f}" cy="{pts[0][1]:.0f}" r="2.5" fill="{col_}"/>'
+        dots += (f'<circle cx="{pts[-1][0]:.0f}" cy="{pts[-1][1]:.0f}" r="3" fill="{col_}"/>' if kind == "gnd" else
+                 f'<circle cx="{pts[-1][0]:.0f}" cy="{pts[-1][1]:.0f}" r="2.5" fill="{col_}"/>')
+        paths.append(f'<g class="wg" data-kind="{kind}" data-a="{a}" data-b="{b}"><polyline class="w" points="{dd}" stroke="{col_}"{dash}>'
+                     f'<title>{tip}</title></polyline>{"".join(extra)}{dots}</g>')
     nodes = []
     feed = {}
     for a, b, kind, *_ in WIRING.WIRES:
-        feed.setdefault(b, kind)
-        feed.setdefault(a, kind)
+        if kind != "gnd":
+            feed.setdefault(b, kind)
+            feed.setdefault(a, kind)
     for k, (label, sub, c, r, item) in N.items():
+        if k == "gnd":
+            x0, y0, x1, y1 = bar
+            nodes.append(f'<g class="wn" data-node="{k}" tabindex="0"><rect x="{x0}" y="{y0}" width="{x1 - x0}" height="{BAR_H}" rx="8"/>'
+                         f'<rect class="acc" x="{x0}" y="{y0 + 6}" width="3" height="{BAR_H - 12}" rx="1.5" fill="{WIRING.COLORS["gnd"]}"/>'
+                         f'<text class="t" x="{(x0 + x1) / 2:.0f}" y="{y0 + 15}">{html.escape(label)}</text>'
+                         f'<text class="ts" x="{(x0 + x1) / 2:.0f}" y="{y0 + 28}">{html.escape(sub)} · the negative half of every power pair</text></g>')
+            continue
         x, y = xy[k]
         acc = WIRING.COLORS[feed.get(k, "usb")]
         nodes.append(f'<g class="wn" data-node="{k}" tabindex="0"><rect x="{x}" y="{y}" width="{NW_}" height="{NH_}" rx="8"/>'
                      f'<rect class="acc" x="{x}" y="{y + 8}" width="3" height="{NH_ - 16}" rx="1.5" fill="{acc}"/>'
-                     f'<text class="t" x="{x + NW_ / 2}" y="{y + 18}">{html.escape(label)}</text>'
-                     f'<text class="ts" x="{x + NW_ / 2}" y="{y + 33}">{html.escape(sub)}</text></g>')
-    heads = ["Power in", "Safety", "Regulators", "Computer", "Controllers", "Devices", "Sensors"]
-    hdr = "".join(f'<text class="hd" x="{P_ + i * CW_ + NW_ / 2}" y="{P_ + 6}">{h.upper()}</text>' for i, h in enumerate(heads[:cols]))
-    lx = P_
+                     f'<text class="t" x="{x + NW_ / 2}" y="{y + 19}">{html.escape(label)}</text>'
+                     f'<text class="ts" x="{x + NW_ / 2}" y="{y + 34}">{html.escape(sub)}</text></g>')
+    zones, hdr = [], []
+    for c0, c1, name in ((0, 2, "Power"), (3, 4, "Control and buses"), (5, 6, "Devices and sensors")):
+        x0, x1 = COLX[c0] - 12, COLX[c1] + NW_ + 12
+        y1 = (bar[3] if c0 == 0 else TOP + rows * RH_) + 12
+        zones.append(f'<rect class="zone" x="{x0}" y="{TOP - 26}" width="{x1 - x0}" height="{y1 - TOP + 26}" rx="12"/>')
+        hdr.append(f'<text class="hd" x="{(x0 + x1) / 2:.0f}" y="{TOP - 34}">{name.upper()}</text>')
+    zones.append(f'<text class="zt" x="{COLX[0]}" y="{TOP - 10}">PACK · FUSES · SWITCH · CONTACTOR</text>'
+                 f'<text class="zt" x="{COLX[2]}" y="{TOP - 10}">REGULATORS</text>')
     legend = []
-    for k, lab in WIRING.LABELS.items():
-        legend.append(f'<g><line x1="{lx}" y1="{H - 18}" x2="{lx + 22}" y2="{H - 18}" stroke="{WIRING.COLORS[k]}" stroke-width="3"'
-                      + (' stroke-dasharray="5 4"' if k == "estop" else "") + f'/><text class="lg" x="{lx + 28}" y="{H - 14}">{lab}</text></g>')
-        lx += 28 + 8 * len(lab) + 26
-    zones = []
-    for c0, c1, name in ((0, 2, "POWER"), (3, 4, "CONTROL"), (5, 6, "DEVICES")):
-        x0, x1 = P_ + c0 * CW_ - 10, P_ + c1 * CW_ + NW_ + 10
-        zones.append(f'<rect class="zone" x="{x0}" y="{P_ + 16}" width="{x1 - x0}" height="{rows * RH_ + 26}" rx="12"/>'
-                     f'<text class="zt" x="{x0 + 12}" y="{P_ + 16 + rows * RH_ + 18}">{name}</text>')
-    legend = [g.replace("<g>", f'<g class="lgi" data-kind="{k}" tabindex="0">', 1) for g, k in zip(legend, WIRING.LABELS)]
-    return (f'<svg class="wiresvg" viewBox="0 0 {W} {H}" role="img" aria-label="Bob v3 wiring: every power, bus and signal wire">'
-            f'{"".join(zones)}{hdr}<g class="ws">{"".join(paths)}</g><g>{"".join(nodes)}</g>{"".join(legend)}</svg>')
+    groups = (("POWER", ["power36", "power18", "power12", "power5", "gnd", "estop"]), ("BUSES AND SIGNALS", ["usb", "ttl", "signal", "motor"]))
+    for gi, (gname, kinds) in enumerate(groups):
+        ly = LEG_Y + gi * 26
+        legend.append(f'<text class="zt" x="{COLX[0]}" y="{ly + 4}">{gname}</text>')
+        lx = COLX[0] + 150
+        for k in kinds:
+            lab = WIRING.LABELS[k]
+            legend.append(f'<g class="lgi" data-kind="{k}" tabindex="0"><line x1="{lx}" y1="{ly}" x2="{lx + 22}" y2="{ly}" stroke="{WIRING.COLORS[k]}" stroke-width="3"'
+                          + (' stroke-dasharray="5 4"' if k == "estop" else "") + f'/><text class="lg" x="{lx + 28}" y="{ly + 4}">{html.escape(lab)}</text></g>')
+            lx += 28 + 7 * len(lab) + 26
+        if gi == 0:
+            legend.append(f'<g><rect x="{lx}" y="{ly - 4}" width="18" height="8" rx="2" fill="#121417" stroke="#d0d4d8" stroke-width="1.5"/>'
+                          f'<line x1="{lx}" y1="{ly}" x2="{lx + 18}" y2="{ly}" stroke="#d0d4d8" stroke-width="1"/>'
+                          f'<text class="lg" x="{lx + 26}" y="{ly + 4}">Fuse and rating. Every 36 V fuse is rated 58 V DC.</text></g>')
+    legend.append(f'<text class="lg" x="{COLX[0]}" y="{LEG_Y + 56}">Power wires show volts · design current · gauge. '
+                  f'Design current is worked back from the parts\' ratings at a 30 V pack, where the arm converters stop.</text>')
+    return (f'<svg class="wiresvg" viewBox="0 0 {W} {H}" role="img" aria-label="Bob v3 wiring schematic: power, control and buses, devices">'
+            f'{"".join(zones)}{"".join(hdr)}<g class="ws">{"".join(paths)}</g><g>{"".join(nodes)}</g>{"".join(legend)}</svg>')
 
 
 def wiring_table() -> str:
-    rows = ["<tr><th></th><th>From</th><th>To</th><th>What</th><th>Wire</th><th>Length</th><th>Connector</th><th>Fuse</th></tr>"]
+    E = WIRING.elec()
+    rows = ["<tr><th></th><th>From</th><th>To</th><th>What</th><th>Volts</th><th>Current</th><th>Wire</th><th>Length</th>"
+            "<th>Connector</th><th>Fuse</th></tr>"]
     for (a, b, kind, what, wire, conn, fuse), rec in zip(WIRING.WIRES, WIRING.wire_records()):
+        e = E.get((a, b))
+        volts = f"{e['volts']:g} V" if e else ""
+        if not e:
+            amps = ""
+        elif e["amps"] <= 0:
+            amps = "data"
+        elif e["peak"] > e["amps"] * 1.2:
+            amps = f"{_wd_fmt_a(e['amps'])} A, {_wd_fmt_a(e['peak'])} A peak"
+        else:
+            amps = f"{_wd_fmt_a(e['amps'])} A"
         rows.append(f'<tr><td><i class="sw" style="background:{WIRING.COLORS[kind]}"></i></td><td>{html.escape(WIRING.NODES[a][0])}</td>'
-                    f'<td>{html.escape(WIRING.NODES[b][0])}</td><td>{html.escape(what)}</td><td>{html.escape(wire)}</td>'
-                    f'<td>{rec["len_mm"]} mm</td><td>{html.escape(conn)}</td><td>{html.escape(fuse)}</td></tr>')
+                    f'<td>{html.escape(WIRING.NODES[b][0])}</td><td>{html.escape(what)}</td><td>{volts}</td><td>{amps}</td>'
+                    f'<td>{html.escape(wire)}</td><td>{rec["len_mm"]} mm</td><td>{html.escape(conn)}</td><td>{html.escape(fuse)}</td></tr>')
     return "\n".join(rows)
+
 
 COLORS = {"shell": [22, 23, 26], "dark": [13, 13, 14], "frame": [41, 43, 48], "accent": [0, 127, 255],
           "actuator": [52, 52, 58], "electronics": [40, 110, 70], "battery": [90, 140, 50], "metal": [190, 192, 198],
@@ -313,6 +417,7 @@ def main():
     interlock = dict(lift_free_m=IL.LIFT_FREE_M, x_cap_low_mm=IL.X_CAP_LOW_M * 1000, x_cap_high_mm=IL.X_CAP_HIGH_M * 1000,
                      x_rear_mm=IL.X_REAR_M * 1000, z_low_mm=IL.Z_CAP_LOW_M * 1000, z_high_mm=IL.Z_CAP_HIGH_M * 1000,
                      tip_mm={s: [round(float(v) * 1000, 1) for v in md.site_xpos[mm.site(f"tcp_{s}").id] - b0] for s in "lr"})
+    ELEC = WIRING.elec()  # volts, design amps, peak amps per wire, for the viewer
     data = dict(interlock=interlock, scene=dict(joints=scene["joints"], poses=scene["poses"], links=scene["links"], dims=scene["dims"],
                            items=[{k: it.get(k) for k in ("name", "link", "group", "kind", "color", "material", "mass_g", "print", "note", "bom")}
                                   for it in scene["items"]]),
@@ -320,7 +425,7 @@ def main():
                 bom=dict(rows=rows, total=total, have=have), checks=checks,
                 wiring=dict(nodes={k: dict(label=v[0], item=v[4]) for k, v in WIRING.NODES.items()},
                             wires=[dict(a=a, b=b, kind=k, what=w, gauge=g, conn=c, fuse=f,
-                                        len_mm=rec["len_mm"], path=rec["path"])
+                                        len_mm=rec["len_mm"], path=rec["path"], **ELEC.get((a, b), {}))
                                    for (a, b, k, w, g, c, f), rec in zip(WIRING.WIRES, WIRING.wire_records())],
                             colors=WIRING.COLORS),
                 mass_kg=round(manifest["robot_mass_g"] / 1000, 1), print_kg=round(manifest["print_mass_g"] / 1000, 2))
