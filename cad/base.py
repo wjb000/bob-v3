@@ -24,7 +24,8 @@ INNER_LX, INNER_LY = SHELL_LX - 2 * P.BASE_WALL, SHELL_LY - 2 * P.BASE_WALL
 PAN_LX, PAN_LY = SHELL_LX - 2 * P.PAN_INSET, SHELL_LY - 2 * P.PAN_INSET
 PAN_R = P.BASE_R - P.PAN_INSET
 BX = P.BASE_CX  # the shell and pan are centred here, not on the axle
-CASTERS = (P.CASTER_XF, -P.CASTER_XR)
+CASTER_XS = (P.CASTER_XF, -P.CASTER_XR)  # front pair, rear pair
+CASTERS = [(cx, sy * P.CASTER_Y) for cx in CASTER_XS for sy in (1, -1)]  # four ball transfers
 TOP_CHAMFER = 24.0
 
 MAST_HOLE = (P.COL_X - P.COL_OUTER_D / 2 - 4, P.COL_X + P.COL_OUTER_D / 2 + 4, P.COL_OUTER_D / 2 + 4)
@@ -61,9 +62,8 @@ def _axle_pts(side):
 
 
 def _caster_pts(cx):
-    # The two mounting holes of a CY-15A ball transfer, its long side across the robot.
-    h = P.BALL_XFER_PITCH / 2
-    return [(cx, -h), (cx, h)]
+    # The polymer ball transfers press into a bore in a printed foot: no mounting screws.
+    return []
 
 
 # Shelves stay on the open side (−y) and one rear pocket. +y is the battery.
@@ -88,7 +88,7 @@ def _lug_points():
                 continue
             pts.append((x, y))
     for y in (-80.0, 80.0):
-        for sx, cx in zip((1, -1), CASTERS):
+        for sx, cx in zip((1, -1), CASTER_XS):
             x = BX + sx * hx
             if math.hypot(x - cx, y) < P.CASTER_HOLE / 2 + 24:
                 continue
@@ -449,8 +449,8 @@ def _in_cut(q, margin):
     if abs(x) < P.WHEEL_CUT_X + margin and abs(y) > P.WHEEL_CUT_Y - margin:
         return True
     if P.CASTER_HOLE > 0:
-        for cx in CASTERS:
-            if math.hypot(x - cx, y) < P.CASTER_HOLE / 2 + margin:
+        for cx, cy in CASTERS:
+            if math.hypot(x - cx, y - cy) < P.CASTER_HOLE / 2 + margin:
                 return True
     return False
 
@@ -482,23 +482,21 @@ def _pan_full() -> cq.Shape:
         y0 = P.WHEEL_CUT_Y if sy > 0 else -PAN_LY
         y1 = PAN_LY if sy > 0 else -P.WHEEL_CUT_Y
         rims.append(box(-P.WHEEL_CUT_X - 4, P.WHEEL_CUT_X + 4, y0 - 4 * sy if sy > 0 else y0, y1 if sy > 0 else y1 + 4, z0, z1))
-    # solid pads the ball transfers bolt to
-    for cx in CASTERS:
-        rims.append(box(cx - P.BALL_XFER[0] / 2 - 2, cx + P.BALL_XFER[0] / 2 + 2,
-                        -P.BALL_XFER[1] / 2 - 2, P.BALL_XFER[1] / 2 + 2, z0, z1))
+    # solid pads over the four ball-transfer feet
+    for cx, cy in CASTERS:
+        rims.append(cyl((cx, cy, z0), "z", P.BALL_XFER_FOOT + 4, z1 - z0))
     pan = fuse(skin, rim, grid, *bosses, *rims).intersect(rrect(BX, 0, z0, z1, PAN_LX, PAN_LY, PAN_R))
-    # The pads stand 2 mm proud of the rib bottoms, so the 20 mm transfers just touch the floor.
-    feet = [box(cx - P.BALL_XFER[0] / 2 - 2, cx + P.BALL_XFER[0] / 2 + 2,
-                -P.BALL_XFER[1] / 2 - 2, P.BALL_XFER[1] / 2 + 2, P.BALL_XFER[2], z0 + 1) for cx in CASTERS]
+    # Round feet hang below the rib bottoms. Each one is a through bore of the ball transfer's body
+    # diameter: the body presses in from below until it stops on the pan, the flange sits on the foot,
+    # and the ball bottom ends CASTER_LIFT above the tire bottoms.
+    feet = [cyl((cx, cy, P.BALL_XFER[2]), "z", P.BALL_XFER_FOOT, z0 + 1 - P.BALL_XFER[2]) for cx, cy in CASTERS]
     pan = fuse(pan, *feet)
     tools = []
     for sy in (1, -1):
         tools.append(box(-P.WHEEL_CUT_X, P.WHEEL_CUT_X, sy * P.WHEEL_CUT_Y, sy * 400, 0, 100))
-    for x, y in _caster_pts(CASTERS[0]) + _caster_pts(CASTERS[1]):
-        tools.append(cyl((x, y, 0), "z", P.M3, 100))  # screw up from below, nut on top of the pad
-        tools.append(hexagon(x, y, z1 - 3.0, z1 + 1, 6.4))
-    hw("M3x20 socket head (ball transfer)", 4)
-    hw("M3 nut", 4)
+    for cx, cy in CASTERS:
+        tools.append(cyl((cx, cy, P.BALL_XFER[2] - 1), "z", P.BALL_XFER_D1, z0 - P.BALL_XFER[2] + 1))  # press-fit bore
+        tools.append(cyl((cx, cy, z0 - 1), "z", 5.0, z1 - z0 + 2))  # push-out hole from the top
     for x, y in pts:
         tools.append(cyl((x, y, z1 - P.M3_INSERT_DEPTH), "z", P.M3_INSERT, P.M3_INSERT_DEPTH + 1))
         tools.append(cyl((x, y, z0 - 1), "z", 2.5, 20))  # vent the insert hole
@@ -711,15 +709,15 @@ def bought() -> list[Bought]:
     out += V.boughts("estop", V.place(V.estop(), (ESTOP_XY[0], ESTOP_XY[1], P.BASE_TOP)), "base", "base", "electronics", 80, "estop")
     glow = rrect_shell(BX, 0, LIGHT_Z[0] + 0.5, LIGHT_Z[1] - 0.5, SHELL_LX - 0.6, SHELL_LY - 0.6, P.BASE_R - 0.3, 1.2, open_top=True, open_bot=True)
     out.append(Bought("light_base", glow, "base", "base", "electronics", 15, "ledstrip", look="glow"))
-    for cx in CASTERS:
-        s = "f" if cx > 0 else "r"
-        lx, ly, h = P.BALL_XFER
+    for n, (cx, cy) in enumerate(CASTERS):
+        s = ("f" if cx > 0 else "r") + ("l" if cy > 0 else "r")
         r = P.CASTER_WHEEL / 2
-        flange = rrect(cx, 0, h - 3, h, lx, ly, 6)
-        flange = cut(flange, *[cyl((x, y, h - 4), "z", 4.0, 6) for x, y in _caster_pts(cx)])
-        cup = cyl((cx, 0, r + 1), "z", 24, h - 3 - r - 1)
-        ball = cq.Workplane("XY").sphere(r).translate((cx, 0, r)).val()
-        out.append(Bought(f"ball_caster_{s}", fuse(flange, cup, ball), "base", "base", "metal", 35, "ballxfer", look="steel"))
+        z_face = P.CASTER_LIFT + P.BALL_XFER_H2
+        flange = cyl((cx, cy, z_face), "z", P.BALL_XFER_D2, P.BALL_XFER_FLANGE_T)  # ball side face at h2 above the ball bottom
+        body = cyl((cx, cy, z_face), "z", P.BALL_XFER_D1, P.BALL_XFER_H1 - P.BALL_XFER_H2)  # top stops on the pan
+        ball = cq.Workplane("XY").sphere(r).translate((cx, cy, P.CASTER_LIFT + r)).val()
+        out.append(Bought(f"ball_caster_{s}", fuse(flange, body, ball), "base", "base", "metal", P.BALL_XFER_MASS,
+                          "ballxfer", look="black"))
     # No steel ballast. The three 1018 pads (about 5 kg) are gone; the smaller base
     # keeps the pack, the drivers and the lift motor low instead.
     return out
