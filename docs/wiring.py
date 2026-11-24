@@ -20,6 +20,8 @@ NODES: id -> (label, sub, column, row, cad item for the 3D overlay or None)
 WIRES: (from, to, kind, what, wire, connector, fuse)
 kind: power36 | power18 | power12 | power5 | gnd | usb | ttl | signal | motor | estop
 Every power wire is a pair. Its negative half is listed as a gnd wire back to the star ground.
+elec() gives volts, design amps and peak amps for every wire. `python docs/wiring.py` prints them with
+the wire size and length and checks gauge, fuse, voltage drop and regulator, hub and Pi USB budgets.
 """
 
 NODES = {
@@ -61,7 +63,7 @@ WIRES = [
     ("batt", "fuse", "power36", "Main battery feed through the main fuse to the main switch", "12 AWG", "XT60, 3/8 in ring lug", "30 A, 58 V"),
     ("fuse", "b5", "power36", "Pi rail, 36 V always on, up the column sleeve to the regulator in the torso", "20 AWG", "ferrules", "3 A, 58 V"),
     ("fuse", "b12c", "power36", "Always-on 12 V supply, ahead of the contactor", "20 AWG", "ferrules", "3 A, 58 V"),
-    ("fuse", "cont", "power36", "Motor feed", "14 AWG", "ring lugs M4", "25 A, 58 V"),
+    ("fuse", "cont", "power36", "Motor feed", "12 AWG", "ring lugs M4", "25 A, 58 V"),
     # e-stop loop and its read-back
     ("b12c", "estop", "estop", "Contactor coil feed, 12 V, through the NC e-stop", "22 AWG", "spade 4.8", "1 A"),
     ("estop", "cont", "estop", "E-stop NC contact on to the coil, diode across the coil", "22 AWG", "spade 4.8", ""),
@@ -307,3 +309,197 @@ def wire_records():
         out.append({"len_mm": int(round(longest * 1.08)), "path": path})
     _CACHE = out
     return out
+
+
+# ---------------------------------------------------------------- electrical budget
+# Volts, design current and peak current for every wire, and a check: python docs/wiring.py
+#
+# Sources: Pololu product pages (regulator ratings), Daygreen B20-3648-12 page (30-60 V in, 12 V 20 A,
+# up to 95 %), TE 2071584-1 (coil 12 V, 5.5 W), Waveshare DDSM115 (18 V, 1.25 A rated, 2.7 A locked) and
+# USB hub (2 A per port, 5 A total), Arducam UB0234 (200 mA), Slamtec RPLIDAR C1 (230 mA), Seeed XIAO
+# ESP32-S3 (about 140 mA), Raspberry Pi 5 (5 A in, 1.6 A USB with PSU_MAX_CURRENT=5000), Fuji AR9B291
+# (5 mA min) and the TE aux contact (10 mA min).
+# Assumptions, not datasheet numbers (they stay here and off the site): regulator efficiencies, the
+# arm hold current (from the sim check torques), the stepper supply current, 500 mA for USB devices
+# with no published current, and the AMPACITY design table.
+
+V_PACK_MIN = 30.0  # 10S at 3.0 V per cell; the arm converters stop at 30 V in
+EFF = {"b5": 0.90, "b12c": 0.90, "b12a": 0.93, "b18": 0.90, "hub": 0.85}  # assumed
+RATING_A = {"b5": 5.5, "b12c": 4.5, "b12a": 20.0, "b18": 4.0}  # per unit, at the output; b12a is one per arm
+PI_USB_A = 1.6
+HUB_PORT_A, HUB_TOTAL_A = 2.0, 5.0
+USB_UNKNOWN_A = 0.5  # USB 2 port limit, used where the maker publishes no current
+
+# design current, peak current at the device (A)
+ARM_HOLD_A, ARM_STALL_A = 17.5, 43.2  # per arm at 12 V: hold from the sim torques; stall = sum of servo stall currents
+HEAD_A, HEAD_STALL_A = 1.8, 5.4  # two STS3215: 0.9 A rated, 2.7 A stall each
+WHEELS_A, WHEELS_PEAK_A = 2.5, 5.4  # two DDSM115
+STEPPER_A, STEPPER_PEAK_A = 1.0, 2.0  # assumed supply current; 2.0 A per phase rated
+COIL_A = 0.462
+SENSE_A = 0.010
+USB_DEV_A = {"cam": USB_UNKNOWN_A, "wcl": 0.2, "wcr": 0.2, "lidar": 0.23, "s3": 0.14, "audio": USB_UNKNOWN_A, "esp": 0.0}
+
+# design limit per gauge, bundled in a sleeve: a deliberately low rule, not a datasheet number
+AMPACITY = {26: 2.2, 24: 3.5, 22: 5.0, 20: 7.5, 18: 10.0, 16: 15.0, 14: 20.0, 12: 30.0}
+
+# known problems this PR records but does not fix: (a, b) -> owner
+OPEN = {
+    ("busl", "stl"): "bob hands: the first servo hop carries the whole arm; needs a 12 V trunk in the arm",
+    ("busr", "str"): "bob hands: the first servo hop carries the whole arm; needs a 12 V trunk in the arm",
+}
+
+
+def awg(wire: str):
+    import re
+    m = re.match(r"\s*(\d+)\s*AWG", wire or "")
+    return int(m.group(1)) if m else None
+
+
+def ohm_per_m(gauge: int) -> float:
+    d_mm = 0.127 * 92 ** ((36 - gauge) / 39)
+    return 0.017241 / (3.141592653589793 * d_mm * d_mm / 4)
+
+
+def _hub_in(total_5v):
+    return 5.0 * total_5v / EFF["hub"] / 12.0
+
+
+def elec():
+    """(a, b) -> dict(volts, amps, peak). amps is the design current, peak the worst short burst."""
+    hub_5v = sum(USB_DEV_A[k] for k in ("cam", "wcl", "wcr", "lidar"))
+    out = {
+        ("b5", "pi"): (5.0, 5.0, 5.0),
+        ("b12c", "estop"): (12.0, COIL_A, COIL_A),
+        ("estop", "cont"): (12.0, COIL_A, COIL_A),
+        ("gnd", "cont"): (12.0, COIL_A, COIL_A),
+        ("estop", "esp"): (12.0, SENSE_A, SENSE_A),
+        ("cont", "esp"): (12.0, SENSE_A, SENSE_A),
+        ("b12c", "hub"): (12.0, _hub_in(hub_5v), _hub_in(HUB_TOTAL_A)),
+        ("b12a", "busl"): (12.0, ARM_HOLD_A + HEAD_A, ARM_STALL_A + HEAD_STALL_A),
+        ("b12a", "busr"): (12.0, ARM_HOLD_A, ARM_STALL_A),
+        ("busl", "stl"): (12.0, ARM_HOLD_A, ARM_STALL_A),
+        ("busr", "str"): (12.0, ARM_HOLD_A, ARM_STALL_A),
+        ("busl", "head"): (12.0, HEAD_A, HEAD_STALL_A),
+        ("b18", "esp"): (18.0, WHEELS_A, WHEELS_PEAK_A),
+        ("esp", "wheels"): (18.0, WHEELS_A, WHEELS_PEAK_A),
+        ("b18", "tmc"): (18.0, STEPPER_A, STEPPER_PEAK_A),
+        ("tmc", "nema"): (18.0, 2.0, 2.0),
+        ("charge", "batt"): (42.0, 2.0, 2.0),
+    }
+    for (a, b) in [w[:2] for w in WIRES]:
+        if (a, b) not in out and a in ("pi", "hub") and b in USB_DEV_A:
+            out[(a, b)] = (5.0, USB_DEV_A[b], USB_DEV_A[b])
+
+    def rail_in(node):
+        """36 V input current of a regulator, at the lowest pack voltage."""
+        outs = [(v, a, p) for (x, _), (v, a, p) in out.items() if x == node]
+        n_units = 2 if node == "b12a" else 1
+        cap = RATING_A[node] * n_units
+        a = sum(v * i for v, i, _ in outs) / EFF[node] / V_PACK_MIN
+        p = sum(v * min(i, cap) for v, _, i in outs) / EFF[node] / V_PACK_MIN
+        return a, min(p, outs[0][0] * cap / EFF[node] / V_PACK_MIN)
+
+    for node, feed in (("b5", "fuse"), ("b12c", "fuse"), ("b12a", "cont"), ("b18", "cont")):
+        a, p = rail_in(node)
+        out[(feed, node)] = (36.0, a, p)
+        out[("gnd", node)] = (36.0, a, p)
+    a = out[("cont", "b12a")][1] + out[("cont", "b18")][1]
+    p = out[("cont", "b12a")][2] + out[("cont", "b18")][2]
+    out[("fuse", "cont")] = (36.0, a, p)
+    a += out[("fuse", "b5")][1] + out[("fuse", "b12c")][1]
+    p += out[("fuse", "b5")][2] + out[("fuse", "b12c")][2]
+    out[("batt", "fuse")] = (36.0, a, p)
+    out[("batt", "gnd")] = (36.0, a, p)
+    for a, b, kind, *_ in WIRES:  # data-only wires: logic level, no load
+        if (a, b) not in out and kind in ("usb", "signal"):
+            out[(a, b)] = (5.0 if kind == "usb" else 3.3, 0.0, 0.0)
+    return {k: dict(volts=v, amps=round(a, 3), peak=round(p, 3)) for k, (v, a, p) in out.items()}
+
+
+def check(lengths=None):
+    """Rule check over every wire. Returns (rows, fails, opens)."""
+    import re
+    E = elec()
+    rows, fails, opens = [], [], []
+    lengths = lengths or {}
+    for a, b, kind, what, wire, conn, fuse in WIRES:
+        e = E.get((a, b))
+        g = awg(wire)
+        msg = []
+        if kind.startswith("power") or kind in ("gnd", "estop") or (e and e["amps"] >= 1.0):
+            if e is None:
+                msg.append("FAIL no volts/amps recorded")
+            elif g is None:
+                msg.append("FAIL no wire size")
+            else:
+                cap = AMPACITY[g]
+                if e["amps"] > cap:
+                    msg.append(f"FAIL {e['amps']:.1f} A over the {g} AWG limit {cap:g} A")
+                elif e["peak"] > cap:
+                    msg.append(f"note: peak {e['peak']:.1f} A over {cap:g} A (short bursts)")
+                m = re.match(r"(\d+(?:\.\d+)?) A", fuse)
+                if m:
+                    f = float(m.group(1))
+                    if f > cap:
+                        msg.append(f"FAIL fuse {f:g} A over the {g} AWG limit {cap:g} A")
+                    if e["amps"] > 0.8 * f:
+                        msg.append(f"FAIL {e['amps']:.1f} A is over 80% of the {f:g} A fuse")
+                    if kind == "power36" and "58 V" not in fuse:
+                        msg.append("FAIL 36 V fuse without a 58 V rating")
+                L = lengths.get((a, b))
+                if L:
+                    drop = 2 * L / 1000.0 * ohm_per_m(g) * e["amps"] / e["volts"] * 100
+                    if drop > 5:
+                        msg.append(f"FAIL {drop:.1f}% drop over {L} mm")
+                    elif drop > 3:
+                        msg.append(f"note: {drop:.1f}% drop over {L} mm")
+        if (a, b) in OPEN and any(x.startswith("FAIL") for x in msg):
+            opens.append((a, b, OPEN[(a, b)], [x for x in msg if x.startswith("FAIL")]))
+            msg = [("OPEN " + x[5:]) if x.startswith("FAIL") else x for x in msg]
+        fails += [(a, b, x) for x in msg if x.startswith("FAIL")]
+        rows.append((a, b, kind, e, g, lengths.get((a, b)), fuse, "; ".join(msg) or "ok"))
+    # regulator, hub and Pi USB budgets
+    for node, rating in RATING_A.items():
+        outs = [(y, e["amps"]) for (x, y), e in E.items() if x == node]
+        if node == "b12a":  # one converter per arm
+            fails += [(node, y, f"FAIL {i:.1f} A over one converter's {rating:g} A") for y, i in outs if i > rating]
+        elif sum(i for _, i in outs) > rating:
+            fails.append((node, "*", f"FAIL {sum(i for _, i in outs):.1f} A over the {rating:g} A rating"))
+    hub = [E[("hub", k)]["amps"] for k in ("cam", "wcl", "wcr", "lidar")]
+    if max(hub) > HUB_PORT_A or sum(hub) > HUB_TOTAL_A:
+        fails.append(("hub", "*", "FAIL hub port or total current"))
+    pi_usb = sum(E[("pi", k)]["amps"] for k in ("s3", "audio", "esp"))
+    if pi_usb > PI_USB_A:
+        fails.append(("pi", "*", f"FAIL Pi USB {pi_usb:.2f} A over {PI_USB_A} A"))
+    return rows, fails, opens
+
+
+def main() -> int:
+    try:
+        lengths = {w[:2]: r["len_mm"] for w, r in zip(WIRES, wire_records())}
+        note = "lengths from the CAD joint tree"
+    except Exception as ex:  # no CAD tree or numpy: budget without voltage drop
+        lengths, note = {}, f"no lengths ({type(ex).__name__}); voltage drop not checked"
+    rows, fails, opens = check(lengths)
+    print(f"{'from':>6} {'to':<7} {'kind':<8} {'V':>4} {'A':>6} {'peak':>6} {'AWG':>4} {'mm':>5}  fuse        result")
+    for a, b, kind, e, g, L, fuse, res in rows:
+        v, i, p = (e["volts"], e["amps"], e["peak"]) if e else (0, 0, 0)
+        print(f"{a:>6} {b:<7} {kind:<8} {v:>4.1f} {i:>6.2f} {p:>6.2f} {g or '':>4} {L or '':>5}  {fuse:<11} {res}")
+    print(f"\n{note}")
+    for a, b, why, what in opens:
+        print(f"OPEN  {a} -> {b}: {why}")
+    try:
+        from bom import TBD
+    except ImportError:
+        TBD = []
+    for sec, what, qty, why in TBD:
+        print(f"TBD   {what} x{qty}: {why}")
+    for a, b, x in fails:
+        print(f"{x}  ({a} -> {b})")
+    print("RESULT", "FAIL" if fails else "PASS")
+    return 1 if fails else 0
+
+
+if __name__ == "__main__":
+    import sys as _sys
+    _sys.exit(main())
