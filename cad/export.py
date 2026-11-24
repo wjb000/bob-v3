@@ -359,7 +359,7 @@ def main() -> int:
         poses=robot.POSES, items=items,
         dims=dict(shoulder_z0=P.SHOULDER_Z0, lift_travel=P.LIFT_TRAVEL, base=[P.BASE_L, P.BASE_W, P.BASE_TOP],
                   wheel_od=P.WHEEL_OD, wheel_w=P.WHEEL_W, wheel_y=P.WHEEL_Y, caster_x=P.CASTER_XF, caster_x_rear=P.CASTER_XR, base_cx=P.BASE_CX, caster_trail=P.CASTER_TRAIL,
-                  caster_wheel=P.CASTER_WHEEL, mast_top=P.COL_TOP0),
+                  caster_wheel=P.CASTER_WHEEL, caster_y=P.CASTER_Y, caster_lift=P.CASTER_LIFT, mast_top=P.COL_TOP0),
     )
     (CAD / "scene.json").write_text(json.dumps(scene, indent=1) + "\n")
 

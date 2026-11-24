@@ -14,7 +14,7 @@ The STLs in `cad/stl/` are already oriented: flat face down, no rotating. Grams 
 - Supports: the Support column is measured from each oriented STL (faces steeper than 45° not on the bed).
   'none' means under 5 cm². Use tree supports, touching the build plate only where you can.
 
-## Base (1.54 kg)
+## Base (1.56 kg)
 
 | File | Qty | Colour | Bed mm | g each | Support | Note |
 | --- | ---: | --- | --- | ---: | --- | --- |
@@ -28,13 +28,13 @@ The STLs in `cad/stl/` are already oriented: flat face down, no rotating. Grams 
 | `base_shell_front_c.stl` | 1 | white PETG | 115 x 197 x 170 | 112 | 24 cm² | Print top-down. Heat-set inserts in the seam bosses. |
 | `base_shell_front_l.stl` | 1 | white PETG | 115 x 82 x 170 | 72 | 20 cm² | Print top-down. Heat-set inserts in the seam bosses. |
 | `base_pan_rear_r.stl` | 1 | grey PETG | 57 x 73 x 15 | 18 | none | Structure. Skin down on the bed, ribs up. 4 walls. |
-| `base_pan_rear_c.stl` | 1 | grey PETG | 57 x 197 x 17 | 69 | none | Structure. Skin down on the bed, ribs up. 4 walls. |
+| `base_pan_rear_c.stl` | 1 | grey PETG | 57 x 197 x 25 | 78 | none | Structure. Skin down on the bed, ribs up. 4 walls. |
 | `base_pan_rear_l.stl` | 1 | grey PETG | 57 x 73 x 15 | 18 | none | Structure. Skin down on the bed, ribs up. 4 walls. |
 | `base_pan_mid_r.stl` | 1 | grey PETG | 180 x 74 x 15 | 45 | none | Structure. Skin down on the bed, ribs up. 4 walls. |
 | `base_pan_mid_c.stl` | 1 | grey PETG | 180 x 197 x 15 | 145 | none | Structure. Skin down on the bed, ribs up. 4 walls. |
 | `base_pan_mid_l.stl` | 1 | grey PETG | 180 x 74 x 15 | 42 | none | Structure. Skin down on the bed, ribs up. 4 walls. |
 | `base_pan_front_r.stl` | 1 | grey PETG | 107 x 74 x 15 | 34 | none | Structure. Skin down on the bed, ribs up. 4 walls. |
-| `base_pan_front_c.stl` | 1 | grey PETG | 107 x 197 x 17 | 105 | none | Structure. Skin down on the bed, ribs up. 4 walls. |
+| `base_pan_front_c.stl` | 1 | grey PETG | 107 x 197 x 25 | 113 | none | Structure. Skin down on the bed, ribs up. 4 walls. |
 | `base_pan_front_l.stl` | 1 | grey PETG | 107 x 74 x 15 | 34 | none | Structure. Skin down on the bed, ribs up. 4 walls. |
 | `wheel_bracket_l.stl` | 1 | grey PETG | 52 x 30 x 37 | 33 | 5 cm² | Holds a DDSM115 by its stub (3 x M2.5 x 10). 5 walls, 40% infill. |
 | `wheel_bracket_r.stl` | 1 | grey PETG | 52 x 30 x 37 | 33 | 5 cm² | Holds a DDSM115 by its stub (3 x M2.5 x 10). 5 walls, 40% infill. |

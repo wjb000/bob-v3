@@ -9,8 +9,8 @@
  "fill": 0.55,
  "unique_prints": 95,
  "total_prints": 164,
- "print_mass_g": 5322.0,
- "robot_mass_g": 11734.0,
+ "print_mass_g": 5339.0,
+ "robot_mass_g": 11743.0,
  "parts": [
   {
    "name": "base_shell_rear_r",
@@ -259,7 +259,7 @@
    "link": "base",
    "material": "PETG",
    "color": "frame",
-   "support_cm2": 1.1,
+   "support_cm2": 0.5,
    "walls": 4,
    "infill": 20,
    "note": "Structure. Skin down on the bed, ribs up. 4 walls.",
@@ -271,10 +271,10 @@
    "bed_mm": [
     57.0,
     197.0,
-    17.0
+    24.7
    ],
-   "volume_cm3": 99.2,
-   "grams": 69.3
+   "volume_cm3": 110.9,
+   "grams": 77.5
   },
   {
    "name": "base_pan_rear_l",
@@ -403,7 +403,7 @@
    "link": "base",
    "material": "PETG",
    "color": "frame",
-   "support_cm2": 1.4,
+   "support_cm2": 0.9,
    "walls": 4,
    "infill": 20,
    "note": "Structure. Skin down on the bed, ribs up. 4 walls.",
@@ -415,10 +415,10 @@
    "bed_mm": [
     107.0,
     197.0,
-    17.0
+    24.7
    ],
-   "volume_cm3": 149.9,
-   "grams": 104.7
+   "volume_cm3": 162.2,
+   "grams": 113.3
   },
   {
    "name": "base_pan_front_l",
@@ -2302,7 +2302,6 @@
   "M2x6 thread-forming (wrist camera)": 4,
   "M2x8 screw (horn)": 40,
   "M3 heat-set insert": 273,
-  "M3 nut": 4,
   "M3x10 socket head": 179,
   "M3x10 socket head (arm cover)": 16,
   "M3x10 socket head (belt anchor)": 4,
@@ -2315,7 +2314,6 @@
   "M3x14 socket head": 16,
   "M3x16 socket head + nut (clamshell)": 14,
   "M3x16 socket head + nut (elbow flange)": 8,
-  "M3x20 socket head (ball transfer)": 4,
   "M3x50 socket head + nut (upper arm + elbow cover)": 4,
   "M3x6 screw (D435 rear)": 2,
   "M3x8 socket head (3095 horn)": 24,
@@ -2332,31 +2330,31 @@
    "com_mm": [
     6.0,
     5.6,
-    398.9
+    398.5
    ],
    "margin_front_mm": 171.0,
    "margin_rear_mm": 133.0,
    "margin_side_mm": 144.4,
    "tip_deg_front": 23.2,
-   "tip_deg_rear": 18.4
+   "tip_deg_rear": 18.5
   },
   "home": {
    "com_mm": [
     47.9,
     5.6,
-    275.3
+    275.1
    ],
    "margin_front_mm": 129.1,
    "margin_rear_mm": 174.9,
    "margin_side_mm": 144.4,
    "tip_deg_front": 25.1,
-   "tip_deg_rear": 32.4
+   "tip_deg_rear": 32.5
   },
   "counter": {
    "com_mm": [
     50.6,
     5.6,
-    413.4
+    413.0
    ],
    "margin_front_mm": 126.4,
    "margin_rear_mm": 177.6,
@@ -2368,34 +2366,34 @@
    "com_mm": [
     46.7,
     5.6,
-    206.6
+    206.5
    ],
    "margin_front_mm": 130.3,
    "margin_rear_mm": 173.7,
    "margin_side_mm": 144.4,
-   "tip_deg_front": 32.2,
+   "tip_deg_front": 32.3,
    "tip_deg_rear": 40.1
   },
   "shelf": {
    "com_mm": [
     13.0,
     5.6,
-    510.3
+    509.9
    ],
    "margin_front_mm": 164.0,
    "margin_rear_mm": 140.0,
    "margin_side_mm": 144.4,
    "tip_deg_front": 17.8,
-   "tip_deg_rear": 15.3
+   "tip_deg_rear": 15.4
   },
   "wave": {
    "com_mm": [
-    36.5,
+    36.4,
     23.7,
-    374.5
+    374.2
    ],
-   "margin_front_mm": 140.5,
-   "margin_rear_mm": 163.5,
+   "margin_front_mm": 140.6,
+   "margin_rear_mm": 163.4,
    "margin_side_mm": 126.3,
    "tip_deg_front": 20.6,
    "tip_deg_rear": 23.6
@@ -2417,5 +2415,5 @@
  },
  "errors": [],
  "warnings": [],
- "seconds": 360.7
+ "seconds": 341.1
 }
