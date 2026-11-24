@@ -125,10 +125,10 @@
   "speed_mm_s": 25.0,
   "time_s": 18.8,
   "down_time_s": 18.5,
-  "worst_lag_mm": 5.48,
-  "hold_err_mm": 1.12,
+  "worst_lag_mm": 5.47,
+  "hold_err_mm": 1.11,
   "bottom_err_mm": 1.97,
-  "hold_force_N": 66.7,
+  "hold_force_N": 66.5,
   "stage_err_mm": 0.04,
   "base_tilt_deg": 0.027,
   "contacts": [],
@@ -141,40 +141,40 @@
     "com_mm": [
      45.1,
      12.8,
-     459.0
+     458.4
     ],
     "margin_mm": 76.1,
     "tilt_deg": 0.03
    },
    "lift mid, worst pose the interlock allows": {
     "com_mm": [
-     45.6,
+     45.7,
      12.9,
-     382.9
+     382.3
     ],
-    "margin_mm": 76.2,
+    "margin_mm": 76.1,
     "tilt_deg": 0.03
    },
    "lift down, worst pose the interlock allows": {
     "com_mm": [
-     84.4,
+     84.5,
      14.0,
-     245.7
+     245.4
     ],
-    "margin_mm": 49.2,
+    "margin_mm": 49.1,
     "tilt_deg": 0.05
    },
    "lift down, floor pick": {
     "com_mm": [
-     15.9,
+     16.0,
      2.1,
-     197.9
+     197.5
     ],
     "margin_mm": 151.8,
     "tilt_deg": 0.06
    }
   },
-  "worst_margin_mm": 49.2
+  "worst_margin_mm": 49.1
  },
  "brake": {
   "ok": true,
@@ -189,7 +189,7 @@
  },
  "push": {
   "ok": false,
-  "push_forward_N": 23.4,
+  "push_forward_N": 22.3,
   "push_back_N": 19.9
  },
  "slope": {
@@ -197,10 +197,10 @@
   "com_m": [
    0.045,
    0.01,
-   0.463
+   0.462
   ],
-  "down_deg": 15.9,
-  "up_deg": 20.3,
+  "down_deg": 16.0,
+  "up_deg": 20.4,
   "side_deg": 16.9
  },
  "reach": {
@@ -237,7 +237,7 @@
  "pick": {
   "ok": true,
   "episodes": 40,
-  "success_rate": 0.95
+  "success_rate": 0.975
  },
  "interlock": {
   "ok": false,
@@ -265,24 +265,24 @@
   },
   "stability_by_lift": {
    "0.000": {
-    "push_forward_N": 26.4,
+    "push_forward_N": 25.8,
     "push_back_N": 49.2,
     "down_deg": 20.0,
-    "up_deg": 39.8,
+    "up_deg": 39.9,
     "meets": true
    },
    "0.300": {
-    "push_forward_N": 25.2,
+    "push_forward_N": 23.4,
     "push_back_N": 23.4,
     "down_deg": 18.9,
-    "up_deg": 23.9,
+    "up_deg": 24.0,
     "meets": false
    },
    "0.462": {
-    "push_forward_N": 23.4,
+    "push_forward_N": 22.3,
     "push_back_N": 19.9,
-    "down_deg": 15.9,
-    "up_deg": 20.3,
+    "down_deg": 16.0,
+    "up_deg": 20.4,
     "meets": false
    }
   },

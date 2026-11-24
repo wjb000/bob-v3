@@ -7,10 +7,10 @@
  ],
  "density_g_cm3": 1.27,
  "fill": 0.55,
- "unique_prints": 95,
- "total_prints": 164,
- "print_mass_g": 5273.0,
- "robot_mass_g": 11684.0,
+ "unique_prints": 94,
+ "total_prints": 157,
+ "print_mass_g": 5257.0,
+ "robot_mass_g": 11666.0,
  "parts": [
   {
    "name": "base_shell_rear_r",
@@ -1195,22 +1195,22 @@
    "link": "head_tilt",
    "material": "PETG",
    "color": "frame",
-   "support_cm2": 82.2,
+   "support_cm2": 80.2,
    "walls": 4,
    "infill": 20,
-   "note": "Tilt horn and idler, camera post, eye plate.",
+   "note": "Tilt horn and idler, camera post, eye plate. Its plate is the head's floor. Prints standing on the plate's back edge; use a brim.",
    "rot_deg": [
-    180,
     0,
+    -90,
     0
    ],
    "bed_mm": [
-    92.0,
-    128.0,
-    124.0
+    124.0,
+    169.0,
+    113.0
    ],
-   "volume_cm3": 99.8,
-   "grams": 69.7
+   "volume_cm3": 126.6,
+   "grams": 88.4
   },
   {
    "name": "eye_plate",
@@ -1261,40 +1261,16 @@
    "grams": 22.7
   },
   {
-   "name": "head_lower",
+   "name": "head_shell",
    "qty": 1,
    "group": "head",
    "link": "head_tilt",
    "material": "PETG",
    "color": "shell",
-   "support_cm2": 9.1,
+   "support_cm2": 8.3,
    "walls": 3,
    "infill": 15,
-   "note": "Floor down.",
-   "rot_deg": [
-    0,
-    0,
-    0
-   ],
-   "bed_mm": [
-    120.0,
-    176.0,
-    24.0
-   ],
-   "volume_cm3": 81.2,
-   "grams": 56.7
-  },
-  {
-   "name": "head_upper",
-   "qty": 1,
-   "group": "head",
-   "link": "head_tilt",
-   "material": "PETG",
-   "color": "shell",
-   "support_cm2": 13.5,
-   "walls": 3,
-   "infill": 15,
-   "note": "Top down. Visor fits from inside.",
+   "note": "One piece, top down, open at the bottom. Visor fits from inside. Drops over the frame; 4 M3x10 up through the frame plate into the side-wall inserts.",
    "rot_deg": [
     180,
     0,
@@ -1303,10 +1279,10 @@
    "bed_mm": [
     120.0,
     176.0,
-    120.0
+    143.0
    ],
-   "volume_cm3": 210.7,
-   "grams": 147.2
+   "volume_cm3": 252.2,
+   "grams": 176.2
   },
   {
    "name": "shoulder_l",
@@ -2270,7 +2246,7 @@
   },
   {
    "name": "joiner_tab",
-   "qty": 65,
+   "qty": 59,
    "group": "base",
    "link": "base",
    "material": "PETG",
@@ -2301,9 +2277,9 @@
   "M2.5x6 screw (lidar)": 4,
   "M2x6 thread-forming (wrist camera)": 4,
   "M2x8 screw (horn)": 40,
-  "M3 heat-set insert": 273,
+  "M3 heat-set insert": 261,
   "M3 nut": 4,
-  "M3x10 socket head": 179,
+  "M3x10 socket head": 167,
   "M3x10 socket head (arm cover)": 16,
   "M3x10 socket head (belt anchor)": 4,
   "M3x10 socket head (belt clamp)": 4,
@@ -2330,21 +2306,21 @@
  "stability": {
   "zero": {
    "com_mm": [
-    6.1,
+    6.0,
     5.6,
-    396.9
+    395.9
    ],
-   "margin_front_mm": 170.9,
-   "margin_rear_mm": 133.1,
+   "margin_front_mm": 171.0,
+   "margin_rear_mm": 133.0,
    "margin_side_mm": 144.4,
-   "tip_deg_front": 23.3,
-   "tip_deg_rear": 18.5
+   "tip_deg_front": 23.4,
+   "tip_deg_rear": 18.6
   },
   "home": {
    "com_mm": [
     48.2,
     5.6,
-    274.3
+    273.7
    ],
    "margin_front_mm": 128.8,
    "margin_rear_mm": 175.2,
@@ -2356,31 +2332,31 @@
    "com_mm": [
     50.9,
     5.6,
-    411.9
+    411.2
    ],
    "margin_front_mm": 126.1,
    "margin_rear_mm": 177.9,
    "margin_side_mm": 144.4,
-   "tip_deg_front": 17.0,
+   "tip_deg_front": 17.1,
    "tip_deg_rear": 23.4
   },
   "floor": {
    "com_mm": [
     46.9,
     5.6,
-    205.7
+    205.3
    ],
    "margin_front_mm": 130.1,
    "margin_rear_mm": 173.9,
    "margin_side_mm": 144.4,
-   "tip_deg_front": 32.3,
-   "tip_deg_rear": 40.2
+   "tip_deg_front": 32.4,
+   "tip_deg_rear": 40.3
   },
   "shelf": {
    "com_mm": [
     13.1,
     5.6,
-    508.7
+    508.0
    ],
    "margin_front_mm": 163.9,
    "margin_rear_mm": 140.1,
@@ -2390,14 +2366,14 @@
   },
   "wave": {
    "com_mm": [
-    36.6,
-    23.8,
-    373.1
+    36.7,
+    23.9,
+    372.4
    ],
-   "margin_front_mm": 140.4,
-   "margin_rear_mm": 163.6,
-   "margin_side_mm": 126.2,
-   "tip_deg_front": 20.6,
+   "margin_front_mm": 140.3,
+   "margin_rear_mm": 163.7,
+   "margin_side_mm": 126.1,
+   "tip_deg_front": 20.7,
    "tip_deg_rear": 23.7
   }
  },
@@ -2417,5 +2393,5 @@
  },
  "errors": [],
  "warnings": [],
- "seconds": 339.8
+ "seconds": 359.8
 }
