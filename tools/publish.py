@@ -417,6 +417,7 @@ def main():
     interlock = dict(lift_free_m=IL.LIFT_FREE_M, x_cap_low_mm=IL.X_CAP_LOW_M * 1000, x_cap_high_mm=IL.X_CAP_HIGH_M * 1000,
                      x_rear_mm=IL.X_REAR_M * 1000, z_low_mm=IL.Z_CAP_LOW_M * 1000, z_high_mm=IL.Z_CAP_HIGH_M * 1000,
                      tip_mm={s: [round(float(v) * 1000, 1) for v in md.site_xpos[mm.site(f"tcp_{s}").id] - b0] for s in "lr"})
+    ELEC = WIRING.elec()  # volts, design amps, peak amps per wire, for the viewer
     data = dict(interlock=interlock, scene=dict(joints=scene["joints"], poses=scene["poses"], links=scene["links"], dims=scene["dims"],
                            items=[{k: it.get(k) for k in ("name", "link", "group", "kind", "color", "material", "mass_g", "print", "note", "bom")}
                                   for it in scene["items"]]),
@@ -424,7 +425,7 @@ def main():
                 bom=dict(rows=rows, total=total, have=have), checks=checks,
                 wiring=dict(nodes={k: dict(label=v[0], item=v[4]) for k, v in WIRING.NODES.items()},
                             wires=[dict(a=a, b=b, kind=k, what=w, gauge=g, conn=c, fuse=f,
-                                        len_mm=rec["len_mm"], path=rec["path"])
+                                        len_mm=rec["len_mm"], path=rec["path"], **ELEC.get((a, b), {}))
                                    for (a, b, k, w, g, c, f), rec in zip(WIRING.WIRES, WIRING.wire_records())],
                             colors=WIRING.COLORS),
                 mass_kg=round(manifest["robot_mass_g"] / 1000, 1), print_kg=round(manifest["print_mass_g"] / 1000, 2))
