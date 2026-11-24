@@ -22,10 +22,10 @@ Tools you need:
 
 The base is 360 × 360 mm, so every pan and shell tile fits a 200 mm bed. Nothing in the base is glued: every joint is a screw into an insert or a nut.
 
-## 2. Ball casters and lidar
+## 2. Ball transfers and lidar
 
-1. Two CY-15A ball transfers (5/8 in steel ball) replace swivel casters: one 177 mm ahead of the wheel axle, one 127 mm behind it. Each one bolts up through the solid pad under the pan with 2 × M3×20 and an M3 nut in the hex pocket on top. No bearings, forks or bridges.
-2. Put the robot on a flat floor. Both balls and both tires must touch. Shim under a ball transfer with a washer if one floats.
+1. Four igus BB-515-B180-POM-ES ball transfers replace swivel casters: two 177 mm ahead of the wheel axle and two 127 mm behind it, at ±45 mm from the centreline. Press each body (Ø24 mm) up into the bore in its printed foot until the Ø31 mm flange sits on the foot. No screws, bearings, forks or bridges. To take one out, push it down through the Ø5 mm hole in the pan above it.
+2. Put the robot on a flat floor. Both tires must touch, and each ball should sit about 1 mm off the floor with the base level (a 1 mm feeler or a coin under each ball should just slide). If a ball touches with the base level, the tires lose grip; if one is more than 2 mm off, the base rocks further before it catches.
 3. Bolt `lidar_mount` to the pan and the RPLIDAR C1 to the mount.
 
 ## 3. Power and base electronics

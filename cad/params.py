@@ -128,8 +128,11 @@ CHARGE_HOLE = 20.0  # clears the GX16 nut (19 mm); the 21 mm flange stays on the
 # ---------------------------------------------------------------- base
 # Rounded square, 360 x 360, no steel ballast. The width is set by the DDSM115
 # tires tucked in to y = ±150 under the raised battery. Swivel casters need a
-# swing hole in the pan that keeps them far from the rim, so the base uses two
-# CY-15A ball transfers bolted under the pan, close to the front and rear rims.
+# swing hole in the pan that keeps them far from the rim, so the base uses four
+# polymer ball transfers (igus xiros BB-515-B180-POM-ES, POM ball, no metal ball
+# on the floor) pressed into feet under the pan, two near the front rim and two
+# near the rear rim, 45 mm either side of the centreline. Two on the centreline
+# made a diamond footprint the robot rolled off diagonally.
 # The arms and head put the CoM ahead of the column, so the shell centre sits
 # 25 mm ahead of the wheel axis. Reaching out with a load at height is blocked
 # in software (sim/interlock.py); see sim/check.py for what that buys.
@@ -153,15 +156,25 @@ AXLE_Z = WHEEL_OD / 2.0
 WHEEL_ARCH_R = 60.0
 WHEEL_CUT_X = 58.0  # pan cutout half-length around the tire
 WHEEL_CUT_Y = WHEEL_Y - 24.0  # pan cutout starts here, outboard of the axle bolts
-CASTER_XF = 177.0  # front ball transfer, near the front rim (no swivel, no hole in the pan)
-CASTER_XR = 127.0  # rear ball transfer, near the rear rim
-CASTER_WHEEL = 15.875  # 5/8 in steel ball (CY-15A ball transfer)
-CASTER_WHEEL_W = 15.875
+CASTER_XF = 177.0  # front ball transfers, near the front rim (no swivel, no hole in the pan)
+CASTER_XR = 127.0  # rear ball transfers, near the rear rim
+CASTER_Y = 45.0  # each pair sits at y = ±45: off the tile seams (±98.5) and clear of the shell lugs at y = ±80
+CASTER_WHEEL = 15.0  # 15 mm POM ball (igus BB-515-B180-POM-ES)
+CASTER_WHEEL_W = 15.0
 CASTER_TRAIL = 0.0  # ball transfer: the contact is under the mount
-CASTER_HOLE = 0.0  # no pan cutout: the ball transfer bolts under the pan
+CASTER_HOLE = 0.0  # no pan cutout: the ball transfer presses into a foot under the pan
 CASTER_PLATE_Z = 56.0  # unused since the ball transfers
-BALL_XFER = (32.0, 48.0, 20.0)  # CY-15A: x, y (long side across the robot), height to the flange top
-BALL_XFER_PITCH = 38.0  # two M3 mounting holes, along y
+CASTER_LIFT = 1.0  # ball bottoms sit 1 mm above the tire bottoms, so the tires carry the weight and the balls catch a tip
+# igus xiros BB-515-B180-POM-ES, from the igus catalogue table: body (installation) Ø d1 24, flange Ø d2 31,
+# overall height h1 21, ball below the flange face h2 9.8, 180 N max static axial load, 15.59 g.
+BALL_XFER_D1 = 24.0
+BALL_XFER_D2 = 31.0
+BALL_XFER_H1 = 21.0
+BALL_XFER_H2 = 9.8
+BALL_XFER_MASS = 15.59
+BALL_XFER_FLANGE_T = 1.5  # flange thickness: drawn, not in the catalogue table. MEASURE yours.
+BALL_XFER_FOOT = BALL_XFER_D2 + 4.0  # printed foot under the pan, 2 mm wall around the flange
+BALL_XFER = (BALL_XFER_FOOT, BALL_XFER_FOOT, CASTER_LIFT + BALL_XFER_H2 + BALL_XFER_FLANGE_T)  # x, y footprint of the foot, height of the foot bottom (the flange bears on it)
 
 LIDAR_X = 150.0  # on its own ring, standing on the pan behind the front rim
 LIDAR_Z0 = 108.0  # bottom of the lidar
@@ -319,11 +332,15 @@ def check() -> None:
         errs.append("torso hits the base at the bottom of travel")
     if WHEEL_Y + WHEEL_W / 2 > BASE_W / 2 - 4:
         errs.append("tire rubs the shell")
-    if CASTER_XF + BALL_XFER[0] / 2 + 4 > BASE_CX + BASE_L / 2 - PAN_INSET:
+    if CASTER_XF + BALL_XFER_D2 / 2 + 4 > BASE_CX + BASE_L / 2 - PAN_INSET:
         errs.append("front ball transfer overhangs the pan rim")
-    if CASTER_XR + BALL_XFER[0] / 2 + 4 > BASE_L / 2 - BASE_CX - PAN_INSET:
+    if CASTER_XR + BALL_XFER_D2 / 2 + 4 > BASE_L / 2 - BASE_CX - PAN_INSET:
         errs.append("rear ball transfer overhangs the pan rim")
-    if min(CASTER_XF, CASTER_XR) - BALL_XFER[0] / 2 < COL_OUTER_D / 2 + 16:
+    if CASTER_Y + BALL_XFER_FOOT / 2 + 2 > min(abs(g) for g in GRID_Y):
+        errs.append("ball transfer foot crosses a pan tile seam")
+    if CASTER_LIFT + BALL_XFER_H1 > PAN_BOTTOM + 0.01:
+        errs.append("ball transfer body is taller than the room under the pan")
+    if min(CASTER_XF, CASTER_XR) - BALL_XFER_D2 / 2 < COL_OUTER_D / 2 + 16:
         errs.append("ball transfer meets the column foot")
     if BASE_R > min(BASE_L, BASE_W) / 2:
         errs.append("corner radius larger than the base")

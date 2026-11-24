@@ -119,9 +119,9 @@ BOM = [
     ("Fasteners", "Metric socket cap screw kit, M2-M8, 441 pieces", 1, 67.55,
      "https://www.albanycountyfasteners.com/metric-socket-cap-screw-assortment-kit-p/1060-090.htm",
      "M2 for horns and cameras. Buy M2.5 x 10 separately for the DDSM115 stubs.", False),
-    ("Fasteners", "TOVOT CY-15A 5/8 in steel ball transfer, 44 lb, 4 pack", 1, 6.99,
-     "https://www.amazon.com/dp/B07YYSW494",
-     "The two casters, bolted under the pan; two spares. 48 x 32 x 20 mm, holes 39 mm apart. Price from the listing; the store blocks automated checks. Best on hard floors.", False),
+    ("Fasteners", "igus xiros BB-515-B180-POM-ES polymer ball transfer, 15 mm POM ball", 4, 16.94,
+     "https://www.igus.com/product/xiros_BB_515_522_B180_ES",
+     "The four casters, pressed into the feet under the pan, no screws. POM ball in a xirodur B180 housing on stainless support balls: no metal ball on the floor. 24 mm body, 31 mm flange, 21 mm tall, 180 N static each (catalogue). Price from the igus listing at 1 piece, November 2026; volume price lower.", False),
 
     ("Filament", "Prusament PETG, 1 kg", 6, 23.99, "https://www.prusa3d.com/product/prusament-petg-anthracite-grey-1kg-nfc/",
      "Pick colours: white shells, grey structure, black trim.", False),
