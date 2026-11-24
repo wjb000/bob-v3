@@ -1,6 +1,6 @@
 # Bob v3
 
-A two-armed home robot you can print on a 200 mm printer. It has a rounded-rectangle base, a four-stage telescoping column that grows out of the base, two seven-axis arms with parallel grippers, and a head with a depth camera and two round "eye" displays. Everything structural and everything you see is printed PETG. There is no ballast. You buy the motors, the electronics, a short leadscrew, GT2 belts and screws.
+A two-armed home robot you can print on a 200 mm printer. It has a rounded-rectangle base, a four-stage telescoping column that grows out of the base, two seven-axis arms with parallel grippers, and a head with a wide RGB camera and two round "eye" displays. Everything structural and everything you see is printed PETG. There is no ballast. You buy the motors, the electronics, a short leadscrew, GT2 belts and screws.
 
 Page: [wyat.dev/bob-v3](https://www.wyat.dev/bob-v3/). It shows the 3D model, the print files, the wiring, the BOM and the sim results.
 
@@ -8,23 +8,25 @@ This is a design that has been checked in CAD and in physics simulation. It has 
 
 | | |
 | --- | --- |
-| Size | 360 × 360 mm square base with 70 mm corner radii, set 25 mm forward of the wheel axle (turns in place inside a 488 mm circle), 240 mm wide torso sitting on the column, 344 mm nested column that extends 462 mm (18.2 in). At the bottom of travel the torso sits 40 mm above the base, so the hands still reach the floor. The top of the head goes from 0.64 m stowed to 1.11 m at full lift (was 0.69 m and 1.24 m). |
+| Size | 360 × 360 mm square base with 70 mm corner radii, set 25 mm forward of the wheel axle (turns in place inside a 488 mm circle), 240 mm wide torso sitting on the column, 344 mm nested column that extends 462 mm (18.2 in). At the bottom of travel the torso sits 40 mm above the base, so the hands still reach the floor. The top of the head shell is 0.660 m stowed and 1.122 m at full lift (measured on the sim meshes). |
 | Reach | With the lift down, the hands touch the floor about 0.24 m past the nose. A 0.91 m counter is in reach. Straight overhead the fingertip reaches 1.50 m with no self-collision. A shelf point 0.30 m forward at 1.25 m is in reach; the old 1.55 m point is not. |
 | Payload | 0.5 kg (1.1 lb) per hand. A reach-limit interlock in the controller (`sim/interlock.py`) blocks reaching out with a load: with the column at the bottom the hands may go out to the carry pose (0.53 m ahead of the axle); once the column rises they stay within 0.16 m of the axle and no higher than the shoulders, tucked at the chest or down by the sides. A grasp made further out can be lifted and pulled in, never pushed further out. |
 | Joints | 19 driven: 2 hub wheels, lift, head pan and tilt, and 7 per arm (six joints plus the gripper). |
 | Gripper | Geared parallel jaw, Nori-style TPU fingers, 0–80 mm, about 40 N per finger. |
 | Mass | 13.45 kg in the sim: 11.7 kg of parts (the printed parts at their wall and infill settings and the bought parts at their listed mass) plus 1.76 kg the sim adds for wiring, screws and small hardware (1.2 kg in the base, 0.56 kg on the lift stages). No steel ballast. |
-| Prints | 164 prints from 95 files, about 5.3 kg of filament, all inside 200 × 200 × 200 mm. |
-| Cost | About $2,886 for every part at the linked stores, or $2,611 if you reuse the Bob v2 Pi 5, battery and charger. Four igus polymer ball transfers ($16.94 each at one piece) replace the swivel casters and their six 608ZZ bearings. See [BOM.md](BOM.md). |
+| Prints | 157 prints from 94 files, about 5.3 kg of filament, all inside 200 × 200 × 200 mm. |
+| Cost | About $2,876 for every part at the linked stores, or $2,601 if you reuse the Bob v2 Pi 5, battery and charger. Four igus polymer ball transfers ($16.94 each at one piece) replace the swivel casters and their six 608ZZ bearings. See [BOM.md](BOM.md). |
 | Compute | Raspberry Pi 5 on the robot; big models run on a desktop GPU over Wi-Fi. A wide RGB camera in the head, a USB camera on each wrist, RPLIDAR C1 in the base. |
 
 ## This revision
 
 The base is a 360 × 360 mm square with 70 mm corner radii, the cyan light strip in the bottom edge and the red e-stop on the rear of the top. It sits 25 mm forward of the wheel axle, drive wheels at ±150 mm. Four igus xiros BB-515-B180-POM-ES polymer ball transfers (15 mm POM ball on stainless support balls, no metal ball on the floor) press into printed feet under the pan, two 177 mm ahead of the axle and two 127 mm behind it, each pair at ±45 mm. The balls sit 1 mm above the floor with the robot level, so the tires carry most of the weight and a ball only touches when the base leans. A swivel caster needs a swing hole that the square base had no room for; the ball transfers put the front contact 67 mm further forward than a swivel caster could sit, and two per end put a support corner under each side instead of one ball on the centreline. It turns in place inside a 488 mm circle (547 mm on the 440 × 360 base). Every pan and shell tile fits a 200 mm bed and every joint is a screw into an insert or a nut, no glue. The empty rear-right shelf is gone.
 
-The robot is shorter and the proportions closer to square: the collapsed shoulder is 410 mm (was 452), the base top 200 mm, and each tube is shorter, so the lift travels 462 mm (18.2 in, was 558 mm). The head top is 0.64 m stowed and 1.11 m at full lift (was 0.69 m and 1.24 m). The lift still runs bottom → top → bottom in the sim with 0.5 kg per hand.
+The robot is shorter and the proportions closer to square: the collapsed shoulder is 410 mm (was 452), the base top 200 mm, and each tube is shorter, so the lift travels 462 mm (18.2 in, was 558 mm). The top of the head shell is 0.660 m stowed and 1.122 m at full lift. The lift still runs bottom → top → bottom in the sim with 0.5 kg per hand.
 
 The arms are now fully covered. Printed clamshell covers enclose every arm servo, horn and bracket from the shoulder to the wrist: a drum over the shoulder pitch servo (top and bottom halves), a rounded box over the clevis (two halves), and a tapered knuckle over the elbow (two halves that snap together and bolt through the upper arm), with a skirt printed into the wrist. That is 12 cover prints, six per arm, held by 16 M3×10 screws into heat-set inserts and 4 M3×50 bolts with nuts, no glue. Each cover comes off with 2–4 screws for servo service, and the cables enter near each joint axis. A clearance sweep (`tools/arm_clearance.py`, result in `docs/arm_clearance.json`) shows the covers add no new joint limit.
+
+The head shell is one print. It drops over the head frame from above, and four M3×10 screws go up through the frame plate, which is now the head's floor, into inserts in the shell's side walls. That replaces the two-piece shell, its six joiner tabs and the twelve inserts and screws at the seam (7 fewer prints, 12 fewer inserts and 12 fewer M3×10). The shell's bottom edge is straight inside so it clears the eye plate on the way down, and the skirt is 1 mm shorter so the chin clears the torso as before at full tilt down. The head-top height and the head joint limits are unchanged.
 
 ## Direct bus servos
 

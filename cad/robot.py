@@ -51,7 +51,6 @@ def joiners():
     """Placed joiner tabs: (link, solid). Every one is the same printed part."""
     out = [("base", s) for s in base.joiner_placed()]
     out += [("lift", s) for s in torso.torso_joiners()]
-    out += [("head_tilt", s) for s in head.head_joiners()]
     return out
 
 

@@ -1,6 +1,6 @@
 # Print list
 
-95 unique files, 164 prints, about 5.3 kg of filament at the settings below.
+94 unique files, 157 prints, about 5.3 kg of filament at the settings below.
 Every part fits a 200 x 200 x 200 mm volume (Prusa MK4, Ender-3, Bambu A1/P1/X1, Core One).
 The STLs in `cad/stl/` are already oriented: flat face down, no rotating. Grams are at 4 walls and 20% gyroid.
 
@@ -14,7 +14,7 @@ The STLs in `cad/stl/` are already oriented: flat face down, no rotating. Grams 
 - Supports: the Support column is measured from each oriented STL (faces steeper than 45° not on the bed).
   'none' means under 5 cm². Use tree supports, touching the build plate only where you can.
 
-## Base (1.56 kg)
+## Base (1.55 kg)
 
 | File | Qty | Colour | Bed mm | g each | Support | Note |
 | --- | ---: | --- | --- | ---: | --- | --- |
@@ -46,7 +46,7 @@ The STLs in `cad/stl/` are already oriented: flat face down, no rotating. Grams 
 | `shelf_front_r.stl` | 1 | grey PETG | 60 x 75 x 109 | 26 | none | Motor drivers and the ESP32 on the 20 mm grid. |
 | `cable_trough.stl` | 1 | grey PETG | 42 x 88 x 51 | 30 | 22 cm² | Service loop for the column umbilical. Zip-tie the sleeve at the closed end. 4 walls. |
 | `col_draglink.stl` | 6 | black PETG | 18 x 11 x 8 | 1 | none | Drag-chain link. Six of them fold in the base trough for the column sleeve. |
-| `joiner_tab.stl` | 65 | grey PETG | 30 x 14 x 4 | 1 | none | Joins shell and pan tiles from inside. M3x10 into heat-set inserts. |
+| `joiner_tab.stl` | 59 | grey PETG | 30 x 14 x 4 | 1 | none | Joins shell and pan tiles from inside. M3x10 into heat-set inserts. |
 
 ## Column (0.95 kg)
 
@@ -75,7 +75,7 @@ The STLs in `cad/stl/` are already oriented: flat face down, no rotating. Grams 
 | `torso_upper_l.stl` | 1 | white PETG | 150 x 120 x 130 | 142 | 67 cm² | Lower tier prints floor-down; upper tier prints top-down. |
 | `torso_upper_r.stl` | 1 | white PETG | 150 x 120 x 130 | 142 | 67 cm² | Lower tier prints floor-down; upper tier prints top-down. |
 
-## Head (0.36 kg)
+## Head (0.35 kg)
 
 | File | Qty | Colour | Bed mm | g each | Support | Note |
 | --- | ---: | --- | --- | ---: | --- | --- |
@@ -83,11 +83,10 @@ The STLs in `cad/stl/` are already oriented: flat face down, no rotating. Grams 
 | `ear_r.stl` | 1 | black PETG | 50 x 50 x 12 | 6 | 17 cm² | Mic grille. |
 | `neck_collar.stl` | 1 | black PETG | 70 x 58 x 21 | 7 | none | Clips around the neck yoke and hides the pan servo. |
 | `neck_yoke.stl` | 1 | black PETG | 54 x 42 x 64 | 28 | 20 cm² | Pan horn below, tilt servo cradle above. |
-| `head_frame.stl` | 1 | grey PETG | 92 x 128 x 124 | 70 | 82 cm² | Tilt horn and idler, camera post, eye plate. |
+| `head_frame.stl` | 1 | grey PETG | 124 x 169 x 113 | 88 | 80 cm² | Tilt horn and idler, camera post, eye plate. Its plate is the head's floor. Prints standing on the plate's back edge; use a brim. |
 | `eye_plate.stl` | 1 | grey PETG | 46 x 110 x 25 | 15 | 17 cm² | Two GC9A01 round TFTs. |
 | `visor.stl` | 1 | black PETG | 88 x 136 x 5 | 23 | none | Black PETG, face down. Eye and camera windows. |
-| `head_lower.stl` | 1 | white PETG | 120 x 176 x 24 | 57 | 9 cm² | Floor down. |
-| `head_upper.stl` | 1 | white PETG | 120 x 176 x 120 | 147 | 14 cm² | Top down. Visor fits from inside. |
+| `head_shell.stl` | 1 | white PETG | 120 x 176 x 143 | 176 | 8 cm² | One piece, top down, open at the bottom. Visor fits from inside. Drops over the frame; 4 M3x10 up through the frame plate into the side-wall inserts. |
 
 ## Arms (1.20 kg)
 
