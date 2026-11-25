@@ -150,9 +150,15 @@ def _column_down(start, end):
     return [start, *_bore()[::-1], _pt("base", -48.0, 20.0, 100.0), *_loop(), _pt("base", -40.0, 10.0, 120.0), end]
 
 
+# Neck harness (tilt servo lead + three USB leads): up through the neck_mount hole behind the pan
+# servo (x = -24), up the open back of the neck collar behind the yoke column (tied to its stub),
+# then through the head frame's plate cutout into the head.
+NECK_UP = [_pt("lift", -24.0, 0.0, 436.0), _pt("lift", -24.0, 0.0, 463.0), _pt("head_pan", -19.0, 0.0, 474.0),
+           _pt("head_pan", -19.0, 0.0, 492.0), _pt("head_tilt", -17.0, 0.0, 512.0), _pt("head_tilt", -16.0, 0.0, 538.0)]
+
+
 def _neck(start, end):
-    return [start, _pt("lift", 5.0, 0.0, 490.0), _pt("head_pan", 5.0, 0.0, 530.0),
-            _pt("head_tilt", 20.0, 0.0, 580.0), end]
+    return [start, *NECK_UP, _pt("head_tilt", 20.0, 0.0, 580.0), end]
 
 
 def _arm(side, start, extra=()):
@@ -185,11 +191,10 @@ def routes():
     conv = _pt("lift", -30.0, 0.0, 300.0)  # arm converters, torso; the torso CAD moves them here
     conv_l = _pt("lift", -30.0, 40.0, 300.0)
     conv_r = _pt("lift", -30.0, -40.0, 300.0)
-    cam = _pt("head_tilt", 65.0, 0.0, 648.0)
-    s3 = _pt("head_tilt", 1.0, 0.0, 587.0)
-    mic = _pt("head_tilt", 21.0, 0.0, 683.0)
-    eyes = _pt("head_tilt", 55.0, 0.0, 640.0)
-    pan = _pt("lift", 5.0, 0.0, 450.0)
+    cam = _pt("head_tilt", 62.0, 0.0, 606.0)  # board back, through the post window
+    s3 = _pt("head_tilt", 1.0, 0.0, 545.0)
+    mic = _pt("head_tilt", 21.0, 0.0, 634.0)  # under the mic board at the crown
+    eyes = _pt("head_tilt", 74.0, 0.0, 568.0)  # behind the eye plate, through the post window
     palm_l = _pt("l_link6", -16.0, 157.0, -70.0)
     palm_r = _pt("r_link6", -16.0, -157.0, -70.0)
     batt = _pt("base", 0.0, 80.0, 130.0)
@@ -230,15 +235,16 @@ def routes():
         ("pi", "audio"): _neck(pi, mic),
         ("pi", "busl"): [pi, _pt("lift", 10.0, 70.0, 360.0), bus_l],
         ("pi", "busr"): [pi, _pt("lift", 10.0, -40.0, 360.0), bus_r],
-        ("hub", "cam"): _neck(hub, cam),
+        ("hub", "cam"): _neck(hub, cam)[:-1] + [_pt("head_tilt", 45.0, 0.0, 606.0), cam],
         ("hub", "wcl"): _arm("l", hub, (palm_l,)),
         ("hub", "wcr"): _arm("r", hub, (palm_r,)),
         ("hub", "lidar"): _column_down(hub, _pt("base", 150.0, 0.0, 140.0)),
         ("busl", "stl"): _arm("l", bus_l),
-        ("busl", "head"): [bus_l, _pt("lift", 20.0, 30.0, 420.0), pan, _pt("head_pan", 5.0, 0.0, 530.0),
+        ("busl", "head"): [bus_l, _pt("lift", 20.0, 30.0, 420.0), _pt("lift", 20.0, 30.0, 412.0), _pt("lift", 12.0, 0.0, 412.0),  # pan servo leads, under its cradle window
+                           _pt("lift", -24.0, 0.0, 412.0), *NECK_UP,
                            _pt("head_tilt", 20.0, 0.0, 580.0)],
         ("busr", "str"): _arm("r", bus_r),
-        ("s3", "eyes"): [s3, _pt("head_tilt", 30.0, 0.0, 620.0), eyes],
+        ("s3", "eyes"): [s3, _pt("head_tilt", 30.0, 0.0, 568.0), eyes],
         ("esp", "wheels"): [
             esp, _pt("base", 0.0, 40.0, 80.0),
             _pt("base", 0.0, 120.0, 55.0), _pt("base", 0.0, -120.0, 55.0),

@@ -94,7 +94,6 @@
     <mesh name="torso_upper_r" file="torso_upper_r.stl"/>
     <mesh name="ear_l" file="ear_l.stl"/>
     <mesh name="ear_r" file="ear_r.stl"/>
-    <mesh name="neck_collar" file="neck_collar.stl"/>
     <mesh name="neck_yoke" file="neck_yoke.stl"/>
     <mesh name="head_frame" file="head_frame.stl"/>
     <mesh name="eye_plate" file="eye_plate.stl"/>
@@ -488,7 +487,7 @@
       <geom name="caster_rear_r" class="col" type="sphere" size="0.0075" pos="-0.1270 -0.0450 0.0085" contype="1" conaffinity="0" condim="1" priority="1" friction="0 0 0" mass="0"/>
       <body name="lift" pos="0.00000 0.00000 0.00000">
         <joint name="lift" type="slide" axis="0 0 1" range="0.0 0.462" damping="1000.0" armature="0.0" frictionloss="15.0"/>
-        <inertial pos="-0.00296 0.00055 0.36410" mass="2.5114" fullinertia="0.0221558 0.0137702 0.0156322 -4.03533e-06 -8.25671e-05 1.83207e-05"/>
+        <inertial pos="-0.00295 0.00055 0.36405" mass="2.5101" fullinertia="0.0221465 0.0137605 0.0156309 -4.02183e-06 -8.46316e-05 1.82624e-05"/>
         <geom name="col_inner_0" type="mesh" mesh="col_inner_0" material="m_shell" group="1" mass="0"/>
         <geom name="c_col_inner_0" class="col" type="mesh" mesh="col_inner_0" contype="2" conaffinity="13" friction="0.8 0.01 0.001" mass="0"/>
         <geom name="col_inner_1" type="mesh" mesh="col_inner_1" material="m_shell" group="1" mass="0"/>
@@ -544,17 +543,16 @@
         <geom name="light_chest" type="mesh" mesh="light_chest" material="m_glow" group="2" mass="0"/>
         <body name="head_pan" pos="0.00500 0.00000 0.46100">
           <joint name="head_pan" type="hinge" axis="0 0 1" range="-0.8 0.8" damping="0.05" armature="0.004" frictionloss="0.03"/>
-          <inertial pos="0.00921 -0.00490 0.04063" mass="0.0901" fullinertia="3.79142e-05 4.61121e-05 3.2133e-05 2.84451e-07 -4.27849e-06 1.20626e-06"/>
-          <geom name="neck_collar" type="mesh" mesh="neck_collar" material="m_dark" group="1" mass="0"/>
+          <inertial pos="0.00869 -0.00482 0.03929" mass="0.0941" fullinertia="4.34291e-05 5.405e-05 3.76348e-05 2.37658e-07 -5.54627e-06 1.40704e-06"/>
           <geom name="neck_yoke" type="mesh" mesh="neck_yoke" material="m_dark" group="1" mass="0"/>
           <geom name="tilt_servo" type="mesh" mesh="tilt_servo" material="m_black" group="2" mass="0"/>
           <geom name="tilt_servo_horn" type="mesh" mesh="tilt_servo_horn" material="m_white" group="2" mass="0"/>
           <body name="head_tilt" pos="0.00000 0.00000 0.04900">
             <joint name="head_tilt" type="hinge" axis="0 1 0" range="-0.45 0.55" damping="0.05" armature="0.004" frictionloss="0.03"/>
-            <inertial pos="0.03380 0.00006 0.07321" mass="0.3860" fullinertia="0.0018181 0.0013561 0.00165396 -6.24688e-08 1.00477e-05 1.40633e-06"/>
+            <inertial pos="0.03443 0.00005 0.07380" mass="0.3923" fullinertia="0.00183073 0.00137479 0.00167001 -4.88799e-08 2.90463e-06 1.41947e-06"/>
             <geom name="ear_l" type="mesh" mesh="ear_l" material="m_dark" group="1" mass="0"/>
             <geom name="ear_r" type="mesh" mesh="ear_r" material="m_dark" group="1" mass="0"/>
-            <geom name="head_frame" type="mesh" mesh="head_frame" material="m_frame" group="1" mass="0"/>
+            <geom name="head_frame" type="mesh" mesh="head_frame" material="m_dark" group="1" mass="0"/>
             <geom name="eye_plate" type="mesh" mesh="eye_plate" material="m_frame" group="1" mass="0"/>
             <geom name="visor" type="mesh" mesh="visor" material="m_dark" group="1" mass="0"/>
             <geom name="c_visor" class="col" type="mesh" mesh="visor" contype="2" conaffinity="13" friction="0.8 0.01 0.001" mass="0"/>
@@ -592,7 +590,7 @@
           <geom name="j2_l_shaft" type="mesh" mesh="j2_l_shaft" material="m_steel" group="2" mass="0"/>
           <body name="l_link2" pos="0.00000 0.04000 0.00000">
             <joint name="l_shoulder_roll" type="hinge" axis="1 0 0" range="-0.2 1.75" damping="0.08" armature="0.012" frictionloss="0.06"/>
-            <inertial pos="-0.00654 -0.00000 -0.08542" mass="0.1777" fullinertia="0.000127221 0.000155309 9.81442e-05 4.9235e-11 1.94338e-05 -6.58462e-13"/>
+            <inertial pos="-0.00654 0.00000 -0.08542" mass="0.1777" fullinertia="0.000127221 0.000155309 9.81442e-05 -4.92288e-11 1.94338e-05 6.5757e-13"/>
             <geom name="clevis_l" type="mesh" mesh="clevis_l" material="m_frame" group="1" mass="0"/>
             <geom name="c_clevis_l" class="col" type="mesh" mesh="clevis_l" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
             <geom name="clevis_cover_a_l" type="mesh" mesh="clevis_cover_a_l" material="m_shell" group="1" mass="0"/>

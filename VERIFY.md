@@ -11,7 +11,7 @@ These numbers came from datasheets and store listings, not from parts on a bench
 | STS3095 tab holes | 56 × 20 mm | `STS3095_HOLE_L`, `STS3095_HOLE_W` | those cups |
 | DDSM115 stub | Ø19, 3 × M2.5 on Ø15.2 (from Waveshare's STEP) | `DDSM_*` | wheel brackets |
 | Battery pack | 80 × 200 × 70 | `BATT` | battery cradle halves |
-| Head camera board | 38 × 38 mm, M12 lens | `vendor.rgb_cam` | head_frame post |
+| Head camera board | 38 × 38 mm, M12 lens, 4 × M2 on a 34 mm square | `vendor.rgb_cam`, `HEAD_CAM_HOLE` | head_frame post |
 | RPLIDAR C1 base holes | 4 × M2.5 on a 34 mm square | `base.py` `lidar_mount` | lidar_mount |
 | GC9A01 module | Ø39 PCB, Ø32.4 glass | `EYE_PCB`, `EYE_GLASS` | eye_plate, visor |
 | T8 flange nut | Ø22, 4 × M3 on Ø16 | `T8_FLANGE`, `T8_PCD` | col_mid_0 |
