@@ -41,7 +41,7 @@ NODES = {
     "busl": ("Bus adapter left", "Feetech TTL, Pi UART2", 4, 5, "servo_bus"),
     "busr": ("Bus adapter right", "Feetech TTL, Pi UART4", 4, 7, "servo_bus_r"),
     "esp": ("DDSM Driver HAT (A)", "ESP32 + RS485", 4, 8, "ddsm_driver"),
-    "tmc": ("TMC2209", "UART, StallGuard", 4, 9, "tmc2209"),
+    "tmc": ("TMC2209", "UART, StealthChop2, StallGuard", 4, 9, "tmc2209"),
     "audio": ("Mic array", "ReSpeaker Lite, USB", 5, 2, "mic_array"),
     "s3": ("XIAO ESP32-S3", "drives the eyes", 4, 3, "esp32s3_head"),
     "eyes": ("Eyes ×2", "GC9A01 1.28 in, SPI", 5, 3, "eye_l"),

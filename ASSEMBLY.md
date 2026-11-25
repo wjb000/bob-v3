@@ -59,7 +59,7 @@ One PET sleeve carries the chest power (5 V to the Pi, 12 V to both servo buses)
 1. Zip-tie the sleeve to the closed end of `cable_trough` and through the drag-chain links. The coil in the trough is the service loop for the 462 mm of travel. Do not leave a loose loop in the bore.
 2. The tongue of the trough leads into the rear window of `col_outer_0` (left of the centre, y about 14 to 30 mm). The middle tube has a matching notch that is open at its bottom edge, so the rising wall cannot shear the sleeve.
 3. From there the sleeve goes up inside the bores. Zip-tie it to the bar on the middle tube, the upper tube, and the inner tube. Keep it on the left of the T8 nut bridge (the bridge only spans the middle 28 mm). The slide pads and the stop dogs are on the flats and do not cross this lane.
-4. The top KW12, on the left flat, is the full-stroke home. The lower KW12 is the collapsed home. StallGuard on the TMC2209 is the backup if a switch fails. The printed dogs are the hard stops, about 3 mm before the tubes pull apart.
+4. The top KW12, on the left flat, is the full-stroke home. The lower KW12 is the collapsed home. Run the TMC2209 in UART StealthChop2 (the silent voltage-PWM chopper; do not enable spreadCycle at the 25 mm/s lift speed). StallGuard on the TMC2209 is the backup if a switch fails. The printed dogs are the hard stops, about 3 mm before the tubes pull apart.
 5. Zip-tie the sleeve to the bar inside `col_inner_0`, and again through the two holes beside the cap hole. Those two ties are the strain relief. The cap tie is the one that moves with the torso.
 6. After the torso is on, the sleeve comes through the hole in the chest shelf and splits to the Pi, the two bus adapters, and the lidar USB going back down.
 

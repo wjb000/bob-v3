@@ -29,7 +29,7 @@ BOM = [
      "https://www.waveshare.com/ddsm-driver-hat-a.htm", "Base controller: both wheels, the lift driver, IMU, e-stop sense.", False),
     ("Motor drivers", "BIGTREETECH TMC2209 V1.3", 1, 7.89,
      "https://us.biqu.equipment/products/bigtreetech-tmc2209-stepper-motor-driver-for-3d-printer-board-vs-tmc2208",
-     "Lift. UART mode, StallGuard as a backup home.", False),
+     "Lift. UART StealthChop2 (silent voltage-PWM; leave spreadCycle off at the 25 mm/s lift speed). StallGuard as a backup home.", False),
 
     ("Compute and sensors", "Raspberry Pi 5, 8 GB", 1, 200.00, "https://www.adafruit.com/product/5813",
      "From Bob v2. Big models run on your desktop GPU over Wi-Fi.", True),
