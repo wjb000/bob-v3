@@ -27,35 +27,35 @@
    ]
   },
   "lift": {
-   "mass_g": 2111.4,
+   "mass_g": 2803.0,
    "com": [
-    -3.3,
-    0.7,
-    374.5
+    -2.0,
+    2.7,
+    358.4
    ]
   },
   "head_tilt": {
-   "mass_g": 386.0,
+   "mass_g": 392.3,
    "com": [
-    38.8,
+    39.4,
     0.1,
-    583.2
+    583.8
    ]
   },
   "head_pan": {
-   "mass_g": 90.1,
+   "mass_g": 94.1,
    "com": [
-    14.2,
-    -4.9,
-    501.7
+    13.7,
+    -4.8,
+    500.3
    ]
   },
   "l_link1": {
-   "mass_g": 288.1,
+   "mass_g": 285.1,
    "com": [
-    7.5,
-    169.3,
-    410.0
+    7.6,
+    169.2,
+    410.5
    ]
   },
   "l_link2": {
@@ -67,59 +67,59 @@
    ]
   },
   "l_link3": {
-   "mass_g": 324.2,
+   "mass_g": 323.6,
    "com": [
-    9.0,
+    8.9,
     154.4,
-    163.0
+    163.1
    ]
   },
   "l_link4": {
-   "mass_g": 215.0,
+   "mass_g": 211.3,
    "com": [
-    9.0,
+    8.6,
     159.8,
-    8.2
+    8.1
    ]
   },
   "l_link5": {
-   "mass_g": 111.3,
+   "mass_g": 109.2,
    "com": [
-    16.1,
-    157.3,
-    -97.6
+    16.2,
+    157.5,
+    -97.4
    ]
   },
   "l_link6": {
-   "mass_g": 124.5,
+   "mass_g": 145.0,
    "com": [
-    11.9,
+    11.2,
     157.0,
-    -161.5
+    -164.0
    ]
   },
   "l_link7": {
-   "mass_g": 10.4,
+   "mass_g": 14.9,
    "com": [
-    13.7,
-    159.7,
-    -201.9
+    12.8,
+    156.3,
+    -204.6
    ]
   },
   "l_link8": {
-   "mass_g": 10.5,
+   "mass_g": 15.0,
    "com": [
-    4.4,
-    154.3,
-    -202.0
+    5.2,
+    157.7,
+    -204.7
    ]
   },
   "r_link1": {
-   "mass_g": 288.1,
+   "mass_g": 285.1,
    "com": [
-    7.5,
-    -169.3,
-    410.0
+    7.6,
+    -169.2,
+    410.5
    ]
   },
   "r_link2": {
@@ -131,51 +131,51 @@
    ]
   },
   "r_link3": {
-   "mass_g": 324.2,
+   "mass_g": 323.6,
    "com": [
-    9.0,
+    8.9,
     -154.4,
-    163.0
+    163.1
    ]
   },
   "r_link4": {
-   "mass_g": 215.0,
+   "mass_g": 211.3,
    "com": [
-    9.0,
+    8.6,
     -159.8,
-    8.2
+    8.1
    ]
   },
   "r_link5": {
-   "mass_g": 111.3,
+   "mass_g": 109.2,
    "com": [
-    16.1,
-    -157.3,
-    -97.6
+    16.2,
+    -157.5,
+    -97.4
    ]
   },
   "r_link6": {
-   "mass_g": 124.5,
+   "mass_g": 145.0,
    "com": [
-    11.9,
+    11.2,
     -157.0,
-    -161.5
+    -164.0
    ]
   },
   "r_link7": {
-   "mass_g": 10.4,
+   "mass_g": 14.9,
    "com": [
-    13.7,
-    -159.7,
-    -201.9
+    12.8,
+    -156.3,
+    -204.6
    ]
   },
   "r_link8": {
-   "mass_g": 10.5,
+   "mass_g": 15.0,
    "com": [
-    4.4,
-    -154.3,
-    -202.0
+    5.2,
+    -157.7,
+    -204.7
    ]
   },
   "wheel_l": {
@@ -195,7 +195,7 @@
    ]
   }
  },
- "total_mass_g": 11574.5,
+ "total_mass_g": 12316.6,
  "joints": [
   {
    "name": "lift",
@@ -513,7 +513,7 @@
    ],
    "range": [
     0.0,
-    0.04
+    0.05
    ],
    "actuator": "sts3215g",
    "mimic": "",
@@ -536,7 +536,7 @@
    ],
    "range": [
     0.0,
-    0.04
+    0.05
    ],
    "actuator": "sts3215g",
    "mimic": "l_gripper",
@@ -697,7 +697,7 @@
    ],
    "range": [
     0.0,
-    0.04
+    0.05
    ],
    "actuator": "sts3215g",
    "mimic": "",
@@ -720,7 +720,7 @@
    ],
    "range": [
     0.0,
-    0.04
+    0.05
    ],
    "actuator": "sts3215g",
    "mimic": "r_gripper",
@@ -1473,7 +1473,7 @@
    "material": "PETG",
    "mass_g": 95.1,
    "print": "torso_back_plate",
-   "note": "Yokes bolt to the front face. The Pi and the bus adapters sit beside the column."
+   "note": "Yokes bolt to the front face. Thread-forming grid for extras; the Pi, hub, b5 and b12a have printed mounts."
   },
   {
    "name": "yoke_l",
@@ -1483,7 +1483,7 @@
    "kind": "print",
    "color": "frame",
    "material": "PETG",
-   "mass_g": 343.1,
+   "mass_g": 337.0,
    "print": "yoke_l",
    "note": "Holds the left J1 STS3095. Prints on its centre face, cup up. 5 walls, 30% infill."
   },
@@ -1495,7 +1495,7 @@
    "kind": "print",
    "color": "frame",
    "material": "PETG",
-   "mass_g": 343.1,
+   "mass_g": 337.0,
    "print": "yoke_r",
    "note": "Mirror of yoke_l."
   },
@@ -1507,7 +1507,7 @@
    "kind": "print",
    "color": "frame",
    "material": "PETG",
-   "mass_g": 42.1,
+   "mass_g": 46.3,
    "print": "neck_mount",
    "note": "Pan servo cradle, bridges the yokes."
   },
@@ -1519,7 +1519,7 @@
    "kind": "print",
    "color": "shell",
    "material": "PETG",
-   "mass_g": 84.7,
+   "mass_g": 120.8,
    "print": "torso_lower_l",
    "note": "Lower tier prints floor-down; upper tier prints top-down."
   },
@@ -1531,7 +1531,7 @@
    "kind": "print",
    "color": "shell",
    "material": "PETG",
-   "mass_g": 85.1,
+   "mass_g": 124.6,
    "print": "torso_lower_r",
    "note": "Lower tier prints floor-down; upper tier prints top-down."
   },
@@ -1543,7 +1543,7 @@
    "kind": "print",
    "color": "shell",
    "material": "PETG",
-   "mass_g": 142.2,
+   "mass_g": 197.7,
    "print": "torso_upper_l",
    "note": "Lower tier prints floor-down; upper tier prints top-down."
   },
@@ -1555,7 +1555,7 @@
    "kind": "print",
    "color": "shell",
    "material": "PETG",
-   "mass_g": 142.2,
+   "mass_g": 142.7,
    "print": "torso_upper_r",
    "note": "Lower tier prints floor-down; upper tier prints top-down."
   },
@@ -1584,18 +1584,6 @@
    "note": "Mic grille."
   },
   {
-   "name": "neck_collar",
-   "file": "neck_collar.stl",
-   "link": "head_pan",
-   "group": "head",
-   "kind": "print",
-   "color": "dark",
-   "material": "PETG",
-   "mass_g": 7.3,
-   "print": "neck_collar",
-   "note": "Clips around the neck yoke and hides the pan servo."
-  },
-  {
    "name": "neck_yoke",
    "file": "neck_yoke.stl",
    "link": "head_pan",
@@ -1603,9 +1591,9 @@
    "kind": "print",
    "color": "dark",
    "material": "PETG",
-   "mass_g": 27.8,
+   "mass_g": 39.1,
    "print": "neck_yoke",
-   "note": "Pan horn below, tilt servo cradle above."
+   "note": "Pan horn below, tilt servo cradle above, and the neck collar printed on (hides the pan horn). Prints on the disc and collar rim; support under the cradle."
   },
   {
    "name": "head_frame",
@@ -1613,11 +1601,11 @@
    "link": "head_tilt",
    "group": "head",
    "kind": "print",
-   "color": "frame",
+   "color": "dark",
    "material": "PETG",
-   "mass_g": 88.4,
+   "mass_g": 90.4,
    "print": "head_frame",
-   "note": "Tilt horn and idler, camera post, eye plate. Its plate is the head's floor. Prints standing on the plate's back edge; use a brim."
+   "note": "Tilt horn and idler, camera post, eye plate. Its plate is the head's floor, dark so the underside matches the visor, ears and neck. Prints standing on the plate's back edge; use a brim."
   },
   {
    "name": "eye_plate",
@@ -1639,7 +1627,7 @@
    "kind": "print",
    "color": "dark",
    "material": "PETG",
-   "mass_g": 22.7,
+   "mass_g": 27.0,
    "print": "visor",
    "note": "Black PETG, face down. Eye and camera windows."
   },
@@ -1711,7 +1699,7 @@
    "kind": "print",
    "color": "frame",
    "material": "PETG",
-   "mass_g": 38.8,
+   "mass_g": 38.3,
    "print": "elbow_l",
    "note": "J4 output to the forearm flange."
   },
@@ -1735,7 +1723,7 @@
    "kind": "print",
    "color": "shell",
    "material": "PETG",
-   "mass_g": 50.6,
+   "mass_g": 47.4,
    "print": "forearm_b_l",
    "note": ""
   },
@@ -1747,9 +1735,9 @@
    "kind": "print",
    "color": "dark",
    "material": "PETG",
-   "mass_g": 56.3,
+   "mass_g": 54.2,
    "print": "wrist_l",
-   "note": "J5 horn and idler, holds J6."
+   "note": "J5 horn and idler, holds J6. Camera cable enters the skirt at the back."
   },
   {
    "name": "palm_l",
@@ -1759,9 +1747,9 @@
    "kind": "print",
    "color": "dark",
    "material": "PETG",
-   "mass_g": 52.1,
+   "mass_g": 66.8,
    "print": "palm_l",
-   "note": "J6 horn on top, J7 inside, rack channels underneath."
+   "note": "J6 horn on top, J7 inside, rack channels, camera shroud (28 mm pitch) and lid inserts. Print with the horn disc down."
   },
   {
    "name": "pinion_l",
@@ -1771,9 +1759,9 @@
    "kind": "print",
    "color": "frame",
    "material": "PETG",
-   "mass_g": 2.4,
+   "mass_g": 2.3,
    "print": "pinion_l",
-   "note": "16T module 1.5 on the J7 horn. 100% infill."
+   "note": "16T module-1.5 involute on the J7 horn. 100% PETG, or use a bought metal pinion of the same size."
   },
   {
    "name": "rack_a_l",
@@ -1783,7 +1771,7 @@
    "kind": "print",
    "color": "dark",
    "material": "PETG",
-   "mass_g": 4.2,
+   "mass_g": 5.4,
    "print": "rack_a_l",
    "note": "PETG rack and drop. Slides in from the +y end."
   },
@@ -1795,7 +1783,7 @@
    "kind": "print",
    "color": "dark",
    "material": "PETG",
-   "mass_g": 4.2,
+   "mass_g": 5.4,
    "print": "rack_b_l",
    "note": "PETG rack and drop. Slides in from the -y end."
   },
@@ -1807,9 +1795,9 @@
    "kind": "print",
    "color": "accent",
    "material": "TPU",
-   "mass_g": 6.2,
+   "mass_g": 9.5,
    "print": "finger_a_l",
-   "note": "Nori-style TPU 95A finger. Bolts to the rack."
+   "note": "TPU 95A, 34 mm curved pad, fingernail, FSR 402 pocket. Print pad-up, 100%, no supports."
   },
   {
    "name": "finger_b_l",
@@ -1819,9 +1807,21 @@
    "kind": "print",
    "color": "accent",
    "material": "TPU",
-   "mass_g": 6.3,
+   "mass_g": 9.6,
    "print": "finger_b_l",
-   "note": "Nori-style TPU 95A finger."
+   "note": "TPU 95A, 34 mm curved pad, fingernail, FSR 402 pocket."
+  },
+  {
+   "name": "palm_lid_l",
+   "file": "palm_lid_l.stl",
+   "link": "l_link6",
+   "group": "arm",
+   "kind": "print",
+   "color": "dark",
+   "material": "PETG",
+   "mass_g": 5.9,
+   "print": "palm_lid_l",
+   "note": "Covers the pinion. Print skin-down. Four M3x8 into the palm. No glue."
   },
   {
    "name": "shoulder_cover_top_l",
@@ -1843,7 +1843,7 @@
    "kind": "print",
    "color": "shell",
    "material": "PETG",
-   "mass_g": 23.6,
+   "mass_g": 20.6,
    "print": "shoulder_cover_bot_l",
    "note": "Shoulder cover half. Two M3x10 into inserts in the shoulder tab. Prints on the split face."
   },
@@ -1891,7 +1891,7 @@
    "kind": "print",
    "color": "shell",
    "material": "PETG",
-   "mass_g": 21.2,
+   "mass_g": 20.6,
    "print": "elbow_cover_b_l",
    "note": "Elbow cover half. Clamped by the two upper-arm collar bolts (M3x50 + nut); snaps shut at the bottom. Prints on the split face."
   },
@@ -1951,7 +1951,7 @@
    "kind": "print",
    "color": "frame",
    "material": "PETG",
-   "mass_g": 38.8,
+   "mass_g": 38.3,
    "print": "elbow_r",
    "note": "J4 output to the forearm flange."
   },
@@ -1975,7 +1975,7 @@
    "kind": "print",
    "color": "shell",
    "material": "PETG",
-   "mass_g": 50.6,
+   "mass_g": 47.4,
    "print": "forearm_b_r",
    "note": ""
   },
@@ -1987,9 +1987,9 @@
    "kind": "print",
    "color": "dark",
    "material": "PETG",
-   "mass_g": 56.3,
+   "mass_g": 54.2,
    "print": "wrist_r",
-   "note": "J5 horn and idler, holds J6."
+   "note": "J5 horn and idler, holds J6. Camera cable enters the skirt at the back."
   },
   {
    "name": "palm_r",
@@ -1999,9 +1999,9 @@
    "kind": "print",
    "color": "dark",
    "material": "PETG",
-   "mass_g": 52.1,
+   "mass_g": 66.8,
    "print": "palm_r",
-   "note": "J6 horn on top, J7 inside, rack channels underneath."
+   "note": "J6 horn on top, J7 inside, rack channels, camera shroud (28 mm pitch) and lid inserts. Print with the horn disc down."
   },
   {
    "name": "pinion_r",
@@ -2011,9 +2011,9 @@
    "kind": "print",
    "color": "frame",
    "material": "PETG",
-   "mass_g": 2.4,
+   "mass_g": 2.3,
    "print": "pinion_r",
-   "note": "16T module 1.5 on the J7 horn. 100% infill."
+   "note": "16T module-1.5 involute on the J7 horn. 100% PETG, or use a bought metal pinion of the same size."
   },
   {
    "name": "rack_a_r",
@@ -2023,7 +2023,7 @@
    "kind": "print",
    "color": "dark",
    "material": "PETG",
-   "mass_g": 4.2,
+   "mass_g": 5.4,
    "print": "rack_a_r",
    "note": "PETG rack and drop. Slides in from the +y end."
   },
@@ -2035,7 +2035,7 @@
    "kind": "print",
    "color": "dark",
    "material": "PETG",
-   "mass_g": 4.2,
+   "mass_g": 5.4,
    "print": "rack_b_r",
    "note": "PETG rack and drop. Slides in from the -y end."
   },
@@ -2047,9 +2047,9 @@
    "kind": "print",
    "color": "accent",
    "material": "TPU",
-   "mass_g": 6.2,
+   "mass_g": 9.5,
    "print": "finger_a_r",
-   "note": "Nori-style TPU 95A finger. Bolts to the rack."
+   "note": "TPU 95A, 34 mm curved pad, fingernail, FSR 402 pocket. Print pad-up, 100%, no supports."
   },
   {
    "name": "finger_b_r",
@@ -2059,9 +2059,21 @@
    "kind": "print",
    "color": "accent",
    "material": "TPU",
-   "mass_g": 6.3,
+   "mass_g": 9.6,
    "print": "finger_b_r",
-   "note": "Nori-style TPU 95A finger."
+   "note": "TPU 95A, 34 mm curved pad, fingernail, FSR 402 pocket."
+  },
+  {
+   "name": "palm_lid_r",
+   "file": "palm_lid_r.stl",
+   "link": "r_link6",
+   "group": "arm",
+   "kind": "print",
+   "color": "dark",
+   "material": "PETG",
+   "mass_g": 5.9,
+   "print": "palm_lid_r",
+   "note": "Covers the pinion. Print skin-down. Four M3x8 into the palm. No glue."
   },
   {
    "name": "shoulder_cover_top_r",
@@ -2083,7 +2095,7 @@
    "kind": "print",
    "color": "shell",
    "material": "PETG",
-   "mass_g": 23.6,
+   "mass_g": 20.6,
    "print": "shoulder_cover_bot_r",
    "note": "Shoulder cover half. Two M3x10 into inserts in the shoulder tab. Prints on the split face."
   },
@@ -2131,7 +2143,7 @@
    "kind": "print",
    "color": "shell",
    "material": "PETG",
-   "mass_g": 21.2,
+   "mass_g": 20.6,
    "print": "elbow_cover_b_r",
    "note": "Elbow cover half. Clamped by the two upper-arm collar bolts (M3x50 + nut); snaps shut at the bottom. Prints on the split face."
   },
@@ -3543,6 +3555,83 @@
    "material": "bought",
    "mass_g": 0.0,
    "bom": "busadapter"
+  },
+  {
+   "name": "reg_5v_torso",
+   "file": "reg_5v_torso.stl",
+   "link": "lift",
+   "group": "torso",
+   "kind": "electronics",
+   "color": "pcb_blue",
+   "material": "bought",
+   "mass_g": 8,
+   "bom": "pololu5"
+  },
+  {
+   "name": "reg_5v_torso_chip",
+   "file": "reg_5v_torso_chip.stl",
+   "link": "lift",
+   "group": "torso",
+   "kind": "electronics",
+   "color": "black",
+   "material": "bought",
+   "mass_g": 0.0,
+   "bom": "pololu5"
+  },
+  {
+   "name": "reg_5v_torso_pins",
+   "file": "reg_5v_torso_pins.stl",
+   "link": "lift",
+   "group": "torso",
+   "kind": "electronics",
+   "color": "black",
+   "material": "bought",
+   "mass_g": 0.0,
+   "bom": "pololu5"
+  },
+  {
+   "name": "buck_12v_arm_l",
+   "file": "buck_12v_arm_l.stl",
+   "link": "lift",
+   "group": "torso",
+   "kind": "electronics",
+   "color": "alu",
+   "material": "bought",
+   "mass_g": 280,
+   "bom": "buck12"
+  },
+  {
+   "name": "buck_12v_arm_l_terms",
+   "file": "buck_12v_arm_l_terms.stl",
+   "link": "lift",
+   "group": "torso",
+   "kind": "electronics",
+   "color": "black",
+   "material": "bought",
+   "mass_g": 0.0,
+   "bom": "buck12"
+  },
+  {
+   "name": "buck_12v_arm_r",
+   "file": "buck_12v_arm_r.stl",
+   "link": "lift",
+   "group": "torso",
+   "kind": "electronics",
+   "color": "alu",
+   "material": "bought",
+   "mass_g": 280,
+   "bom": "buck12"
+  },
+  {
+   "name": "buck_12v_arm_r_terms",
+   "file": "buck_12v_arm_r_terms.stl",
+   "link": "lift",
+   "group": "torso",
+   "kind": "electronics",
+   "color": "black",
+   "material": "bought",
+   "mass_g": 0.0,
+   "bom": "buck12"
   },
   {
    "name": "speaker",

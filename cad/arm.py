@@ -367,7 +367,7 @@ GRIP_TRAVEL = 50.0  # mm per finger; 100 mm opening
 NAIL = 3.5  # fingertip hook past the pad, mm
 HAND = W - (PINION_Z[0] - 60.0 - NAIL)  # wrist axis to fingernail
 TIP = W - HAND
-FINGER_TOP = HOUSING_Z[0] - 1.0
+FINGER_TOP = HOUSING_Z[0] - 3.1  # wide finger plate sits 0.5 mm below the lid
 RACK_X0 = GEAR_R + BACKLASH - GEAR_M  # tooth tips, from the axis
 RACK_X1 = GEAR_R + BACKLASH + 1.25 * GEAR_M + 5.0  # back of the rack body
 WRIST_CAM_X = X0 - 25.2  # USB camera board on the back of the palm, looking at the fingertips
@@ -506,10 +506,14 @@ def palm() -> cq.Shape:
     housing = rrect(X0, Y0, HOUSING_Z[0], HOUSING_Z[1], 50, 2 * HOUSING_Y, 6)
     # Camera shroud on the back: 32 x 32 UB0234, 28 mm square hole pitch, lens window toward the fingers.
     cam_z = (HOUSING_Z[0] + HOUSING_Z[1]) / 2
-    shroud = box(WRIST_CAM_X - 9.0, X0 - 24.0 - 0.4, Y0 - 18, Y0 + 18, cam_z - 18, cam_z + 18)
+    shroud_outer = box(WRIST_CAM_X - 9.5, X0 - 24.0 - 0.4, Y0 - 18, Y0 + 18, cam_z - 18, cam_z + 18)
+    shroud = cut(shroud_outer, box(WRIST_CAM_X - 8.8, X0 - 24.0, Y0 - 16.5, Y0 + 16.5, cam_z - 16.5, cam_z + 16.5))
     s = fuse(disc, sleeve, housing, shroud)
     tools = [box(sx0 - 0.3, sx1 + 0.3, Y0 - P.STS_W / 2 - 0.3, Y0 + P.STS_W / 2 + 0.3, J7_BODY_Z[0] - 0.01, J7_BODY_Z[1] + 0.3),
-             cyl((X0, Y0, PINION_Z[0] - 1), "z", 2 * (GEAR_R + GEAR_M) + 2, J7_BODY_Z[0] - PINION_Z[0] + 1.5)]
+             cyl((X0, Y0, PINION_Z[0] - 1), "z", 2 * (GEAR_R + GEAR_M) + 2, J7_BODY_Z[0] - PINION_Z[0] + 1.5),
+             # Pocket for the UB0234 board (x 0..1.6) and holder (x 1.6..8.6), 0.5 mm clearance.
+             box(WRIST_CAM_X - 9.1, WRIST_CAM_X + 0.5, Y0 - 16.5, Y0 + 16.5, cam_z - 16.5, cam_z + 16.5),
+             box(WRIST_CAM_X - 9.1, WRIST_CAM_X - 1.1, Y0 - 7.5, Y0 + 7.5, cam_z - 15.5, cam_z - 0.5)]
     for sgn in (1, -1):
         xa, xb = sorted((sgn * (RACK_X0 - 0.6), sgn * (RACK_X1 + 0.6)))
         tools.append(box(X0 + xa, X0 + xb, Y0 - HOUSING_Y - 1, Y0 + HOUSING_Y + 1, RACK_Z[0] - 0.4, RACK_Z[1] + 0.4))
@@ -532,12 +536,15 @@ def palm() -> cq.Shape:
 
 
 def palm_lid() -> cq.Shape:
-    """PETG lid over the pinion and racks. 0.4 mm clearance, four M3x8 into the palm."""
+    """PETG lid over the pinion and racks. 1.2 mm rack clearance, four M3x8 into the palm. One solid."""
     s = rrect(X0, Y0, LID_Z[0], LID_Z[1], 48, 2 * HOUSING_Y - 8, 5)
     tools = [cyl((X0, Y0, LID_Z[0] - 1), "z", 2 * (GEAR_R + GEAR_M) + 3.0, (LID_Z[1] - LID_Z[0]) + 0.6)]
-    for sgn in (1, -1):
-        xa, xb = sorted((sgn * (RACK_X0 - 0.8), sgn * (RACK_X1 + 0.8)))
-        tools.append(box(X0 + xa, X0 + xb, Y0 - HOUSING_Y, Y0 + HOUSING_Y, LID_Z[0] - 1, LID_Z[1] + 1))
+    # Staggered slots: each rack exits one Y end; a 5 mm bridge at the other end keeps one solid.
+    lid_hy = HOUSING_Y - 4.0
+    bridge = 5.0
+    for sgn, y_lo, y_hi in ((1, Y0 - lid_hy + bridge, Y0 + lid_hy + 1), (-1, Y0 - lid_hy - 1, Y0 + lid_hy - bridge)):
+        xa, xb = sorted((sgn * (RACK_X0 - 1.2), sgn * (RACK_X1 + 1.2)))
+        tools.append(box(X0 + xa, X0 + xb, y_lo, y_hi, LID_Z[0] - 1, LID_Z[1] + 1))
     for dx, dy in LID_SCREWS:
         tools.append(cyl_between("z", (X0 + dx, Y0 + dy), LID_Z[0] - 1, LID_Z[1] + 1, P.M3))
         tools.append(cyl_between("z", (X0 + dx, Y0 + dy), LID_Z[0] - 1, LID_Z[0] + 1.2, P.M3_HEAD))
