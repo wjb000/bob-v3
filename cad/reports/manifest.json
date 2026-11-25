@@ -7,10 +7,10 @@
  ],
  "density_g_cm3": 1.27,
  "fill": 0.55,
- "unique_prints": 94,
- "total_prints": 157,
- "print_mass_g": 5324.0,
- "robot_mass_g": 11724.0,
+ "unique_prints": 93,
+ "total_prints": 156,
+ "print_mass_g": 5333.0,
+ "robot_mass_g": 11733.0,
  "parts": [
   {
    "name": "base_shell_rear_r",
@@ -993,8 +993,8 @@
     70.0,
     28.0
    ],
-   "volume_cm3": 60.2,
-   "grams": 42.1
+   "volume_cm3": 59.0,
+   "grams": 41.2
   },
   {
    "name": "torso_lower_l",
@@ -1065,8 +1065,8 @@
     120.0,
     130.0
    ],
-   "volume_cm3": 203.5,
-   "grams": 142.2
+   "volume_cm3": 203.3,
+   "grams": 142.0
   },
   {
    "name": "torso_upper_r",
@@ -1089,8 +1089,8 @@
     120.0,
     130.0
    ],
-   "volume_cm3": 203.5,
-   "grams": 142.2
+   "volume_cm3": 203.3,
+   "grams": 142.0
   },
   {
    "name": "ear_l",
@@ -1141,52 +1141,28 @@
    "grams": 6.5
   },
   {
-   "name": "neck_collar",
-   "qty": 1,
-   "group": "head",
-   "link": "head_pan",
-   "material": "PETG",
-   "color": "dark",
-   "support_cm2": 0.0,
-   "walls": 4,
-   "infill": 20,
-   "note": "Clips around the neck yoke and hides the pan servo.",
-   "rot_deg": [
-    0,
-    0,
-    0
-   ],
-   "bed_mm": [
-    70.0,
-    58.0,
-    21.0
-   ],
-   "volume_cm3": 10.4,
-   "grams": 7.3
-  },
-  {
    "name": "neck_yoke",
    "qty": 1,
    "group": "head",
    "link": "head_pan",
    "material": "PETG",
    "color": "dark",
-   "support_cm2": 19.8,
+   "support_cm2": 27.0,
    "walls": 4,
    "infill": 20,
-   "note": "Pan horn below, tilt servo cradle above.",
+   "note": "Pan horn below, tilt servo cradle above, and the neck collar printed on (hides the pan horn). Prints on the disc and collar rim; support under the cradle.",
    "rot_deg": [
     180,
     0,
     0
    ],
    "bed_mm": [
-    53.7,
-    42.0,
+    83.0,
+    58.0,
     64.4
    ],
-   "volume_cm3": 39.8,
-   "grams": 27.8
+   "volume_cm3": 56.0,
+   "grams": 39.1
   },
   {
    "name": "head_frame",
@@ -1194,23 +1170,23 @@
    "group": "head",
    "link": "head_tilt",
    "material": "PETG",
-   "color": "frame",
-   "support_cm2": 80.2,
+   "color": "dark",
+   "support_cm2": 83.5,
    "walls": 4,
    "infill": 20,
-   "note": "Tilt horn and idler, camera post, eye plate. Its plate is the head's floor. Prints standing on the plate's back edge; use a brim.",
+   "note": "Tilt horn and idler, camera post, eye plate. Its plate is the head's floor, dark so the underside matches the visor, ears and neck. Prints standing on the plate's back edge; use a brim.",
    "rot_deg": [
     0,
     -90,
     0
    ],
    "bed_mm": [
-    124.0,
+    132.0,
     169.0,
     113.0
    ],
-   "volume_cm3": 126.6,
-   "grams": 88.4
+   "volume_cm3": 129.4,
+   "grams": 90.4
   },
   {
    "name": "eye_plate",
@@ -1257,8 +1233,8 @@
     136.0,
     4.6
    ],
-   "volume_cm3": 32.5,
-   "grams": 22.7
+   "volume_cm3": 38.6,
+   "grams": 27.0
   },
   {
    "name": "head_shell",
@@ -2277,6 +2253,7 @@
   "M2.5x6 screw (lidar)": 4,
   "M2x6 thread-forming (wrist camera)": 4,
   "M2x8 screw (horn)": 40,
+  "M2x8 thread-forming (head camera)": 4,
   "M3 heat-set insert": 261,
   "M3x10 socket head": 167,
   "M3x10 socket head (arm cover)": 16,
@@ -2291,7 +2268,6 @@
   "M3x16 socket head + nut (clamshell)": 14,
   "M3x16 socket head + nut (elbow flange)": 8,
   "M3x50 socket head + nut (upper arm + elbow cover)": 4,
-  "M3x6 screw (D435 rear)": 2,
   "M3x8 socket head (3095 horn)": 24,
   "M3x8 socket head (NEMA)": 4,
   "M5x16 socket head + nut (torso to cap)": 4,
@@ -2306,22 +2282,22 @@
    "com_mm": [
     6.0,
     5.6,
-    397.6
+    398.1
    ],
    "margin_front_mm": 171.0,
    "margin_rear_mm": 133.0,
    "margin_side_mm": 144.4,
-   "tip_deg_front": 23.3,
+   "tip_deg_front": 23.2,
    "tip_deg_rear": 18.5
   },
   "home": {
    "com_mm": [
-    47.9,
+    48.0,
     5.6,
-    274.5
+    274.8
    ],
-   "margin_front_mm": 129.1,
-   "margin_rear_mm": 174.9,
+   "margin_front_mm": 129.0,
+   "margin_rear_mm": 175.0,
    "margin_side_mm": 144.4,
    "tip_deg_front": 25.2,
    "tip_deg_rear": 32.5
@@ -2330,7 +2306,7 @@
    "com_mm": [
     50.6,
     5.6,
-    412.3
+    412.7
    ],
    "margin_front_mm": 126.4,
    "margin_rear_mm": 177.6,
@@ -2342,7 +2318,7 @@
    "com_mm": [
     46.7,
     5.6,
-    206.0
+    206.2
    ],
    "margin_front_mm": 130.3,
    "margin_rear_mm": 173.7,
@@ -2354,22 +2330,22 @@
    "com_mm": [
     13.0,
     5.6,
-    509.1
+    509.5
    ],
    "margin_front_mm": 164.0,
    "margin_rear_mm": 140.0,
    "margin_side_mm": 144.4,
-   "tip_deg_front": 17.9,
+   "tip_deg_front": 17.8,
    "tip_deg_rear": 15.4
   },
   "wave": {
    "com_mm": [
-    36.4,
+    36.5,
     23.7,
-    373.5
+    373.9
    ],
-   "margin_front_mm": 140.6,
-   "margin_rear_mm": 163.4,
+   "margin_front_mm": 140.5,
+   "margin_rear_mm": 163.5,
    "margin_side_mm": 126.3,
    "tip_deg_front": 20.6,
    "tip_deg_rear": 23.6
@@ -2391,5 +2367,5 @@
  },
  "errors": [],
  "warnings": [],
- "seconds": 372.9
+ "seconds": 405.2
 }

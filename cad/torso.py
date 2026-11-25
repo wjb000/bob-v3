@@ -145,6 +145,8 @@ def neck_mount(sz=S0) -> cq.Shape:
     s = fuse(plate, cradle)
     tools = [box(sx0, sx1, -P.STS_W / 2 - 0.3, P.STS_W / 2 + 0.3, sz + 12, z0 + 20),
              box(sx0 + 4, sx1 - 4, -6, 6, sz + 5, sz + 14)]
+    # neck harness hole behind the pan servo (tilt servo lead + three USB leads, about 8 mm bundle)
+    tools.append(cyl((NECK_X - 29.0, 0, z0 - 1), "z", 14.0, 10))
     for x, y in _neck_pts():
         tools.append(cyl((x, y, z0 - 1), "z", P.M3, 12))
         tools.append(cyl((x, y, z0 + 4), "z", P.M3_HEAD, 12))
@@ -246,6 +248,8 @@ def torso_shell(sz=S0) -> cq.Shape:
         tools.append(cyl((x, y, z1 - 1.2), "z", P.M3_HEAD, 3))
     for y, z in _shell_back_pts(sz):
         tools.append(cyl_between("x", (y, z), TX0 - 1, TX0 + 5, P.M3))
+    # neck harness hole in the top skin, over the neck_mount hole; the neck collar covers it
+    tools.append(cyl((NECK_X - 29.0, 0, z1 - 6), "z", 14.0, 10))
     # shoulder ports
     for sy in (1, -1):
         tools.append(cyl_between("y", (P.SHOULDER_X, sz), sy * (P.TORSO_HW - 10), sy * (P.TORSO_HW + 5), 64))

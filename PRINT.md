@@ -1,6 +1,6 @@
 # Print list
 
-94 unique files, 157 prints, about 5.3 kg of filament at the settings below.
+93 unique files, 156 prints, about 5.3 kg of filament at the settings below.
 Every part fits a 200 x 200 x 200 mm volume (Prusa MK4, Ender-3, Bambu A1/P1/X1, Core One).
 The STLs in `cad/stl/` are already oriented: flat face down, no rotating. Grams are at 4 walls and 20% gyroid.
 
@@ -69,23 +69,22 @@ The STLs in `cad/stl/` are already oriented: flat face down, no rotating. Grams 
 | `torso_back_plate.stl` | 1 | grey PETG | 124 x 140 x 8 | 95 | none | Yokes bolt to the front face. The Pi and the bus adapters sit beside the column. |
 | `yoke_l.stl` | 1 | grey PETG | 125 x 146 x 116 | 343 | 142 cm² | Holds the left J1 STS3095. Prints on its centre face, cup up. 5 walls, 30% infill. |
 | `yoke_r.stl` | 1 | grey PETG | 125 x 146 x 116 | 343 | 142 cm² | Mirror of yoke_l. |
-| `neck_mount.stl` | 1 | grey PETG | 108 x 70 x 28 | 42 | 8 cm² | Pan servo cradle, bridges the yokes. |
+| `neck_mount.stl` | 1 | grey PETG | 108 x 70 x 28 | 41 | 8 cm² | Pan servo cradle, bridges the yokes. |
 | `torso_lower_l.stl` | 1 | white PETG | 150 x 120 x 90 | 85 | 6 cm² | Lower tier prints floor-down; upper tier prints top-down. |
 | `torso_lower_r.stl` | 1 | white PETG | 150 x 120 x 90 | 85 | 6 cm² | Lower tier prints floor-down; upper tier prints top-down. |
 | `torso_upper_l.stl` | 1 | white PETG | 150 x 120 x 130 | 142 | 67 cm² | Lower tier prints floor-down; upper tier prints top-down. |
 | `torso_upper_r.stl` | 1 | white PETG | 150 x 120 x 130 | 142 | 67 cm² | Lower tier prints floor-down; upper tier prints top-down. |
 
-## Head (0.35 kg)
+## Head (0.36 kg)
 
 | File | Qty | Colour | Bed mm | g each | Support | Note |
 | --- | ---: | --- | --- | ---: | --- | --- |
 | `ear_l.stl` | 1 | black PETG | 50 x 50 x 12 | 6 | 17 cm² | Press-fits into the head's left side. Speaker grille. |
 | `ear_r.stl` | 1 | black PETG | 50 x 50 x 12 | 6 | 17 cm² | Mic grille. |
-| `neck_collar.stl` | 1 | black PETG | 70 x 58 x 21 | 7 | none | Clips around the neck yoke and hides the pan servo. |
-| `neck_yoke.stl` | 1 | black PETG | 54 x 42 x 64 | 28 | 20 cm² | Pan horn below, tilt servo cradle above. |
-| `head_frame.stl` | 1 | grey PETG | 124 x 169 x 113 | 88 | 80 cm² | Tilt horn and idler, camera post, eye plate. Its plate is the head's floor. Prints standing on the plate's back edge; use a brim. |
+| `neck_yoke.stl` | 1 | black PETG | 83 x 58 x 64 | 39 | 27 cm² | Pan horn below, tilt servo cradle above, and the neck collar printed on (hides the pan horn). Prints on the disc and collar rim; support under the cradle. |
+| `head_frame.stl` | 1 | black PETG | 132 x 169 x 113 | 90 | 84 cm² | Tilt horn and idler, camera post, eye plate. Its plate is the head's floor, dark so the underside matches the visor, ears and neck. Prints standing on the plate's back edge; use a brim. |
 | `eye_plate.stl` | 1 | grey PETG | 46 x 110 x 25 | 15 | 17 cm² | Two GC9A01 round TFTs. |
-| `visor.stl` | 1 | black PETG | 88 x 136 x 5 | 23 | none | Black PETG, face down. Eye and camera windows. |
+| `visor.stl` | 1 | black PETG | 88 x 136 x 5 | 27 | none | Black PETG, face down. Eye and camera windows. |
 | `head_shell.stl` | 1 | white PETG | 120 x 176 x 143 | 176 | 8 cm² | One piece, top down, open at the bottom. Visor fits from inside. Drops over the frame; 4 M3x10 up through the frame plate into the side-wall inserts. |
 
 ## Arms (1.20 kg)

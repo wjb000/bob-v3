@@ -27,7 +27,7 @@
    ]
   },
   "lift": {
-   "mass_g": 2111.4,
+   "mass_g": 2110.1,
    "com": [
     -3.3,
     0.7,
@@ -35,19 +35,19 @@
    ]
   },
   "head_tilt": {
-   "mass_g": 386.0,
+   "mass_g": 392.3,
    "com": [
-    38.8,
+    39.4,
     0.1,
-    583.2
+    583.8
    ]
   },
   "head_pan": {
-   "mass_g": 90.1,
+   "mass_g": 94.1,
    "com": [
-    14.2,
-    -4.9,
-    501.7
+    13.7,
+    -4.8,
+    500.3
    ]
   },
   "l_link1": {
@@ -195,7 +195,7 @@
    ]
   }
  },
- "total_mass_g": 11724.1,
+ "total_mass_g": 11733.1,
  "joints": [
   {
    "name": "lift",
@@ -1375,7 +1375,7 @@
    "kind": "print",
    "color": "frame",
    "material": "PETG",
-   "mass_g": 42.1,
+   "mass_g": 41.2,
    "print": "neck_mount",
    "note": "Pan servo cradle, bridges the yokes."
   },
@@ -1411,7 +1411,7 @@
    "kind": "print",
    "color": "shell",
    "material": "PETG",
-   "mass_g": 142.2,
+   "mass_g": 142.0,
    "print": "torso_upper_l",
    "note": "Lower tier prints floor-down; upper tier prints top-down."
   },
@@ -1423,7 +1423,7 @@
    "kind": "print",
    "color": "shell",
    "material": "PETG",
-   "mass_g": 142.2,
+   "mass_g": 142.0,
    "print": "torso_upper_r",
    "note": "Lower tier prints floor-down; upper tier prints top-down."
   },
@@ -1452,18 +1452,6 @@
    "note": "Mic grille."
   },
   {
-   "name": "neck_collar",
-   "file": "neck_collar.stl",
-   "link": "head_pan",
-   "group": "head",
-   "kind": "print",
-   "color": "dark",
-   "material": "PETG",
-   "mass_g": 7.3,
-   "print": "neck_collar",
-   "note": "Clips around the neck yoke and hides the pan servo."
-  },
-  {
    "name": "neck_yoke",
    "file": "neck_yoke.stl",
    "link": "head_pan",
@@ -1471,9 +1459,9 @@
    "kind": "print",
    "color": "dark",
    "material": "PETG",
-   "mass_g": 27.8,
+   "mass_g": 39.1,
    "print": "neck_yoke",
-   "note": "Pan horn below, tilt servo cradle above."
+   "note": "Pan horn below, tilt servo cradle above, and the neck collar printed on (hides the pan horn). Prints on the disc and collar rim; support under the cradle."
   },
   {
    "name": "head_frame",
@@ -1481,11 +1469,11 @@
    "link": "head_tilt",
    "group": "head",
    "kind": "print",
-   "color": "frame",
+   "color": "dark",
    "material": "PETG",
-   "mass_g": 88.4,
+   "mass_g": 90.4,
    "print": "head_frame",
-   "note": "Tilt horn and idler, camera post, eye plate. Its plate is the head's floor. Prints standing on the plate's back edge; use a brim."
+   "note": "Tilt horn and idler, camera post, eye plate. Its plate is the head's floor, dark so the underside matches the visor, ears and neck. Prints standing on the plate's back edge; use a brim."
   },
   {
    "name": "eye_plate",
@@ -1507,7 +1495,7 @@
    "kind": "print",
    "color": "dark",
    "material": "PETG",
-   "mass_g": 22.7,
+   "mass_g": 27.0,
    "print": "visor",
    "note": "Black PETG, face down. Eye and camera windows."
   },

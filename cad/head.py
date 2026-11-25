@@ -1,5 +1,5 @@
 """Head: pan/tilt neck on two STS3215, white shell, dark visor with two round
-GC9A01 'eyes' and a RealSense D435i behind a window.
+GC9A01 'eyes' and a 38 mm USB wide-angle camera behind a round lens window.
 """
 
 from __future__ import annotations
@@ -41,7 +41,14 @@ TILT_BODY = dict(x=(NX - P.STS_SHAFT_FROM_END, NX - P.STS_SHAFT_FROM_END + P.STS
 TILT_HORN_Y = 13.0 + 4.0
 POST_X = (HX1 - 38.0, HX1 - 30.0)
 EAR_X, EAR_Z, EAR_D, EAR_T, EAR_SPIGOT = HCX, S + 176.0, 50.0, 6.0, 20.0
-COLLAR = dict(cx=NX + 10.0, cy=-4.0, lx=70.0, ly=58.0, r=24.0, z0=S + 53.0, z1=S + 74.0)
+# The collar is printed on the yoke (ribs to the column), so it sits flat on the bed with the disc.
+# Its back is 13 mm deeper than the old clip-on collar to give the neck harness a channel behind the column.
+COLLAR = dict(cx=NX + 3.5, cy=-4.0, lx=83.0, ly=58.0, r=24.0, z0=PAN_HORN_Z, z1=S + 74.0, wall=2.4)
+HARNESS_X = NX - 24.0  # neck harness centreline behind the column (x), from the neck_mount hole up into the head
+# Head camera: 38 x 38 board on 4 short bosses in front of the post, lens through a round
+# 45 degree window in the visor (prints face down without support, clears the 120 degree lens).
+CAM_BOARD_X = HX1 - HWALL - 2 - 20.5 - 0.3  # board front face (vendor.rgb_cam origin)
+CAM_HOLE = P.HEAD_CAM_HOLE
 
 
 def neck_yoke() -> cq.Shape:
@@ -50,9 +57,20 @@ def neck_yoke() -> cq.Shape:
     tb = TILT_BODY
     cradle = box(tb["x"][0] - 3, tb["x"][1] + 3, tb["y"][0] - 3, tb["y"][1] + 0.01, tb["z"][0] - 3, tb["z"][1] + 3)
     column = box(NX - 12, NX + 12, -16, 8, z0, tb["z"][0])
-    s = fuse(disc, column, cradle)
+    c = COLLAR
+    collar = rrect_shell(c["cx"], c["cy"], c["z0"], c["z1"], c["lx"], c["ly"], c["r"], c["wall"], open_top=True, open_bot=True)
+    # three ribs tie the collar to the column; the back (-x) quadrant stays open for the neck cables
+    ri = 0.5  # into the collar wall
+    ribs = [box(NX + 12 - 0.01, c["cx"] + c["lx"] / 2 - c["wall"] + ri, -1.5, 1.5, z0, c["z1"] - 4),
+            box(NX - 1.5, NX + 1.5, 8 - 0.01, c["cy"] + c["ly"] / 2 - c["wall"] + ri, z0, c["z1"] - 4),
+            box(NX - 1.5, NX + 1.5, c["cy"] - c["ly"] / 2 + c["wall"] - ri, -16 + 0.01, z0, c["z1"] - 4)]
+    stub = box(NX - 18.0, NX - 12 + 0.01, -2.0, 2.0, z0 + 18, z0 + 28)
+    s = fuse(disc, column, cradle, collar, stub, *ribs)
     tools = [box(tb["x"][0] - 0.3, tb["x"][1] + 0.3, tb["y"][0] - 0.3, tb["y"][1] + 5, tb["z"][0] - 0.3, tb["z"][1] + 0.3)]
     tools += _horn_holes((NX, 0, 0), "z", z0, (0, 0, 1), depth=8)
+    # tie stub on the column's back face: the tilt servo lead and the three USB leads run up the
+    # open back of the collar behind it and are zip-tied through its slot before they enter the head
+    tools.append(box(NX - 16.0, NX - 13.5, -2.0 - 0.5, 2.0 + 0.5, z0 + 21, z0 + 25))
     # idler pin boss on the -Y side of the cradle
     tools.append(cyl_between("y", (NX, TILT_Z), tb["y"][0] - 4, tb["y"][0] + 1, P.M3_INSERT))
     hw("M3 heat-set insert", 1)
@@ -67,13 +85,18 @@ def head_frame() -> cq.Shape:
     rounds = [cyl_between("y", (NX, TILT_Z), TILT_HORN_Y, TILT_HORN_Y + 5, 28),
               cyl_between("y", (NX, TILT_Z), tb["y"][0] - 9, tb["y"][0] - 4, 28)]
     # camera post; the eye plate hangs off its front
-    post = box(POST_X[0], POST_X[1], -40, 40, FRAME_Z[1] - 0.01, CAM_Z + 14)
-    s = fuse(plate, cheek_h, cheek_i, *rounds, post)
+    post = box(POST_X[0], POST_X[1], -40, 40, FRAME_Z[1] - 0.01, CAM_Z + CAM_HOLE / 2 + 5)
+    bx0, bx1 = POST_X[1] - 0.01, CAM_BOARD_X - 1.6 - 0.2  # bosses stop 0.2 mm short of the board back
+    cam_pts = [(y, CAM_Z + z) for y in (-CAM_HOLE / 2, CAM_HOLE / 2) for z in (-CAM_HOLE / 2, CAM_HOLE / 2)]
+    bosses = [cyl_between("x", p, bx0, bx1, 5.0) for p in cam_pts]
+    s = fuse(plate, cheek_h, cheek_i, *rounds, post, *bosses)
     tools = _horn_holes((NX, 0, TILT_Z), "y", TILT_HORN_Y, (0, 1, 0), depth=8)
     tools.append(cyl_between("y", (NX, TILT_Z), tb["y"][0] - 10, tb["y"][0] - 3, P.M3))
-    for y in (-22.5, 22.5):  # D435 rear M3 pair, VERIFY spacing
-        tools.append(cyl_between("x", (y, CAM_Z), POST_X[0] - 1, POST_X[1] + 1, P.M3))
-        tools.append(cyl_between("x", (y, CAM_Z), POST_X[0] - 1, POST_X[0] + 3, P.M3_HEAD))
+    for p in cam_pts:  # M2 thread-forming from the front, through the board into the boss
+        tools.append(cyl_between("x", p, POST_X[1] - 6, bx1 + 1, 1.7))
+    # windows through the post: camera USB lead behind the board, eye SPI lead between the eye-plate arms
+    tools.append(box(POST_X[0] - 1, POST_X[1] + 1, -9, 9, CAM_Z - 6, CAM_Z + 6))
+    tools.append(box(POST_X[0] - 1, POST_X[1] + 1, -5, 5, EYE_Z - 6, EYE_Z + 6))
     for y in (-EYE_ARM_Y, EYE_ARM_Y):  # eye plate screws
         tools.append(cyl_between("x", (y, EYE_Z), POST_X[0] - 1, POST_X[1] + 1, P.M3))
         tools.append(cyl_between("x", (y, EYE_Z), POST_X[0] - 1, POST_X[0] + 3, P.M3_HEAD))
@@ -81,7 +104,7 @@ def head_frame() -> cq.Shape:
     tools.append(rrect(NX + 18, -5, FRAME_Z[0] - 1, FRAME_Z[1] + 1, 92, 41, 8))
     for x, y in _floor_pts():  # the shell's corbels sit on the plate here
         tools.append(cyl((x, y, FRAME_Z[0] - 1), "z", P.M3, FRAME_Z[1] - FRAME_Z[0] + 2))
-    hw("M3x6 screw (D435 rear)", 2)
+    hw("M2x8 thread-forming (head camera)", len(cam_pts))
     return cut(s, *tools)
 
 
@@ -136,8 +159,10 @@ def visor() -> cq.Shape:
     tools = []
     for y in (-EYE_Y, EYE_Y):
         tools.append(cyl_between("x", (y, EYE_Z), x0 - 5, x0 + 10, P.EYE_GLASS + 0.6))
-    tools.append(cq.Workplane("YZ").workplane(offset=x0 - 5).center(0, CAM_Z).sketch().rect(P.D435[0] - 4, P.D435[2] - 6)
-                 .vertices().fillet(8).finalize().extrude(20).val())
+    # round lens window, 45 degree cone opening to the face
+    r0, xb = 6.5, x0 - 2.01
+    h = HX1 - xb + 0.5
+    tools.append(cq.Solid.makeCone(r0, r0 + h, h, cq.Vector(xb, 0, CAM_Z), cq.Vector(1, 0, 0)))
     return cut(s, *tools)
 
 
@@ -175,19 +200,16 @@ def ear(sy) -> cq.Shape:
     return cut(s, *tools)
 
 
-def neck_collar() -> cq.Shape:
-    c = COLLAR
-    return rrect_shell(c["cx"], c["cy"], c["z0"], c["z1"], c["lx"], c["ly"], c["r"], 2.4, open_top=True, open_bot=True)
-
-
 def parts() -> list[Part]:
     out = [
         Part("ear_l", ear(1), "head_tilt", "head", color="dark", rot=(90, 0, 0), note="Press-fits into the head's left side. Speaker grille."),
         Part("ear_r", ear(-1), "head_tilt", "head", color="dark", rot=(-90, 0, 0), note="Mic grille."),
-        Part("neck_collar", neck_collar(), "head_pan", "head", color="dark", note="Clips around the neck yoke and hides the pan servo."),
-        Part("neck_yoke", neck_yoke(), "head_pan", "head", color="dark", note="Pan horn below, tilt servo cradle above."),
-        Part("head_frame", head_frame(), "head_tilt", "head", color="frame", rot=(0, -90, 0),
-             note="Tilt horn and idler, camera post, eye plate. Its plate is the head's floor. "
+        Part("neck_yoke", neck_yoke(), "head_pan", "head", color="dark",
+             note="Pan horn below, tilt servo cradle above, and the neck collar printed on (hides the pan horn). "
+                  "Prints on the disc and collar rim; support under the cradle."),
+        Part("head_frame", head_frame(), "head_tilt", "head", color="dark", rot=(0, -90, 0),
+             note="Tilt horn and idler, camera post, eye plate. Its plate is the head's floor, dark so the underside "
+                  "matches the visor, ears and neck. "
                   "Prints standing on the plate's back edge; use a brim."),
         Part("eye_plate", eye_plate(), "head_tilt", "head", color="frame", note="Two GC9A01 round TFTs."),
         Part("visor", visor(), "head_tilt", "head", color="dark", rot=(0, -90, 0),
