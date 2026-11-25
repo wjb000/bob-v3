@@ -102,21 +102,21 @@
   }
  },
  "hold": {
-  "ok": false,
-  "worst_err_deg": 3.86,
+  "ok": true,
+  "worst_err_deg": 0.01,
   "tilt_deg": 0.26,
   "saturated": {},
   "errors": {
-   "r_shoulder_pitch": 3.86,
-   "l_shoulder_pitch": 3.86,
-   "r_shoulder_roll": 0.02,
+   "r_shoulder_pitch": 0.0,
+   "l_shoulder_pitch": 0.0,
+   "r_shoulder_roll": 0.01,
    "l_shoulder_roll": 0.01,
-   "r_upper_arm_yaw": 0.17,
-   "l_upper_arm_yaw": 0.17,
-   "r_elbow": 1.39,
-   "l_elbow": 1.39,
-   "r_wrist_pitch": 0.34,
-   "l_wrist_pitch": 0.34
+   "r_upper_arm_yaw": 0.0,
+   "l_upper_arm_yaw": 0.0,
+   "r_elbow": 0.0,
+   "l_elbow": 0.0,
+   "r_wrist_pitch": 0.0,
+   "l_wrist_pitch": 0.0
   }
  },
  "lift": {

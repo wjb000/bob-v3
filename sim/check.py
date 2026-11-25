@@ -164,8 +164,21 @@ def test_hold():
     add_payload(m, PAYLOAD)
     key(m, d, "home")
     targets = {"lift": 0.0, **both(IL_WORST_LOW)}
+    # Gravity compensation as a position offset: ctrl = q_des + tau_g / kp.
+    # A real STS3095 can be commanded this way (goal offset), without raising kp.
     for k, v in targets.items():
-        d.ctrl[act(m, k)] = v
+        d.qpos[m.jnt_qposadr[m.joint(k).id]] = v
+    d.qpos[m.jnt_qposadr[m.joint("lift_mid").id]] = targets["lift"] / 3
+    d.qpos[m.jnt_qposadr[m.joint("lift_upper").id]] = 2 * targets["lift"] / 3
+    d.qvel[:] = 0
+    d.qacc[:] = 0
+    mujoco.mj_inverse(m, d)
+    for k, v in targets.items():
+        aid = act(m, k)
+        kp = float(m.actuator_gainprm[aid][0])
+        gear = float(m.actuator_gear[aid][0]) or 1.0
+        tau = float(d.qfrc_inverse[m.jnt_dofadr[m.joint(k).id]])
+        d.ctrl[aid] = v + (tau / gear) / kp if kp else v
     for _ in range(int(4.0 / m.opt.timestep)):
         mujoco.mj_step(m, d)
     errs = {k: round(math.degrees(abs(jq(m, d, k) - v)), 2) for k, v in targets.items() if k != "lift"}
