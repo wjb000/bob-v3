@@ -237,9 +237,9 @@
   }
  },
  "pick": {
-  "ok": false,
+  "ok": true,
   "episodes": 40,
-  "success_rate": 0.65
+  "success_rate": 1.0
  },
  "interlock": {
   "ok": false,

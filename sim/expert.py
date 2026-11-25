@@ -5,8 +5,9 @@ so its demonstrations are learnable by behaviour cloning. It drives the same 8-n
 action the learner gets.
 
   approach: tool point to 10 cm above the cube, gripper open
-  descend:  once over the cube, tool point to the cube centre
-  close:    once at the cube, close the gripper
+  descend:  once over the cube, tool point 15 mm above the cube centre
+            (the next-gen fingertips / nails would hit the table at the centre)
+  close:    once at the grasp point, close to a tight 18 mm per finger
   lift:     once both pads touch, raise 13 cm
 """
 
@@ -15,6 +16,14 @@ from __future__ import annotations
 import numpy as np
 
 from bob_env import LIFT_SPEED, CTRL_DT, MAX_DQ, BobV3Env, Ik
+
+# Next-gen fingers close to a 0 mm gap and carry a fingernail past the pad.
+# Aim the tool point 15 mm above the 45 mm cube's centre so the nails stay off
+# the table, and close a little tighter than the cube (22.5 mm per finger).
+GRASP_Z = 0.015
+PRE_Z = 0.10
+UP_Z = 0.13
+CLOSE_Q = 0.018  # metres per finger
 
 
 def _tilt(a):
@@ -44,14 +53,14 @@ class Expert:
         lift_hi = float(env.m.jnt_range[env.m.joint("lift").id][1])
         lifts = sorted(set(np.round(np.arange(0.20, lift_hi + 1e-9, 0.05), 3)) | {round(lift_hi, 3)})
         for lift in sorted(lifts, key=lambda v: abs(v - min(0.5, lift_hi))):
-            for tilt in (0.0, 0.35, 0.7):
+            for tilt in (0.0, 0.35, 0.5, 0.7, 1.0):
                 for seed in seeds:
                     q0 = seed.copy()
                     q0[env.lift_q] = lift
                     rot = _tilt(tilt)
                     good = True
                     sols = {}
-                    for name, off in (("pre", [0, 0, 0.10]), ("grasp", [0, 0, 0.0]), ("up", [0, 0, 0.13])):
+                    for name, off in (("pre", [0, 0, PRE_Z]), ("grasp", [0, 0, GRASP_Z]), ("up", [0, 0, UP_Z])):
                         qa, ok = ik.solve(q0, cube + off, rot)
                         if not ok or not self._clear(q0, ik.qadr, qa):
                             good = False
@@ -62,7 +71,8 @@ class Expert:
                     if good:
                         self.plan_q = sols
                         return lift, rot
-        return min(0.5, lift_hi), np.eye(3)
+        # Fallback: a mid-travel lift and a downward hand tilt, not the column top with a level tool.
+        return min(0.35, lift_hi), _tilt(0.7)
 
     def _clear(self, q, adr, qa) -> bool:
         """No contact except the fingers on the cube and the wheels on the floor, with 1 cm of margin to the joint limits."""
@@ -94,17 +104,20 @@ class Expert:
         touch = [d.sensordata[env.m.sensor_adr[s]] > 0.5 for s in env.touch]
         grip_q = d.qpos[env.grip_q]
         lift_now = d.qpos[env.lift_q]
+        glo, ghi = env.m.actuator_ctrlrange[env.grip_act]
+        close = np.clip(2.0 * (CLOSE_Q - glo) / (ghi - glo) - 1.0, -1.0, 1.0)
         grip = 1.0
+        grasp = cube + [0.0, 0.0, GRASP_Z]
         if all(touch) and grip_q < 0.03:
-            target, phase = env.cube_start + [0, 0, 0.13], "up"
-            grip = -1.0
-        elif np.linalg.norm(tcp - cube) < 0.015 or (any(touch) and np.linalg.norm(tcp[:2] - cube[:2]) < 0.02):
-            target, phase = cube, "grasp"
-            grip = -1.0
-        elif np.linalg.norm(tcp[:2] - cube[:2]) < 0.02 and tcp[2] > cube[2] - 0.005:
-            target, phase = cube, "grasp"
+            target, phase = env.cube_start + [0, 0, UP_Z], "up"
+            grip = close
+        elif np.linalg.norm(tcp - grasp) < 0.015 or (any(touch) and np.linalg.norm(tcp[:2] - cube[:2]) < 0.02):
+            target, phase = grasp, "grasp"
+            grip = close
+        elif np.linalg.norm(tcp[:2] - cube[:2]) < 0.02 and tcp[2] > grasp[2] - 0.02:
+            target, phase = grasp, "grasp"
         else:
-            target, phase = cube + [0, 0, 0.10], "pre"
+            target, phase = cube + [0, 0, PRE_Z], "pre"
         a = np.zeros(8)
         if abs(lift_now - self.lift) > 0.004:
             a[7] = np.clip((self.lift - d.ctrl[env.lift_act]) / (LIFT_SPEED * CTRL_DT), -1, 1)
