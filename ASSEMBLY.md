@@ -96,8 +96,9 @@ One PET sleeve carries the chest power (5 V to the Pi, 12 V to both servo buses)
 ## 8. Head
 
 1. `neck_yoke` onto the pan horn. Put the tilt STS3215 in its cradle.
-2. `head_frame` onto the tilt horn and the idler. Bolt the head camera to the post. Press the ears into the side walls. Fit the `eye_plate` with both GC9A01 and the ESP32-S3.
-3. Put the `visor` in the front opening of `head_upper`. The eye plate clamps its lip. Close `head_lower` to `head_upper` with joiner tabs, then screw the floor to the frame from below.
+2. `head_frame` onto the tilt horn and the idler. Bolt the head camera to the post. Fit the `eye_plate` with both GC9A01 and the ESP32-S3. The frame's plate is the head's floor.
+3. Press inserts into the four side-wall bosses of `head_shell` and put the `visor` in its front opening from inside. Lower the shell over the frame from above until the bosses sit on the plate; the eye plate clamps the visor lip. Drive 4 × M3×10 up through the plate into the bosses.
+4. Press the ears into the side walls last. Their spigots reach inside the wall, so they go in after the shell is on.
 
 ## 9. Bring-up
 

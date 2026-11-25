@@ -35,11 +35,11 @@
    ]
   },
   "head_tilt": {
-   "mass_g": 404.8,
+   "mass_g": 386.0,
    "com": [
-    38.4,
+    38.8,
     0.1,
-    580.3
+    583.2
    ]
   },
   "head_pan": {
@@ -195,7 +195,7 @@
    ]
   }
  },
- "total_mass_g": 11742.9,
+ "total_mass_g": 11724.1,
  "joints": [
   {
    "name": "lift",
@@ -1483,9 +1483,9 @@
    "kind": "print",
    "color": "frame",
    "material": "PETG",
-   "mass_g": 69.7,
+   "mass_g": 88.4,
    "print": "head_frame",
-   "note": "Tilt horn and idler, camera post, eye plate."
+   "note": "Tilt horn and idler, camera post, eye plate. Its plate is the head's floor. Prints standing on the plate's back edge; use a brim."
   },
   {
    "name": "eye_plate",
@@ -1512,28 +1512,16 @@
    "note": "Black PETG, face down. Eye and camera windows."
   },
   {
-   "name": "head_lower",
-   "file": "head_lower.stl",
+   "name": "head_shell",
+   "file": "head_shell.stl",
    "link": "head_tilt",
    "group": "head",
    "kind": "print",
    "color": "shell",
    "material": "PETG",
-   "mass_g": 56.7,
-   "print": "head_lower",
-   "note": "Floor down."
-  },
-  {
-   "name": "head_upper",
-   "file": "head_upper.stl",
-   "link": "head_tilt",
-   "group": "head",
-   "kind": "print",
-   "color": "shell",
-   "material": "PETG",
-   "mass_g": 147.2,
-   "print": "head_upper",
-   "note": "Top down. Visor fits from inside."
+   "mass_g": 176.2,
+   "print": "head_shell",
+   "note": "One piece, top down, open at the bottom. Visor fits from inside. Drops over the frame; 4 M3x10 up through the frame plate into the side-wall inserts."
   },
   {
    "name": "shoulder_l",
@@ -2720,78 +2708,6 @@
    "color": "frame",
    "material": "PETG",
    "mass_g": 1.6,
-   "print": "joiner_tab",
-   "note": "Joiner tab"
-  },
-  {
-   "name": "joiner_59",
-   "file": "joiner_59.stl",
-   "link": "head_tilt",
-   "group": "head",
-   "kind": "print",
-   "color": "frame",
-   "material": "PETG",
-   "mass_g": 1.6,
-   "print": "joiner_tab",
-   "note": "Joiner tab"
-  },
-  {
-   "name": "joiner_60",
-   "file": "joiner_60.stl",
-   "link": "head_tilt",
-   "group": "head",
-   "kind": "print",
-   "color": "frame",
-   "material": "PETG",
-   "mass_g": 1.6,
-   "print": "joiner_tab",
-   "note": "Joiner tab"
-  },
-  {
-   "name": "joiner_61",
-   "file": "joiner_61.stl",
-   "link": "head_tilt",
-   "group": "head",
-   "kind": "print",
-   "color": "frame",
-   "material": "PETG",
-   "mass_g": 1.6,
-   "print": "joiner_tab",
-   "note": "Joiner tab"
-  },
-  {
-   "name": "joiner_62",
-   "file": "joiner_62.stl",
-   "link": "head_tilt",
-   "group": "head",
-   "kind": "print",
-   "color": "frame",
-   "material": "PETG",
-   "mass_g": 1.6,
-   "print": "joiner_tab",
-   "note": "Joiner tab"
-  },
-  {
-   "name": "joiner_63",
-   "file": "joiner_63.stl",
-   "link": "head_tilt",
-   "group": "head",
-   "kind": "print",
-   "color": "frame",
-   "material": "PETG",
-   "mass_g": 1.7,
-   "print": "joiner_tab",
-   "note": "Joiner tab"
-  },
-  {
-   "name": "joiner_64",
-   "file": "joiner_64.stl",
-   "link": "head_tilt",
-   "group": "head",
-   "kind": "print",
-   "color": "frame",
-   "material": "PETG",
-   "mass_g": 1.7,
    "print": "joiner_tab",
    "note": "Joiner tab"
   },
