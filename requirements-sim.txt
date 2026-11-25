@@ -6,3 +6,4 @@ pillow
 imageio
 torch
 stable-baselines3
+scipy

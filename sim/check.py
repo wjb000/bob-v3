@@ -650,9 +650,23 @@ def test_interlock():
                                                z_below_shoulder_high_m=-IL.Z_CAP_HIGH_M))
 
 
+# ---------------------------------------------------------------- 12 cables
+
+def test_cables():
+    """Every wire's 3D route (harness.json, from docs/harness.py) clears servos and shells by radius + 1 mm in the named
+    poses, and has at least 3 mm of slack across every joint and the lift at both limits of each joint."""
+    sys.path.insert(0, str(HERE))
+    import cables
+    r = cables.check()
+    for h in r["hits"][:12]:
+        print(f"        {h['wire']:<12} {h['part']:<22} {h['clear_mm']:>6} mm  {h['pose']}")
+    report("cables", r["ok"], wires=r["wires"], worst_clear_mm=r["worst_clear_mm"], worst_slack_mm=r["worst_slack_mm"],
+           hits=len(r["hits"]), short=len(r["short"]), parts_in_the_way=sorted({h["part"] for h in r["hits"]}))
+
+
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
-    tests = [test_stand, test_torque, test_hold, test_lift, test_tip, test_brake, test_push, test_slope, test_reach, test_tasks, test_pick, test_interlock]
+    tests = [test_stand, test_torque, test_hold, test_lift, test_tip, test_brake, test_push, test_slope, test_reach, test_tasks, test_pick, test_interlock, test_cables]
     only = sys.argv[1:]
     try:
         for t in tests:

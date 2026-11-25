@@ -393,7 +393,7 @@ def main():
                 z.write(ROOT / doc, f"bob-v3/{doc}")
     print("sim zip")
     with zipfile.ZipFile(dst / "bob-v3-sim.zip", "w", zipfile.ZIP_DEFLATED) as z:
-        for f in ["bob_v3.xml", "bob_env.py", "expert.py", "train.py", "record_demos.py", "check.py", "interlock.py", "README.md"]:
+        for f in ["bob_v3.xml", "bob_env.py", "expert.py", "train.py", "record_demos.py", "check.py", "interlock.py", "cables.py", "harness.json", "README.md"]:
             if (ROOT / "sim" / f).exists():
                 z.write(ROOT / "sim" / f, f"bob-v3-sim/{f}")
         for f in sorted((ROOT / "sim" / "assets").glob("*.stl")):
@@ -418,15 +418,32 @@ def main():
                      x_rear_mm=IL.X_REAR_M * 1000, z_low_mm=IL.Z_CAP_LOW_M * 1000, z_high_mm=IL.Z_CAP_HIGH_M * 1000,
                      tip_mm={s: [round(float(v) * 1000, 1) for v in md.site_xpos[mm.site(f"tcp_{s}").id] - b0] for s in "lr"})
     ELEC = WIRING.elec()  # volts, design amps, peak amps per wire, for the viewer
+
+    def harness_wires():
+        """wiring.py rows plus the 3D route from sim/harness.json (docs/harness.py, format in docs/harness_format.md)."""
+        sys.path.insert(0, str(ROOT / "docs"))
+        import harness as HN
+        routes = {w["id"]: w for w in json.loads((ROOT / "sim" / "harness.json").read_text())["wires"]}
+        out, seen = [], set()
+        for (a, b, k, w, g, c, f), rec in zip(WIRING.WIRES, WIRING.wire_records()):
+            r = routes[f"{a}-{b}"]
+            row = dict(id=r["id"], **{"from": a}, to=b, a=a, b=b, kind=k, what=w, gauge=g, awg=HN.awg(g), conn=c, fuse=f,
+                       len_mm=rec["len_mm"], route_mm=r["route_mm"], **ELEC.get((a, b), {}))
+            if r["bundle"]:
+                row["bundle"] = r["bundle"]
+            if not r["bundle"] or r["bundle"] not in seen:  # a bundle's radius sits on its first wire
+                row["radius_mm"] = round(r["radius_mm"], 1)
+            seen.add(r["bundle"])
+            row["path"] = r["path"]
+            out.append(row)
+        return out
     data = dict(interlock=interlock, scene=dict(joints=scene["joints"], poses=scene["poses"], links=scene["links"], dims=scene["dims"],
                            items=[{k: it.get(k) for k in ("name", "link", "group", "kind", "color", "material", "mass_g", "print", "note", "bom")}
                                   for it in scene["items"]]),
                 parts=manifest["parts"], hardware=manifest["hardware"], stability=manifest["stability"],
                 bom=dict(rows=rows, total=total, have=have), checks=checks,
                 wiring=dict(nodes={k: dict(label=v[0], item=v[4]) for k, v in WIRING.NODES.items()},
-                            wires=[dict(a=a, b=b, kind=k, what=w, gauge=g, conn=c, fuse=f,
-                                        len_mm=rec["len_mm"], path=rec["path"], **ELEC.get((a, b), {}))
-                                   for (a, b, k, w, g, c, f), rec in zip(WIRING.WIRES, WIRING.wire_records())],
+                            wires=harness_wires(),
                             colors=WIRING.COLORS),
                 # the sim mass: every listed part plus the wiring, screws and small hardware build_mjcf adds per link
                 mass_kg=round(float(mm.body_mass.sum()), 2), parts_kg=round(manifest["robot_mass_g"] / 1000, 2),
@@ -484,7 +501,8 @@ def main():
              "tip": "Tip margin, worst poses the reach limit allows, 0.5 kg per hand", "brake": "Drives 0.6 m/s, stops at up to 6 m/s², torso up, 0.5 kg per hand", "push": "Shove at the head, torso up, worst allowed pose, 0.5 kg per hand",
              "slope": "Steepest ramp, worst pose", "reach": "Workspace sampling", "tasks": "Floor, counter and top shelf by IK",
              "pick": "Scripted pick off a 0.75 m table, reach limit on",
-             "interlock": "Reach limit with a load: blocks reaching out; 25 N shove and 20° ramp at the worst allowed pose"}
+             "interlock": "Reach limit with a load: blocks reaching out; 25 N shove and 20° ramp at the worst allowed pose",
+             "cables": "3D cable routes: radius + 1 mm clear of servos and shells, slack across every joint and the lift"}
     out = []
     for k, v in checks.items():
         detail = {
@@ -509,6 +527,8 @@ def main():
             "interlock": lambda v: ("blocks reaching straight out at every lift height; "
                                     + "; ".join(f"lift {float(L):.3f} m: {r['push_forward_N']} N forward, {r['push_back_N']} N back, {r['down_deg']}° nose down"
                                                 for L, r in v["stability_by_lift"].items())),
+            "cables": lambda v: (f"{v['wires']} wires, closest {v['worst_clear_mm']} mm, least slack {v['worst_slack_mm']} mm"
+                                 + (f", {v['hits']} contacts: " + ", ".join(v["parts_in_the_way"]) if v["hits"] else "")),
         }[k](v)
         out.append(f'<tr><td>{"✓" if v["ok"] else "✗"}</td><td>{names.get(k, k)}</td><td class="d2">{html.escape(detail)}</td></tr>')
     t = fill(t, "CHECKS", "\n".join(out))
