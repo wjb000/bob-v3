@@ -1,6 +1,11 @@
 """Torso. It sits on the inner-tube cap, with the column coming up through
 the bottom. The shell has a shelf that bolts down onto the cap with four M5.
-The back plate holds the yokes and the boards. The column lives in cad/column.py.
+The back plate holds the yokes. The Pi and the USB hub screw to bosses on the
+upper side walls; the 5 V regulator (b5) and the two 12 V arm converters (b12a)
+have printed mounts in the lower bay; the bus adapters sit on shelves forward
+of those converters. A Ø16 pass in each yoke takes the column-cap umbilical
+into the bay, and a shoulder pass at (20, ±100, 436) takes the arm cables.
+The column lives in cad/column.py.
 """
 
 from __future__ import annotations
@@ -24,6 +29,43 @@ TCX = (TX0 + TX1) / 2
 BP_X0, BP_X1 = TX0 + 4.0, TX0 + 12.0  # back plate
 BP_Z = (-146.0, -22.0)  # bottom stays above the belly joiner tabs
 YOKE_FACE_X = BP_X1
+
+# Electronics mounts (printed bosses / shelves, existing M3 inserts, no new bought parts)
+PI_BOSS = 7.0  # feet plane, inward of the inner side wall
+PI_HOLES = [(sx * 29.0, sy * 24.5) for sx in (-1, 1) for sy in (-1, 1)]
+HUB_HOLES = [(sx * 28.0, sy * 14.0) for sx in (-1, 1) for sy in (-1, 1)]  # 64 x 36 board, 4 mm inset
+# Bus boards are rotated (44 mm along Y, 30 mm along X) so they sit forward of the 74 mm Daygreens.
+BUS_X, BUS_Y, BUS_Z = 55.0, 92.0, 126.0  # origin of each bus board, z is below the shoulder
+
+# Electronics-check poses, robot frame mm at lift 0 (+X forward, +Y left, +Z up).
+CAP_PASS_X, CAP_PASS_Z, CAP_PASS_D = -40.0, 436.0, 16.0  # yoke: cap region → electronics bay
+SHOULDER_PASS_X, SHOULDER_PASS_Y, SHOULDER_PASS_Z = 20.0, 100.0, 436.0
+B5_POS = (-40.0, 84.0, 290.0)  # Pololu D36V50F5, wiring b5 / vendor reg_5v
+# b12a is two Daygreen 74×74×31 mm converters. The right one is at the requested
+# (0, −80, 276). The left one would overlap b5 and the yoke at that height, so it
+# sits under the yoke lower beam at z=341.
+B12A_POS_R = (0.0, -80.0, 276.0)
+B12A_POS_L = (0.0, 80.0, 341.0)
+POLOLU_HOLES = [(sx * 8.9, sy * 8.9) for sx in (-1, 1) for sy in (-1, 1)]  # D36V50F5, 0.7 in spacing
+BUCK_L, BUCK_H = 74.0, 32.0
+BUCK_HOLES = [(sx * 33.0, sy * 28.0) for sx in (-1, 1) for sy in (-1, 1)]  # flange holes, 8 mm end flanges
+
+
+def _side_board_origin(sz, side, boss=PI_BOSS):
+    """Feet plane against bosses on the inner side wall. +z (parts) points inward."""
+    y = side * (P.TORSO_HW - P.TORSO_WALL - boss)
+    return (0.0, y, sz - 60.0)
+
+
+def _side_board_frame(sz, side, boss=PI_BOSS):
+    # zdir inward; xdir forward; ydir = z × x
+    return _side_board_origin(sz, side, boss), (0.0, -side, 0.0), (1.0, 0.0, 0.0)
+
+
+def _side_board_holes(sz, side, holes, boss=PI_BOSS):
+    ox, oy, oz = _side_board_origin(sz, side, boss)
+    # ydir = z × x: side=+1 (left wall) -> (0,0,1); side=-1 -> (0,0,-1)
+    return [(ox + lx, oy, oz + side * ly) for lx, ly in holes]
 
 
 def _tz(sz, dz):
@@ -111,6 +153,11 @@ def yoke(side, sz=S0) -> cq.Shape:
     hw("M3 heat-set insert", 6 + 2 + 4)
     hw("M3x12 socket head", 6)
     hw("M3x10 socket head (servo tabs)", 4)
+    # Cable passes are cut after the cup is fused so they cannot subtract cup material.
+    # Ø16 from the column-cap region (z 400–450) through the gusset/upper into the bay.
+    tools.append(cyl_between("y", (CAP_PASS_X, CAP_PASS_Z), 48.0, 80.0, CAP_PASS_D))
+    # Shoulder pass near (20, +100, 436), inboard of the J1 flange (flange starts at y ≈ 112).
+    tools.append(cyl_between("y", (SHOULDER_PASS_X, SHOULDER_PASS_Z), 80.0, 108.0, 14.0))
     s = cut(s, *tools, _column_void())
     # stay inside the torso's rounded back corners
     s = s.intersect(_torso_solid(sz, P.TORSO_WALL + 1.0))
@@ -141,7 +188,7 @@ def neck_mount(sz=S0) -> cq.Shape:
     z0 = sz + 30.0
     plate = rrect(TCX, 0, z0, z0 + 8, 108, 70, 10)
     sx0, sx1 = NECK_X - P.STS_SHAFT_FROM_END - 0.3, NECK_X - P.STS_SHAFT_FROM_END + P.STS_L + 0.3
-    cradle = box(sx0 - 3, sx1 + 3, -P.STS_W / 2 - 3.3, P.STS_W / 2 + 3.3, sz + 10, z0 + 8)
+    cradle = box(sx0 - 3, sx1 + 3, -P.STS_W / 2 - 3.3, P.STS_W / 2 + 3.3, sz + 4, z0 + 8)
     s = fuse(plate, cradle)
     tools = [box(sx0, sx1, -P.STS_W / 2 - 0.3, P.STS_W / 2 + 0.3, sz + 12, z0 + 20),
              box(sx0 + 4, sx1 - 4, -6, 6, sz + 5, sz + 14)]
@@ -150,8 +197,14 @@ def neck_mount(sz=S0) -> cq.Shape:
         tools.append(cyl((x, y, z0 + 4), "z", P.M3_HEAD, 12))
     for x, y in _torso_top_pts():
         tools.append(cyl((x, y, z0 + 8 - P.M3_INSERT_DEPTH), "z", P.M3_INSERT, P.M3_INSERT_DEPTH + 1))
+    # Pan STS3215 tab inserts in a thickened cradle floor (the old 2 mm floor was too thin).
+    cx = NECK_X + (P.STS_L / 2 - P.STS_SHAFT_FROM_END)
+    for dx in (-P.STS_HOLE_L / 2, P.STS_HOLE_L / 2):
+        for dy in (-P.STS_HOLE_W / 2, P.STS_HOLE_W / 2):
+            tools.append(cyl((cx + dx, dy, sz + 12.2 - P.M3_INSERT_DEPTH), "z", P.M3_INSERT, P.M3_INSERT_DEPTH + 0.4))
     hw("M3x10 socket head", 4)
-    hw("M3 heat-set insert", 4)
+    hw("M3x10 socket head (servo tabs)", 4)
+    hw("M3 heat-set insert", 8)
     return cut(s, *tools)
 
 
@@ -239,8 +292,10 @@ def torso_shell(sz=S0) -> cq.Shape:
     shelf = rrect(TCX, 0, z_cap + 0.5, z_cap + 6.0, P.TORSO_D + 2.0, 78, 12)
     shelf = shelf.cut(cyl((P.COL_X, 0, z_cap), "z", 22, 12))
     adds.append(shelf)
-    s = fuse(s, *adds)
-    s = s.intersect(outer)
+    # Zip-tie holes beside the umbilical, same idea as the cap strain relief.
+    for sy in (1, -1):
+        tools.append(cyl((P.COL_X + 18.0, sy * 12.0, z_cap - 1), "z", 3.2, 10))
+    hw("4 in zip tie (torso umbilical)", 2)
     for x, y in _torso_top_pts():
         tools.append(cyl((x, y, sz + 37), "z", P.M3, 30))
         tools.append(cyl((x, y, z1 - 1.2), "z", P.M3_HEAD, 3))
@@ -249,6 +304,11 @@ def torso_shell(sz=S0) -> cq.Shape:
     # shoulder ports
     for sy in (1, -1):
         tools.append(cyl_between("y", (P.SHOULDER_X, sz), sy * (P.TORSO_HW - 10), sy * (P.TORSO_HW + 5), 64))
+    # Dedicated shoulder cable pass through torso_upper near (20, ±100, 436).
+    # The 64 mm port already opens this neighbourhood; this marks a Ø16 cable path.
+    for sy in (1, -1):
+        tools.append(cyl_between("y", (SHOULDER_PASS_X, SHOULDER_PASS_Z),
+                                 sy * (SHOULDER_PASS_Y - 10.0), sy * (P.TORSO_HW + 5), 16.0))
     # the column passes through the belly and ends under the shelf
     tools.append(rrect(P.COL_X, 0, z0 - 4, P.COL_INNER_TOP0 - 0.4,
                        P.COL_OUTER_D + 6, P.COL_OUTER_D + 6, P.COL_OUTER_R + 2))
@@ -266,13 +326,55 @@ def torso_shell(sz=S0) -> cq.Shape:
         for i in range(n):
             a = 2 * math.pi * i / n
             tools.append(cyl_between("x", (r * math.cos(a), sz - 114 + r * math.sin(a)), TX1 - 6, TX1 + 1, 3.2))
-    # back vents for the Jetson
+    # Inner retaining lip around the speaker so it seats against the grille.
+    adds.append(cyl((TX1 - P.TORSO_WALL, 0, sz - 114), "-x", 44, 4).cut(
+        cyl((TX1 - P.TORSO_WALL + 1, 0, sz - 114), "-x", 34, 6)))
+    # Back vents for the Pi and the hub
     for i in range(6):
         for sy in (1, -1):
             y = sy * (40 + 7 * i)
             tools.append(box(TX0 - 1, TX0 + 5, y - 1.8, y + 1.8, sz - 155, sz - 100))
+    # Pi (left) and USB hub (right): four insert bosses on each inner side wall.
+    for side, holes in ((1, PI_HOLES), (-1, HUB_HOLES)):
+        inner = side * (P.TORSO_HW - P.TORSO_WALL)
+        for x, y, z in _side_board_holes(sz, side, holes):
+            adds.append(cyl_between("y", (x, z), inner, inner - side * PI_BOSS, 10))
+            tools.append(cyl_between("y", (x, z), inner - side * (PI_BOSS + 1), inner - side * (PI_BOSS - P.M3_INSERT_DEPTH), P.M3_INSERT))
+        hw("M3 heat-set insert", 4)
+        hw("M3x10 socket head (electronics)", 4)
+    # Bus-adapter shelves, forward of the Daygreens, 30 mm in X by 44 mm in Y.
+    z_bus = sz - BUS_Z
+    for sy in (1, -1):
+        y0, y1 = sy * (BUS_Y - 24), sy * (half_width(z_bus, sz) - P.TORSO_WALL)
+        if y0 > y1:
+            y0, y1 = y1, y0
+        adds.append(box(BUS_X - 16, BUS_X + 16, y0, y1, z_bus - 3.5, z_bus))
+        tools.append(box(BUS_X - 10, BUS_X - 6, sy * BUS_Y - 8, sy * BUS_Y + 8, z_bus - 5, z_bus + 1))
+        hw("4 in zip tie (bus adapter)", 1)
+    # b5: Pololu D36V50F5 shelf at (−40, 84, 290), four M3 inserts, rib to the left wall and back.
+    bx, by, bz = B5_POS
+    adds.append(box(TX0 + P.TORSO_WALL - 1, bx + 16.0, by - 16.0,
+                    half_width(bz, sz) - P.TORSO_WALL + 2.0, bz - 6.0, bz))
+    for lx, ly in POLOLU_HOLES:
+        tools.append(cyl((bx + lx, by + ly, bz - P.M3_INSERT_DEPTH), "z", P.M3_INSERT, P.M3_INSERT_DEPTH + 1))
+    hw("M3 heat-set insert", 4)
+    hw("M3x10 socket head (electronics)", 4)
+    # b12a: wall pads for the two Daygreen 74×74 converters. Origin is the body centre;
+    # the feet plane is toward the wall by half the 32 mm case height.
+    for (ox, oy, oz), side in ((B12A_POS_L, 1), (B12A_POS_R, -1)):
+        feet = oy + side * (BUCK_H / 2.0)
+        wall = side * (half_width(oz, sz) + 8.0)
+        y0, y1 = (feet, wall) if feet < wall else (wall, feet)
+        adds.append(box(ox - 39.0, ox + 39.0, y0, y1, oz - 39.0, oz + 39.0))
+        for lx, lz in BUCK_HOLES:
+            tools.append(cyl_between("y", (ox + lx, oz + lz),
+                                     feet + side * 1.0, feet - side * P.M3_INSERT_DEPTH, P.M3_INSERT))
+        hw("M3 heat-set insert", 4)
+        hw("M3x10 socket head (electronics)", 4)
     hw("M3x10 socket head", 2 * len(_torso_seam_pairs(sz)) + len(_shell_back_pts(sz)) + len(_torso_top_pts()))
     hw("M3 heat-set insert", 2 * len(_torso_seam_pairs(sz)))
+    s = fuse(s, *adds)
+    s = s.intersect(outer)
     return cut(s, *tools)
 
 
@@ -282,7 +384,7 @@ def torso_joiners(sz=S0) -> list[cq.Shape]:
 
 def torso_parts() -> list[Part]:
     out = [Part("torso_back_plate", back_plate(), "lift", "torso", color="frame",
-                note="Yokes bolt to the front face. The Pi and the bus adapters sit beside the column.")]
+                note="Yokes bolt to the front face. Thread-forming grid for extras; the Pi, hub, b5 and b12a have printed mounts.")]
     out.append(Part("yoke_l", yoke(1), "lift", "torso", color="frame", rot=(90, 0, 0),
                     note="Holds the left J1 STS3095. Prints on its centre face, cup up. 5 walls, 30% infill."))
     out.append(Part("yoke_r", yoke(-1), "lift", "torso", color="frame", rot=(-90, 0, 0), note="Mirror of yoke_l."))
@@ -304,15 +406,24 @@ def bought(sz=S0) -> list[Bought]:
 
     out = []
     out += j1_modules(sz)[1]
-    # Pi and hub stand on the side walls of the upper chest, thin side toward the wall.
-    # Buses lie flat below the yokes, forward of the gusset (that gusset ends at x ≈ −11).
-    # Side walls of the upper chest. Offsets follow the shoulder, so a shorter column keeps the boards in the shell.
-    out += V.boughts("pi5", V.place(V.pi5(), (0, 78, sz - 60), xdir=(1, 0, 0), zdir=(0, 1, 0)), "lift", "torso", "electronics", 75, "pi5")
-    out += V.boughts("usb_hub", V.place(V.usb_board(64, 36, 16, ports=2), (0, -78, sz - 60), xdir=(1, 0, 0), zdir=(0, -1, 0)),
+    # Pi (left wall) and USB hub (right wall) screw into the side-wall bosses; parts face inward.
+    # Buses sit on shelves forward of the Daygreens, 44 mm along Y and 30 mm along X.
+    po, pz, px = _side_board_frame(sz, 1)
+    out += V.boughts("pi5", V.place(V.pi5(), po, xdir=px, zdir=pz), "lift", "torso", "electronics", 75, "pi5")
+    ho, hz, hx = _side_board_frame(sz, -1)
+    out += V.boughts("usb_hub", V.place(V.usb_board(64, 36, 16, ports=2), ho, xdir=hx, zdir=hz),
                      "lift", "torso", "electronics", 60, "usbhub")
-    for name, y in (("servo_bus", 72), ("servo_bus_r", -72)):
-        out += V.boughts(name, V.place(V.usb_board(44, 30, 14, ports=2), (30, y, sz - 126), xdir=(1, 0, 0), zdir=(0, 0, 1)),
+    for name, sy in (("servo_bus", 1), ("servo_bus_r", -1)):
+        out += V.boughts(name, V.place(V.usb_board(44, 30, 14, ports=2),
+                                       (BUS_X, sy * BUS_Y, sz - BUS_Z),
+                                       xdir=(0, sy, 0), zdir=(0, 0, 1)),
                          "lift", "torso", "electronics", 25, "busadapter")
+    out += V.boughts("reg_5v_torso", V.place(V.small_board(22, 22, (8, 8, 3), look="pcb_blue"), B5_POS),
+                     "lift", "torso", "electronics", 8, "pololu5")
+    for name, (ox, oy, oz), side in (("buck_12v_arm_l", B12A_POS_L, 1), ("buck_12v_arm_r", B12A_POS_R, -1)):
+        feet = (ox, oy + side * (BUCK_H / 2.0), oz)
+        out += V.boughts(name, V.place(V.finned_buck(74, 74, 32), feet, xdir=(1, 0, 0), zdir=(0.0, -side, 0.0)),
+                         "lift", "torso", "electronics", 280, "buck12")
     out += V.boughts("speaker", V.place(V.speaker(), (TX1 - 10, 0, sz - 114), xdir=(0, 1, 0), zdir=(1, 0, 0)), "lift", "torso", "electronics", 40, "speaker")
     out += V.boughts("pan_servo", V.place(V.sts3215(), (NECK_X, 0, sz + 47)), "lift", "torso", "actuator", P.STS_MASS, "sts3215")
     out.append(Bought("light_chest", rrect(TX1 - 2.2, 0, sz - 63.5, sz - 58.5, 3.0, 118, 2.5), "lift", "torso", "electronics", 5, "ledstrip", look="glow"))

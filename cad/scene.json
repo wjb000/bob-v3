@@ -27,11 +27,11 @@
    ]
   },
   "lift": {
-   "mass_g": 2111.4,
+   "mass_g": 2804.0,
    "com": [
-    -3.3,
-    0.7,
-    374.5
+    -2.0,
+    2.7,
+    358.4
    ]
   },
   "head_tilt": {
@@ -195,7 +195,7 @@
    ]
   }
  },
- "total_mass_g": 11724.1,
+ "total_mass_g": 12416.7,
  "joints": [
   {
    "name": "lift",
@@ -1341,7 +1341,7 @@
    "material": "PETG",
    "mass_g": 95.1,
    "print": "torso_back_plate",
-   "note": "Yokes bolt to the front face. The Pi and the bus adapters sit beside the column."
+   "note": "Yokes bolt to the front face. Thread-forming grid for extras; the Pi, hub, b5 and b12a have printed mounts."
   },
   {
    "name": "yoke_l",
@@ -1351,7 +1351,7 @@
    "kind": "print",
    "color": "frame",
    "material": "PETG",
-   "mass_g": 343.1,
+   "mass_g": 337.0,
    "print": "yoke_l",
    "note": "Holds the left J1 STS3095. Prints on its centre face, cup up. 5 walls, 30% infill."
   },
@@ -1363,7 +1363,7 @@
    "kind": "print",
    "color": "frame",
    "material": "PETG",
-   "mass_g": 343.1,
+   "mass_g": 337.0,
    "print": "yoke_r",
    "note": "Mirror of yoke_l."
   },
@@ -1375,7 +1375,7 @@
    "kind": "print",
    "color": "frame",
    "material": "PETG",
-   "mass_g": 42.1,
+   "mass_g": 47.1,
    "print": "neck_mount",
    "note": "Pan servo cradle, bridges the yokes."
   },
@@ -1387,7 +1387,7 @@
    "kind": "print",
    "color": "shell",
    "material": "PETG",
-   "mass_g": 84.7,
+   "mass_g": 120.8,
    "print": "torso_lower_l",
    "note": "Lower tier prints floor-down; upper tier prints top-down."
   },
@@ -1399,7 +1399,7 @@
    "kind": "print",
    "color": "shell",
    "material": "PETG",
-   "mass_g": 85.1,
+   "mass_g": 124.6,
    "print": "torso_lower_r",
    "note": "Lower tier prints floor-down; upper tier prints top-down."
   },
@@ -1411,7 +1411,7 @@
    "kind": "print",
    "color": "shell",
    "material": "PETG",
-   "mass_g": 142.2,
+   "mass_g": 197.8,
    "print": "torso_upper_l",
    "note": "Lower tier prints floor-down; upper tier prints top-down."
   },
@@ -1423,7 +1423,7 @@
    "kind": "print",
    "color": "shell",
    "material": "PETG",
-   "mass_g": 142.2,
+   "mass_g": 142.8,
    "print": "torso_upper_r",
    "note": "Lower tier prints floor-down; upper tier prints top-down."
   },
@@ -3590,6 +3590,83 @@
    "material": "bought",
    "mass_g": 0.0,
    "bom": "busadapter"
+  },
+  {
+   "name": "reg_5v_torso",
+   "file": "reg_5v_torso.stl",
+   "link": "lift",
+   "group": "torso",
+   "kind": "electronics",
+   "color": "pcb_blue",
+   "material": "bought",
+   "mass_g": 8,
+   "bom": "pololu5"
+  },
+  {
+   "name": "reg_5v_torso_chip",
+   "file": "reg_5v_torso_chip.stl",
+   "link": "lift",
+   "group": "torso",
+   "kind": "electronics",
+   "color": "black",
+   "material": "bought",
+   "mass_g": 0.0,
+   "bom": "pololu5"
+  },
+  {
+   "name": "reg_5v_torso_pins",
+   "file": "reg_5v_torso_pins.stl",
+   "link": "lift",
+   "group": "torso",
+   "kind": "electronics",
+   "color": "black",
+   "material": "bought",
+   "mass_g": 0.0,
+   "bom": "pololu5"
+  },
+  {
+   "name": "buck_12v_arm_l",
+   "file": "buck_12v_arm_l.stl",
+   "link": "lift",
+   "group": "torso",
+   "kind": "electronics",
+   "color": "alu",
+   "material": "bought",
+   "mass_g": 280,
+   "bom": "buck12"
+  },
+  {
+   "name": "buck_12v_arm_l_terms",
+   "file": "buck_12v_arm_l_terms.stl",
+   "link": "lift",
+   "group": "torso",
+   "kind": "electronics",
+   "color": "black",
+   "material": "bought",
+   "mass_g": 0.0,
+   "bom": "buck12"
+  },
+  {
+   "name": "buck_12v_arm_r",
+   "file": "buck_12v_arm_r.stl",
+   "link": "lift",
+   "group": "torso",
+   "kind": "electronics",
+   "color": "alu",
+   "material": "bought",
+   "mass_g": 280,
+   "bom": "buck12"
+  },
+  {
+   "name": "buck_12v_arm_r_terms",
+   "file": "buck_12v_arm_r_terms.stl",
+   "link": "lift",
+   "group": "torso",
+   "kind": "electronics",
+   "color": "black",
+   "material": "bought",
+   "mass_g": 0.0,
+   "bom": "buck12"
   },
   {
    "name": "speaker",

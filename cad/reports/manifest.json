@@ -9,8 +9,8 @@
  "fill": 0.55,
  "unique_prints": 94,
  "total_prints": 157,
- "print_mass_g": 5324.0,
- "robot_mass_g": 11724.0,
+ "print_mass_g": 5448.0,
+ "robot_mass_g": 12417.0,
  "parts": [
   {
    "name": "base_shell_rear_r",
@@ -910,7 +910,7 @@
    "support_cm2": 0.4,
    "walls": 4,
    "infill": 20,
-   "note": "Yokes bolt to the front face. The Pi and the bus adapters sit beside the column.",
+   "note": "Yokes bolt to the front face. Thread-forming grid for extras; the Pi, hub, b5 and b12a have printed mounts.",
    "rot_deg": [
     0,
     90,
@@ -931,7 +931,7 @@
    "link": "lift",
    "material": "PETG",
    "color": "frame",
-   "support_cm2": 142.3,
+   "support_cm2": 145.2,
    "walls": 4,
    "infill": 20,
    "note": "Holds the left J1 STS3095. Prints on its centre face, cup up. 5 walls, 30% infill.",
@@ -945,8 +945,8 @@
     145.7,
     115.7
    ],
-   "volume_cm3": 491.2,
-   "grams": 343.1
+   "volume_cm3": 482.5,
+   "grams": 337.0
   },
   {
    "name": "yoke_r",
@@ -955,7 +955,7 @@
    "link": "lift",
    "material": "PETG",
    "color": "frame",
-   "support_cm2": 142.3,
+   "support_cm2": 145.2,
    "walls": 4,
    "infill": 20,
    "note": "Mirror of yoke_l.",
@@ -969,8 +969,8 @@
     145.7,
     115.7
    ],
-   "volume_cm3": 491.2,
-   "grams": 343.1
+   "volume_cm3": 482.5,
+   "grams": 337.0
   },
   {
    "name": "neck_mount",
@@ -979,7 +979,7 @@
    "link": "lift",
    "material": "PETG",
    "color": "frame",
-   "support_cm2": 8.4,
+   "support_cm2": 13.2,
    "walls": 4,
    "infill": 20,
    "note": "Pan servo cradle, bridges the yokes.",
@@ -991,10 +991,10 @@
    "bed_mm": [
     108.0,
     70.0,
-    28.0
+    34.0
    ],
-   "volume_cm3": 60.2,
-   "grams": 42.1
+   "volume_cm3": 67.5,
+   "grams": 47.1
   },
   {
    "name": "torso_lower_l",
@@ -1003,7 +1003,7 @@
    "link": "lift",
    "material": "PETG",
    "color": "shell",
-   "support_cm2": 6.0,
+   "support_cm2": 49.8,
    "walls": 3,
    "infill": 15,
    "note": "Lower tier prints floor-down; upper tier prints top-down.",
@@ -1017,8 +1017,8 @@
     120.0,
     90.0
    ],
-   "volume_cm3": 121.2,
-   "grams": 84.7
+   "volume_cm3": 172.9,
+   "grams": 120.8
   },
   {
    "name": "torso_lower_r",
@@ -1027,7 +1027,7 @@
    "link": "lift",
    "material": "PETG",
    "color": "shell",
-   "support_cm2": 6.0,
+   "support_cm2": 17.4,
    "walls": 3,
    "infill": 15,
    "note": "Lower tier prints floor-down; upper tier prints top-down.",
@@ -1041,8 +1041,8 @@
     120.0,
     90.0
    ],
-   "volume_cm3": 121.9,
-   "grams": 85.1
+   "volume_cm3": 178.4,
+   "grams": 124.6
   },
   {
    "name": "torso_upper_l",
@@ -1051,7 +1051,7 @@
    "link": "lift",
    "material": "PETG",
    "color": "shell",
-   "support_cm2": 66.9,
+   "support_cm2": 82.2,
    "walls": 3,
    "infill": 15,
    "note": "Lower tier prints floor-down; upper tier prints top-down.",
@@ -1065,8 +1065,8 @@
     120.0,
     130.0
    ],
-   "volume_cm3": 203.5,
-   "grams": 142.2
+   "volume_cm3": 283.2,
+   "grams": 197.8
   },
   {
    "name": "torso_upper_r",
@@ -1075,7 +1075,7 @@
    "link": "lift",
    "material": "PETG",
    "color": "shell",
-   "support_cm2": 66.7,
+   "support_cm2": 68.7,
    "walls": 3,
    "infill": 15,
    "note": "Lower tier prints floor-down; upper tier prints top-down.",
@@ -1089,8 +1089,8 @@
     120.0,
     130.0
    ],
-   "volume_cm3": 203.5,
-   "grams": 142.2
+   "volume_cm3": 204.5,
+   "grams": 142.8
   },
   {
    "name": "ear_l",
@@ -2270,19 +2270,22 @@
   }
  ],
  "hardware": {
+  "4 in zip tie (bus adapter)": 2,
   "4 in zip tie (column umbilical)": 5,
+  "4 in zip tie (torso umbilical)": 2,
   "GT2 20T pulley, 5 mm bore": 4,
   "M2.5x10 screw (TPU finger)": 8,
   "M2.5x10 socket head (DDSM115 stub)": 6,
   "M2.5x6 screw (lidar)": 4,
   "M2x6 thread-forming (wrist camera)": 4,
   "M2x8 screw (horn)": 40,
-  "M3 heat-set insert": 261,
+  "M3 heat-set insert": 285,
   "M3x10 socket head": 167,
   "M3x10 socket head (arm cover)": 16,
   "M3x10 socket head (belt anchor)": 4,
   "M3x10 socket head (belt clamp)": 4,
-  "M3x10 socket head (servo tabs)": 32,
+  "M3x10 socket head (electronics)": 20,
+  "M3x10 socket head (servo tabs)": 36,
   "M3x10 thread-forming (T8 nut)": 4,
   "M3x12 shoulder screw (idler)": 2,
   "M3x12 socket head": 27,
@@ -2304,92 +2307,2481 @@
  "stability": {
   "zero": {
    "com_mm": [
-    6.0,
-    5.6,
-    397.6
+    5.7,
+    5.8,
+    418.1
    ],
-   "margin_front_mm": 171.0,
-   "margin_rear_mm": 133.0,
-   "margin_side_mm": 144.4,
-   "tip_deg_front": 23.3,
-   "tip_deg_rear": 18.5
+   "margin_front_mm": 171.3,
+   "margin_rear_mm": 132.7,
+   "margin_side_mm": 144.2,
+   "tip_deg_front": 22.3,
+   "tip_deg_rear": 17.6
   },
   "home": {
    "com_mm": [
-    47.9,
-    5.6,
-    274.5
+    45.4,
+    5.8,
+    282.0
    ],
-   "margin_front_mm": 129.1,
-   "margin_rear_mm": 174.9,
-   "margin_side_mm": 144.4,
-   "tip_deg_front": 25.2,
-   "tip_deg_rear": 32.5
+   "margin_front_mm": 131.6,
+   "margin_rear_mm": 172.4,
+   "margin_side_mm": 144.2,
+   "tip_deg_front": 25.0,
+   "tip_deg_rear": 31.4
   },
   "counter": {
    "com_mm": [
-    50.6,
-    5.6,
-    412.3
+    47.9,
+    5.8,
+    426.1
    ],
-   "margin_front_mm": 126.4,
-   "margin_rear_mm": 177.6,
-   "margin_side_mm": 144.4,
-   "tip_deg_front": 17.0,
-   "tip_deg_rear": 23.3
+   "margin_front_mm": 129.1,
+   "margin_rear_mm": 174.9,
+   "margin_side_mm": 144.2,
+   "tip_deg_front": 16.9,
+   "tip_deg_rear": 22.3
   },
   "floor": {
    "com_mm": [
-    46.7,
-    5.6,
-    206.0
+    44.2,
+    5.8,
+    211.7
    ],
-   "margin_front_mm": 130.3,
-   "margin_rear_mm": 173.7,
-   "margin_side_mm": 144.4,
-   "tip_deg_front": 32.3,
-   "tip_deg_rear": 40.1
+   "margin_front_mm": 132.8,
+   "margin_rear_mm": 171.2,
+   "margin_side_mm": 144.2,
+   "tip_deg_front": 32.1,
+   "tip_deg_rear": 39.0
   },
   "shelf": {
    "com_mm": [
-    13.0,
-    5.6,
-    509.1
+    12.4,
+    5.8,
+    523.7
    ],
-   "margin_front_mm": 164.0,
-   "margin_rear_mm": 140.0,
-   "margin_side_mm": 144.4,
-   "tip_deg_front": 17.9,
-   "tip_deg_rear": 15.4
+   "margin_front_mm": 164.6,
+   "margin_rear_mm": 139.4,
+   "margin_side_mm": 144.2,
+   "tip_deg_front": 17.4,
+   "tip_deg_rear": 14.9
   },
   "wave": {
    "com_mm": [
-    36.4,
-    23.7,
-    373.5
+    34.5,
+    22.9,
+    386.7
    ],
-   "margin_front_mm": 140.6,
-   "margin_rear_mm": 163.4,
-   "margin_side_mm": 126.3,
-   "tip_deg_front": 20.6,
-   "tip_deg_rear": 23.6
+   "margin_front_mm": 142.5,
+   "margin_rear_mm": 161.5,
+   "margin_side_mm": 127.1,
+   "tip_deg_front": 20.2,
+   "tip_deg_rear": 22.7
   }
  },
  "overlaps": {
-  "home": [],
-  "zero": [],
-  "floor": [],
-  "shelf": [],
-  "look_down": [],
-  "look_up": [],
-  "pan_left": [],
-  "pan_right": [],
-  "pan_down": [],
-  "lift_bottom": [],
-  "lift_middle": [],
-  "lift_top": []
+  "home": [
+   [
+    "torso_back_plate",
+    "torso_lower_l",
+    85.2
+   ],
+   [
+    "yoke_l",
+    "torso_upper_l",
+    396.5
+   ],
+   [
+    "yoke_l",
+    "buck_12v_arm_l",
+    4877.5
+   ],
+   [
+    "yoke_r",
+    "buck_12v_arm_r",
+    726.5
+   ],
+   [
+    "torso_lower_l",
+    "joiner_52",
+    789.6
+   ],
+   [
+    "torso_lower_l",
+    "joiner_53",
+    789.6
+   ],
+   [
+    "torso_lower_l",
+    "pi5",
+    967.8
+   ],
+   [
+    "torso_lower_l",
+    "pi5_feet",
+    87.6
+   ],
+   [
+    "torso_lower_l",
+    "pi5_cooler",
+    907.2
+   ],
+   [
+    "torso_lower_l",
+    "pi5_ports",
+    723.8
+   ],
+   [
+    "torso_lower_l",
+    "servo_bus",
+    190.6
+   ],
+   [
+    "torso_lower_l",
+    "servo_bus_ports",
+    623.4
+   ],
+   [
+    "torso_lower_l",
+    "speaker",
+    174.4
+   ],
+   [
+    "torso_lower_r",
+    "servo_bus_r",
+    190.6
+   ],
+   [
+    "torso_lower_r",
+    "servo_bus_r_ports",
+    510.7
+   ],
+   [
+    "torso_lower_r",
+    "buck_12v_arm_r",
+    2649.6
+   ],
+   [
+    "torso_lower_r",
+    "speaker",
+    174.4
+   ],
+   [
+    "torso_upper_l",
+    "joiner_52",
+    789.6
+   ],
+   [
+    "torso_upper_l",
+    "joiner_53",
+    789.6
+   ],
+   [
+    "torso_upper_l",
+    "pi5",
+    5954.9
+   ],
+   [
+    "torso_upper_l",
+    "pi5_feet",
+    92.7
+   ],
+   [
+    "torso_upper_l",
+    "pi5_cooler",
+    8618.4
+   ],
+   [
+    "torso_upper_l",
+    "pi5_ports",
+    4320.8
+   ],
+   [
+    "torso_upper_r",
+    "usb_hub",
+    174.1
+   ],
+   [
+    "torso_upper_r",
+    "usb_hub_ports",
+    40.6
+   ],
+   [
+    "joiner_52",
+    "pi5",
+    467.1
+   ],
+   [
+    "joiner_52",
+    "pi5_cooler",
+    513.2
+   ],
+   [
+    "joiner_53",
+    "pi5",
+    467.1
+   ],
+   [
+    "joiner_53",
+    "pi5_ports",
+    340.1
+   ],
+   [
+    "joiner_55",
+    "usb_hub_ports",
+    302.6
+   ],
+   [
+    "pi5_fan",
+    "buck_12v_arm_l",
+    2748.9
+   ],
+   [
+    "pi5_ports",
+    "buck_12v_arm_l",
+    1494.0
+   ],
+   [
+    "pi5_ports",
+    "buck_12v_arm_l_terms",
+    720.0
+   ]
+  ],
+  "zero": [
+   [
+    "torso_back_plate",
+    "torso_lower_l",
+    85.2
+   ],
+   [
+    "yoke_l",
+    "torso_upper_l",
+    396.5
+   ],
+   [
+    "yoke_l",
+    "buck_12v_arm_l",
+    4877.5
+   ],
+   [
+    "yoke_r",
+    "buck_12v_arm_r",
+    726.5
+   ],
+   [
+    "torso_lower_l",
+    "joiner_52",
+    789.6
+   ],
+   [
+    "torso_lower_l",
+    "joiner_53",
+    789.6
+   ],
+   [
+    "torso_lower_l",
+    "pi5",
+    967.8
+   ],
+   [
+    "torso_lower_l",
+    "pi5_feet",
+    87.6
+   ],
+   [
+    "torso_lower_l",
+    "pi5_cooler",
+    907.2
+   ],
+   [
+    "torso_lower_l",
+    "pi5_ports",
+    723.8
+   ],
+   [
+    "torso_lower_l",
+    "servo_bus",
+    190.6
+   ],
+   [
+    "torso_lower_l",
+    "servo_bus_ports",
+    623.4
+   ],
+   [
+    "torso_lower_l",
+    "speaker",
+    174.4
+   ],
+   [
+    "torso_lower_r",
+    "servo_bus_r",
+    190.6
+   ],
+   [
+    "torso_lower_r",
+    "servo_bus_r_ports",
+    510.7
+   ],
+   [
+    "torso_lower_r",
+    "buck_12v_arm_r",
+    2649.6
+   ],
+   [
+    "torso_lower_r",
+    "speaker",
+    174.4
+   ],
+   [
+    "torso_upper_l",
+    "joiner_52",
+    789.6
+   ],
+   [
+    "torso_upper_l",
+    "joiner_53",
+    789.6
+   ],
+   [
+    "torso_upper_l",
+    "pi5",
+    5954.9
+   ],
+   [
+    "torso_upper_l",
+    "pi5_feet",
+    92.7
+   ],
+   [
+    "torso_upper_l",
+    "pi5_cooler",
+    8618.4
+   ],
+   [
+    "torso_upper_l",
+    "pi5_ports",
+    4320.8
+   ],
+   [
+    "torso_upper_r",
+    "usb_hub",
+    174.1
+   ],
+   [
+    "torso_upper_r",
+    "usb_hub_ports",
+    40.6
+   ],
+   [
+    "joiner_52",
+    "pi5",
+    467.1
+   ],
+   [
+    "joiner_52",
+    "pi5_cooler",
+    513.2
+   ],
+   [
+    "joiner_53",
+    "pi5",
+    467.1
+   ],
+   [
+    "joiner_53",
+    "pi5_ports",
+    340.1
+   ],
+   [
+    "joiner_55",
+    "usb_hub_ports",
+    302.6
+   ],
+   [
+    "pi5_fan",
+    "buck_12v_arm_l",
+    2748.9
+   ],
+   [
+    "pi5_ports",
+    "buck_12v_arm_l",
+    1494.0
+   ],
+   [
+    "pi5_ports",
+    "buck_12v_arm_l_terms",
+    720.0
+   ]
+  ],
+  "floor": [
+   [
+    "torso_back_plate",
+    "torso_lower_l",
+    85.2
+   ],
+   [
+    "yoke_l",
+    "torso_upper_l",
+    396.5
+   ],
+   [
+    "yoke_l",
+    "buck_12v_arm_l",
+    4877.5
+   ],
+   [
+    "yoke_r",
+    "buck_12v_arm_r",
+    726.5
+   ],
+   [
+    "torso_lower_l",
+    "joiner_52",
+    789.6
+   ],
+   [
+    "torso_lower_l",
+    "joiner_53",
+    789.6
+   ],
+   [
+    "torso_lower_l",
+    "pi5",
+    967.8
+   ],
+   [
+    "torso_lower_l",
+    "pi5_feet",
+    87.6
+   ],
+   [
+    "torso_lower_l",
+    "pi5_cooler",
+    907.2
+   ],
+   [
+    "torso_lower_l",
+    "pi5_ports",
+    723.8
+   ],
+   [
+    "torso_lower_l",
+    "servo_bus",
+    190.6
+   ],
+   [
+    "torso_lower_l",
+    "servo_bus_ports",
+    623.4
+   ],
+   [
+    "torso_lower_l",
+    "speaker",
+    174.4
+   ],
+   [
+    "torso_lower_r",
+    "servo_bus_r",
+    190.6
+   ],
+   [
+    "torso_lower_r",
+    "servo_bus_r_ports",
+    510.7
+   ],
+   [
+    "torso_lower_r",
+    "buck_12v_arm_r",
+    2649.6
+   ],
+   [
+    "torso_lower_r",
+    "speaker",
+    174.4
+   ],
+   [
+    "torso_upper_l",
+    "joiner_52",
+    789.6
+   ],
+   [
+    "torso_upper_l",
+    "joiner_53",
+    789.6
+   ],
+   [
+    "torso_upper_l",
+    "pi5",
+    5954.9
+   ],
+   [
+    "torso_upper_l",
+    "pi5_feet",
+    92.7
+   ],
+   [
+    "torso_upper_l",
+    "pi5_cooler",
+    8618.4
+   ],
+   [
+    "torso_upper_l",
+    "pi5_ports",
+    4320.8
+   ],
+   [
+    "torso_upper_r",
+    "usb_hub",
+    174.1
+   ],
+   [
+    "torso_upper_r",
+    "usb_hub_ports",
+    40.6
+   ],
+   [
+    "joiner_52",
+    "pi5",
+    467.1
+   ],
+   [
+    "joiner_52",
+    "pi5_cooler",
+    513.2
+   ],
+   [
+    "joiner_53",
+    "pi5",
+    467.1
+   ],
+   [
+    "joiner_53",
+    "pi5_ports",
+    340.1
+   ],
+   [
+    "joiner_55",
+    "usb_hub_ports",
+    302.6
+   ],
+   [
+    "pi5_fan",
+    "buck_12v_arm_l",
+    2748.9
+   ],
+   [
+    "pi5_ports",
+    "buck_12v_arm_l",
+    1494.0
+   ],
+   [
+    "pi5_ports",
+    "buck_12v_arm_l_terms",
+    720.0
+   ]
+  ],
+  "shelf": [
+   [
+    "torso_back_plate",
+    "torso_lower_l",
+    85.2
+   ],
+   [
+    "yoke_l",
+    "torso_upper_l",
+    396.5
+   ],
+   [
+    "yoke_l",
+    "buck_12v_arm_l",
+    4877.5
+   ],
+   [
+    "yoke_r",
+    "buck_12v_arm_r",
+    726.5
+   ],
+   [
+    "torso_lower_l",
+    "joiner_52",
+    789.6
+   ],
+   [
+    "torso_lower_l",
+    "joiner_53",
+    789.6
+   ],
+   [
+    "torso_lower_l",
+    "pi5",
+    967.8
+   ],
+   [
+    "torso_lower_l",
+    "pi5_feet",
+    87.6
+   ],
+   [
+    "torso_lower_l",
+    "pi5_cooler",
+    907.2
+   ],
+   [
+    "torso_lower_l",
+    "pi5_ports",
+    723.8
+   ],
+   [
+    "torso_lower_l",
+    "servo_bus",
+    190.6
+   ],
+   [
+    "torso_lower_l",
+    "servo_bus_ports",
+    623.4
+   ],
+   [
+    "torso_lower_l",
+    "speaker",
+    174.4
+   ],
+   [
+    "torso_lower_r",
+    "servo_bus_r",
+    190.6
+   ],
+   [
+    "torso_lower_r",
+    "servo_bus_r_ports",
+    510.7
+   ],
+   [
+    "torso_lower_r",
+    "buck_12v_arm_r",
+    2649.6
+   ],
+   [
+    "torso_lower_r",
+    "speaker",
+    174.4
+   ],
+   [
+    "torso_upper_l",
+    "joiner_52",
+    789.6
+   ],
+   [
+    "torso_upper_l",
+    "joiner_53",
+    789.6
+   ],
+   [
+    "torso_upper_l",
+    "pi5",
+    5954.9
+   ],
+   [
+    "torso_upper_l",
+    "pi5_feet",
+    92.7
+   ],
+   [
+    "torso_upper_l",
+    "pi5_cooler",
+    8618.4
+   ],
+   [
+    "torso_upper_l",
+    "pi5_ports",
+    4320.8
+   ],
+   [
+    "torso_upper_r",
+    "usb_hub",
+    174.1
+   ],
+   [
+    "torso_upper_r",
+    "usb_hub_ports",
+    40.6
+   ],
+   [
+    "joiner_52",
+    "pi5",
+    467.1
+   ],
+   [
+    "joiner_52",
+    "pi5_cooler",
+    513.2
+   ],
+   [
+    "joiner_53",
+    "pi5",
+    467.1
+   ],
+   [
+    "joiner_53",
+    "pi5_ports",
+    340.1
+   ],
+   [
+    "joiner_55",
+    "usb_hub_ports",
+    302.6
+   ],
+   [
+    "pi5_fan",
+    "buck_12v_arm_l",
+    2748.9
+   ],
+   [
+    "pi5_ports",
+    "buck_12v_arm_l",
+    1494.0
+   ],
+   [
+    "pi5_ports",
+    "buck_12v_arm_l_terms",
+    720.0
+   ]
+  ],
+  "look_down": [
+   [
+    "torso_back_plate",
+    "torso_lower_l",
+    85.2
+   ],
+   [
+    "yoke_l",
+    "torso_upper_l",
+    396.5
+   ],
+   [
+    "yoke_l",
+    "buck_12v_arm_l",
+    4877.5
+   ],
+   [
+    "yoke_r",
+    "buck_12v_arm_r",
+    726.5
+   ],
+   [
+    "torso_lower_l",
+    "joiner_52",
+    789.6
+   ],
+   [
+    "torso_lower_l",
+    "joiner_53",
+    789.6
+   ],
+   [
+    "torso_lower_l",
+    "pi5",
+    967.8
+   ],
+   [
+    "torso_lower_l",
+    "pi5_feet",
+    87.6
+   ],
+   [
+    "torso_lower_l",
+    "pi5_cooler",
+    907.2
+   ],
+   [
+    "torso_lower_l",
+    "pi5_ports",
+    723.8
+   ],
+   [
+    "torso_lower_l",
+    "servo_bus",
+    190.6
+   ],
+   [
+    "torso_lower_l",
+    "servo_bus_ports",
+    623.4
+   ],
+   [
+    "torso_lower_l",
+    "speaker",
+    174.4
+   ],
+   [
+    "torso_lower_r",
+    "servo_bus_r",
+    190.6
+   ],
+   [
+    "torso_lower_r",
+    "servo_bus_r_ports",
+    510.7
+   ],
+   [
+    "torso_lower_r",
+    "buck_12v_arm_r",
+    2649.6
+   ],
+   [
+    "torso_lower_r",
+    "speaker",
+    174.4
+   ],
+   [
+    "torso_upper_l",
+    "joiner_52",
+    789.6
+   ],
+   [
+    "torso_upper_l",
+    "joiner_53",
+    789.6
+   ],
+   [
+    "torso_upper_l",
+    "pi5",
+    5954.9
+   ],
+   [
+    "torso_upper_l",
+    "pi5_feet",
+    92.7
+   ],
+   [
+    "torso_upper_l",
+    "pi5_cooler",
+    8618.4
+   ],
+   [
+    "torso_upper_l",
+    "pi5_ports",
+    4320.8
+   ],
+   [
+    "torso_upper_r",
+    "usb_hub",
+    174.1
+   ],
+   [
+    "torso_upper_r",
+    "usb_hub_ports",
+    40.6
+   ],
+   [
+    "joiner_52",
+    "pi5",
+    467.1
+   ],
+   [
+    "joiner_52",
+    "pi5_cooler",
+    513.2
+   ],
+   [
+    "joiner_53",
+    "pi5",
+    467.1
+   ],
+   [
+    "joiner_53",
+    "pi5_ports",
+    340.1
+   ],
+   [
+    "joiner_55",
+    "usb_hub_ports",
+    302.6
+   ],
+   [
+    "pi5_fan",
+    "buck_12v_arm_l",
+    2748.9
+   ],
+   [
+    "pi5_ports",
+    "buck_12v_arm_l",
+    1494.0
+   ],
+   [
+    "pi5_ports",
+    "buck_12v_arm_l_terms",
+    720.0
+   ]
+  ],
+  "look_up": [
+   [
+    "torso_back_plate",
+    "torso_lower_l",
+    85.2
+   ],
+   [
+    "yoke_l",
+    "torso_upper_l",
+    396.5
+   ],
+   [
+    "yoke_l",
+    "buck_12v_arm_l",
+    4877.5
+   ],
+   [
+    "yoke_r",
+    "buck_12v_arm_r",
+    726.5
+   ],
+   [
+    "torso_lower_l",
+    "joiner_52",
+    789.6
+   ],
+   [
+    "torso_lower_l",
+    "joiner_53",
+    789.6
+   ],
+   [
+    "torso_lower_l",
+    "pi5",
+    967.8
+   ],
+   [
+    "torso_lower_l",
+    "pi5_feet",
+    87.6
+   ],
+   [
+    "torso_lower_l",
+    "pi5_cooler",
+    907.2
+   ],
+   [
+    "torso_lower_l",
+    "pi5_ports",
+    723.8
+   ],
+   [
+    "torso_lower_l",
+    "servo_bus",
+    190.6
+   ],
+   [
+    "torso_lower_l",
+    "servo_bus_ports",
+    623.4
+   ],
+   [
+    "torso_lower_l",
+    "speaker",
+    174.4
+   ],
+   [
+    "torso_lower_r",
+    "servo_bus_r",
+    190.6
+   ],
+   [
+    "torso_lower_r",
+    "servo_bus_r_ports",
+    510.7
+   ],
+   [
+    "torso_lower_r",
+    "buck_12v_arm_r",
+    2649.6
+   ],
+   [
+    "torso_lower_r",
+    "speaker",
+    174.4
+   ],
+   [
+    "torso_upper_l",
+    "joiner_52",
+    789.6
+   ],
+   [
+    "torso_upper_l",
+    "joiner_53",
+    789.6
+   ],
+   [
+    "torso_upper_l",
+    "pi5",
+    5954.9
+   ],
+   [
+    "torso_upper_l",
+    "pi5_feet",
+    92.7
+   ],
+   [
+    "torso_upper_l",
+    "pi5_cooler",
+    8618.4
+   ],
+   [
+    "torso_upper_l",
+    "pi5_ports",
+    4320.8
+   ],
+   [
+    "torso_upper_r",
+    "usb_hub",
+    174.1
+   ],
+   [
+    "torso_upper_r",
+    "usb_hub_ports",
+    40.6
+   ],
+   [
+    "joiner_52",
+    "pi5",
+    467.1
+   ],
+   [
+    "joiner_52",
+    "pi5_cooler",
+    513.2
+   ],
+   [
+    "joiner_53",
+    "pi5",
+    467.1
+   ],
+   [
+    "joiner_53",
+    "pi5_ports",
+    340.1
+   ],
+   [
+    "joiner_55",
+    "usb_hub_ports",
+    302.6
+   ],
+   [
+    "pi5_fan",
+    "buck_12v_arm_l",
+    2748.9
+   ],
+   [
+    "pi5_ports",
+    "buck_12v_arm_l",
+    1494.0
+   ],
+   [
+    "pi5_ports",
+    "buck_12v_arm_l_terms",
+    720.0
+   ]
+  ],
+  "pan_left": [
+   [
+    "torso_back_plate",
+    "torso_lower_l",
+    85.2
+   ],
+   [
+    "yoke_l",
+    "torso_upper_l",
+    396.5
+   ],
+   [
+    "yoke_l",
+    "buck_12v_arm_l",
+    4877.5
+   ],
+   [
+    "yoke_r",
+    "buck_12v_arm_r",
+    726.5
+   ],
+   [
+    "torso_lower_l",
+    "joiner_52",
+    789.6
+   ],
+   [
+    "torso_lower_l",
+    "joiner_53",
+    789.6
+   ],
+   [
+    "torso_lower_l",
+    "pi5",
+    967.8
+   ],
+   [
+    "torso_lower_l",
+    "pi5_feet",
+    87.6
+   ],
+   [
+    "torso_lower_l",
+    "pi5_cooler",
+    907.2
+   ],
+   [
+    "torso_lower_l",
+    "pi5_ports",
+    723.8
+   ],
+   [
+    "torso_lower_l",
+    "servo_bus",
+    190.6
+   ],
+   [
+    "torso_lower_l",
+    "servo_bus_ports",
+    623.4
+   ],
+   [
+    "torso_lower_l",
+    "speaker",
+    174.4
+   ],
+   [
+    "torso_lower_r",
+    "servo_bus_r",
+    190.6
+   ],
+   [
+    "torso_lower_r",
+    "servo_bus_r_ports",
+    510.7
+   ],
+   [
+    "torso_lower_r",
+    "buck_12v_arm_r",
+    2649.6
+   ],
+   [
+    "torso_lower_r",
+    "speaker",
+    174.4
+   ],
+   [
+    "torso_upper_l",
+    "joiner_52",
+    789.6
+   ],
+   [
+    "torso_upper_l",
+    "joiner_53",
+    789.6
+   ],
+   [
+    "torso_upper_l",
+    "pi5",
+    5954.9
+   ],
+   [
+    "torso_upper_l",
+    "pi5_feet",
+    92.7
+   ],
+   [
+    "torso_upper_l",
+    "pi5_cooler",
+    8618.4
+   ],
+   [
+    "torso_upper_l",
+    "pi5_ports",
+    4320.8
+   ],
+   [
+    "torso_upper_r",
+    "usb_hub",
+    174.1
+   ],
+   [
+    "torso_upper_r",
+    "usb_hub_ports",
+    40.6
+   ],
+   [
+    "joiner_52",
+    "pi5",
+    467.1
+   ],
+   [
+    "joiner_52",
+    "pi5_cooler",
+    513.2
+   ],
+   [
+    "joiner_53",
+    "pi5",
+    467.1
+   ],
+   [
+    "joiner_53",
+    "pi5_ports",
+    340.1
+   ],
+   [
+    "joiner_55",
+    "usb_hub_ports",
+    302.6
+   ],
+   [
+    "pi5_fan",
+    "buck_12v_arm_l",
+    2748.9
+   ],
+   [
+    "pi5_ports",
+    "buck_12v_arm_l",
+    1494.0
+   ],
+   [
+    "pi5_ports",
+    "buck_12v_arm_l_terms",
+    720.0
+   ]
+  ],
+  "pan_right": [
+   [
+    "torso_back_plate",
+    "torso_lower_l",
+    85.2
+   ],
+   [
+    "yoke_l",
+    "torso_upper_l",
+    396.5
+   ],
+   [
+    "yoke_l",
+    "buck_12v_arm_l",
+    4877.5
+   ],
+   [
+    "yoke_r",
+    "buck_12v_arm_r",
+    726.5
+   ],
+   [
+    "torso_lower_l",
+    "joiner_52",
+    789.6
+   ],
+   [
+    "torso_lower_l",
+    "joiner_53",
+    789.6
+   ],
+   [
+    "torso_lower_l",
+    "pi5",
+    967.8
+   ],
+   [
+    "torso_lower_l",
+    "pi5_feet",
+    87.6
+   ],
+   [
+    "torso_lower_l",
+    "pi5_cooler",
+    907.2
+   ],
+   [
+    "torso_lower_l",
+    "pi5_ports",
+    723.8
+   ],
+   [
+    "torso_lower_l",
+    "servo_bus",
+    190.6
+   ],
+   [
+    "torso_lower_l",
+    "servo_bus_ports",
+    623.4
+   ],
+   [
+    "torso_lower_l",
+    "speaker",
+    174.4
+   ],
+   [
+    "torso_lower_r",
+    "servo_bus_r",
+    190.6
+   ],
+   [
+    "torso_lower_r",
+    "servo_bus_r_ports",
+    510.7
+   ],
+   [
+    "torso_lower_r",
+    "buck_12v_arm_r",
+    2649.6
+   ],
+   [
+    "torso_lower_r",
+    "speaker",
+    174.4
+   ],
+   [
+    "torso_upper_l",
+    "joiner_52",
+    789.6
+   ],
+   [
+    "torso_upper_l",
+    "joiner_53",
+    789.6
+   ],
+   [
+    "torso_upper_l",
+    "pi5",
+    5954.9
+   ],
+   [
+    "torso_upper_l",
+    "pi5_feet",
+    92.7
+   ],
+   [
+    "torso_upper_l",
+    "pi5_cooler",
+    8618.4
+   ],
+   [
+    "torso_upper_l",
+    "pi5_ports",
+    4320.8
+   ],
+   [
+    "torso_upper_r",
+    "usb_hub",
+    174.1
+   ],
+   [
+    "torso_upper_r",
+    "usb_hub_ports",
+    40.6
+   ],
+   [
+    "joiner_52",
+    "pi5",
+    467.1
+   ],
+   [
+    "joiner_52",
+    "pi5_cooler",
+    513.2
+   ],
+   [
+    "joiner_53",
+    "pi5",
+    467.1
+   ],
+   [
+    "joiner_53",
+    "pi5_ports",
+    340.1
+   ],
+   [
+    "joiner_55",
+    "usb_hub_ports",
+    302.6
+   ],
+   [
+    "pi5_fan",
+    "buck_12v_arm_l",
+    2748.9
+   ],
+   [
+    "pi5_ports",
+    "buck_12v_arm_l",
+    1494.0
+   ],
+   [
+    "pi5_ports",
+    "buck_12v_arm_l_terms",
+    720.0
+   ]
+  ],
+  "pan_down": [
+   [
+    "torso_back_plate",
+    "torso_lower_l",
+    85.2
+   ],
+   [
+    "yoke_l",
+    "torso_upper_l",
+    396.5
+   ],
+   [
+    "yoke_l",
+    "buck_12v_arm_l",
+    4877.5
+   ],
+   [
+    "yoke_r",
+    "buck_12v_arm_r",
+    726.5
+   ],
+   [
+    "torso_lower_l",
+    "joiner_52",
+    789.6
+   ],
+   [
+    "torso_lower_l",
+    "joiner_53",
+    789.6
+   ],
+   [
+    "torso_lower_l",
+    "pi5",
+    967.8
+   ],
+   [
+    "torso_lower_l",
+    "pi5_feet",
+    87.6
+   ],
+   [
+    "torso_lower_l",
+    "pi5_cooler",
+    907.2
+   ],
+   [
+    "torso_lower_l",
+    "pi5_ports",
+    723.8
+   ],
+   [
+    "torso_lower_l",
+    "servo_bus",
+    190.6
+   ],
+   [
+    "torso_lower_l",
+    "servo_bus_ports",
+    623.4
+   ],
+   [
+    "torso_lower_l",
+    "speaker",
+    174.4
+   ],
+   [
+    "torso_lower_r",
+    "servo_bus_r",
+    190.6
+   ],
+   [
+    "torso_lower_r",
+    "servo_bus_r_ports",
+    510.7
+   ],
+   [
+    "torso_lower_r",
+    "buck_12v_arm_r",
+    2649.6
+   ],
+   [
+    "torso_lower_r",
+    "speaker",
+    174.4
+   ],
+   [
+    "torso_upper_l",
+    "joiner_52",
+    789.6
+   ],
+   [
+    "torso_upper_l",
+    "joiner_53",
+    789.6
+   ],
+   [
+    "torso_upper_l",
+    "pi5",
+    5954.9
+   ],
+   [
+    "torso_upper_l",
+    "pi5_feet",
+    92.7
+   ],
+   [
+    "torso_upper_l",
+    "pi5_cooler",
+    8618.4
+   ],
+   [
+    "torso_upper_l",
+    "pi5_ports",
+    4320.8
+   ],
+   [
+    "torso_upper_r",
+    "usb_hub",
+    174.1
+   ],
+   [
+    "torso_upper_r",
+    "usb_hub_ports",
+    40.6
+   ],
+   [
+    "joiner_52",
+    "pi5",
+    467.1
+   ],
+   [
+    "joiner_52",
+    "pi5_cooler",
+    513.2
+   ],
+   [
+    "joiner_53",
+    "pi5",
+    467.1
+   ],
+   [
+    "joiner_53",
+    "pi5_ports",
+    340.1
+   ],
+   [
+    "joiner_55",
+    "usb_hub_ports",
+    302.6
+   ],
+   [
+    "pi5_fan",
+    "buck_12v_arm_l",
+    2748.9
+   ],
+   [
+    "pi5_ports",
+    "buck_12v_arm_l",
+    1494.0
+   ],
+   [
+    "pi5_ports",
+    "buck_12v_arm_l_terms",
+    720.0
+   ]
+  ],
+  "lift_bottom": [
+   [
+    "torso_back_plate",
+    "torso_lower_l",
+    85.2
+   ],
+   [
+    "yoke_l",
+    "torso_upper_l",
+    396.5
+   ],
+   [
+    "yoke_l",
+    "buck_12v_arm_l",
+    4877.5
+   ],
+   [
+    "yoke_r",
+    "buck_12v_arm_r",
+    726.5
+   ],
+   [
+    "torso_lower_l",
+    "joiner_52",
+    789.6
+   ],
+   [
+    "torso_lower_l",
+    "joiner_53",
+    789.6
+   ],
+   [
+    "torso_lower_l",
+    "pi5",
+    967.8
+   ],
+   [
+    "torso_lower_l",
+    "pi5_feet",
+    87.6
+   ],
+   [
+    "torso_lower_l",
+    "pi5_cooler",
+    907.2
+   ],
+   [
+    "torso_lower_l",
+    "pi5_ports",
+    723.8
+   ],
+   [
+    "torso_lower_l",
+    "servo_bus",
+    190.6
+   ],
+   [
+    "torso_lower_l",
+    "servo_bus_ports",
+    623.4
+   ],
+   [
+    "torso_lower_l",
+    "speaker",
+    174.4
+   ],
+   [
+    "torso_lower_r",
+    "servo_bus_r",
+    190.6
+   ],
+   [
+    "torso_lower_r",
+    "servo_bus_r_ports",
+    510.7
+   ],
+   [
+    "torso_lower_r",
+    "buck_12v_arm_r",
+    2649.6
+   ],
+   [
+    "torso_lower_r",
+    "speaker",
+    174.4
+   ],
+   [
+    "torso_upper_l",
+    "joiner_52",
+    789.6
+   ],
+   [
+    "torso_upper_l",
+    "joiner_53",
+    789.6
+   ],
+   [
+    "torso_upper_l",
+    "pi5",
+    5954.9
+   ],
+   [
+    "torso_upper_l",
+    "pi5_feet",
+    92.7
+   ],
+   [
+    "torso_upper_l",
+    "pi5_cooler",
+    8618.4
+   ],
+   [
+    "torso_upper_l",
+    "pi5_ports",
+    4320.8
+   ],
+   [
+    "torso_upper_r",
+    "usb_hub",
+    174.1
+   ],
+   [
+    "torso_upper_r",
+    "usb_hub_ports",
+    40.6
+   ],
+   [
+    "joiner_52",
+    "pi5",
+    467.1
+   ],
+   [
+    "joiner_52",
+    "pi5_cooler",
+    513.2
+   ],
+   [
+    "joiner_53",
+    "pi5",
+    467.1
+   ],
+   [
+    "joiner_53",
+    "pi5_ports",
+    340.1
+   ],
+   [
+    "joiner_55",
+    "usb_hub_ports",
+    302.6
+   ],
+   [
+    "pi5_fan",
+    "buck_12v_arm_l",
+    2748.9
+   ],
+   [
+    "pi5_ports",
+    "buck_12v_arm_l",
+    1494.0
+   ],
+   [
+    "pi5_ports",
+    "buck_12v_arm_l_terms",
+    720.0
+   ]
+  ],
+  "lift_middle": [
+   [
+    "torso_back_plate",
+    "torso_lower_l",
+    85.2
+   ],
+   [
+    "yoke_l",
+    "torso_upper_l",
+    396.5
+   ],
+   [
+    "yoke_l",
+    "buck_12v_arm_l",
+    4877.5
+   ],
+   [
+    "yoke_r",
+    "buck_12v_arm_r",
+    726.5
+   ],
+   [
+    "torso_lower_l",
+    "joiner_52",
+    789.6
+   ],
+   [
+    "torso_lower_l",
+    "joiner_53",
+    789.6
+   ],
+   [
+    "torso_lower_l",
+    "pi5",
+    967.8
+   ],
+   [
+    "torso_lower_l",
+    "pi5_feet",
+    87.6
+   ],
+   [
+    "torso_lower_l",
+    "pi5_cooler",
+    907.2
+   ],
+   [
+    "torso_lower_l",
+    "pi5_ports",
+    723.8
+   ],
+   [
+    "torso_lower_l",
+    "servo_bus",
+    190.6
+   ],
+   [
+    "torso_lower_l",
+    "servo_bus_ports",
+    623.4
+   ],
+   [
+    "torso_lower_l",
+    "speaker",
+    174.4
+   ],
+   [
+    "torso_lower_r",
+    "servo_bus_r",
+    190.6
+   ],
+   [
+    "torso_lower_r",
+    "servo_bus_r_ports",
+    510.7
+   ],
+   [
+    "torso_lower_r",
+    "buck_12v_arm_r",
+    2649.6
+   ],
+   [
+    "torso_lower_r",
+    "speaker",
+    174.4
+   ],
+   [
+    "torso_upper_l",
+    "joiner_52",
+    789.6
+   ],
+   [
+    "torso_upper_l",
+    "joiner_53",
+    789.6
+   ],
+   [
+    "torso_upper_l",
+    "pi5",
+    5954.9
+   ],
+   [
+    "torso_upper_l",
+    "pi5_feet",
+    92.7
+   ],
+   [
+    "torso_upper_l",
+    "pi5_cooler",
+    8618.4
+   ],
+   [
+    "torso_upper_l",
+    "pi5_ports",
+    4320.8
+   ],
+   [
+    "torso_upper_r",
+    "usb_hub",
+    174.1
+   ],
+   [
+    "torso_upper_r",
+    "usb_hub_ports",
+    40.6
+   ],
+   [
+    "joiner_52",
+    "pi5",
+    467.1
+   ],
+   [
+    "joiner_52",
+    "pi5_cooler",
+    513.2
+   ],
+   [
+    "joiner_53",
+    "pi5",
+    467.1
+   ],
+   [
+    "joiner_53",
+    "pi5_ports",
+    340.1
+   ],
+   [
+    "joiner_55",
+    "usb_hub_ports",
+    302.6
+   ],
+   [
+    "pi5_fan",
+    "buck_12v_arm_l",
+    2748.9
+   ],
+   [
+    "pi5_ports",
+    "buck_12v_arm_l",
+    1494.0
+   ],
+   [
+    "pi5_ports",
+    "buck_12v_arm_l_terms",
+    720.0
+   ]
+  ],
+  "lift_top": [
+   [
+    "torso_back_plate",
+    "torso_lower_l",
+    85.2
+   ],
+   [
+    "yoke_l",
+    "torso_upper_l",
+    396.5
+   ],
+   [
+    "yoke_l",
+    "buck_12v_arm_l",
+    4877.5
+   ],
+   [
+    "yoke_r",
+    "buck_12v_arm_r",
+    726.5
+   ],
+   [
+    "torso_lower_l",
+    "joiner_52",
+    789.6
+   ],
+   [
+    "torso_lower_l",
+    "joiner_53",
+    789.6
+   ],
+   [
+    "torso_lower_l",
+    "pi5",
+    967.8
+   ],
+   [
+    "torso_lower_l",
+    "pi5_feet",
+    87.6
+   ],
+   [
+    "torso_lower_l",
+    "pi5_cooler",
+    907.2
+   ],
+   [
+    "torso_lower_l",
+    "pi5_ports",
+    723.8
+   ],
+   [
+    "torso_lower_l",
+    "servo_bus",
+    190.6
+   ],
+   [
+    "torso_lower_l",
+    "servo_bus_ports",
+    623.4
+   ],
+   [
+    "torso_lower_l",
+    "speaker",
+    174.4
+   ],
+   [
+    "torso_lower_r",
+    "servo_bus_r",
+    190.6
+   ],
+   [
+    "torso_lower_r",
+    "servo_bus_r_ports",
+    510.7
+   ],
+   [
+    "torso_lower_r",
+    "buck_12v_arm_r",
+    2649.6
+   ],
+   [
+    "torso_lower_r",
+    "speaker",
+    174.4
+   ],
+   [
+    "torso_upper_l",
+    "joiner_52",
+    789.6
+   ],
+   [
+    "torso_upper_l",
+    "joiner_53",
+    789.6
+   ],
+   [
+    "torso_upper_l",
+    "pi5",
+    5954.9
+   ],
+   [
+    "torso_upper_l",
+    "pi5_feet",
+    92.7
+   ],
+   [
+    "torso_upper_l",
+    "pi5_cooler",
+    8618.4
+   ],
+   [
+    "torso_upper_l",
+    "pi5_ports",
+    4320.8
+   ],
+   [
+    "torso_upper_r",
+    "usb_hub",
+    174.1
+   ],
+   [
+    "torso_upper_r",
+    "usb_hub_ports",
+    40.6
+   ],
+   [
+    "joiner_52",
+    "pi5",
+    467.1
+   ],
+   [
+    "joiner_52",
+    "pi5_cooler",
+    513.2
+   ],
+   [
+    "joiner_53",
+    "pi5",
+    467.1
+   ],
+   [
+    "joiner_53",
+    "pi5_ports",
+    340.1
+   ],
+   [
+    "joiner_55",
+    "usb_hub_ports",
+    302.6
+   ],
+   [
+    "pi5_fan",
+    "buck_12v_arm_l",
+    2748.9
+   ],
+   [
+    "pi5_ports",
+    "buck_12v_arm_l",
+    1494.0
+   ],
+   [
+    "pi5_ports",
+    "buck_12v_arm_l_terms",
+    720.0
+   ]
+  ]
  },
- "errors": [],
+ "errors": [
+  "home: torso_back_plate intersects torso_lower_l by 85.2 mm3",
+  "home: yoke_l intersects torso_upper_l by 396.5 mm3",
+  "home: yoke_l intersects buck_12v_arm_l by 4877.5 mm3",
+  "home: yoke_r intersects buck_12v_arm_r by 726.5 mm3",
+  "home: torso_lower_l intersects joiner_52 by 789.6 mm3",
+  "home: torso_lower_l intersects joiner_53 by 789.6 mm3",
+  "home: torso_lower_l intersects pi5 by 967.8 mm3",
+  "home: torso_lower_l intersects pi5_feet by 87.6 mm3",
+  "home: torso_lower_l intersects pi5_cooler by 907.2 mm3",
+  "home: torso_lower_l intersects pi5_ports by 723.8 mm3",
+  "home: torso_lower_l intersects servo_bus by 190.6 mm3",
+  "home: torso_lower_l intersects servo_bus_ports by 623.4 mm3",
+  "home: torso_lower_l intersects speaker by 174.4 mm3",
+  "home: torso_lower_r intersects servo_bus_r by 190.6 mm3",
+  "home: torso_lower_r intersects servo_bus_r_ports by 510.7 mm3",
+  "home: torso_lower_r intersects buck_12v_arm_r by 2649.6 mm3",
+  "home: torso_lower_r intersects speaker by 174.4 mm3",
+  "home: torso_upper_l intersects joiner_52 by 789.6 mm3",
+  "home: torso_upper_l intersects joiner_53 by 789.6 mm3",
+  "home: torso_upper_l intersects pi5 by 5954.9 mm3",
+  "home: torso_upper_l intersects pi5_feet by 92.7 mm3",
+  "home: torso_upper_l intersects pi5_cooler by 8618.4 mm3",
+  "home: torso_upper_l intersects pi5_ports by 4320.8 mm3",
+  "home: torso_upper_r intersects usb_hub by 174.1 mm3",
+  "home: torso_upper_r intersects usb_hub_ports by 40.6 mm3",
+  "home: joiner_52 intersects pi5 by 467.1 mm3",
+  "home: joiner_52 intersects pi5_cooler by 513.2 mm3",
+  "home: joiner_53 intersects pi5 by 467.1 mm3",
+  "home: joiner_53 intersects pi5_ports by 340.1 mm3",
+  "home: joiner_55 intersects usb_hub_ports by 302.6 mm3",
+  "home: pi5_fan intersects buck_12v_arm_l by 2748.9 mm3",
+  "home: pi5_ports intersects buck_12v_arm_l by 1494.0 mm3",
+  "home: pi5_ports intersects buck_12v_arm_l_terms by 720.0 mm3",
+  "zero: torso_back_plate intersects torso_lower_l by 85.2 mm3",
+  "zero: yoke_l intersects torso_upper_l by 396.5 mm3",
+  "zero: yoke_l intersects buck_12v_arm_l by 4877.5 mm3",
+  "zero: yoke_r intersects buck_12v_arm_r by 726.5 mm3",
+  "zero: torso_lower_l intersects joiner_52 by 789.6 mm3",
+  "zero: torso_lower_l intersects joiner_53 by 789.6 mm3",
+  "zero: torso_lower_l intersects pi5 by 967.8 mm3",
+  "zero: torso_lower_l intersects pi5_feet by 87.6 mm3",
+  "zero: torso_lower_l intersects pi5_cooler by 907.2 mm3",
+  "zero: torso_lower_l intersects pi5_ports by 723.8 mm3",
+  "zero: torso_lower_l intersects servo_bus by 190.6 mm3",
+  "zero: torso_lower_l intersects servo_bus_ports by 623.4 mm3",
+  "zero: torso_lower_l intersects speaker by 174.4 mm3",
+  "zero: torso_lower_r intersects servo_bus_r by 190.6 mm3",
+  "zero: torso_lower_r intersects servo_bus_r_ports by 510.7 mm3",
+  "zero: torso_lower_r intersects buck_12v_arm_r by 2649.6 mm3",
+  "zero: torso_lower_r intersects speaker by 174.4 mm3",
+  "zero: torso_upper_l intersects joiner_52 by 789.6 mm3",
+  "zero: torso_upper_l intersects joiner_53 by 789.6 mm3",
+  "zero: torso_upper_l intersects pi5 by 5954.9 mm3",
+  "zero: torso_upper_l intersects pi5_feet by 92.7 mm3",
+  "zero: torso_upper_l intersects pi5_cooler by 8618.4 mm3",
+  "zero: torso_upper_l intersects pi5_ports by 4320.8 mm3",
+  "zero: torso_upper_r intersects usb_hub by 174.1 mm3",
+  "zero: torso_upper_r intersects usb_hub_ports by 40.6 mm3",
+  "zero: joiner_52 intersects pi5 by 467.1 mm3",
+  "zero: joiner_52 intersects pi5_cooler by 513.2 mm3",
+  "zero: joiner_53 intersects pi5 by 467.1 mm3",
+  "zero: joiner_53 intersects pi5_ports by 340.1 mm3",
+  "zero: joiner_55 intersects usb_hub_ports by 302.6 mm3",
+  "zero: pi5_fan intersects buck_12v_arm_l by 2748.9 mm3",
+  "zero: pi5_ports intersects buck_12v_arm_l by 1494.0 mm3",
+  "zero: pi5_ports intersects buck_12v_arm_l_terms by 720.0 mm3",
+  "floor: torso_back_plate intersects torso_lower_l by 85.2 mm3",
+  "floor: yoke_l intersects torso_upper_l by 396.5 mm3",
+  "floor: yoke_l intersects buck_12v_arm_l by 4877.5 mm3",
+  "floor: yoke_r intersects buck_12v_arm_r by 726.5 mm3",
+  "floor: torso_lower_l intersects joiner_52 by 789.6 mm3",
+  "floor: torso_lower_l intersects joiner_53 by 789.6 mm3",
+  "floor: torso_lower_l intersects pi5 by 967.8 mm3",
+  "floor: torso_lower_l intersects pi5_feet by 87.6 mm3",
+  "floor: torso_lower_l intersects pi5_cooler by 907.2 mm3",
+  "floor: torso_lower_l intersects pi5_ports by 723.8 mm3",
+  "floor: torso_lower_l intersects servo_bus by 190.6 mm3",
+  "floor: torso_lower_l intersects servo_bus_ports by 623.4 mm3",
+  "floor: torso_lower_l intersects speaker by 174.4 mm3",
+  "floor: torso_lower_r intersects servo_bus_r by 190.6 mm3",
+  "floor: torso_lower_r intersects servo_bus_r_ports by 510.7 mm3",
+  "floor: torso_lower_r intersects buck_12v_arm_r by 2649.6 mm3",
+  "floor: torso_lower_r intersects speaker by 174.4 mm3",
+  "floor: torso_upper_l intersects joiner_52 by 789.6 mm3",
+  "floor: torso_upper_l intersects joiner_53 by 789.6 mm3",
+  "floor: torso_upper_l intersects pi5 by 5954.9 mm3",
+  "floor: torso_upper_l intersects pi5_feet by 92.7 mm3",
+  "floor: torso_upper_l intersects pi5_cooler by 8618.4 mm3",
+  "floor: torso_upper_l intersects pi5_ports by 4320.8 mm3",
+  "floor: torso_upper_r intersects usb_hub by 174.1 mm3",
+  "floor: torso_upper_r intersects usb_hub_ports by 40.6 mm3",
+  "floor: joiner_52 intersects pi5 by 467.1 mm3",
+  "floor: joiner_52 intersects pi5_cooler by 513.2 mm3",
+  "floor: joiner_53 intersects pi5 by 467.1 mm3",
+  "floor: joiner_53 intersects pi5_ports by 340.1 mm3",
+  "floor: joiner_55 intersects usb_hub_ports by 302.6 mm3",
+  "floor: pi5_fan intersects buck_12v_arm_l by 2748.9 mm3",
+  "floor: pi5_ports intersects buck_12v_arm_l by 1494.0 mm3",
+  "floor: pi5_ports intersects buck_12v_arm_l_terms by 720.0 mm3",
+  "shelf: torso_back_plate intersects torso_lower_l by 85.2 mm3",
+  "shelf: yoke_l intersects torso_upper_l by 396.5 mm3",
+  "shelf: yoke_l intersects buck_12v_arm_l by 4877.5 mm3",
+  "shelf: yoke_r intersects buck_12v_arm_r by 726.5 mm3",
+  "shelf: torso_lower_l intersects joiner_52 by 789.6 mm3",
+  "shelf: torso_lower_l intersects joiner_53 by 789.6 mm3",
+  "shelf: torso_lower_l intersects pi5 by 967.8 mm3",
+  "shelf: torso_lower_l intersects pi5_feet by 87.6 mm3",
+  "shelf: torso_lower_l intersects pi5_cooler by 907.2 mm3",
+  "shelf: torso_lower_l intersects pi5_ports by 723.8 mm3",
+  "shelf: torso_lower_l intersects servo_bus by 190.6 mm3",
+  "shelf: torso_lower_l intersects servo_bus_ports by 623.4 mm3",
+  "shelf: torso_lower_l intersects speaker by 174.4 mm3",
+  "shelf: torso_lower_r intersects servo_bus_r by 190.6 mm3",
+  "shelf: torso_lower_r intersects servo_bus_r_ports by 510.7 mm3",
+  "shelf: torso_lower_r intersects buck_12v_arm_r by 2649.6 mm3",
+  "shelf: torso_lower_r intersects speaker by 174.4 mm3",
+  "shelf: torso_upper_l intersects joiner_52 by 789.6 mm3",
+  "shelf: torso_upper_l intersects joiner_53 by 789.6 mm3",
+  "shelf: torso_upper_l intersects pi5 by 5954.9 mm3",
+  "shelf: torso_upper_l intersects pi5_feet by 92.7 mm3",
+  "shelf: torso_upper_l intersects pi5_cooler by 8618.4 mm3",
+  "shelf: torso_upper_l intersects pi5_ports by 4320.8 mm3",
+  "shelf: torso_upper_r intersects usb_hub by 174.1 mm3",
+  "shelf: torso_upper_r intersects usb_hub_ports by 40.6 mm3",
+  "shelf: joiner_52 intersects pi5 by 467.1 mm3",
+  "shelf: joiner_52 intersects pi5_cooler by 513.2 mm3",
+  "shelf: joiner_53 intersects pi5 by 467.1 mm3",
+  "shelf: joiner_53 intersects pi5_ports by 340.1 mm3",
+  "shelf: joiner_55 intersects usb_hub_ports by 302.6 mm3",
+  "shelf: pi5_fan intersects buck_12v_arm_l by 2748.9 mm3",
+  "shelf: pi5_ports intersects buck_12v_arm_l by 1494.0 mm3",
+  "shelf: pi5_ports intersects buck_12v_arm_l_terms by 720.0 mm3",
+  "look_down: torso_back_plate intersects torso_lower_l by 85.2 mm3",
+  "look_down: yoke_l intersects torso_upper_l by 396.5 mm3",
+  "look_down: yoke_l intersects buck_12v_arm_l by 4877.5 mm3",
+  "look_down: yoke_r intersects buck_12v_arm_r by 726.5 mm3",
+  "look_down: torso_lower_l intersects joiner_52 by 789.6 mm3",
+  "look_down: torso_lower_l intersects joiner_53 by 789.6 mm3",
+  "look_down: torso_lower_l intersects pi5 by 967.8 mm3",
+  "look_down: torso_lower_l intersects pi5_feet by 87.6 mm3",
+  "look_down: torso_lower_l intersects pi5_cooler by 907.2 mm3",
+  "look_down: torso_lower_l intersects pi5_ports by 723.8 mm3",
+  "look_down: torso_lower_l intersects servo_bus by 190.6 mm3",
+  "look_down: torso_lower_l intersects servo_bus_ports by 623.4 mm3",
+  "look_down: torso_lower_l intersects speaker by 174.4 mm3",
+  "look_down: torso_lower_r intersects servo_bus_r by 190.6 mm3",
+  "look_down: torso_lower_r intersects servo_bus_r_ports by 510.7 mm3",
+  "look_down: torso_lower_r intersects buck_12v_arm_r by 2649.6 mm3",
+  "look_down: torso_lower_r intersects speaker by 174.4 mm3",
+  "look_down: torso_upper_l intersects joiner_52 by 789.6 mm3",
+  "look_down: torso_upper_l intersects joiner_53 by 789.6 mm3",
+  "look_down: torso_upper_l intersects pi5 by 5954.9 mm3",
+  "look_down: torso_upper_l intersects pi5_feet by 92.7 mm3",
+  "look_down: torso_upper_l intersects pi5_cooler by 8618.4 mm3",
+  "look_down: torso_upper_l intersects pi5_ports by 4320.8 mm3",
+  "look_down: torso_upper_r intersects usb_hub by 174.1 mm3",
+  "look_down: torso_upper_r intersects usb_hub_ports by 40.6 mm3",
+  "look_down: joiner_52 intersects pi5 by 467.1 mm3",
+  "look_down: joiner_52 intersects pi5_cooler by 513.2 mm3",
+  "look_down: joiner_53 intersects pi5 by 467.1 mm3",
+  "look_down: joiner_53 intersects pi5_ports by 340.1 mm3",
+  "look_down: joiner_55 intersects usb_hub_ports by 302.6 mm3",
+  "look_down: pi5_fan intersects buck_12v_arm_l by 2748.9 mm3",
+  "look_down: pi5_ports intersects buck_12v_arm_l by 1494.0 mm3",
+  "look_down: pi5_ports intersects buck_12v_arm_l_terms by 720.0 mm3",
+  "look_up: torso_back_plate intersects torso_lower_l by 85.2 mm3",
+  "look_up: yoke_l intersects torso_upper_l by 396.5 mm3",
+  "look_up: yoke_l intersects buck_12v_arm_l by 4877.5 mm3",
+  "look_up: yoke_r intersects buck_12v_arm_r by 726.5 mm3",
+  "look_up: torso_lower_l intersects joiner_52 by 789.6 mm3",
+  "look_up: torso_lower_l intersects joiner_53 by 789.6 mm3",
+  "look_up: torso_lower_l intersects pi5 by 967.8 mm3",
+  "look_up: torso_lower_l intersects pi5_feet by 87.6 mm3",
+  "look_up: torso_lower_l intersects pi5_cooler by 907.2 mm3",
+  "look_up: torso_lower_l intersects pi5_ports by 723.8 mm3",
+  "look_up: torso_lower_l intersects servo_bus by 190.6 mm3",
+  "look_up: torso_lower_l intersects servo_bus_ports by 623.4 mm3",
+  "look_up: torso_lower_l intersects speaker by 174.4 mm3",
+  "look_up: torso_lower_r intersects servo_bus_r by 190.6 mm3",
+  "look_up: torso_lower_r intersects servo_bus_r_ports by 510.7 mm3",
+  "look_up: torso_lower_r intersects buck_12v_arm_r by 2649.6 mm3",
+  "look_up: torso_lower_r intersects speaker by 174.4 mm3",
+  "look_up: torso_upper_l intersects joiner_52 by 789.6 mm3",
+  "look_up: torso_upper_l intersects joiner_53 by 789.6 mm3",
+  "look_up: torso_upper_l intersects pi5 by 5954.9 mm3",
+  "look_up: torso_upper_l intersects pi5_feet by 92.7 mm3",
+  "look_up: torso_upper_l intersects pi5_cooler by 8618.4 mm3",
+  "look_up: torso_upper_l intersects pi5_ports by 4320.8 mm3",
+  "look_up: torso_upper_r intersects usb_hub by 174.1 mm3",
+  "look_up: torso_upper_r intersects usb_hub_ports by 40.6 mm3",
+  "look_up: joiner_52 intersects pi5 by 467.1 mm3",
+  "look_up: joiner_52 intersects pi5_cooler by 513.2 mm3",
+  "look_up: joiner_53 intersects pi5 by 467.1 mm3",
+  "look_up: joiner_53 intersects pi5_ports by 340.1 mm3",
+  "look_up: joiner_55 intersects usb_hub_ports by 302.6 mm3",
+  "look_up: pi5_fan intersects buck_12v_arm_l by 2748.9 mm3",
+  "look_up: pi5_ports intersects buck_12v_arm_l by 1494.0 mm3",
+  "look_up: pi5_ports intersects buck_12v_arm_l_terms by 720.0 mm3",
+  "pan_left: torso_back_plate intersects torso_lower_l by 85.2 mm3",
+  "pan_left: yoke_l intersects torso_upper_l by 396.5 mm3",
+  "pan_left: yoke_l intersects buck_12v_arm_l by 4877.5 mm3",
+  "pan_left: yoke_r intersects buck_12v_arm_r by 726.5 mm3",
+  "pan_left: torso_lower_l intersects joiner_52 by 789.6 mm3",
+  "pan_left: torso_lower_l intersects joiner_53 by 789.6 mm3",
+  "pan_left: torso_lower_l intersects pi5 by 967.8 mm3",
+  "pan_left: torso_lower_l intersects pi5_feet by 87.6 mm3",
+  "pan_left: torso_lower_l intersects pi5_cooler by 907.2 mm3",
+  "pan_left: torso_lower_l intersects pi5_ports by 723.8 mm3",
+  "pan_left: torso_lower_l intersects servo_bus by 190.6 mm3",
+  "pan_left: torso_lower_l intersects servo_bus_ports by 623.4 mm3",
+  "pan_left: torso_lower_l intersects speaker by 174.4 mm3",
+  "pan_left: torso_lower_r intersects servo_bus_r by 190.6 mm3",
+  "pan_left: torso_lower_r intersects servo_bus_r_ports by 510.7 mm3",
+  "pan_left: torso_lower_r intersects buck_12v_arm_r by 2649.6 mm3",
+  "pan_left: torso_lower_r intersects speaker by 174.4 mm3",
+  "pan_left: torso_upper_l intersects joiner_52 by 789.6 mm3",
+  "pan_left: torso_upper_l intersects joiner_53 by 789.6 mm3",
+  "pan_left: torso_upper_l intersects pi5 by 5954.9 mm3",
+  "pan_left: torso_upper_l intersects pi5_feet by 92.7 mm3",
+  "pan_left: torso_upper_l intersects pi5_cooler by 8618.4 mm3",
+  "pan_left: torso_upper_l intersects pi5_ports by 4320.8 mm3",
+  "pan_left: torso_upper_r intersects usb_hub by 174.1 mm3",
+  "pan_left: torso_upper_r intersects usb_hub_ports by 40.6 mm3",
+  "pan_left: joiner_52 intersects pi5 by 467.1 mm3",
+  "pan_left: joiner_52 intersects pi5_cooler by 513.2 mm3",
+  "pan_left: joiner_53 intersects pi5 by 467.1 mm3",
+  "pan_left: joiner_53 intersects pi5_ports by 340.1 mm3",
+  "pan_left: joiner_55 intersects usb_hub_ports by 302.6 mm3",
+  "pan_left: pi5_fan intersects buck_12v_arm_l by 2748.9 mm3",
+  "pan_left: pi5_ports intersects buck_12v_arm_l by 1494.0 mm3",
+  "pan_left: pi5_ports intersects buck_12v_arm_l_terms by 720.0 mm3",
+  "pan_right: torso_back_plate intersects torso_lower_l by 85.2 mm3",
+  "pan_right: yoke_l intersects torso_upper_l by 396.5 mm3",
+  "pan_right: yoke_l intersects buck_12v_arm_l by 4877.5 mm3",
+  "pan_right: yoke_r intersects buck_12v_arm_r by 726.5 mm3",
+  "pan_right: torso_lower_l intersects joiner_52 by 789.6 mm3",
+  "pan_right: torso_lower_l intersects joiner_53 by 789.6 mm3",
+  "pan_right: torso_lower_l intersects pi5 by 967.8 mm3",
+  "pan_right: torso_lower_l intersects pi5_feet by 87.6 mm3",
+  "pan_right: torso_lower_l intersects pi5_cooler by 907.2 mm3",
+  "pan_right: torso_lower_l intersects pi5_ports by 723.8 mm3",
+  "pan_right: torso_lower_l intersects servo_bus by 190.6 mm3",
+  "pan_right: torso_lower_l intersects servo_bus_ports by 623.4 mm3",
+  "pan_right: torso_lower_l intersects speaker by 174.4 mm3",
+  "pan_right: torso_lower_r intersects servo_bus_r by 190.6 mm3",
+  "pan_right: torso_lower_r intersects servo_bus_r_ports by 510.7 mm3",
+  "pan_right: torso_lower_r intersects buck_12v_arm_r by 2649.6 mm3",
+  "pan_right: torso_lower_r intersects speaker by 174.4 mm3",
+  "pan_right: torso_upper_l intersects joiner_52 by 789.6 mm3",
+  "pan_right: torso_upper_l intersects joiner_53 by 789.6 mm3",
+  "pan_right: torso_upper_l intersects pi5 by 5954.9 mm3",
+  "pan_right: torso_upper_l intersects pi5_feet by 92.7 mm3",
+  "pan_right: torso_upper_l intersects pi5_cooler by 8618.4 mm3",
+  "pan_right: torso_upper_l intersects pi5_ports by 4320.8 mm3",
+  "pan_right: torso_upper_r intersects usb_hub by 174.1 mm3",
+  "pan_right: torso_upper_r intersects usb_hub_ports by 40.6 mm3",
+  "pan_right: joiner_52 intersects pi5 by 467.1 mm3",
+  "pan_right: joiner_52 intersects pi5_cooler by 513.2 mm3",
+  "pan_right: joiner_53 intersects pi5 by 467.1 mm3",
+  "pan_right: joiner_53 intersects pi5_ports by 340.1 mm3",
+  "pan_right: joiner_55 intersects usb_hub_ports by 302.6 mm3",
+  "pan_right: pi5_fan intersects buck_12v_arm_l by 2748.9 mm3",
+  "pan_right: pi5_ports intersects buck_12v_arm_l by 1494.0 mm3",
+  "pan_right: pi5_ports intersects buck_12v_arm_l_terms by 720.0 mm3",
+  "pan_down: torso_back_plate intersects torso_lower_l by 85.2 mm3",
+  "pan_down: yoke_l intersects torso_upper_l by 396.5 mm3",
+  "pan_down: yoke_l intersects buck_12v_arm_l by 4877.5 mm3",
+  "pan_down: yoke_r intersects buck_12v_arm_r by 726.5 mm3",
+  "pan_down: torso_lower_l intersects joiner_52 by 789.6 mm3",
+  "pan_down: torso_lower_l intersects joiner_53 by 789.6 mm3",
+  "pan_down: torso_lower_l intersects pi5 by 967.8 mm3",
+  "pan_down: torso_lower_l intersects pi5_feet by 87.6 mm3",
+  "pan_down: torso_lower_l intersects pi5_cooler by 907.2 mm3",
+  "pan_down: torso_lower_l intersects pi5_ports by 723.8 mm3",
+  "pan_down: torso_lower_l intersects servo_bus by 190.6 mm3",
+  "pan_down: torso_lower_l intersects servo_bus_ports by 623.4 mm3",
+  "pan_down: torso_lower_l intersects speaker by 174.4 mm3",
+  "pan_down: torso_lower_r intersects servo_bus_r by 190.6 mm3",
+  "pan_down: torso_lower_r intersects servo_bus_r_ports by 510.7 mm3",
+  "pan_down: torso_lower_r intersects buck_12v_arm_r by 2649.6 mm3",
+  "pan_down: torso_lower_r intersects speaker by 174.4 mm3",
+  "pan_down: torso_upper_l intersects joiner_52 by 789.6 mm3",
+  "pan_down: torso_upper_l intersects joiner_53 by 789.6 mm3",
+  "pan_down: torso_upper_l intersects pi5 by 5954.9 mm3",
+  "pan_down: torso_upper_l intersects pi5_feet by 92.7 mm3",
+  "pan_down: torso_upper_l intersects pi5_cooler by 8618.4 mm3",
+  "pan_down: torso_upper_l intersects pi5_ports by 4320.8 mm3",
+  "pan_down: torso_upper_r intersects usb_hub by 174.1 mm3",
+  "pan_down: torso_upper_r intersects usb_hub_ports by 40.6 mm3",
+  "pan_down: joiner_52 intersects pi5 by 467.1 mm3",
+  "pan_down: joiner_52 intersects pi5_cooler by 513.2 mm3",
+  "pan_down: joiner_53 intersects pi5 by 467.1 mm3",
+  "pan_down: joiner_53 intersects pi5_ports by 340.1 mm3",
+  "pan_down: joiner_55 intersects usb_hub_ports by 302.6 mm3",
+  "pan_down: pi5_fan intersects buck_12v_arm_l by 2748.9 mm3",
+  "pan_down: pi5_ports intersects buck_12v_arm_l by 1494.0 mm3",
+  "pan_down: pi5_ports intersects buck_12v_arm_l_terms by 720.0 mm3",
+  "lift_bottom: torso_back_plate intersects torso_lower_l by 85.2 mm3",
+  "lift_bottom: yoke_l intersects torso_upper_l by 396.5 mm3",
+  "lift_bottom: yoke_l intersects buck_12v_arm_l by 4877.5 mm3",
+  "lift_bottom: yoke_r intersects buck_12v_arm_r by 726.5 mm3",
+  "lift_bottom: torso_lower_l intersects joiner_52 by 789.6 mm3",
+  "lift_bottom: torso_lower_l intersects joiner_53 by 789.6 mm3",
+  "lift_bottom: torso_lower_l intersects pi5 by 967.8 mm3",
+  "lift_bottom: torso_lower_l intersects pi5_feet by 87.6 mm3",
+  "lift_bottom: torso_lower_l intersects pi5_cooler by 907.2 mm3",
+  "lift_bottom: torso_lower_l intersects pi5_ports by 723.8 mm3",
+  "lift_bottom: torso_lower_l intersects servo_bus by 190.6 mm3",
+  "lift_bottom: torso_lower_l intersects servo_bus_ports by 623.4 mm3",
+  "lift_bottom: torso_lower_l intersects speaker by 174.4 mm3",
+  "lift_bottom: torso_lower_r intersects servo_bus_r by 190.6 mm3",
+  "lift_bottom: torso_lower_r intersects servo_bus_r_ports by 510.7 mm3",
+  "lift_bottom: torso_lower_r intersects buck_12v_arm_r by 2649.6 mm3",
+  "lift_bottom: torso_lower_r intersects speaker by 174.4 mm3",
+  "lift_bottom: torso_upper_l intersects joiner_52 by 789.6 mm3",
+  "lift_bottom: torso_upper_l intersects joiner_53 by 789.6 mm3",
+  "lift_bottom: torso_upper_l intersects pi5 by 5954.9 mm3",
+  "lift_bottom: torso_upper_l intersects pi5_feet by 92.7 mm3",
+  "lift_bottom: torso_upper_l intersects pi5_cooler by 8618.4 mm3",
+  "lift_bottom: torso_upper_l intersects pi5_ports by 4320.8 mm3",
+  "lift_bottom: torso_upper_r intersects usb_hub by 174.1 mm3",
+  "lift_bottom: torso_upper_r intersects usb_hub_ports by 40.6 mm3",
+  "lift_bottom: joiner_52 intersects pi5 by 467.1 mm3",
+  "lift_bottom: joiner_52 intersects pi5_cooler by 513.2 mm3",
+  "lift_bottom: joiner_53 intersects pi5 by 467.1 mm3",
+  "lift_bottom: joiner_53 intersects pi5_ports by 340.1 mm3",
+  "lift_bottom: joiner_55 intersects usb_hub_ports by 302.6 mm3",
+  "lift_bottom: pi5_fan intersects buck_12v_arm_l by 2748.9 mm3",
+  "lift_bottom: pi5_ports intersects buck_12v_arm_l by 1494.0 mm3",
+  "lift_bottom: pi5_ports intersects buck_12v_arm_l_terms by 720.0 mm3",
+  "lift_middle: torso_back_plate intersects torso_lower_l by 85.2 mm3",
+  "lift_middle: yoke_l intersects torso_upper_l by 396.5 mm3",
+  "lift_middle: yoke_l intersects buck_12v_arm_l by 4877.5 mm3",
+  "lift_middle: yoke_r intersects buck_12v_arm_r by 726.5 mm3",
+  "lift_middle: torso_lower_l intersects joiner_52 by 789.6 mm3",
+  "lift_middle: torso_lower_l intersects joiner_53 by 789.6 mm3",
+  "lift_middle: torso_lower_l intersects pi5 by 967.8 mm3",
+  "lift_middle: torso_lower_l intersects pi5_feet by 87.6 mm3",
+  "lift_middle: torso_lower_l intersects pi5_cooler by 907.2 mm3",
+  "lift_middle: torso_lower_l intersects pi5_ports by 723.8 mm3",
+  "lift_middle: torso_lower_l intersects servo_bus by 190.6 mm3",
+  "lift_middle: torso_lower_l intersects servo_bus_ports by 623.4 mm3",
+  "lift_middle: torso_lower_l intersects speaker by 174.4 mm3",
+  "lift_middle: torso_lower_r intersects servo_bus_r by 190.6 mm3",
+  "lift_middle: torso_lower_r intersects servo_bus_r_ports by 510.7 mm3",
+  "lift_middle: torso_lower_r intersects buck_12v_arm_r by 2649.6 mm3",
+  "lift_middle: torso_lower_r intersects speaker by 174.4 mm3",
+  "lift_middle: torso_upper_l intersects joiner_52 by 789.6 mm3",
+  "lift_middle: torso_upper_l intersects joiner_53 by 789.6 mm3",
+  "lift_middle: torso_upper_l intersects pi5 by 5954.9 mm3",
+  "lift_middle: torso_upper_l intersects pi5_feet by 92.7 mm3",
+  "lift_middle: torso_upper_l intersects pi5_cooler by 8618.4 mm3",
+  "lift_middle: torso_upper_l intersects pi5_ports by 4320.8 mm3",
+  "lift_middle: torso_upper_r intersects usb_hub by 174.1 mm3",
+  "lift_middle: torso_upper_r intersects usb_hub_ports by 40.6 mm3",
+  "lift_middle: joiner_52 intersects pi5 by 467.1 mm3",
+  "lift_middle: joiner_52 intersects pi5_cooler by 513.2 mm3",
+  "lift_middle: joiner_53 intersects pi5 by 467.1 mm3",
+  "lift_middle: joiner_53 intersects pi5_ports by 340.1 mm3",
+  "lift_middle: joiner_55 intersects usb_hub_ports by 302.6 mm3",
+  "lift_middle: pi5_fan intersects buck_12v_arm_l by 2748.9 mm3",
+  "lift_middle: pi5_ports intersects buck_12v_arm_l by 1494.0 mm3",
+  "lift_middle: pi5_ports intersects buck_12v_arm_l_terms by 720.0 mm3",
+  "lift_top: torso_back_plate intersects torso_lower_l by 85.2 mm3",
+  "lift_top: yoke_l intersects torso_upper_l by 396.5 mm3",
+  "lift_top: yoke_l intersects buck_12v_arm_l by 4877.5 mm3",
+  "lift_top: yoke_r intersects buck_12v_arm_r by 726.5 mm3",
+  "lift_top: torso_lower_l intersects joiner_52 by 789.6 mm3",
+  "lift_top: torso_lower_l intersects joiner_53 by 789.6 mm3",
+  "lift_top: torso_lower_l intersects pi5 by 967.8 mm3",
+  "lift_top: torso_lower_l intersects pi5_feet by 87.6 mm3",
+  "lift_top: torso_lower_l intersects pi5_cooler by 907.2 mm3",
+  "lift_top: torso_lower_l intersects pi5_ports by 723.8 mm3",
+  "lift_top: torso_lower_l intersects servo_bus by 190.6 mm3",
+  "lift_top: torso_lower_l intersects servo_bus_ports by 623.4 mm3",
+  "lift_top: torso_lower_l intersects speaker by 174.4 mm3",
+  "lift_top: torso_lower_r intersects servo_bus_r by 190.6 mm3",
+  "lift_top: torso_lower_r intersects servo_bus_r_ports by 510.7 mm3",
+  "lift_top: torso_lower_r intersects buck_12v_arm_r by 2649.6 mm3",
+  "lift_top: torso_lower_r intersects speaker by 174.4 mm3",
+  "lift_top: torso_upper_l intersects joiner_52 by 789.6 mm3",
+  "lift_top: torso_upper_l intersects joiner_53 by 789.6 mm3",
+  "lift_top: torso_upper_l intersects pi5 by 5954.9 mm3",
+  "lift_top: torso_upper_l intersects pi5_feet by 92.7 mm3",
+  "lift_top: torso_upper_l intersects pi5_cooler by 8618.4 mm3",
+  "lift_top: torso_upper_l intersects pi5_ports by 4320.8 mm3",
+  "lift_top: torso_upper_r intersects usb_hub by 174.1 mm3",
+  "lift_top: torso_upper_r intersects usb_hub_ports by 40.6 mm3",
+  "lift_top: joiner_52 intersects pi5 by 467.1 mm3",
+  "lift_top: joiner_52 intersects pi5_cooler by 513.2 mm3",
+  "lift_top: joiner_53 intersects pi5 by 467.1 mm3",
+  "lift_top: joiner_53 intersects pi5_ports by 340.1 mm3",
+  "lift_top: joiner_55 intersects usb_hub_ports by 302.6 mm3",
+  "lift_top: pi5_fan intersects buck_12v_arm_l by 2748.9 mm3",
+  "lift_top: pi5_ports intersects buck_12v_arm_l by 1494.0 mm3",
+  "lift_top: pi5_ports intersects buck_12v_arm_l_terms by 720.0 mm3"
+ ],
  "warnings": [],
- "seconds": 372.9
+ "seconds": 533.5
 }

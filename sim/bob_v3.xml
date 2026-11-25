@@ -279,6 +279,13 @@
     <mesh name="servo_bus_ports" file="servo_bus_ports.stl"/>
     <mesh name="servo_bus_r" file="servo_bus_r.stl"/>
     <mesh name="servo_bus_r_ports" file="servo_bus_r_ports.stl"/>
+    <mesh name="reg_5v_torso" file="reg_5v_torso.stl"/>
+    <mesh name="reg_5v_torso_chip" file="reg_5v_torso_chip.stl"/>
+    <mesh name="reg_5v_torso_pins" file="reg_5v_torso_pins.stl"/>
+    <mesh name="buck_12v_arm_l" file="buck_12v_arm_l.stl"/>
+    <mesh name="buck_12v_arm_l_terms" file="buck_12v_arm_l_terms.stl"/>
+    <mesh name="buck_12v_arm_r" file="buck_12v_arm_r.stl"/>
+    <mesh name="buck_12v_arm_r_terms" file="buck_12v_arm_r_terms.stl"/>
     <mesh name="speaker" file="speaker.stl"/>
     <mesh name="speaker_cone" file="speaker_cone.stl"/>
     <mesh name="pan_servo" file="pan_servo.stl"/>
@@ -488,7 +495,7 @@
       <geom name="caster_rear_r" class="col" type="sphere" size="0.0075" pos="-0.1270 -0.0450 0.0085" contype="1" conaffinity="0" condim="1" priority="1" friction="0 0 0" mass="0"/>
       <body name="lift" pos="0.00000 0.00000 0.00000">
         <joint name="lift" type="slide" axis="0 0 1" range="0.0 0.462" damping="1000.0" armature="0.0" frictionloss="15.0"/>
-        <inertial pos="-0.00296 0.00055 0.36410" mass="2.5114" fullinertia="0.0221558 0.0137702 0.0156322 -4.03533e-06 -8.25671e-05 1.83207e-05"/>
+        <inertial pos="-0.00079 0.00240 0.33314" mass="3.2040" fullinertia="0.0388046 0.0262185 0.0205166 2.10499e-05 0.000272262 -0.000796483"/>
         <geom name="col_inner_0" type="mesh" mesh="col_inner_0" material="m_shell" group="1" mass="0"/>
         <geom name="c_col_inner_0" class="col" type="mesh" mesh="col_inner_0" contype="2" conaffinity="13" friction="0.8 0.01 0.001" mass="0"/>
         <geom name="col_inner_1" type="mesh" mesh="col_inner_1" material="m_shell" group="1" mass="0"/>
@@ -537,6 +544,13 @@
         <geom name="servo_bus_ports" type="mesh" mesh="servo_bus_ports" material="m_steel" group="2" mass="0"/>
         <geom name="servo_bus_r" type="mesh" mesh="servo_bus_r" material="m_pcb" group="2" mass="0"/>
         <geom name="servo_bus_r_ports" type="mesh" mesh="servo_bus_r_ports" material="m_steel" group="2" mass="0"/>
+        <geom name="reg_5v_torso" type="mesh" mesh="reg_5v_torso" material="m_pcb_blue" group="2" mass="0"/>
+        <geom name="reg_5v_torso_chip" type="mesh" mesh="reg_5v_torso_chip" material="m_black" group="2" mass="0"/>
+        <geom name="reg_5v_torso_pins" type="mesh" mesh="reg_5v_torso_pins" material="m_black" group="2" mass="0"/>
+        <geom name="buck_12v_arm_l" type="mesh" mesh="buck_12v_arm_l" material="m_alu" group="2" mass="0"/>
+        <geom name="buck_12v_arm_l_terms" type="mesh" mesh="buck_12v_arm_l_terms" material="m_black" group="2" mass="0"/>
+        <geom name="buck_12v_arm_r" type="mesh" mesh="buck_12v_arm_r" material="m_alu" group="2" mass="0"/>
+        <geom name="buck_12v_arm_r_terms" type="mesh" mesh="buck_12v_arm_r_terms" material="m_black" group="2" mass="0"/>
         <geom name="speaker" type="mesh" mesh="speaker" material="m_black" group="2" mass="0"/>
         <geom name="speaker_cone" type="mesh" mesh="speaker_cone" material="m_grey" group="2" mass="0"/>
         <geom name="pan_servo" type="mesh" mesh="pan_servo" material="m_black" group="2" mass="0"/>
@@ -592,7 +606,7 @@
           <geom name="j2_l_shaft" type="mesh" mesh="j2_l_shaft" material="m_steel" group="2" mass="0"/>
           <body name="l_link2" pos="0.00000 0.04000 0.00000">
             <joint name="l_shoulder_roll" type="hinge" axis="1 0 0" range="-0.2 1.75" damping="0.08" armature="0.012" frictionloss="0.06"/>
-            <inertial pos="-0.00654 -0.00000 -0.08542" mass="0.1777" fullinertia="0.000127221 0.000155309 9.81442e-05 4.9235e-11 1.94338e-05 -6.58462e-13"/>
+            <inertial pos="-0.00654 0.00000 -0.08542" mass="0.1777" fullinertia="0.000127221 0.000155309 9.81442e-05 -4.92288e-11 1.94338e-05 6.5757e-13"/>
             <geom name="clevis_l" type="mesh" mesh="clevis_l" material="m_frame" group="1" mass="0"/>
             <geom name="c_clevis_l" class="col" type="mesh" mesh="clevis_l" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
             <geom name="clevis_cover_a_l" type="mesh" mesh="clevis_cover_a_l" material="m_shell" group="1" mass="0"/>
@@ -685,7 +699,7 @@
           <geom name="j2_r_shaft" type="mesh" mesh="j2_r_shaft" material="m_steel" group="2" mass="0"/>
           <body name="r_link2" pos="0.00000 -0.04000 0.00000">
             <joint name="r_shoulder_roll" type="hinge" axis="-1 0 0" range="-0.2 1.75" damping="0.08" armature="0.012" frictionloss="0.06"/>
-            <inertial pos="-0.00654 -0.00000 -0.08542" mass="0.1777" fullinertia="0.000127221 0.000155309 9.81442e-05 4.92288e-11 1.94338e-05 -6.5757e-13"/>
+            <inertial pos="-0.00654 0.00000 -0.08542" mass="0.1777" fullinertia="0.000127221 0.000155309 9.81442e-05 1.76414e-15 1.94338e-05 2.92109e-11"/>
             <geom name="clevis_r" type="mesh" mesh="clevis_r" material="m_frame" group="1" mass="0"/>
             <geom name="c_clevis_r" class="col" type="mesh" mesh="clevis_r" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
             <geom name="clevis_cover_a_r" type="mesh" mesh="clevis_cover_a_r" material="m_shell" group="1" mass="0"/>

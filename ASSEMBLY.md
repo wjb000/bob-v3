@@ -70,11 +70,11 @@ One PET sleeve carries the chest power (5 V to the Pi, 12 V to both servo buses)
 
 ## 6. Torso
 
-1. Yokes: drop an STS3095 into each `yoke` cup, horn outboard. Four M3×10 through the servo tabs into the inserts. Bolt both yokes to `torso_back_plate` (6 × M3×12 each, from behind).
-2. `neck_mount` bridges the two yoke beams. Put the pan STS3215 in its cradle.
-3. On the back plate grid: Pi 5, USB hub, two Waveshare bus adapters.
+1. Yokes: drop an STS3095 into each `yoke` cup, horn outboard. Four M3×10 through the servo tabs into the inserts. Bolt both yokes to `torso_back_plate` (6 × M3×12 each, from behind). Each yoke has a Ø16 cable pass at (−40, ±62, 436) from the column-cap region into the electronics bay, and a Ø14 shoulder pass near (20, ±100, 436), both clear of the servo cup.
+2. `neck_mount` bridges the two yoke beams. Put the pan STS3215 in its cradle; four M3×10 through the servo tabs into the cradle-floor inserts.
+3. Electronics, all on printed mounts, no new bought parts beyond the BOM: Pi 5 on the four bosses on the left inner wall; USB hub on the four bosses on the right inner wall; Pololu D36V50F5 (b5) on the shelf at (−40, 84, 290), 4 × M3×10; Daygreen 12 V 20 A (b12a) on the wall pads — right at (0, −80, 276), left at (0, 80, 341) so it sits under the yoke and above b5 — 4 × M3×10 each; bus adapters zip-tied on the shelves forward of the converters, at (55, ±92, 284).
 4. Set the torso on the cap. Bolt the shelf down with 4 × M5×16. The column passes through the hole in the belly.
-5. Shells: the lower halves, then the upper halves. Join them from inside with joiner tabs, then screw them through the back wall into the plate. Bring the column sleeve through the shelf hole and tie it off as in section 4.
+5. Shells: the lower halves, then the upper halves. Join them from inside with joiner tabs, then screw them through the back wall into the plate. Bring the column sleeve through the shelf hole, zip-tie it beside the hole, and route it through the yoke Ø16 passes into the bay. Arm cables enter through the shoulder passes at (20, ±100, 436) in `torso_upper`.
 
 ## 7. Arms (left, then mirror for the right)
 

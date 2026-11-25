@@ -2,7 +2,7 @@
  "stand": {
   "ok": true,
   "drift_mm": 0.02,
-  "tilt_deg": 0.21,
+  "tilt_deg": 0.2,
   "max_track_err": 0.0293
  },
  "torque": {
@@ -104,7 +104,7 @@
  "hold": {
   "ok": true,
   "worst_err_deg": 0.01,
-  "tilt_deg": 0.26,
+  "tilt_deg": 0.27,
   "saturated": {},
   "errors": {
    "r_shoulder_pitch": 0.0,
@@ -125,12 +125,12 @@
   "speed_mm_s": 25.0,
   "time_s": 18.8,
   "down_time_s": 18.5,
-  "worst_lag_mm": 5.48,
-  "hold_err_mm": 1.12,
+  "worst_lag_mm": 5.6,
+  "hold_err_mm": 1.23,
   "bottom_err_mm": 1.99,
-  "hold_force_N": 67.2,
+  "hold_force_N": 73.8,
   "stage_err_mm": 0.04,
-  "base_tilt_deg": 0.22,
+  "base_tilt_deg": 0.242,
   "contacts": [],
   "penetration_mm": 0.0
  },
@@ -139,76 +139,76 @@
   "poses": {
    "lift up, worst pose the interlock allows": {
     "com_mm": [
-     45.3,
-     12.5,
-     459.8
+     43.7,
+     12.4,
+     469.2
     ],
-    "margin_mm": 45.0,
-    "tilt_deg": 0.21
+    "margin_mm": 43.3,
+    "tilt_deg": 0.2
    },
    "lift mid, worst pose the interlock allows": {
     "com_mm": [
-     45.3,
-     12.4,
-     383.4
+     43.5,
+     12.3,
+     389.0
     ],
-    "margin_mm": 44.7,
-    "tilt_deg": 0.21
+    "margin_mm": 43.1,
+    "tilt_deg": 0.2
    },
    "lift down, worst pose the interlock allows": {
     "com_mm": [
-     85.0,
-     13.9,
-     245.7
+     81.8,
+     13.7,
+     244.6
     ],
-    "margin_mm": 73.7,
-    "tilt_deg": 0.26
+    "margin_mm": 75.5,
+    "tilt_deg": 0.31
    },
    "lift down, floor pick": {
     "com_mm": [
-     18.1,
-     4.4,
-     198.5
+     17.1,
+     4.6,
+     199.2
     ],
-    "margin_mm": 152.8,
+    "margin_mm": 152.3,
     "tilt_deg": 0.42
    }
   },
-  "worst_margin_mm": 44.7
+  "worst_margin_mm": 43.1
  },
  "brake": {
   "ok": true,
   "speed_mps": 0.6,
-  "max_tilt_deg": 0.46,
+  "max_tilt_deg": 0.45,
   "tilt_by_decel": {
-   "1.0": 0.29,
+   "1.0": 0.28,
    "2.0": 0.38,
-   "4.0": 0.43,
-   "6.0": 0.46
+   "4.0": 0.42,
+   "6.0": 0.45
   }
  },
  "push": {
   "ok": true,
-  "push_forward_N": 29.3,
-  "push_back_N": 27.5
+  "push_forward_N": 31.1,
+  "push_back_N": 29.9
  },
  "slope": {
   "ok": true,
   "com_m": [
-   0.045,
+   0.043,
    0.01,
-   0.464
+   0.474
   ],
-  "down_deg": 15.9,
-  "up_deg": 20.3,
-  "side_deg": 16.8,
-  "side_left_deg": 13.8,
-  "side_right_deg": 16.0
+  "down_deg": 15.8,
+  "up_deg": 19.7,
+  "side_deg": 16.5,
+  "side_left_deg": 13.7,
+  "side_right_deg": 15.8
  },
  "reach": {
   "ok": true,
   "samples": 6000,
-  "valid": 5310,
+  "valid": 5308,
   "z_max_m": 1.503,
   "floor_reach_x_m": 0.448,
   "lowest_in_front_m": 0.023,
@@ -267,24 +267,24 @@
   },
   "stability_by_lift": {
    "0.000": {
-    "push_forward_N": 34.6,
-    "push_back_N": 79.1,
-    "down_deg": 20.0,
-    "up_deg": 39.7,
+    "push_forward_N": 28.1,
+    "push_back_N": 79.7,
+    "down_deg": 20.8,
+    "up_deg": 39.4,
     "meets": true
    },
    "0.300": {
-    "push_forward_N": 32.2,
-    "push_back_N": 36.3,
-    "down_deg": 18.9,
-    "up_deg": 23.9,
+    "push_forward_N": 35.2,
+    "push_back_N": 32.2,
+    "down_deg": 18.8,
+    "up_deg": 23.3,
     "meets": false
    },
    "0.462": {
-    "push_forward_N": 29.3,
-    "push_back_N": 27.5,
-    "down_deg": 15.9,
-    "up_deg": 20.3,
+    "push_forward_N": 31.1,
+    "push_back_N": 29.9,
+    "down_deg": 15.8,
+    "up_deg": 19.7,
     "meets": false
    }
   },
