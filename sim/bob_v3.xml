@@ -495,7 +495,7 @@
       <geom name="caster_rear_r" class="col" type="sphere" size="0.0075" pos="-0.1270 -0.0450 0.0085" contype="1" conaffinity="0" condim="1" priority="1" friction="0 0 0" mass="0"/>
       <body name="lift" pos="0.00000 0.00000 0.00000">
         <joint name="lift" type="slide" axis="0 0 1" range="0.0 0.462" damping="1000.0" armature="0.0" frictionloss="15.0"/>
-        <inertial pos="-0.00290 0.00056 0.36318" mass="2.4620" fullinertia="0.0216544 0.0136259 0.0152187 -3.94667e-06 -8.99964e-05 1.70431e-05"/>
+        <inertial pos="-0.00296 0.00055 0.36410" mass="2.5114" fullinertia="0.0221558 0.0137702 0.0156322 -4.03533e-06 -8.25671e-05 1.83207e-05"/>
         <geom name="col_inner_0" type="mesh" mesh="col_inner_0" material="m_shell" group="1" mass="0"/>
         <geom name="c_col_inner_0" class="col" type="mesh" mesh="col_inner_0" contype="2" conaffinity="13" friction="0.8 0.01 0.001" mass="0"/>
         <geom name="col_inner_1" type="mesh" mesh="col_inner_1" material="m_shell" group="1" mass="0"/>

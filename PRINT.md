@@ -62,13 +62,13 @@ The STLs in `cad/stl/` are already oriented: flat face down, no rotating. Grams 
 | `col_inner_1.stl` | 1 | white PETG | 47 x 47 x 119 | 52 | none | Prints standing. Inserts in the top bosses. |
 | `col_cap.stl` | 1 | black PETG | 76 x 76 x 8 | 28 | none | Sits on the inner tube. Umbilical exits the Ø18 hole. The torso shelf bolts down, 4 × M5. |
 
-## Torso (1.23 kg)
+## Torso (1.28 kg)
 
 | File | Qty | Colour | Bed mm | g each | Support | Note |
 | --- | ---: | --- | --- | ---: | --- | --- |
 | `torso_back_plate.stl` | 1 | grey PETG | 124 x 140 x 8 | 95 | none | Yokes bolt to the front face. The Pi and the bus adapters sit beside the column. |
-| `yoke_l.stl` | 1 | grey PETG | 125 x 146 x 116 | 318 | 123 cm² | Holds the left J1 STS3095. Prints on its centre face, cup up. 5 walls, 30% infill. |
-| `yoke_r.stl` | 1 | grey PETG | 125 x 146 x 116 | 318 | 123 cm² | Mirror of yoke_l. |
+| `yoke_l.stl` | 1 | grey PETG | 125 x 146 x 116 | 343 | 142 cm² | Holds the left J1 STS3095. Prints on its centre face, cup up. 5 walls, 30% infill. |
+| `yoke_r.stl` | 1 | grey PETG | 125 x 146 x 116 | 343 | 142 cm² | Mirror of yoke_l. |
 | `neck_mount.stl` | 1 | grey PETG | 108 x 70 x 28 | 42 | 8 cm² | Pan servo cradle, bridges the yokes. |
 | `torso_lower_l.stl` | 1 | white PETG | 150 x 120 x 90 | 85 | 6 cm² | Lower tier prints floor-down; upper tier prints top-down. |
 | `torso_lower_r.stl` | 1 | white PETG | 150 x 120 x 90 | 85 | 6 cm² | Lower tier prints floor-down; upper tier prints top-down. |

@@ -127,8 +127,8 @@
   "down_time_s": 18.5,
   "worst_lag_mm": 5.48,
   "hold_err_mm": 1.12,
-  "bottom_err_mm": 1.97,
-  "hold_force_N": 66.7,
+  "bottom_err_mm": 1.99,
+  "hold_force_N": 67.2,
   "stage_err_mm": 0.04,
   "base_tilt_deg": 0.22,
   "contacts": [],
@@ -139,42 +139,42 @@
   "poses": {
    "lift up, worst pose the interlock allows": {
     "com_mm": [
-     45.5,
+     45.3,
      12.5,
-     458.4
+     459.8
     ],
-    "margin_mm": 45.2,
+    "margin_mm": 45.0,
     "tilt_deg": 0.21
    },
    "lift mid, worst pose the interlock allows": {
     "com_mm": [
-     45.5,
+     45.3,
      12.4,
-     382.3
+     383.4
     ],
-    "margin_mm": 44.9,
+    "margin_mm": 44.7,
     "tilt_deg": 0.21
    },
    "lift down, worst pose the interlock allows": {
     "com_mm": [
-     85.3,
-     14.0,
-     245.1
+     85.0,
+     13.9,
+     245.7
     ],
-    "margin_mm": 73.5,
+    "margin_mm": 73.7,
     "tilt_deg": 0.26
    },
    "lift down, floor pick": {
     "com_mm": [
-     18.4,
+     18.1,
      4.4,
-     197.8
+     198.5
     ],
     "margin_mm": 152.8,
     "tilt_deg": 0.42
    }
   },
-  "worst_margin_mm": 44.9
+  "worst_margin_mm": 44.7
  },
  "brake": {
   "ok": true,
@@ -189,7 +189,7 @@
  },
  "push": {
   "ok": true,
-  "push_forward_N": 28.7,
+  "push_forward_N": 29.3,
   "push_back_N": 27.5
  },
  "slope": {
@@ -197,11 +197,11 @@
   "com_m": [
    0.045,
    0.01,
-   0.463
+   0.464
   ],
-  "down_deg": 16.0,
-  "up_deg": 20.4,
-  "side_deg": 16.9,
+  "down_deg": 15.9,
+  "up_deg": 20.3,
+  "side_deg": 16.8,
   "side_left_deg": 13.8,
   "side_right_deg": 16.0
  },
@@ -270,21 +270,21 @@
     "push_forward_N": 34.6,
     "push_back_N": 79.1,
     "down_deg": 20.0,
-    "up_deg": 39.8,
+    "up_deg": 39.7,
     "meets": true
    },
    "0.300": {
-    "push_forward_N": 32.8,
-    "push_back_N": 29.9,
+    "push_forward_N": 32.2,
+    "push_back_N": 36.3,
     "down_deg": 18.9,
     "up_deg": 23.9,
     "meets": false
    },
    "0.462": {
-    "push_forward_N": 28.7,
+    "push_forward_N": 29.3,
     "push_back_N": 27.5,
-    "down_deg": 16.0,
-    "up_deg": 20.4,
+    "down_deg": 15.9,
+    "up_deg": 20.3,
     "meets": false
    }
   },

@@ -97,8 +97,10 @@ def yoke(side, sz=S0) -> cq.Shape:
     z_web = P.COL_INNER_TOP0 + 6.0
     web = box(YOKE_FACE_X, YOKE_FACE_X + 6, 0.3, 70, cz - 110, z_web)
     gusset = box(YOKE_FACE_X, cx - 20, 54, 70, cz - 110, cz + 30)
-    s = fuse(cup, upper, lower, side_plate, web, gusset)
-    tools = [keep, inserts]
+    # Cut keep from the yoke body first, then fuse the cup.
+    # Same order as cad/arm.py after PR #3; see cad/servo.py mount().
+    s = fuse(cut(fuse(upper, lower, side_plate, web, gusset), keep), cup)
+    tools = [inserts]
     for y, z in _yoke_web_pts(sz):
         if y > 0:
             tools.append(cyl_between("x", (y, z), YOKE_FACE_X - 1, YOKE_FACE_X + P.M3_INSERT_DEPTH, P.M3_INSERT))
