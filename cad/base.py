@@ -28,10 +28,20 @@ CASTER_XS = (P.CASTER_XF, -P.CASTER_XR)  # front pair, rear pair
 CASTERS = [(cx, sy * P.CASTER_Y) for cx in CASTER_XS for sy in (1, -1)]  # four ball transfers
 TOP_CHAMFER = 24.0
 
-MAST_HOLE = (P.COL_X - P.COL_OUTER_D / 2 - 4, P.COL_X + P.COL_OUTER_D / 2 + 4, P.COL_OUTER_D / 2 + 4)
+# 8 mm gap around the 100 mm outer tube (was 4 mm) so the lim cable and the
+# umbilical clear the centre tile as they enter the well.
+MAST_HOLE = (P.COL_X - P.COL_OUTER_D / 2 - 8, P.COL_X + P.COL_OUTER_D / 2 + 8, P.COL_OUTER_D / 2 + 8)
 MAST_FLANGE = 12.0  # column foot overhang on the pan
 ESTOP_XY = (-122.0, 112.0)  # rear-left of the top, behind the battery, clear of the rear caster plate
+SWITCH_XYZ = (P.BASE_CX - P.BASE_L / 2, 40.0, 95.0)  # Blue Sea 6006, rear wall, knob out
+SWITCH_HOLE = 17.0  # 21/32 in catalogue hole plus a little clearance
 LIGHT_Z = (172.0, 178.0)
+# Two-leaf service hatch in the top, over the pack, opening into the column well
+# so mid_c stays one U-shaped tile. Each leaf fits a 200 mm bed.
+HATCH_X0, HATCH_X1, HATCH_Y0, HATCH_Y1 = -98.0, 108.0, 58.0, 140.0
+HATCH_SPLIT = 0.0
+HATCH_LIP = 7.0
+HATCH_SCREWS = [(-88.0, 70.0), (-88.0, 132.0), (-8.0, 132.0), (8.0, 70.0), (8.0, 132.0), (98.0, 70.0), (98.0, 132.0)]
 
 # Pack turned so its 200 mm side runs fore-aft and it sits on +y, off the caster centreline.
 # The cradle floor (BATT_Z0 - 8) rides 3 mm over the top of the left tire, so the
@@ -72,6 +82,8 @@ FRONT_SHELF_PTS = [(55, -112), (90, -112), (72, -140)]
 REAR_SHELF_PTS = [(-55, -112), (-90, -112), (-72, -140)]
 FRONT_SHELF_R_PTS = [(120, -118), (140, -116), (126, -132)]
 REAR_SHELF_R_PTS = [(-128, 92), (-138, 112), (-124, 128)]
+# Small plate at the old reg_5v spot, against the rear wall, for the always-on 12 V Pololu (b12c).
+B12C_SHELF_PTS = [(14, -148), (-14, -148), (0, -166)]
 # On the cradle side walls (x ≈ ±105). The old feet sat in the opening and the half fell apart.
 CRADLE_PTS = [(107, 88), (107, 128), (-107, 88), (-107, 128)]
 LUG_PTS = []
@@ -109,6 +121,7 @@ def _register():
     PAN_PTS["shelf_fl"] = FRONT_SHELF_PTS
     PAN_PTS["shelf_fr"] = FRONT_SHELF_R_PTS
     PAN_PTS["shelf_rl"] = REAR_SHELF_PTS
+    PAN_PTS["shelf_b12c"] = B12C_SHELF_PTS
     PAN_PTS["cradle"] = CRADLE_PTS
     PAN_PTS["cable"] = [(-78.0, 24.0), (-78.0, 42.0)]
     LUG_PTS[:] = _lug_points()
@@ -167,10 +180,15 @@ def _top_seam_pairs():
     return pairs
 
 
+def _in_hatch(q, pad=14.0):
+    return HATCH_X0 - pad <= q[0] <= HATCH_X1 + pad and HATCH_Y0 - pad <= q[1] <= HATCH_Y1 + pad
+
+
 def _near_port(q, tol=26.0):
-    """Keep joiner tabs out of the charge socket and the e-stop body."""
+    """Keep joiner tabs out of the charge socket, the e-stop, and the battery hatch."""
     return (math.hypot(q[0] - P.CHARGE_XY[0], q[1] - P.CHARGE_XY[1]) < tol
-            or math.hypot(q[0] - ESTOP_XY[0], q[1] - ESTOP_XY[1]) < tol)
+            or math.hypot(q[0] - ESTOP_XY[0], q[1] - ESTOP_XY[1]) < tol
+            or _in_hatch(q))
 
 
 def _wall_normal(x, y):
@@ -298,13 +316,35 @@ def _shell_full() -> cq.Shape:
     tools.append(lidar_window())
     # light line: a groove around the shell for an LED strip under a diffuser
     tools.append(rrect_shell(BX, 0, LIGHT_Z[0], LIGHT_Z[1], SHELL_LX + 2, SHELL_LY + 2, P.BASE_R + 1, 2.5, open_top=True, open_bot=True))
-    # e-stop, charge port, main switch, vents
+    # e-stop, charge port, main switch, vents, battery hatch
     tools.append(cyl((ESTOP_XY[0], ESTOP_XY[1], P.BASE_TOP - 10), "z", P.ESTOP_HOLE, 20))
     tools.append(cyl((P.CHARGE_XY[0], P.CHARGE_XY[1], P.BASE_TOP - 10), "z", P.CHARGE_HOLE, 20))  # charge socket, top
-    tools.append(cyl((BX - SHELL_LX / 2 - 5, 40, 95), "x", 20.2, 20))
+    tools.append(cyl((SWITCH_XYZ[0] - 5, SWITCH_XYZ[1], SWITCH_XYZ[2]), "x", SWITCH_HOLE, 20))
     for i in range(7):
         y = -36 + 12 * i
         tools.append(rrect(BX - SHELL_LX / 2, y, 125, 160, 20, 5, 2.4))
+    tools.append(rrect((HATCH_X0 + HATCH_X1) / 2, (HATCH_Y0 + HATCH_Y1) / 2,
+                       P.BASE_TOP - 12, P.BASE_TOP + 5,
+                       HATCH_X1 - HATCH_X0, HATCH_Y1 - HATCH_Y0, 8))
+    # inward boss for the switch nut, on the rear wall
+    s = fuse(s, cyl((SWITCH_XYZ[0] + P.BASE_WALL, SWITCH_XYZ[1], SWITCH_XYZ[2]), "x", 28, 7))
+    s = cut(s, cyl((SWITCH_XYZ[0] - 5, SWITCH_XYZ[1], SWITCH_XYZ[2]), "x", SWITCH_HOLE, 24))
+    # hatch rebate: a lip under the opening with M3 inserts for the two leaves
+    lip = rrect((HATCH_X0 + HATCH_X1) / 2, (HATCH_Y0 + HATCH_Y1) / 2,
+                P.BASE_TOP - P.BASE_WALL - 6, P.BASE_TOP - 0.4,
+                HATCH_X1 - HATCH_X0 + 2 * HATCH_LIP, HATCH_Y1 - HATCH_Y0 + 2 * HATCH_LIP, 10)
+    lip = cut(lip, rrect((HATCH_X0 + HATCH_X1) / 2, (HATCH_Y0 + HATCH_Y1) / 2,
+                         P.BASE_TOP - P.BASE_WALL - 7, P.BASE_TOP + 5,
+                         HATCH_X1 - HATCH_X0, HATCH_Y1 - HATCH_Y0, 8))
+    # drop the inboard lip so it does not fill the column well
+    mx0, mx1, my = MAST_HOLE
+    lip = cut(lip, rrect((mx0 + mx1) / 2, 0, P.BASE_TOP - 30, P.BASE_TOP + 5, mx1 - mx0, 2 * my, P.COL_OUTER_R + 8))
+    s = fuse(s, lip)
+    for x, y in HATCH_SCREWS:
+        s = cut(s, cyl((x, y, P.BASE_TOP - P.BASE_WALL - 6.2), "z", P.M3_INSERT, P.M3_INSERT_DEPTH + 0.5))
+        s = cut(s, cyl((x, y, P.BASE_TOP - 3), "z", P.M3, 8))
+    hw("M3 heat-set insert", len(HATCH_SCREWS))
+    hw("M3x8 socket head", len(HATCH_SCREWS))
     return cut(s, *tools)
 
 
@@ -502,8 +542,12 @@ def _pan_full() -> cq.Shape:
         tools.append(cyl((x, y, z0 - 1), "z", 2.5, 20))  # vent the insert hole
     # cable pass under the column and drain holes
     tools.append(cyl((P.COL_X + 20, 0, 0), "z", 30, 100))
+    # zip-tie slots for the wheel leads and the pack leads (no extra printed clips)
+    for x, y in ((0, 78), (0, -78), (80, 100), (-80, 100)):
+        tools.append(box(x - 8, x + 8, y - 1.6, y + 1.6, z1 - 2.2, z1 + 1))
     hw("M3 heat-set insert", len(pts))
     hw("M3x10 socket head", 2 * len(_pan_seam_pairs()))
+    hw("4 in zip tie (base leads)", 8)
     return cut(pan, *tools)
 
 
@@ -539,28 +583,7 @@ def wheel_bracket(side) -> cq.Shape:
     return s if side > 0 else s.mirror("XZ", (0, 0, 0))
 
 
-# ---------------------------------------------------------------- casters
-
-def caster_bridge(cx, lidar=False) -> cq.Shape:
-    z0, z1 = P.PAN_TOP, P.CASTER_PLATE_Z
-    legs = [cyl((x, y, z0), "z", 16, z1 - z0) for x, y in _caster_pts(cx)]
-    plate = rrect(cx + math.copysign(1.5, cx), 0, z1, z1 + 10, 63, 136, 14)  # nudged outboard, clear of the cable trough
-    parts = [plate, *legs]
-    s = fuse(*parts)
-    tools = [cyl((cx, 0, z1 - 1), "z", 22.2, 7 + 1), cyl((cx, 0, z1 - 1), "z", P.M8, 20),
-             cyl((cx, 0, z1 + 6), "z", 18, 20)]
-    for x, y in _caster_pts(cx):
-        tools.append(cyl((x, y, z0 - 1), "z", P.M3, 40))
-        tools.append(cyl((x, y, z0 + 8), "z", P.M3_HEAD, 40))
-    if lidar:
-        for x, y in _lidar_mount_pts(cx):
-            tools.append(cyl((x, y, z1 + 10 - P.M3_INSERT_DEPTH), "z", P.M3_INSERT, P.M3_INSERT_DEPTH + 1))
-        hw("M3 heat-set insert", 3)
-    hw("M3x10 socket head", 4)
-    hw("608ZZ bearing", 1)
-    hw("M8x40 bolt + nyloc + 2 washers (caster swivel)", 1)
-    return cut(s, *tools)
-
+# ---------------------------------------------------------------- lidar
 
 def lidar_mount(cx) -> cq.Shape:
     """Ring that lifts the RPLIDAR C1 to the scan slot. Bolts to inserts in the pan."""
@@ -577,40 +600,6 @@ def lidar_mount(cx) -> cq.Shape:
     hw("M2.5x6 screw (lidar)", 4)
     hw("M3x10 socket head", 3)
     return cut(s, *tools)
-
-
-def caster_fork(cx) -> cq.Shape:
-    ax = cx - P.CASTER_TRAIL
-    r = P.CASTER_WHEEL / 2
-    top0, top1 = P.CASTER_WHEEL + 3.0, P.CASTER_PLATE_Z - 2.0
-    disc = cyl((cx, 0, top0), "z", 46, top1 - top0)
-    arms = []
-    half = P.CASTER_WHEEL_W / 2 + 1.5
-    for sy in (1, -1):
-        y0 = sy * half
-        y1 = sy * (half + 5)
-        arm = box(ax - 11, cx + 11, y0, y1, r - 2, top1).intersect(
-            fuse(cyl_between("y", (ax, r), y0, y1, 22), box(ax - 11, cx + 14, y0, y1, r, top1)))
-        arms.append(arm)
-    s = fuse(disc, *arms)
-    s = cut(s, cyl((cx, 0, top0 - 1), "z", P.M8, 20), cyl_between("y", (ax, r), -40, 40, P.M8),
-            hexagon(cx, 0, top0 - 1, top0 + 6.5, 13.2))
-    hw("M8x40 bolt + nyloc (caster axle)", 1)
-    return s
-
-
-def caster_wheel(cx) -> cq.Shape:
-    ax = cx - P.CASTER_TRAIL
-    r = P.CASTER_WHEEL / 2
-    w = P.CASTER_WHEEL_W
-    s = cyl_between("y", (ax, r), -w / 2, w / 2, P.CASTER_WHEEL)
-    s = s.edges().chamfer(2.0) if False else s
-    tools = [cyl_between("y", (ax, r), -w / 2 - 1, -w / 2 + 7, 22.15),
-             cyl_between("y", (ax, r), w / 2 - 7, w / 2 + 1, 22.15),
-             cyl_between("y", (ax, r), -w, w, 12.0)]
-    hw("608ZZ bearing", 2)
-    return cut(s, *tools)
-
 
 # ---------------------------------------------------------------- battery and shelves
 
@@ -673,6 +662,55 @@ def rear_shelf(side) -> cq.Shape:
     return _shelf(REAR_SHELF_R_PTS, (-146, -112, 80, 136), 1, False)
 
 
+
+def hatch_leaf(side) -> cq.Shape:
+    """One of two top leaves over the pack. `side` > 0 is +x (front)."""
+    x0, x1 = (HATCH_SPLIT, HATCH_X1) if side > 0 else (HATCH_X0, HATCH_SPLIT)
+    # 1.5 mm overlap on the split so the seam is a lap, not a gap
+    if side > 0:
+        x0 = HATCH_SPLIT - 1.5
+    else:
+        x1 = HATCH_SPLIT + 1.5
+    pad = 4.0
+    plate = rrect((x0 + x1) / 2, (HATCH_Y0 + HATCH_Y1) / 2, P.BASE_TOP - 2.4, P.BASE_TOP,
+                  (x1 - x0) + 2 * pad, (HATCH_Y1 - HATCH_Y0) + 2 * pad, 8)
+    # sit in the opening with a small flange on the lip
+    plate = plate.intersect(rrect((HATCH_X0 + HATCH_X1) / 2, (HATCH_Y0 + HATCH_Y1) / 2,
+                                  P.BASE_TOP - 3, P.BASE_TOP + 1,
+                                  HATCH_X1 - HATCH_X0 + 2 * pad + 0.4,
+                                  HATCH_Y1 - HATCH_Y0 + 2 * pad + 0.4, 9))
+    # keep the well clear
+    mx0, mx1, my = MAST_HOLE
+    plate = cut(plate, rrect((mx0 + mx1) / 2, 0, P.BASE_TOP - 12, P.BASE_TOP + 5,
+                             mx1 - mx0, 2 * my, P.COL_OUTER_R + 8))
+    tools = []
+    for x, y in HATCH_SCREWS:
+        if x0 - 2 <= x <= x1 + 2:
+            tools.append(cyl((x, y, P.BASE_TOP - 4), "z", P.M3, 8))
+            tools.append(cyl((x, y, P.BASE_TOP - 1.2), "z", P.M3_HEAD, 4))
+    return cut(plate, *tools) if tools else plate
+
+
+def light_diffuser_parts() -> list[Part]:
+    """Press-in strips for the LED groove, one per wall tile. Natural PETG."""
+    ring = rrect_shell(BX, 0, LIGHT_Z[0] + 0.3, LIGHT_Z[1] - 0.3,
+                       SHELL_LX + 1.0, SHELL_LY + 1.0, P.BASE_R + 0.5, 1.0,
+                       open_top=True, open_bot=True)
+    out = []
+    for name, x0, x1, y0, y1 in _cells():
+        if name.endswith("_c") and name.startswith("mid"):
+            continue  # centre tile has no wall
+        piece = split_one(ring, box(x0, x1, y0, y1, LIGHT_Z[0] - 2, LIGHT_Z[1] + 2), f"base_light_{name}")
+        out.append(Part(f"base_light_{name}", piece, "base", "base", color="dark", rot=(0, 0, 0),
+                        note="Press into the shell light groove. Natural or clear PETG."))
+    return out
+
+
+def shelf_b12c() -> cq.Shape:
+    """Small plate against the rear wall for the always-on 12 V Pololu (b12c)."""
+    return _shelf(B12C_SHELF_PTS, (-24, 24, -174, -140), 1, False)
+
+
 # ---------------------------------------------------------------- bought envelopes
 
 def bought() -> list[Bought]:
@@ -696,17 +734,17 @@ def bought() -> list[Bought]:
         ("ddsm_driver", (0, -104), V.small_board(40, 24, (10, 8, 3), look="pcb_black"), 20, "ddsmdriver"),
         ("imu", (-130, -45), V.small_board(22, 18, (4, 4, 1)), 5, "imu"),
         ("tmc2209", (-130, -20), V.small_board(16, 14, (4, 4, 1), look="pcb_black"), 5, "tmc"),
-        ("reg_5v", (0, -162), V.small_board(22, 22, (8, 8, 3), look="pcb_blue"), 8, "pololu5"),
+        ("b12c", (0, -162), V.small_board(22, 22, (8, 8, 3), look="pcb_blue"), 8, "pololu12"),
         ("reg_12v", (0, -132), V.small_board(22, 22, (8, 8, 3), look="pcb_blue"), 8, "pololu12"),
         ("fuse_block", (0, -72), V.fuse_block(40, 20, 24), 40, "fuse"),
         ("contactor_relay", (-130, -96), V.contactor(32, 22, 24), 60, "relay"),
-        ("buck_12v", (-72, -112), V.finned_buck(74, 74, 32), 220, "buck12"),
-        ("buck_12v_r", (72, -112), V.finned_buck(74, 74, 32), 220, "buck12"),
     ]
     for name, (x, y), pcs, m, key in boards:
         zz = z + (8.5 if name == "esp32" else 0.0)  # the devkit stands on its pin headers
         out += V.boughts(name, V.place(pcs, (x, y, zz)), "base", "base", "electronics", m, key)
     out += V.boughts("estop", V.place(V.estop(), (ESTOP_XY[0], ESTOP_XY[1], P.BASE_TOP)), "base", "base", "electronics", 80, "estop")
+    out += V.boughts("main_switch", V.place(V.battery_switch(), SWITCH_XYZ, xdir=(0, 0, 1), zdir=(-1, 0, 0)),
+                     "base", "base", "electronics", 290, "switch")
     glow = rrect_shell(BX, 0, LIGHT_Z[0] + 0.5, LIGHT_Z[1] - 0.5, SHELL_LX - 0.6, SHELL_LY - 0.6, P.BASE_R - 0.3, 1.2, open_top=True, open_bot=True)
     out.append(Bought("light_base", glow, "base", "base", "electronics", 15, "ledstrip", look="glow"))
     for n, (cx, cy) in enumerate(CASTERS):
@@ -776,10 +814,16 @@ def parts() -> list[Part]:
                         note="Two halves meet under the pack; the strap holds them together."))
     for side, s in ((1, "l"), (-1, "r")):
         out.append(Part(f"shelf_front_{s}", front_shelf(side), "base", "base", color="frame", rot=(180, 0, 0),
-                        note="Motor drivers and the ESP32 on the 20 mm grid."))
+                        note="Driver HAT, TMC2209, IMU, fuse block, Pololus on the 20 mm grid."))
         if side > 0:  # the +y rear corner is battery and e-stop only, so it has no shelf
             out.append(Part(f"shelf_rear_{s}", rear_shelf(side), "base", "base", color="frame", rot=(180, 0, 0),
-                            note="Bucks, fuse block, contactor."))
+                            note="Contactor and spare grid."))
+    out.append(Part("shelf_b12c", shelf_b12c(), "base", "base", color="frame", rot=(180, 0, 0),
+                    note="Always-on 12 V Pololu (b12c) at the rear wall, old reg_5v spot."))
+    for side, s in ((1, "f"), (-1, "r")):
+        out.append(Part(f"base_hatch_{s}", hatch_leaf(side), "base", "base", color="shell", rot=(0, 0, 0),
+                        note="Battery hatch leaf. Two M3x8 into the lip; lift either leaf to reach the pack."))
+    out += light_diffuser_parts()
     out.append(Part("cable_trough", cable_trough(), "base", "base", color="frame", rot=(0, 0, 0),
                     note="Service loop for the column umbilical. Zip-tie the sleeve at the closed end. 4 walls."))
     link = drag_link()

@@ -7,10 +7,10 @@
  ],
  "density_g_cm3": 1.27,
  "fill": 0.55,
- "unique_prints": 94,
- "total_prints": 157,
- "print_mass_g": 5324.0,
- "robot_mass_g": 11724.0,
+ "unique_prints": 105,
+ "total_prints": 154,
+ "print_mass_g": 5331.0,
+ "robot_mass_g": 11574.0,
  "parts": [
   {
    "name": "base_shell_rear_r",
@@ -43,7 +43,7 @@
    "link": "base",
    "material": "PETG",
    "color": "shell",
-   "support_cm2": 21.6,
+   "support_cm2": 23.9,
    "walls": 3,
    "infill": 15,
    "note": "Print top-down. Heat-set inserts in the seam bosses.",
@@ -57,8 +57,8 @@
     197.0,
     170.0
    ],
-   "volume_cm3": 140.6,
-   "grams": 98.2
+   "volume_cm3": 144.3,
+   "grams": 100.8
   },
   {
    "name": "base_shell_rear_l",
@@ -81,8 +81,8 @@
     81.3,
     170.0
    ],
-   "volume_cm3": 68.8,
-   "grams": 48.1
+   "volume_cm3": 69.6,
+   "grams": 48.6
   },
   {
    "name": "base_shell_mid_r",
@@ -126,11 +126,11 @@
    ],
    "bed_mm": [
     180.0,
-    197.0,
+    156.5,
     12.0
    ],
-   "volume_cm3": 82.2,
-   "grams": 57.4
+   "volume_cm3": 56.3,
+   "grams": 39.4
   },
   {
    "name": "base_shell_mid_l",
@@ -150,11 +150,11 @@
    ],
    "bed_mm": [
     180.0,
-    81.5,
+    40.0,
     170.0
    ],
-   "volume_cm3": 109.2,
-   "grams": 76.3
+   "volume_cm3": 91.2,
+   "grams": 63.7
   },
   {
    "name": "base_shell_front_r",
@@ -225,8 +225,8 @@
     81.5,
     170.0
    ],
-   "volume_cm3": 102.9,
-   "grams": 71.9
+   "volume_cm3": 102.8,
+   "grams": 71.8
   },
   {
    "name": "base_pan_rear_r",
@@ -259,7 +259,7 @@
    "link": "base",
    "material": "PETG",
    "color": "frame",
-   "support_cm2": 0.5,
+   "support_cm2": 0.3,
    "walls": 4,
    "infill": 20,
    "note": "Structure. Skin down on the bed, ribs up. 4 walls.",
@@ -273,8 +273,8 @@
     197.0,
     24.7
    ],
-   "volume_cm3": 110.9,
-   "grams": 77.5
+   "volume_cm3": 109.9,
+   "grams": 76.7
   },
   {
    "name": "base_pan_rear_l",
@@ -331,7 +331,7 @@
    "link": "base",
    "material": "PETG",
    "color": "frame",
-   "support_cm2": 1.6,
+   "support_cm2": 2.1,
    "walls": 4,
    "infill": 20,
    "note": "Structure. Skin down on the bed, ribs up. 4 walls.",
@@ -345,8 +345,8 @@
     197.0,
     15.0
    ],
-   "volume_cm3": 207.9,
-   "grams": 145.2
+   "volume_cm3": 204.5,
+   "grams": 142.9
   },
   {
    "name": "base_pan_mid_l",
@@ -355,7 +355,7 @@
    "link": "base",
    "material": "PETG",
    "color": "frame",
-   "support_cm2": 0.3,
+   "support_cm2": 1.3,
    "walls": 4,
    "infill": 20,
    "note": "Structure. Skin down on the bed, ribs up. 4 walls.",
@@ -369,8 +369,8 @@
     73.5,
     15.0
    ],
-   "volume_cm3": 60.7,
-   "grams": 42.4
+   "volume_cm3": 60.5,
+   "grams": 42.3
   },
   {
    "name": "base_pan_front_r",
@@ -403,7 +403,7 @@
    "link": "base",
    "material": "PETG",
    "color": "frame",
-   "support_cm2": 0.9,
+   "support_cm2": 0.6,
    "walls": 4,
    "infill": 20,
    "note": "Structure. Skin down on the bed, ribs up. 4 walls.",
@@ -417,8 +417,8 @@
     197.0,
     24.7
    ],
-   "volume_cm3": 162.2,
-   "grams": 113.3
+   "volume_cm3": 159.8,
+   "grams": 111.6
   },
   {
    "name": "base_pan_front_l",
@@ -574,7 +574,7 @@
    "support_cm2": 0.8,
    "walls": 4,
    "infill": 20,
-   "note": "Motor drivers and the ESP32 on the 20 mm grid.",
+   "note": "Driver HAT, TMC2209, IMU, fuse block, Pololus on the 20 mm grid.",
    "rot_deg": [
     180,
     0,
@@ -598,7 +598,7 @@
    "support_cm2": 0.8,
    "walls": 4,
    "infill": 20,
-   "note": "Bucks, fuse block, contactor.",
+   "note": "Contactor and spare grid.",
    "rot_deg": [
     180,
     0,
@@ -622,7 +622,7 @@
    "support_cm2": 0.8,
    "walls": 4,
    "infill": 20,
-   "note": "Motor drivers and the ESP32 on the 20 mm grid.",
+   "note": "Driver HAT, TMC2209, IMU, fuse block, Pololus on the 20 mm grid.",
    "rot_deg": [
     180,
     0,
@@ -635,6 +635,270 @@
    ],
    "volume_cm3": 37.0,
    "grams": 25.8
+  },
+  {
+   "name": "shelf_b12c",
+   "qty": 1,
+   "group": "base",
+   "link": "base",
+   "material": "PETG",
+   "color": "frame",
+   "support_cm2": 0.8,
+   "walls": 4,
+   "infill": 20,
+   "note": "Always-on 12 V Pololu (b12c) at the rear wall, old reg_5v spot.",
+   "rot_deg": [
+    180,
+    0,
+    0
+   ],
+   "bed_mm": [
+    48.0,
+    31.5,
+    109.0
+   ],
+   "volume_cm3": 24.9,
+   "grams": 17.4
+  },
+  {
+   "name": "base_hatch_f",
+   "qty": 1,
+   "group": "base",
+   "link": "base",
+   "material": "PETG",
+   "color": "shell",
+   "support_cm2": 0.0,
+   "walls": 4,
+   "infill": 20,
+   "note": "Battery hatch leaf. Two M3x8 into the lip; lift either leaf to reach the pack.",
+   "rot_deg": [
+    0,
+    0,
+    0
+   ],
+   "bed_mm": [
+    117.5,
+    90.0,
+    2.4
+   ],
+   "volume_cm3": 24.7,
+   "grams": 17.3
+  },
+  {
+   "name": "base_hatch_r",
+   "qty": 1,
+   "group": "base",
+   "link": "base",
+   "material": "PETG",
+   "color": "shell",
+   "support_cm2": 0.0,
+   "walls": 4,
+   "infill": 20,
+   "note": "Battery hatch leaf. Two M3x8 into the lip; lift either leaf to reach the pack.",
+   "rot_deg": [
+    0,
+    0,
+    0
+   ],
+   "bed_mm": [
+    107.5,
+    90.0,
+    2.4
+   ],
+   "volume_cm3": 22.6,
+   "grams": 15.8
+  },
+  {
+   "name": "base_light_rear_r",
+   "qty": 1,
+   "group": "base",
+   "link": "base",
+   "material": "PETG",
+   "color": "dark",
+   "support_cm2": 0.0,
+   "walls": 4,
+   "infill": 20,
+   "note": "Press into the shell light groove. Natural or clear PETG.",
+   "rot_deg": [
+    0,
+    0,
+    0
+   ],
+   "bed_mm": [
+    65.5,
+    81.8,
+    5.4
+   ],
+   "volume_cm3": 0.6,
+   "grams": 0.4
+  },
+  {
+   "name": "base_light_rear_c",
+   "qty": 1,
+   "group": "base",
+   "link": "base",
+   "material": "PETG",
+   "color": "dark",
+   "support_cm2": 0.0,
+   "walls": 4,
+   "infill": 20,
+   "note": "Press into the shell light groove. Natural or clear PETG.",
+   "rot_deg": [
+    0,
+    0,
+    0
+   ],
+   "bed_mm": [
+    1.0,
+    197.0,
+    5.4
+   ],
+   "volume_cm3": 1.1,
+   "grams": 0.7
+  },
+  {
+   "name": "base_light_rear_l",
+   "qty": 1,
+   "group": "base",
+   "link": "base",
+   "material": "PETG",
+   "color": "dark",
+   "support_cm2": 0.0,
+   "walls": 4,
+   "infill": 20,
+   "note": "Press into the shell light groove. Natural or clear PETG.",
+   "rot_deg": [
+    0,
+    0,
+    0
+   ],
+   "bed_mm": [
+    65.5,
+    81.8,
+    5.4
+   ],
+   "volume_cm3": 0.6,
+   "grams": 0.4
+  },
+  {
+   "name": "base_light_mid_r",
+   "qty": 1,
+   "group": "base",
+   "link": "base",
+   "material": "PETG",
+   "color": "dark",
+   "support_cm2": 0.0,
+   "walls": 4,
+   "infill": 20,
+   "note": "Press into the shell light groove. Natural or clear PETG.",
+   "rot_deg": [
+    0,
+    0,
+    0
+   ],
+   "bed_mm": [
+    180.0,
+    1.2,
+    5.4
+   ],
+   "volume_cm3": 1.0,
+   "grams": 0.7
+  },
+  {
+   "name": "base_light_mid_l",
+   "qty": 1,
+   "group": "base",
+   "link": "base",
+   "material": "PETG",
+   "color": "dark",
+   "support_cm2": 0.0,
+   "walls": 4,
+   "infill": 20,
+   "note": "Press into the shell light groove. Natural or clear PETG.",
+   "rot_deg": [
+    0,
+    0,
+    0
+   ],
+   "bed_mm": [
+    180.0,
+    1.2,
+    5.4
+   ],
+   "volume_cm3": 1.0,
+   "grams": 0.7
+  },
+  {
+   "name": "base_light_front_r",
+   "qty": 1,
+   "group": "base",
+   "link": "base",
+   "material": "PETG",
+   "color": "dark",
+   "support_cm2": 0.0,
+   "walls": 4,
+   "infill": 20,
+   "note": "Press into the shell light groove. Natural or clear PETG.",
+   "rot_deg": [
+    0,
+    0,
+    0
+   ],
+   "bed_mm": [
+    115.5,
+    82.0,
+    5.4
+   ],
+   "volume_cm3": 0.9,
+   "grams": 0.6
+  },
+  {
+   "name": "base_light_front_c",
+   "qty": 1,
+   "group": "base",
+   "link": "base",
+   "material": "PETG",
+   "color": "dark",
+   "support_cm2": 0.0,
+   "walls": 4,
+   "infill": 20,
+   "note": "Press into the shell light groove. Natural or clear PETG.",
+   "rot_deg": [
+    0,
+    0,
+    0
+   ],
+   "bed_mm": [
+    1.0,
+    197.0,
+    5.4
+   ],
+   "volume_cm3": 1.1,
+   "grams": 0.7
+  },
+  {
+   "name": "base_light_front_l",
+   "qty": 1,
+   "group": "base",
+   "link": "base",
+   "material": "PETG",
+   "color": "dark",
+   "support_cm2": 0.0,
+   "walls": 4,
+   "infill": 20,
+   "note": "Press into the shell light groove. Natural or clear PETG.",
+   "rot_deg": [
+    0,
+    0,
+    0
+   ],
+   "bed_mm": [
+    115.5,
+    82.0,
+    5.4
+   ],
+   "volume_cm3": 0.9,
+   "grams": 0.6
   },
   {
    "name": "cable_trough",
@@ -2246,7 +2510,7 @@
   },
   {
    "name": "joiner_tab",
-   "qty": 59,
+   "qty": 45,
    "group": "base",
    "link": "base",
    "material": "PETG",
@@ -2270,6 +2534,7 @@
   }
  ],
  "hardware": {
+  "4 in zip tie (base leads)": 8,
   "4 in zip tie (column umbilical)": 5,
   "GT2 20T pulley, 5 mm bore": 4,
   "M2.5x10 screw (TPU finger)": 8,
@@ -2277,21 +2542,22 @@
   "M2.5x6 screw (lidar)": 4,
   "M2x6 thread-forming (wrist camera)": 4,
   "M2x8 screw (horn)": 40,
-  "M3 heat-set insert": 261,
-  "M3x10 socket head": 167,
+  "M3 heat-set insert": 243,
+  "M3x10 socket head": 139,
   "M3x10 socket head (arm cover)": 16,
   "M3x10 socket head (belt anchor)": 4,
   "M3x10 socket head (belt clamp)": 4,
   "M3x10 socket head (servo tabs)": 32,
   "M3x10 thread-forming (T8 nut)": 4,
   "M3x12 shoulder screw (idler)": 2,
-  "M3x12 socket head": 27,
+  "M3x12 socket head": 30,
   "M3x12 thread-forming (eye plate)": 2,
   "M3x14 socket head": 16,
   "M3x16 socket head + nut (clamshell)": 14,
   "M3x16 socket head + nut (elbow flange)": 8,
   "M3x50 socket head + nut (upper arm + elbow cover)": 4,
   "M3x6 screw (D435 rear)": 2,
+  "M3x8 socket head": 7,
   "M3x8 socket head (3095 horn)": 24,
   "M3x8 socket head (NEMA)": 4,
   "M5x16 socket head + nut (torso to cap)": 4,
@@ -2304,92 +2570,1545 @@
  "stability": {
   "zero": {
    "com_mm": [
-    6.0,
-    5.6,
-    397.6
+    2.5,
+    10.7,
+    399.2
    ],
-   "margin_front_mm": 171.0,
-   "margin_rear_mm": 133.0,
-   "margin_side_mm": 144.4,
-   "tip_deg_front": 23.3,
-   "tip_deg_rear": 18.5
+   "margin_front_mm": 174.5,
+   "margin_rear_mm": 129.5,
+   "margin_side_mm": 139.3,
+   "tip_deg_front": 23.6,
+   "tip_deg_rear": 18.0
   },
   "home": {
    "com_mm": [
-    47.9,
-    5.6,
+    45.0,
+    10.7,
     274.5
    ],
-   "margin_front_mm": 129.1,
-   "margin_rear_mm": 174.9,
-   "margin_side_mm": 144.4,
-   "tip_deg_front": 25.2,
-   "tip_deg_rear": 32.5
+   "margin_front_mm": 132.0,
+   "margin_rear_mm": 172.0,
+   "margin_side_mm": 139.3,
+   "tip_deg_front": 25.7,
+   "tip_deg_rear": 32.1
   },
   "counter": {
    "com_mm": [
-    50.6,
-    5.6,
-    412.3
+    47.7,
+    10.7,
+    414.1
    ],
-   "margin_front_mm": 126.4,
-   "margin_rear_mm": 177.6,
-   "margin_side_mm": 144.4,
-   "tip_deg_front": 17.0,
-   "tip_deg_rear": 23.3
+   "margin_front_mm": 129.3,
+   "margin_rear_mm": 174.7,
+   "margin_side_mm": 139.3,
+   "tip_deg_front": 17.3,
+   "tip_deg_rear": 22.9
   },
   "floor": {
    "com_mm": [
-    46.7,
-    5.6,
-    206.0
+    43.7,
+    10.7,
+    205.1
    ],
-   "margin_front_mm": 130.3,
-   "margin_rear_mm": 173.7,
-   "margin_side_mm": 144.4,
-   "tip_deg_front": 32.3,
-   "tip_deg_rear": 40.1
+   "margin_front_mm": 133.3,
+   "margin_rear_mm": 170.7,
+   "margin_side_mm": 139.3,
+   "tip_deg_front": 33.0,
+   "tip_deg_rear": 39.8
   },
   "shelf": {
    "com_mm": [
-    13.0,
-    5.6,
-    509.1
+    9.6,
+    10.7,
+    512.1
    ],
-   "margin_front_mm": 164.0,
-   "margin_rear_mm": 140.0,
-   "margin_side_mm": 144.4,
-   "tip_deg_front": 17.9,
-   "tip_deg_rear": 15.4
+   "margin_front_mm": 167.4,
+   "margin_rear_mm": 136.6,
+   "margin_side_mm": 139.3,
+   "tip_deg_front": 18.1,
+   "tip_deg_rear": 14.9
   },
   "wave": {
    "com_mm": [
-    36.4,
-    23.7,
-    373.5
+    33.4,
+    29.1,
+    374.8
    ],
-   "margin_front_mm": 140.6,
-   "margin_rear_mm": 163.4,
-   "margin_side_mm": 126.3,
-   "tip_deg_front": 20.6,
-   "tip_deg_rear": 23.6
+   "margin_front_mm": 143.6,
+   "margin_rear_mm": 160.4,
+   "margin_side_mm": 120.9,
+   "tip_deg_front": 21.0,
+   "tip_deg_rear": 23.2
   }
  },
  "overlaps": {
-  "home": [],
-  "zero": [],
-  "floor": [],
-  "shelf": [],
-  "look_down": [],
-  "look_up": [],
-  "pan_left": [],
-  "pan_right": [],
-  "pan_down": [],
-  "lift_bottom": [],
-  "lift_middle": [],
-  "lift_top": []
+  "home": [
+   [
+    "base_shell_rear_c",
+    "base_hatch_r",
+    502.3
+   ],
+   [
+    "base_shell_rear_c",
+    "main_switch",
+    4161.0
+   ],
+   [
+    "base_shell_rear_l",
+    "base_hatch_r",
+    511.9
+   ],
+   [
+    "base_shell_mid_c",
+    "base_hatch_f",
+    546.0
+   ],
+   [
+    "base_shell_mid_c",
+    "base_hatch_r",
+    546.0
+   ],
+   [
+    "base_shell_mid_l",
+    "base_hatch_f",
+    887.2
+   ],
+   [
+    "base_shell_mid_l",
+    "base_hatch_r",
+    887.2
+   ],
+   [
+    "base_shell_front_c",
+    "base_hatch_f",
+    598.3
+   ],
+   [
+    "base_shell_front_l",
+    "base_hatch_f",
+    607.9
+   ],
+   [
+    "shelf_b12c",
+    "hub_r",
+    3158.3
+   ],
+   [
+    "shelf_b12c",
+    "hub_r_hub",
+    8668.9
+   ],
+   [
+    "base_hatch_f",
+    "base_hatch_r",
+    2194.0
+   ],
+   [
+    "base_light_rear_r",
+    "light_base",
+    115.8
+   ],
+   [
+    "base_light_rear_c",
+    "light_base",
+    197.0
+   ],
+   [
+    "base_light_rear_l",
+    "light_base",
+    115.8
+   ],
+   [
+    "base_light_mid_r",
+    "light_base",
+    180.0
+   ],
+   [
+    "base_light_mid_l",
+    "light_base",
+    180.0
+   ],
+   [
+    "base_light_front_r",
+    "light_base",
+    165.8
+   ],
+   [
+    "base_light_front_c",
+    "light_base",
+    197.0
+   ],
+   [
+    "base_light_front_l",
+    "light_base",
+    165.8
+   ]
+  ],
+  "zero": [
+   [
+    "base_shell_rear_c",
+    "base_hatch_r",
+    502.3
+   ],
+   [
+    "base_shell_rear_c",
+    "main_switch",
+    4161.0
+   ],
+   [
+    "base_shell_rear_l",
+    "base_hatch_r",
+    511.9
+   ],
+   [
+    "base_shell_mid_c",
+    "base_hatch_f",
+    546.0
+   ],
+   [
+    "base_shell_mid_c",
+    "base_hatch_r",
+    546.0
+   ],
+   [
+    "base_shell_mid_l",
+    "base_hatch_f",
+    887.2
+   ],
+   [
+    "base_shell_mid_l",
+    "base_hatch_r",
+    887.2
+   ],
+   [
+    "base_shell_front_c",
+    "base_hatch_f",
+    598.3
+   ],
+   [
+    "base_shell_front_l",
+    "base_hatch_f",
+    607.9
+   ],
+   [
+    "shelf_b12c",
+    "hub_r",
+    3158.3
+   ],
+   [
+    "shelf_b12c",
+    "hub_r_hub",
+    8668.9
+   ],
+   [
+    "base_hatch_f",
+    "base_hatch_r",
+    2194.0
+   ],
+   [
+    "base_light_rear_r",
+    "light_base",
+    115.8
+   ],
+   [
+    "base_light_rear_c",
+    "light_base",
+    197.0
+   ],
+   [
+    "base_light_rear_l",
+    "light_base",
+    115.8
+   ],
+   [
+    "base_light_mid_r",
+    "light_base",
+    180.0
+   ],
+   [
+    "base_light_mid_l",
+    "light_base",
+    180.0
+   ],
+   [
+    "base_light_front_r",
+    "light_base",
+    165.8
+   ],
+   [
+    "base_light_front_c",
+    "light_base",
+    197.0
+   ],
+   [
+    "base_light_front_l",
+    "light_base",
+    165.8
+   ]
+  ],
+  "floor": [
+   [
+    "base_shell_rear_c",
+    "base_hatch_r",
+    502.3
+   ],
+   [
+    "base_shell_rear_c",
+    "main_switch",
+    4161.0
+   ],
+   [
+    "base_shell_rear_l",
+    "base_hatch_r",
+    511.9
+   ],
+   [
+    "base_shell_mid_c",
+    "base_hatch_f",
+    546.0
+   ],
+   [
+    "base_shell_mid_c",
+    "base_hatch_r",
+    546.0
+   ],
+   [
+    "base_shell_mid_l",
+    "base_hatch_f",
+    887.2
+   ],
+   [
+    "base_shell_mid_l",
+    "base_hatch_r",
+    887.2
+   ],
+   [
+    "base_shell_front_c",
+    "base_hatch_f",
+    598.3
+   ],
+   [
+    "base_shell_front_l",
+    "base_hatch_f",
+    607.9
+   ],
+   [
+    "shelf_b12c",
+    "hub_r",
+    3158.3
+   ],
+   [
+    "shelf_b12c",
+    "hub_r_hub",
+    8668.9
+   ],
+   [
+    "base_hatch_f",
+    "base_hatch_r",
+    2194.0
+   ],
+   [
+    "base_light_rear_r",
+    "light_base",
+    115.8
+   ],
+   [
+    "base_light_rear_c",
+    "light_base",
+    197.0
+   ],
+   [
+    "base_light_rear_l",
+    "light_base",
+    115.8
+   ],
+   [
+    "base_light_mid_r",
+    "light_base",
+    180.0
+   ],
+   [
+    "base_light_mid_l",
+    "light_base",
+    180.0
+   ],
+   [
+    "base_light_front_r",
+    "light_base",
+    165.8
+   ],
+   [
+    "base_light_front_c",
+    "light_base",
+    197.0
+   ],
+   [
+    "base_light_front_l",
+    "light_base",
+    165.8
+   ]
+  ],
+  "shelf": [
+   [
+    "base_shell_rear_c",
+    "base_hatch_r",
+    502.3
+   ],
+   [
+    "base_shell_rear_c",
+    "main_switch",
+    4161.0
+   ],
+   [
+    "base_shell_rear_l",
+    "base_hatch_r",
+    511.9
+   ],
+   [
+    "base_shell_mid_c",
+    "base_hatch_f",
+    546.0
+   ],
+   [
+    "base_shell_mid_c",
+    "base_hatch_r",
+    546.0
+   ],
+   [
+    "base_shell_mid_l",
+    "base_hatch_f",
+    887.2
+   ],
+   [
+    "base_shell_mid_l",
+    "base_hatch_r",
+    887.2
+   ],
+   [
+    "base_shell_front_c",
+    "base_hatch_f",
+    598.3
+   ],
+   [
+    "base_shell_front_l",
+    "base_hatch_f",
+    607.9
+   ],
+   [
+    "shelf_b12c",
+    "hub_r",
+    3158.3
+   ],
+   [
+    "shelf_b12c",
+    "hub_r_hub",
+    8668.9
+   ],
+   [
+    "base_hatch_f",
+    "base_hatch_r",
+    2194.0
+   ],
+   [
+    "base_light_rear_r",
+    "light_base",
+    115.8
+   ],
+   [
+    "base_light_rear_c",
+    "light_base",
+    197.0
+   ],
+   [
+    "base_light_rear_l",
+    "light_base",
+    115.8
+   ],
+   [
+    "base_light_mid_r",
+    "light_base",
+    180.0
+   ],
+   [
+    "base_light_mid_l",
+    "light_base",
+    180.0
+   ],
+   [
+    "base_light_front_r",
+    "light_base",
+    165.8
+   ],
+   [
+    "base_light_front_c",
+    "light_base",
+    197.0
+   ],
+   [
+    "base_light_front_l",
+    "light_base",
+    165.8
+   ]
+  ],
+  "look_down": [
+   [
+    "base_shell_rear_c",
+    "base_hatch_r",
+    502.3
+   ],
+   [
+    "base_shell_rear_c",
+    "main_switch",
+    4161.0
+   ],
+   [
+    "base_shell_rear_l",
+    "base_hatch_r",
+    511.9
+   ],
+   [
+    "base_shell_mid_c",
+    "base_hatch_f",
+    546.0
+   ],
+   [
+    "base_shell_mid_c",
+    "base_hatch_r",
+    546.0
+   ],
+   [
+    "base_shell_mid_l",
+    "base_hatch_f",
+    887.2
+   ],
+   [
+    "base_shell_mid_l",
+    "base_hatch_r",
+    887.2
+   ],
+   [
+    "base_shell_front_c",
+    "base_hatch_f",
+    598.3
+   ],
+   [
+    "base_shell_front_l",
+    "base_hatch_f",
+    607.9
+   ],
+   [
+    "shelf_b12c",
+    "hub_r",
+    3158.3
+   ],
+   [
+    "shelf_b12c",
+    "hub_r_hub",
+    8668.9
+   ],
+   [
+    "base_hatch_f",
+    "base_hatch_r",
+    2194.0
+   ],
+   [
+    "base_light_rear_r",
+    "light_base",
+    115.8
+   ],
+   [
+    "base_light_rear_c",
+    "light_base",
+    197.0
+   ],
+   [
+    "base_light_rear_l",
+    "light_base",
+    115.8
+   ],
+   [
+    "base_light_mid_r",
+    "light_base",
+    180.0
+   ],
+   [
+    "base_light_mid_l",
+    "light_base",
+    180.0
+   ],
+   [
+    "base_light_front_r",
+    "light_base",
+    165.8
+   ],
+   [
+    "base_light_front_c",
+    "light_base",
+    197.0
+   ],
+   [
+    "base_light_front_l",
+    "light_base",
+    165.8
+   ]
+  ],
+  "look_up": [
+   [
+    "base_shell_rear_c",
+    "base_hatch_r",
+    502.3
+   ],
+   [
+    "base_shell_rear_c",
+    "main_switch",
+    4161.0
+   ],
+   [
+    "base_shell_rear_l",
+    "base_hatch_r",
+    511.9
+   ],
+   [
+    "base_shell_mid_c",
+    "base_hatch_f",
+    546.0
+   ],
+   [
+    "base_shell_mid_c",
+    "base_hatch_r",
+    546.0
+   ],
+   [
+    "base_shell_mid_l",
+    "base_hatch_f",
+    887.2
+   ],
+   [
+    "base_shell_mid_l",
+    "base_hatch_r",
+    887.2
+   ],
+   [
+    "base_shell_front_c",
+    "base_hatch_f",
+    598.3
+   ],
+   [
+    "base_shell_front_l",
+    "base_hatch_f",
+    607.9
+   ],
+   [
+    "shelf_b12c",
+    "hub_r",
+    3158.3
+   ],
+   [
+    "shelf_b12c",
+    "hub_r_hub",
+    8668.9
+   ],
+   [
+    "base_hatch_f",
+    "base_hatch_r",
+    2194.0
+   ],
+   [
+    "base_light_rear_r",
+    "light_base",
+    115.8
+   ],
+   [
+    "base_light_rear_c",
+    "light_base",
+    197.0
+   ],
+   [
+    "base_light_rear_l",
+    "light_base",
+    115.8
+   ],
+   [
+    "base_light_mid_r",
+    "light_base",
+    180.0
+   ],
+   [
+    "base_light_mid_l",
+    "light_base",
+    180.0
+   ],
+   [
+    "base_light_front_r",
+    "light_base",
+    165.8
+   ],
+   [
+    "base_light_front_c",
+    "light_base",
+    197.0
+   ],
+   [
+    "base_light_front_l",
+    "light_base",
+    165.8
+   ]
+  ],
+  "pan_left": [
+   [
+    "base_shell_rear_c",
+    "base_hatch_r",
+    502.3
+   ],
+   [
+    "base_shell_rear_c",
+    "main_switch",
+    4161.0
+   ],
+   [
+    "base_shell_rear_l",
+    "base_hatch_r",
+    511.9
+   ],
+   [
+    "base_shell_mid_c",
+    "base_hatch_f",
+    546.0
+   ],
+   [
+    "base_shell_mid_c",
+    "base_hatch_r",
+    546.0
+   ],
+   [
+    "base_shell_mid_l",
+    "base_hatch_f",
+    887.2
+   ],
+   [
+    "base_shell_mid_l",
+    "base_hatch_r",
+    887.2
+   ],
+   [
+    "base_shell_front_c",
+    "base_hatch_f",
+    598.3
+   ],
+   [
+    "base_shell_front_l",
+    "base_hatch_f",
+    607.9
+   ],
+   [
+    "shelf_b12c",
+    "hub_r",
+    3158.3
+   ],
+   [
+    "shelf_b12c",
+    "hub_r_hub",
+    8668.9
+   ],
+   [
+    "base_hatch_f",
+    "base_hatch_r",
+    2194.0
+   ],
+   [
+    "base_light_rear_r",
+    "light_base",
+    115.8
+   ],
+   [
+    "base_light_rear_c",
+    "light_base",
+    197.0
+   ],
+   [
+    "base_light_rear_l",
+    "light_base",
+    115.8
+   ],
+   [
+    "base_light_mid_r",
+    "light_base",
+    180.0
+   ],
+   [
+    "base_light_mid_l",
+    "light_base",
+    180.0
+   ],
+   [
+    "base_light_front_r",
+    "light_base",
+    165.8
+   ],
+   [
+    "base_light_front_c",
+    "light_base",
+    197.0
+   ],
+   [
+    "base_light_front_l",
+    "light_base",
+    165.8
+   ]
+  ],
+  "pan_right": [
+   [
+    "base_shell_rear_c",
+    "base_hatch_r",
+    502.3
+   ],
+   [
+    "base_shell_rear_c",
+    "main_switch",
+    4161.0
+   ],
+   [
+    "base_shell_rear_l",
+    "base_hatch_r",
+    511.9
+   ],
+   [
+    "base_shell_mid_c",
+    "base_hatch_f",
+    546.0
+   ],
+   [
+    "base_shell_mid_c",
+    "base_hatch_r",
+    546.0
+   ],
+   [
+    "base_shell_mid_l",
+    "base_hatch_f",
+    887.2
+   ],
+   [
+    "base_shell_mid_l",
+    "base_hatch_r",
+    887.2
+   ],
+   [
+    "base_shell_front_c",
+    "base_hatch_f",
+    598.3
+   ],
+   [
+    "base_shell_front_l",
+    "base_hatch_f",
+    607.9
+   ],
+   [
+    "shelf_b12c",
+    "hub_r",
+    3158.3
+   ],
+   [
+    "shelf_b12c",
+    "hub_r_hub",
+    8668.9
+   ],
+   [
+    "base_hatch_f",
+    "base_hatch_r",
+    2194.0
+   ],
+   [
+    "base_light_rear_r",
+    "light_base",
+    115.8
+   ],
+   [
+    "base_light_rear_c",
+    "light_base",
+    197.0
+   ],
+   [
+    "base_light_rear_l",
+    "light_base",
+    115.8
+   ],
+   [
+    "base_light_mid_r",
+    "light_base",
+    180.0
+   ],
+   [
+    "base_light_mid_l",
+    "light_base",
+    180.0
+   ],
+   [
+    "base_light_front_r",
+    "light_base",
+    165.8
+   ],
+   [
+    "base_light_front_c",
+    "light_base",
+    197.0
+   ],
+   [
+    "base_light_front_l",
+    "light_base",
+    165.8
+   ]
+  ],
+  "pan_down": [
+   [
+    "base_shell_rear_c",
+    "base_hatch_r",
+    502.3
+   ],
+   [
+    "base_shell_rear_c",
+    "main_switch",
+    4161.0
+   ],
+   [
+    "base_shell_rear_l",
+    "base_hatch_r",
+    511.9
+   ],
+   [
+    "base_shell_mid_c",
+    "base_hatch_f",
+    546.0
+   ],
+   [
+    "base_shell_mid_c",
+    "base_hatch_r",
+    546.0
+   ],
+   [
+    "base_shell_mid_l",
+    "base_hatch_f",
+    887.2
+   ],
+   [
+    "base_shell_mid_l",
+    "base_hatch_r",
+    887.2
+   ],
+   [
+    "base_shell_front_c",
+    "base_hatch_f",
+    598.3
+   ],
+   [
+    "base_shell_front_l",
+    "base_hatch_f",
+    607.9
+   ],
+   [
+    "shelf_b12c",
+    "hub_r",
+    3158.3
+   ],
+   [
+    "shelf_b12c",
+    "hub_r_hub",
+    8668.9
+   ],
+   [
+    "base_hatch_f",
+    "base_hatch_r",
+    2194.0
+   ],
+   [
+    "base_light_rear_r",
+    "light_base",
+    115.8
+   ],
+   [
+    "base_light_rear_c",
+    "light_base",
+    197.0
+   ],
+   [
+    "base_light_rear_l",
+    "light_base",
+    115.8
+   ],
+   [
+    "base_light_mid_r",
+    "light_base",
+    180.0
+   ],
+   [
+    "base_light_mid_l",
+    "light_base",
+    180.0
+   ],
+   [
+    "base_light_front_r",
+    "light_base",
+    165.8
+   ],
+   [
+    "base_light_front_c",
+    "light_base",
+    197.0
+   ],
+   [
+    "base_light_front_l",
+    "light_base",
+    165.8
+   ]
+  ],
+  "lift_bottom": [
+   [
+    "base_shell_rear_c",
+    "base_hatch_r",
+    502.3
+   ],
+   [
+    "base_shell_rear_c",
+    "main_switch",
+    4161.0
+   ],
+   [
+    "base_shell_rear_l",
+    "base_hatch_r",
+    511.9
+   ],
+   [
+    "base_shell_mid_c",
+    "base_hatch_f",
+    546.0
+   ],
+   [
+    "base_shell_mid_c",
+    "base_hatch_r",
+    546.0
+   ],
+   [
+    "base_shell_mid_l",
+    "base_hatch_f",
+    887.2
+   ],
+   [
+    "base_shell_mid_l",
+    "base_hatch_r",
+    887.2
+   ],
+   [
+    "base_shell_front_c",
+    "base_hatch_f",
+    598.3
+   ],
+   [
+    "base_shell_front_l",
+    "base_hatch_f",
+    607.9
+   ],
+   [
+    "shelf_b12c",
+    "hub_r",
+    3158.3
+   ],
+   [
+    "shelf_b12c",
+    "hub_r_hub",
+    8668.9
+   ],
+   [
+    "base_hatch_f",
+    "base_hatch_r",
+    2194.0
+   ],
+   [
+    "base_light_rear_r",
+    "light_base",
+    115.8
+   ],
+   [
+    "base_light_rear_c",
+    "light_base",
+    197.0
+   ],
+   [
+    "base_light_rear_l",
+    "light_base",
+    115.8
+   ],
+   [
+    "base_light_mid_r",
+    "light_base",
+    180.0
+   ],
+   [
+    "base_light_mid_l",
+    "light_base",
+    180.0
+   ],
+   [
+    "base_light_front_r",
+    "light_base",
+    165.8
+   ],
+   [
+    "base_light_front_c",
+    "light_base",
+    197.0
+   ],
+   [
+    "base_light_front_l",
+    "light_base",
+    165.8
+   ]
+  ],
+  "lift_middle": [
+   [
+    "base_shell_rear_c",
+    "base_hatch_r",
+    502.3
+   ],
+   [
+    "base_shell_rear_c",
+    "main_switch",
+    4161.0
+   ],
+   [
+    "base_shell_rear_l",
+    "base_hatch_r",
+    511.9
+   ],
+   [
+    "base_shell_mid_c",
+    "base_hatch_f",
+    546.0
+   ],
+   [
+    "base_shell_mid_c",
+    "base_hatch_r",
+    546.0
+   ],
+   [
+    "base_shell_mid_l",
+    "base_hatch_f",
+    887.2
+   ],
+   [
+    "base_shell_mid_l",
+    "base_hatch_r",
+    887.2
+   ],
+   [
+    "base_shell_front_c",
+    "base_hatch_f",
+    598.3
+   ],
+   [
+    "base_shell_front_l",
+    "base_hatch_f",
+    607.9
+   ],
+   [
+    "shelf_b12c",
+    "hub_r",
+    3158.3
+   ],
+   [
+    "shelf_b12c",
+    "hub_r_hub",
+    8668.9
+   ],
+   [
+    "base_hatch_f",
+    "base_hatch_r",
+    2194.0
+   ],
+   [
+    "base_light_rear_r",
+    "light_base",
+    115.8
+   ],
+   [
+    "base_light_rear_c",
+    "light_base",
+    197.0
+   ],
+   [
+    "base_light_rear_l",
+    "light_base",
+    115.8
+   ],
+   [
+    "base_light_mid_r",
+    "light_base",
+    180.0
+   ],
+   [
+    "base_light_mid_l",
+    "light_base",
+    180.0
+   ],
+   [
+    "base_light_front_r",
+    "light_base",
+    165.8
+   ],
+   [
+    "base_light_front_c",
+    "light_base",
+    197.0
+   ],
+   [
+    "base_light_front_l",
+    "light_base",
+    165.8
+   ]
+  ],
+  "lift_top": [
+   [
+    "base_shell_rear_c",
+    "base_hatch_r",
+    502.3
+   ],
+   [
+    "base_shell_rear_c",
+    "main_switch",
+    4161.0
+   ],
+   [
+    "base_shell_rear_l",
+    "base_hatch_r",
+    511.9
+   ],
+   [
+    "base_shell_mid_c",
+    "base_hatch_f",
+    546.0
+   ],
+   [
+    "base_shell_mid_c",
+    "base_hatch_r",
+    546.0
+   ],
+   [
+    "base_shell_mid_l",
+    "base_hatch_f",
+    887.2
+   ],
+   [
+    "base_shell_mid_l",
+    "base_hatch_r",
+    887.2
+   ],
+   [
+    "base_shell_front_c",
+    "base_hatch_f",
+    598.3
+   ],
+   [
+    "base_shell_front_l",
+    "base_hatch_f",
+    607.9
+   ],
+   [
+    "shelf_b12c",
+    "hub_r",
+    3158.3
+   ],
+   [
+    "shelf_b12c",
+    "hub_r_hub",
+    8668.9
+   ],
+   [
+    "base_hatch_f",
+    "base_hatch_r",
+    2194.0
+   ],
+   [
+    "base_light_rear_r",
+    "light_base",
+    115.8
+   ],
+   [
+    "base_light_rear_c",
+    "light_base",
+    197.0
+   ],
+   [
+    "base_light_rear_l",
+    "light_base",
+    115.8
+   ],
+   [
+    "base_light_mid_r",
+    "light_base",
+    180.0
+   ],
+   [
+    "base_light_mid_l",
+    "light_base",
+    180.0
+   ],
+   [
+    "base_light_front_r",
+    "light_base",
+    165.8
+   ],
+   [
+    "base_light_front_c",
+    "light_base",
+    197.0
+   ],
+   [
+    "base_light_front_l",
+    "light_base",
+    165.8
+   ]
+  ]
  },
- "errors": [],
+ "errors": [
+  "home: base_shell_rear_c intersects base_hatch_r by 502.3 mm3",
+  "home: base_shell_rear_c intersects main_switch by 4161.0 mm3",
+  "home: base_shell_rear_l intersects base_hatch_r by 511.9 mm3",
+  "home: base_shell_mid_c intersects base_hatch_f by 546.0 mm3",
+  "home: base_shell_mid_c intersects base_hatch_r by 546.0 mm3",
+  "home: base_shell_mid_l intersects base_hatch_f by 887.2 mm3",
+  "home: base_shell_mid_l intersects base_hatch_r by 887.2 mm3",
+  "home: base_shell_front_c intersects base_hatch_f by 598.3 mm3",
+  "home: base_shell_front_l intersects base_hatch_f by 607.9 mm3",
+  "home: shelf_b12c intersects hub_r by 3158.3 mm3",
+  "home: shelf_b12c intersects hub_r_hub by 8668.9 mm3",
+  "home: base_hatch_f intersects base_hatch_r by 2194.0 mm3",
+  "home: base_light_rear_r intersects light_base by 115.8 mm3",
+  "home: base_light_rear_c intersects light_base by 197.0 mm3",
+  "home: base_light_rear_l intersects light_base by 115.8 mm3",
+  "home: base_light_mid_r intersects light_base by 180.0 mm3",
+  "home: base_light_mid_l intersects light_base by 180.0 mm3",
+  "home: base_light_front_r intersects light_base by 165.8 mm3",
+  "home: base_light_front_c intersects light_base by 197.0 mm3",
+  "home: base_light_front_l intersects light_base by 165.8 mm3",
+  "zero: base_shell_rear_c intersects base_hatch_r by 502.3 mm3",
+  "zero: base_shell_rear_c intersects main_switch by 4161.0 mm3",
+  "zero: base_shell_rear_l intersects base_hatch_r by 511.9 mm3",
+  "zero: base_shell_mid_c intersects base_hatch_f by 546.0 mm3",
+  "zero: base_shell_mid_c intersects base_hatch_r by 546.0 mm3",
+  "zero: base_shell_mid_l intersects base_hatch_f by 887.2 mm3",
+  "zero: base_shell_mid_l intersects base_hatch_r by 887.2 mm3",
+  "zero: base_shell_front_c intersects base_hatch_f by 598.3 mm3",
+  "zero: base_shell_front_l intersects base_hatch_f by 607.9 mm3",
+  "zero: shelf_b12c intersects hub_r by 3158.3 mm3",
+  "zero: shelf_b12c intersects hub_r_hub by 8668.9 mm3",
+  "zero: base_hatch_f intersects base_hatch_r by 2194.0 mm3",
+  "zero: base_light_rear_r intersects light_base by 115.8 mm3",
+  "zero: base_light_rear_c intersects light_base by 197.0 mm3",
+  "zero: base_light_rear_l intersects light_base by 115.8 mm3",
+  "zero: base_light_mid_r intersects light_base by 180.0 mm3",
+  "zero: base_light_mid_l intersects light_base by 180.0 mm3",
+  "zero: base_light_front_r intersects light_base by 165.8 mm3",
+  "zero: base_light_front_c intersects light_base by 197.0 mm3",
+  "zero: base_light_front_l intersects light_base by 165.8 mm3",
+  "floor: base_shell_rear_c intersects base_hatch_r by 502.3 mm3",
+  "floor: base_shell_rear_c intersects main_switch by 4161.0 mm3",
+  "floor: base_shell_rear_l intersects base_hatch_r by 511.9 mm3",
+  "floor: base_shell_mid_c intersects base_hatch_f by 546.0 mm3",
+  "floor: base_shell_mid_c intersects base_hatch_r by 546.0 mm3",
+  "floor: base_shell_mid_l intersects base_hatch_f by 887.2 mm3",
+  "floor: base_shell_mid_l intersects base_hatch_r by 887.2 mm3",
+  "floor: base_shell_front_c intersects base_hatch_f by 598.3 mm3",
+  "floor: base_shell_front_l intersects base_hatch_f by 607.9 mm3",
+  "floor: shelf_b12c intersects hub_r by 3158.3 mm3",
+  "floor: shelf_b12c intersects hub_r_hub by 8668.9 mm3",
+  "floor: base_hatch_f intersects base_hatch_r by 2194.0 mm3",
+  "floor: base_light_rear_r intersects light_base by 115.8 mm3",
+  "floor: base_light_rear_c intersects light_base by 197.0 mm3",
+  "floor: base_light_rear_l intersects light_base by 115.8 mm3",
+  "floor: base_light_mid_r intersects light_base by 180.0 mm3",
+  "floor: base_light_mid_l intersects light_base by 180.0 mm3",
+  "floor: base_light_front_r intersects light_base by 165.8 mm3",
+  "floor: base_light_front_c intersects light_base by 197.0 mm3",
+  "floor: base_light_front_l intersects light_base by 165.8 mm3",
+  "shelf: base_shell_rear_c intersects base_hatch_r by 502.3 mm3",
+  "shelf: base_shell_rear_c intersects main_switch by 4161.0 mm3",
+  "shelf: base_shell_rear_l intersects base_hatch_r by 511.9 mm3",
+  "shelf: base_shell_mid_c intersects base_hatch_f by 546.0 mm3",
+  "shelf: base_shell_mid_c intersects base_hatch_r by 546.0 mm3",
+  "shelf: base_shell_mid_l intersects base_hatch_f by 887.2 mm3",
+  "shelf: base_shell_mid_l intersects base_hatch_r by 887.2 mm3",
+  "shelf: base_shell_front_c intersects base_hatch_f by 598.3 mm3",
+  "shelf: base_shell_front_l intersects base_hatch_f by 607.9 mm3",
+  "shelf: shelf_b12c intersects hub_r by 3158.3 mm3",
+  "shelf: shelf_b12c intersects hub_r_hub by 8668.9 mm3",
+  "shelf: base_hatch_f intersects base_hatch_r by 2194.0 mm3",
+  "shelf: base_light_rear_r intersects light_base by 115.8 mm3",
+  "shelf: base_light_rear_c intersects light_base by 197.0 mm3",
+  "shelf: base_light_rear_l intersects light_base by 115.8 mm3",
+  "shelf: base_light_mid_r intersects light_base by 180.0 mm3",
+  "shelf: base_light_mid_l intersects light_base by 180.0 mm3",
+  "shelf: base_light_front_r intersects light_base by 165.8 mm3",
+  "shelf: base_light_front_c intersects light_base by 197.0 mm3",
+  "shelf: base_light_front_l intersects light_base by 165.8 mm3",
+  "look_down: base_shell_rear_c intersects base_hatch_r by 502.3 mm3",
+  "look_down: base_shell_rear_c intersects main_switch by 4161.0 mm3",
+  "look_down: base_shell_rear_l intersects base_hatch_r by 511.9 mm3",
+  "look_down: base_shell_mid_c intersects base_hatch_f by 546.0 mm3",
+  "look_down: base_shell_mid_c intersects base_hatch_r by 546.0 mm3",
+  "look_down: base_shell_mid_l intersects base_hatch_f by 887.2 mm3",
+  "look_down: base_shell_mid_l intersects base_hatch_r by 887.2 mm3",
+  "look_down: base_shell_front_c intersects base_hatch_f by 598.3 mm3",
+  "look_down: base_shell_front_l intersects base_hatch_f by 607.9 mm3",
+  "look_down: shelf_b12c intersects hub_r by 3158.3 mm3",
+  "look_down: shelf_b12c intersects hub_r_hub by 8668.9 mm3",
+  "look_down: base_hatch_f intersects base_hatch_r by 2194.0 mm3",
+  "look_down: base_light_rear_r intersects light_base by 115.8 mm3",
+  "look_down: base_light_rear_c intersects light_base by 197.0 mm3",
+  "look_down: base_light_rear_l intersects light_base by 115.8 mm3",
+  "look_down: base_light_mid_r intersects light_base by 180.0 mm3",
+  "look_down: base_light_mid_l intersects light_base by 180.0 mm3",
+  "look_down: base_light_front_r intersects light_base by 165.8 mm3",
+  "look_down: base_light_front_c intersects light_base by 197.0 mm3",
+  "look_down: base_light_front_l intersects light_base by 165.8 mm3",
+  "look_up: base_shell_rear_c intersects base_hatch_r by 502.3 mm3",
+  "look_up: base_shell_rear_c intersects main_switch by 4161.0 mm3",
+  "look_up: base_shell_rear_l intersects base_hatch_r by 511.9 mm3",
+  "look_up: base_shell_mid_c intersects base_hatch_f by 546.0 mm3",
+  "look_up: base_shell_mid_c intersects base_hatch_r by 546.0 mm3",
+  "look_up: base_shell_mid_l intersects base_hatch_f by 887.2 mm3",
+  "look_up: base_shell_mid_l intersects base_hatch_r by 887.2 mm3",
+  "look_up: base_shell_front_c intersects base_hatch_f by 598.3 mm3",
+  "look_up: base_shell_front_l intersects base_hatch_f by 607.9 mm3",
+  "look_up: shelf_b12c intersects hub_r by 3158.3 mm3",
+  "look_up: shelf_b12c intersects hub_r_hub by 8668.9 mm3",
+  "look_up: base_hatch_f intersects base_hatch_r by 2194.0 mm3",
+  "look_up: base_light_rear_r intersects light_base by 115.8 mm3",
+  "look_up: base_light_rear_c intersects light_base by 197.0 mm3",
+  "look_up: base_light_rear_l intersects light_base by 115.8 mm3",
+  "look_up: base_light_mid_r intersects light_base by 180.0 mm3",
+  "look_up: base_light_mid_l intersects light_base by 180.0 mm3",
+  "look_up: base_light_front_r intersects light_base by 165.8 mm3",
+  "look_up: base_light_front_c intersects light_base by 197.0 mm3",
+  "look_up: base_light_front_l intersects light_base by 165.8 mm3",
+  "pan_left: base_shell_rear_c intersects base_hatch_r by 502.3 mm3",
+  "pan_left: base_shell_rear_c intersects main_switch by 4161.0 mm3",
+  "pan_left: base_shell_rear_l intersects base_hatch_r by 511.9 mm3",
+  "pan_left: base_shell_mid_c intersects base_hatch_f by 546.0 mm3",
+  "pan_left: base_shell_mid_c intersects base_hatch_r by 546.0 mm3",
+  "pan_left: base_shell_mid_l intersects base_hatch_f by 887.2 mm3",
+  "pan_left: base_shell_mid_l intersects base_hatch_r by 887.2 mm3",
+  "pan_left: base_shell_front_c intersects base_hatch_f by 598.3 mm3",
+  "pan_left: base_shell_front_l intersects base_hatch_f by 607.9 mm3",
+  "pan_left: shelf_b12c intersects hub_r by 3158.3 mm3",
+  "pan_left: shelf_b12c intersects hub_r_hub by 8668.9 mm3",
+  "pan_left: base_hatch_f intersects base_hatch_r by 2194.0 mm3",
+  "pan_left: base_light_rear_r intersects light_base by 115.8 mm3",
+  "pan_left: base_light_rear_c intersects light_base by 197.0 mm3",
+  "pan_left: base_light_rear_l intersects light_base by 115.8 mm3",
+  "pan_left: base_light_mid_r intersects light_base by 180.0 mm3",
+  "pan_left: base_light_mid_l intersects light_base by 180.0 mm3",
+  "pan_left: base_light_front_r intersects light_base by 165.8 mm3",
+  "pan_left: base_light_front_c intersects light_base by 197.0 mm3",
+  "pan_left: base_light_front_l intersects light_base by 165.8 mm3",
+  "pan_right: base_shell_rear_c intersects base_hatch_r by 502.3 mm3",
+  "pan_right: base_shell_rear_c intersects main_switch by 4161.0 mm3",
+  "pan_right: base_shell_rear_l intersects base_hatch_r by 511.9 mm3",
+  "pan_right: base_shell_mid_c intersects base_hatch_f by 546.0 mm3",
+  "pan_right: base_shell_mid_c intersects base_hatch_r by 546.0 mm3",
+  "pan_right: base_shell_mid_l intersects base_hatch_f by 887.2 mm3",
+  "pan_right: base_shell_mid_l intersects base_hatch_r by 887.2 mm3",
+  "pan_right: base_shell_front_c intersects base_hatch_f by 598.3 mm3",
+  "pan_right: base_shell_front_l intersects base_hatch_f by 607.9 mm3",
+  "pan_right: shelf_b12c intersects hub_r by 3158.3 mm3",
+  "pan_right: shelf_b12c intersects hub_r_hub by 8668.9 mm3",
+  "pan_right: base_hatch_f intersects base_hatch_r by 2194.0 mm3",
+  "pan_right: base_light_rear_r intersects light_base by 115.8 mm3",
+  "pan_right: base_light_rear_c intersects light_base by 197.0 mm3",
+  "pan_right: base_light_rear_l intersects light_base by 115.8 mm3",
+  "pan_right: base_light_mid_r intersects light_base by 180.0 mm3",
+  "pan_right: base_light_mid_l intersects light_base by 180.0 mm3",
+  "pan_right: base_light_front_r intersects light_base by 165.8 mm3",
+  "pan_right: base_light_front_c intersects light_base by 197.0 mm3",
+  "pan_right: base_light_front_l intersects light_base by 165.8 mm3",
+  "pan_down: base_shell_rear_c intersects base_hatch_r by 502.3 mm3",
+  "pan_down: base_shell_rear_c intersects main_switch by 4161.0 mm3",
+  "pan_down: base_shell_rear_l intersects base_hatch_r by 511.9 mm3",
+  "pan_down: base_shell_mid_c intersects base_hatch_f by 546.0 mm3",
+  "pan_down: base_shell_mid_c intersects base_hatch_r by 546.0 mm3",
+  "pan_down: base_shell_mid_l intersects base_hatch_f by 887.2 mm3",
+  "pan_down: base_shell_mid_l intersects base_hatch_r by 887.2 mm3",
+  "pan_down: base_shell_front_c intersects base_hatch_f by 598.3 mm3",
+  "pan_down: base_shell_front_l intersects base_hatch_f by 607.9 mm3",
+  "pan_down: shelf_b12c intersects hub_r by 3158.3 mm3",
+  "pan_down: shelf_b12c intersects hub_r_hub by 8668.9 mm3",
+  "pan_down: base_hatch_f intersects base_hatch_r by 2194.0 mm3",
+  "pan_down: base_light_rear_r intersects light_base by 115.8 mm3",
+  "pan_down: base_light_rear_c intersects light_base by 197.0 mm3",
+  "pan_down: base_light_rear_l intersects light_base by 115.8 mm3",
+  "pan_down: base_light_mid_r intersects light_base by 180.0 mm3",
+  "pan_down: base_light_mid_l intersects light_base by 180.0 mm3",
+  "pan_down: base_light_front_r intersects light_base by 165.8 mm3",
+  "pan_down: base_light_front_c intersects light_base by 197.0 mm3",
+  "pan_down: base_light_front_l intersects light_base by 165.8 mm3",
+  "lift_bottom: base_shell_rear_c intersects base_hatch_r by 502.3 mm3",
+  "lift_bottom: base_shell_rear_c intersects main_switch by 4161.0 mm3",
+  "lift_bottom: base_shell_rear_l intersects base_hatch_r by 511.9 mm3",
+  "lift_bottom: base_shell_mid_c intersects base_hatch_f by 546.0 mm3",
+  "lift_bottom: base_shell_mid_c intersects base_hatch_r by 546.0 mm3",
+  "lift_bottom: base_shell_mid_l intersects base_hatch_f by 887.2 mm3",
+  "lift_bottom: base_shell_mid_l intersects base_hatch_r by 887.2 mm3",
+  "lift_bottom: base_shell_front_c intersects base_hatch_f by 598.3 mm3",
+  "lift_bottom: base_shell_front_l intersects base_hatch_f by 607.9 mm3",
+  "lift_bottom: shelf_b12c intersects hub_r by 3158.3 mm3",
+  "lift_bottom: shelf_b12c intersects hub_r_hub by 8668.9 mm3",
+  "lift_bottom: base_hatch_f intersects base_hatch_r by 2194.0 mm3",
+  "lift_bottom: base_light_rear_r intersects light_base by 115.8 mm3",
+  "lift_bottom: base_light_rear_c intersects light_base by 197.0 mm3",
+  "lift_bottom: base_light_rear_l intersects light_base by 115.8 mm3",
+  "lift_bottom: base_light_mid_r intersects light_base by 180.0 mm3",
+  "lift_bottom: base_light_mid_l intersects light_base by 180.0 mm3",
+  "lift_bottom: base_light_front_r intersects light_base by 165.8 mm3",
+  "lift_bottom: base_light_front_c intersects light_base by 197.0 mm3",
+  "lift_bottom: base_light_front_l intersects light_base by 165.8 mm3",
+  "lift_middle: base_shell_rear_c intersects base_hatch_r by 502.3 mm3",
+  "lift_middle: base_shell_rear_c intersects main_switch by 4161.0 mm3",
+  "lift_middle: base_shell_rear_l intersects base_hatch_r by 511.9 mm3",
+  "lift_middle: base_shell_mid_c intersects base_hatch_f by 546.0 mm3",
+  "lift_middle: base_shell_mid_c intersects base_hatch_r by 546.0 mm3",
+  "lift_middle: base_shell_mid_l intersects base_hatch_f by 887.2 mm3",
+  "lift_middle: base_shell_mid_l intersects base_hatch_r by 887.2 mm3",
+  "lift_middle: base_shell_front_c intersects base_hatch_f by 598.3 mm3",
+  "lift_middle: base_shell_front_l intersects base_hatch_f by 607.9 mm3",
+  "lift_middle: shelf_b12c intersects hub_r by 3158.3 mm3",
+  "lift_middle: shelf_b12c intersects hub_r_hub by 8668.9 mm3",
+  "lift_middle: base_hatch_f intersects base_hatch_r by 2194.0 mm3",
+  "lift_middle: base_light_rear_r intersects light_base by 115.8 mm3",
+  "lift_middle: base_light_rear_c intersects light_base by 197.0 mm3",
+  "lift_middle: base_light_rear_l intersects light_base by 115.8 mm3",
+  "lift_middle: base_light_mid_r intersects light_base by 180.0 mm3",
+  "lift_middle: base_light_mid_l intersects light_base by 180.0 mm3",
+  "lift_middle: base_light_front_r intersects light_base by 165.8 mm3",
+  "lift_middle: base_light_front_c intersects light_base by 197.0 mm3",
+  "lift_middle: base_light_front_l intersects light_base by 165.8 mm3",
+  "lift_top: base_shell_rear_c intersects base_hatch_r by 502.3 mm3",
+  "lift_top: base_shell_rear_c intersects main_switch by 4161.0 mm3",
+  "lift_top: base_shell_rear_l intersects base_hatch_r by 511.9 mm3",
+  "lift_top: base_shell_mid_c intersects base_hatch_f by 546.0 mm3",
+  "lift_top: base_shell_mid_c intersects base_hatch_r by 546.0 mm3",
+  "lift_top: base_shell_mid_l intersects base_hatch_f by 887.2 mm3",
+  "lift_top: base_shell_mid_l intersects base_hatch_r by 887.2 mm3",
+  "lift_top: base_shell_front_c intersects base_hatch_f by 598.3 mm3",
+  "lift_top: base_shell_front_l intersects base_hatch_f by 607.9 mm3",
+  "lift_top: shelf_b12c intersects hub_r by 3158.3 mm3",
+  "lift_top: shelf_b12c intersects hub_r_hub by 8668.9 mm3",
+  "lift_top: base_hatch_f intersects base_hatch_r by 2194.0 mm3",
+  "lift_top: base_light_rear_r intersects light_base by 115.8 mm3",
+  "lift_top: base_light_rear_c intersects light_base by 197.0 mm3",
+  "lift_top: base_light_rear_l intersects light_base by 115.8 mm3",
+  "lift_top: base_light_mid_r intersects light_base by 180.0 mm3",
+  "lift_top: base_light_mid_l intersects light_base by 180.0 mm3",
+  "lift_top: base_light_front_r intersects light_base by 165.8 mm3",
+  "lift_top: base_light_front_c intersects light_base by 197.0 mm3",
+  "lift_top: base_light_front_l intersects light_base by 165.8 mm3"
+ ],
  "warnings": [],
- "seconds": 372.9
+ "seconds": 469.0
 }

@@ -90,7 +90,7 @@ T = {
 END_ITEMS = {"pi": "pi5", "hub": "usb_hub", "busl": "servo_bus", "busr": "servo_bus_r", "esp": "ddsm_driver", "tmc": "tmc2209",
              "imu": "imu", "lim": "limit_top", "lidar": "lidar", "nema": "lift_motor", "cont": "contactor_relay",
              "estop": "estop", "fuse": "fuse_block", "batt": "battery", "charge": "charge_socket_body", "b18": "reg_12v",
-             "b12c": "reg_5v", "s3": "esp32s3_head", "audio": "mic_array", "cam": "head_cam", "eyes": "eye_plate"}
+             "b12c": "b12c", "s3": "esp32s3_head", "audio": "mic_array", "cam": "head_cam", "eyes": "eye_plate"}
 
 # ---------------------------------------------------------------- trunks
 WINDOW = A("base", -46, 22, 100)  # outer-tube cable lane (y 14-30), above the trough tongue
@@ -155,8 +155,15 @@ def anchors_for(row):
         tail = mir(ARM_END["wc" if a == "hub" else "bus"], side)
         return [t(a), *arm(side), tail], f"arm_{side}"
     if key == ("esp", "wheels"):
-        return [t("esp"), A("base", 30, -60, 60), A("base", 30, 60, 60), t("wheel_l"), A("base", 30, 60, 60),
-                A("base", 30, -60, 60), t("wheel_r")], None
+        # Approach each hub along the 9 mm cable bore in the wheel bracket (x=0, z=50),
+        # not diagonally through the bracket body.
+        return [t("esp"),
+                A("base", 30, -60, 60), A("base", 0, -76, 50), t("wheel_r"),
+                A("base", 0, -76, 50), A("base", 30, -60, 60), A("base", 30, 60, 60),
+                A("base", 0, 76, 50), t("wheel_l")], None
+    if key == ("esp", "lim"):
+        # Climb the column through the outer-tube cable window, not the mid_c well edge.
+        return [t("esp"), A("base", -40, -20, 120), WINDOW, A("base", 0, 22, 140), t("lim")], None
     if key == ("b5", "pi"):
         return [t("b5"), T["pi_gpio"]], None
     if key in (("pi", "busl"), ("pi", "busr")):
@@ -300,7 +307,7 @@ def build(verbose=True):
             elif link == cur[0] and not pending_cross:
                 key = (link, tuple(prev), tuple(p), round(need, 1))
                 if key not in cache:
-                    cache[key] = router.leg(link, prev, p, need + 1.5) if link != "base" or not _in_trough(prev, p) else [prev, p]
+                    cache[key] = router.leg(link, prev, p, need + 1.5) if link != "base" or not (_in_trough(prev, p) or _in_wheel_bore(prev, p)) else [prev, p]
                 cur[1].extend(cache[key][1:])
             else:  # joint or lift crossing: leave the parent here, service loop on the child
                 path.append(dict(item=cur[0], pts=cur[1]))
@@ -343,6 +350,15 @@ def build(verbose=True):
 
 def _in_trough(p, q):
     return all(-90 <= v[0] <= -44 and 10 <= v[1] <= 96 and v[2] <= 104 for v in (p, q))
+
+
+def _in_wheel_bore(p, q):
+    """Straight through the 9 mm cable bore in either wheel bracket, along the axle height."""
+    def in_bore(v):
+        if abs(v[0]) > 4.0 or abs(v[2] - 50.35) > 4.0:
+            return False
+        return 72.0 <= v[1] <= 116.0 or -116.0 <= v[1] <= -72.0
+    return in_bore(p) and in_bore(q)
 
 
 _HD = None
