@@ -126,7 +126,11 @@ BOM = [
     ("Filament", "Prusament PETG, 1 kg", 6, 23.99, "https://www.prusa3d.com/product/prusament-petg-anthracite-grey-1kg-nfc/",
      "Pick colours: white shells, grey structure, black trim.", False),
     ("Filament", "Bambu Lab TPU 95A HF, 1 kg", 1, 25.19, "https://us.store.bambulab.com/products/tpu-95a-hf",
-     "Compliant TPU fingers (Nori-style).", False),
+     "Compliant TPU 95A fingers: 34 mm curved pads, fingernail, optional FSR pocket.", False),
+    ("Sensing", "Interlink FSR 402, 18 mm (optional, 4 pack)", 1, 0, "",
+     "Optional pad force sensor, one per finger. Default grasp and payload signal is the STS3215 present-current. Price not checked this turn.", True),
+    ("Gripper", "16T module 1.5 metal pinion, ~8 mm face (optional)", 2, 0, "",
+     "Drop-in for the printed involute 16T module-1.5 pinion so the servo can run at rated 0.98 N·m (40.8 N per finger). Price not checked this turn.", True),
 ]
 
 # Parts the wiring needs but whose part number or value is not checked against a datasheet yet.

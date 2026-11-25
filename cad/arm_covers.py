@@ -59,6 +59,10 @@ def shoulder_cover():
     tools.append(cyl_between("x", (Y0, S), SH["x0"] - 1, SH["x0"] + WALL + 1, SH["hole"]))  # horn and clevis disc
     tools.append(box(SH["x0"] - 1, SH["x0"] + WALL + 1, Y0 - 9, Y0 + 9, S - SH["hole"] / 2 - 16, S))  # cable notch
     tools.append(box(-500, 500, -500, SH["y_rim"], -500, 2000))  # open to the torso (cable path)
+    # Extra harness clearance in the bottom half (shoulder_cover_bot): a wider slot at the torso opening
+    # and an inside-bottom groove outboard, where the arm bundle was clipping the shell.
+    tools.append(box(SH["x0"] - 1, SH["x0"] + WALL + 8, Y0 - 14, Y0 + 14, S - ro + 4, S - 8))
+    tools.append(box(X0 - 6, SH["x1"] - WALL, Y0 + 18, Y0 + 42, S - ro + WALL - 0.2, S - ro + 20))
     for k in range(5):  # cooling slots over the servo's far end, top and bottom
         y = Y0 + 14 + 8 * k
         tools.append(box(X0 - 12, X0 + 14, y - 1.5, y + 1.5, S - ro - 5, S - ro + 12))
@@ -131,7 +135,11 @@ def elbow_cover():
         tools.append(_hex_x(X0 + 21, X0 + 26, y, z))
     s = fuse(drum, deck, collar, *pads)
     tools.append(cyl_between("z", (X0, Y0), c["deck"] - WALL - 1, c["collar"][1] + 1, 2 * cr0))  # upper-arm tube
-    tools.append(cyl_between("y", (X0, E), c["y0"] - 1, c["y0"] + WALL + 1, 10.0))  # J4 rear shaft
+    tools.append(cyl_between("y", (X0, E), c["y0"] - 1, c["y0"] + WALL + 1, 10.0))  # J4 rear shaft (not a cable path)
+    # Internal harness lane on elbow_cover_b (+X), offset from the J4 axis / rear-shaft hole.
+    tools.append(box(X0 + 16, X0 + c["side"] - WALL - 0.2, Y0 - 5, Y0 + 5, E - 28, c["deck"] + 1))
+    # Passage through the upper-arm collar on the +X side.
+    tools.append(box(X0 + 16, X0 + 26, Y0 - 5, Y0 + 5, c["deck"] - 1, c["collar"][1] + 1))
     for k in range(4):  # side slots beside the J4 servo, both faces
         z = E + 14 + 6 * k
         for xa, xb in ((X0 - 70, X0 - sx + 1), (X0 + sx - 1, X0 + 70)):

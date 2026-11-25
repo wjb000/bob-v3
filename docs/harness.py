@@ -120,11 +120,11 @@ def arm(side):
     """Torso to the palm, left arm in the CAD frame (the right is the mirror)."""
     a = [A("lift", 20, 100, 436), ("cross", "l_link1"), A("l_link1", 14, 132, 434), A("l_link1", -12, 157, 384),
          ("cross", "l_link2"), A("l_link2", -26, 157, 384), A("l_link2", -16, 176, 300),
-         ("cross", "l_link3"), A("l_link3", -14, 176, 286), A("l_link3", -14, 126, 200), A("l_link3", 9, 126, 172),
-         ("cross", "l_link4"), A("l_link4", 9, 122, 158), A("l_link4", 9, 145, 110), A("l_link4", 9, 157, 92),
-         A("l_link4", 9, 157, 60), A("l_link4", 9, 136, -20), A("l_link4", 9, 134, -42),
-         ("cross", "l_link5"), A("l_link5", 9, 128, -42), A("l_link5", 9, 136, -95),
-         ("cross", "l_link6"), A("l_link6", 9, 136, -132)]
+         ("cross", "l_link3"), A("l_link3", -14, 176, 286), A("l_link3", -14, 126, 200), A("l_link3", 30, 157, 172),
+         ("cross", "l_link4"), A("l_link4", 30, 157, 140), A("l_link4", 30, 157, 90), A("l_link4", 30, 157, 60),
+         A("l_link4", 30, 157, -20), A("l_link4", 30, 157, -42),
+         ("cross", "l_link5"), A("l_link5", 30, 157, -42), A("l_link5", 20, 141, -95),
+         ("cross", "l_link6"), A("l_link6", 9, 141, -132)]
     if side == "l":
         return a
     return [("cross", c[1].replace("l_", "r_")) if c[0] == "cross" else mir(c, side) for c in a]

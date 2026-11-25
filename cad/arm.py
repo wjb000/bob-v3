@@ -253,7 +253,9 @@ def elbow() -> cq.Shape:
     for x, y in _forearm_bolts():
         tools.append(cyl((x, y, ELBOW_FLANGE[1] - 1), "z", P.M3, 20))
         tools.append(hexagon(x, y, ELBOW_FLANGE[1] + 6, ELBOW_FLANGE[1] + 11, P.NUT_AF))
-    tools.append(cyl((X0, Y0, ELBOW_FLANGE[1] - 1), "z", 18, 20))  # cable pass
+    tools.append(cyl((X0, Y0, ELBOW_FLANGE[1] - 1), "z", 18, 20))  # bore; not a cable path (J4 shaft is the Ø14)
+    # Cable slot past J4, +X side (elbow_cover_b), through the flange into the forearm. Not the Ø14 shaft hole.
+    tools.append(box(X0 + 17, X0 + 25, Y0 - 4.5, Y0 + 4.5, ELBOW_FLANGE[1] - 2, E - 8))
     hw("M3x16 socket head + nut (elbow flange)", 4)
     return cut(s, *tools)
 
@@ -279,7 +281,9 @@ def forearm() -> cq.Shape:
              box(jb["x"][0] - 0.3, jb["x"][1] + 0.3, jb["y"][0] - 0.3, jb["y"][1] + 0.3, jb["z"][0] - 0.3, jb["z"][1] + 0.3),
              cyl_between("y", (X0, W), jb["y"][1] - 1, Y0 + r + 1, 28),  # horn window
              cyl_between("y", (X0, W), Y0 - r - 1, Y0 - r + 6, P.M3_INSERT),  # idler insert
-             cyl((X0, Y0, f0 - 6), "z", 18, 16)]
+             cyl((X0, Y0, f0 - 6), "z", 18, 16),
+             # Cable channel past the J5 body, +X side of the tube, into the wrist. Not the J5 idler.
+             box(X0 + 17, X0 + 25, Y0 - 4.5, Y0 + 4.5, W - 2, f0 + 1)]
     for x, y in _forearm_bolts():
         tools.append(cyl((x, y, f0 - 10), "z", P.M3, 30))
         tools.append(cyl((x, y, f0 - 10), "z", P.M3_HEAD, 10 + 0.01))
@@ -321,71 +325,113 @@ def wrist() -> cq.Shape:
     parts.append(cyl_between("z", (X0, Y0), wz0 - sk["web"], wz0 + 0.01, 2 * sk["ro"]))
     s = fuse(*parts)
     tools = [box(j6x0 - 0.3, j6x0 + P.STS_L + 0.3, Y0 - P.STS_W / 2 - 0.3, Y0 + P.STS_W / 2 + 0.3, J6_BODY_Z[0] - 1, J6_BODY_Z[1] + 0.3),
-             cyl_between("y", (X0, W), yb0 - 1, yb1 + 1, P.M3)]
+             cyl_between("y", (X0, W), yb0 - 1, yb1 + 1, P.M3),
+             # Enter from the forearm +X channel, only down to the top of J6 (the J6 body fills the sleeve in X).
+             box(X0 + 17, X0 + 25, Y0 - 4.5, Y0 + 4.5, J6_BODY_Z[1] - 1, W + 1),
+             # Then a lane along the -Y face of J6 into the skirt, not through the J5 idler.
+             box(X0 - 8, X0 + 16, Y0 - P.STS_W / 2 - 5, Y0 - P.STS_W / 2 - 0.5, J6_BODY_Z[0] + 2, J6_BODY_Z[1] + 2)]
     tools += _horn_holes((X0, 0, W), "y", J5_BODY["y"][1] + 4.3, (0, 1, 0), depth=12)
     # the J6 horn turns inside the web's opening
     tools.append(cyl_between("z", (X0, Y0), J6_BODY_Z[0] - 6, J6_BODY_Z[0] + 1, 2 * (P.STS_HORN_D / 2 + 1.5)))
+    # Camera USB enters the skirt on the back (-X), next to the roll axis.
+    sk = WRIST_SKIRT
+    tools.append(box(X0 - sk["ro"] - 1, X0 - sk["ri"] + 2.5, Y0 - 3.5, Y0 + 3.5, sk["z0"] - 0.5, wz0 + 0.5))
     hw("M3x12 shoulder screw (idler)", 1)
     return cut(s, *tools)
 
 
 # ---------------------------------------------------------------- link 6: palm and parallel gripper (J6 out, holds J7)
 #
-# J7 points its horn down. A printed 16-tooth module-1.5 pinion on the horn drives two racks that slide in
-# channels in the palm, in opposite directions, so the two fingers open symmetrically about the arm axis.
-# Pitch radius 12 mm: 40 mm of finger travel per side is 191 degrees of servo.
+# J7 points its horn down. A 16-tooth module-1.5 involute pinion on the horn drives two racks
+# that slide in channels in the palm, in opposite directions, so the fingers open symmetrically.
+# Pitch radius 12 mm. 50 mm of travel per finger is 239 degrees of servo (STS3215, multi-turn).
+# Rated 0.98 N·m -> 40.8 N per finger; a metal pinion is the wear part so that limit can be used.
+# A printed PETG pinion should stay at about 0.5 N·m (~20.8 N per finger).
 
 GEAR_M = 1.5
 GEAR_Z = 16
 GEAR_R = GEAR_M * GEAR_Z / 2  # 12
-BACKLASH = 0.2
+GEAR_PRESSURE = 20.0  # deg, involute
+BACKLASH = 0.1
 J7_BODY_Z = (J6_HORN_Z - 6 - P.STS_H, J6_HORN_Z - 6)  # servo body, shaft down at the arm axis
 J7_HORN_Z = (J7_BODY_Z[0] - 4, J7_BODY_Z[0])
 PINION_Z = (J7_HORN_Z[0] - 8, J7_HORN_Z[0])
 RACK_Z = (PINION_Z[0] - 0.0, PINION_Z[1])
 HOUSING_Z = (PINION_Z[0] - 4.5, J7_BODY_Z[0] - 1)
 FLOOR_Z = (HOUSING_Z[0], PINION_Z[0] - 0.5)
-HOUSING_Y = 55.0
-FINGER_T = 8.0
-PAD_T = 3.0
-GRIP_TRAVEL = 40.0  # mm per finger
-HAND = W - (PINION_Z[0] - 60.0)  # wrist axis to fingertip
+HOUSING_Y = 72.0
+FINGER_T = 9.0
+FINGER_W = 34.0  # pad width, mm
+PAD_T = 0.0  # inner faces meet at the mid-plane when closed (~0 mm gap)
+GRIP_TRAVEL = 50.0  # mm per finger; 100 mm opening
+NAIL = 3.5  # fingertip hook past the pad, mm
+HAND = W - (PINION_Z[0] - 60.0 - NAIL)  # wrist axis to fingernail
 TIP = W - HAND
 FINGER_TOP = HOUSING_Z[0] - 1.0
 RACK_X0 = GEAR_R + BACKLASH - GEAR_M  # tooth tips, from the axis
 RACK_X1 = GEAR_R + BACKLASH + 1.25 * GEAR_M + 5.0  # back of the rack body
 WRIST_CAM_X = X0 - 25.2  # USB camera board on the back of the palm, looking at the fingertips
+CAM_PITCH = 28.0  # UB0234 hole pitch, 28 x 28 mm square
+LID_Z = (HOUSING_Z[0] - 2.6, HOUSING_Z[0])
+LID_SCREWS = ((18.0, 48.0), (18.0, -48.0), (-18.0, 48.0), (-18.0, -48.0))
 
 
-def _pinion_profile(r_tip, r_root, r_pitch, n, z0, z1):
-    s_p = math.pi * GEAR_M / 2
-    tan20 = math.tan(math.radians(20))
-    w_tip = max(s_p - 2 * (r_tip - r_pitch) * tan20, 0.6)
-    w_root = s_p + 2 * (r_pitch - r_root) * tan20
-    pts = []
-    step = 2 * math.pi / n
+def _involute_pt(r_base, r):
+    t = math.sqrt(max((r / r_base) ** 2 - 1.0, 0.0))
+    return (r_base * (math.cos(t) + t * math.sin(t)),
+            r_base * (math.sin(t) - t * math.cos(t)))
+
+
+def _pinion_teeth(r_tip, r_root, r_pitch, n, z0, z1):
+    alpha = math.radians(GEAR_PRESSURE)
+    r_base = r_pitch * math.cos(alpha)
+    pitch_thick = math.pi * GEAR_M / 2
+    px, py = _involute_pt(r_base, r_pitch)
+    pitch_ang = math.atan2(py, px)
+    half = pitch_thick / (2 * r_pitch)
+    n_samp = 10
+    r0 = max(r_root, r_base * 1.001)
+    rs = [r0 + (r_tip - r0) * i / n_samp for i in range(n_samp + 1)]
+    teeth = []
+    hub = cq.Workplane("XY").workplane(offset=z0).circle(r_root).extrude(z1 - z0).val()
     for i in range(n):
-        c = i * step
-        for r, w, sgn in ((r_root, w_root, -1), (r_tip, w_tip, -1), (r_tip, w_tip, 1), (r_root, w_root, 1)):
-            a = c + sgn * (w / 2) / r
-            pts.append((r * math.cos(a), r * math.sin(a)))
-    return cq.Workplane("XY").workplane(offset=z0).polyline(pts).close().extrude(z1 - z0).val()
+        c = 2 * math.pi * i / n
+        pts = []
+        # right flank (involute, +side)
+        def rot(x, y, ang):
+            return (x * math.cos(ang) - y * math.sin(ang), x * math.sin(ang) + y * math.cos(ang))
+        if r_root < r_base:
+            pts.append(rot(r_root, 0, c - half))
+            pts.append(rot(r_base, 0, c - half))
+        for r in rs:
+            x, y = _involute_pt(r_base, r)
+            pts.append(rot(x, y, c - half - pitch_ang))
+        for r in reversed(rs):
+            x, y = _involute_pt(r_base, r)
+            pts.append(rot(x, -y, c + half + pitch_ang))
+        if r_root < r_base:
+            pts.append(rot(r_base, 0, c + half))
+            pts.append(rot(r_root, 0, c + half))
+        # close toward centre so the tooth welds to the hub
+        pts.append(rot(r_root * 0.6, 0, c))
+        teeth.append(cq.Workplane("XY").workplane(offset=z0).polyline(pts).close().extrude(z1 - z0).val())
+    return fuse(hub, *teeth)
 
 
 def pinion() -> cq.Shape:
     r_tip, r_root = GEAR_R + GEAR_M, GEAR_R - 1.25 * GEAR_M
-    s = _pinion_profile(r_tip, r_root, GEAR_R, GEAR_Z, *PINION_Z).translate((X0, Y0, 0))
+    s = _pinion_teeth(r_tip, r_root, GEAR_R, GEAR_Z, *PINION_Z).translate((X0, Y0, 0))
     s = fuse(s, cyl((X0, Y0, PINION_Z[1] - 2), "z", 2 * r_root, 2))
     tools = _horn_holes((X0, Y0, 0), "z", PINION_Z[1], (0, 0, -1), depth=10)
     return cut(s, *tools)
 
 
 def _rack(sign, y0, y1):
-    """Rack on the +x (sign=1) or -x side of the pinion, teeth facing the axis, between y0 and y1 at closed."""
+    """Involute rack: straight 20° flanks. Pitch line at GEAR_R + BACKLASH/2."""
     p = math.pi * GEAR_M
-    tan20 = math.tan(math.radians(20))
+    tan20 = math.tan(math.radians(GEAR_PRESSURE))
     s_p = p / 2
-    xa = GEAR_R + BACKLASH  # pitch line
+    xa = GEAR_R + BACKLASH / 2  # pitch line, backlash away from the pinion
     tip, root = xa - GEAR_M, xa + 1.25 * GEAR_M
     w_tip = s_p - 2 * GEAR_M * tan20
     w_root = s_p + 2 * 1.25 * GEAR_M * tan20
@@ -394,7 +440,7 @@ def _rack(sign, y0, y1):
     k0 = math.floor((y0 - Y0) / p) - 1
     k1 = math.ceil((y1 - Y0) / p) + 1
     for k in range(k0, k1 + 1):
-        yc = Y0 + (k + 0.5) * p  # gaps centred on Y0, where the pinion has a tooth
+        yc = Y0 + (k + 0.5) * p
         pts = [(sign * root, yc - w_root / 2), (sign * tip, yc - w_tip / 2), (sign * tip, yc + w_tip / 2), (sign * root, yc + w_root / 2)]
         teeth.append(cq.Workplane("XY").workplane(offset=RACK_Z[0]).polyline(pts).close().extrude(RACK_Z[1] - RACK_Z[0]).val())
     s = fuse(body, *teeth).intersect(box(-60, 60, y0, y1, RACK_Z[0], RACK_Z[1]))
@@ -403,38 +449,52 @@ def _rack(sign, y0, y1):
 
 def rack(sign) -> cq.Shape:
     """PETG rack + drop. Bolts to the TPU finger. sign=+1 is the +y finger (rack on +x)."""
+    span = GRIP_TRAVEL + 12.0
     if sign > 0:
-        body = _rack(1, Y0 - 45, Y0 + 25)
+        body = _rack(1, Y0 - span, Y0 + 25)
         y0, y1 = Y0 + PAD_T, Y0 + PAD_T + FINGER_T
         bx0, bx1 = X0 + RACK_X1 - 5.0, X0 + RACK_X1
     else:
-        body = _rack(-1, Y0 - 25, Y0 + 45)
+        body = _rack(-1, Y0 - 25, Y0 + span)
         y0, y1 = Y0 - PAD_T - FINGER_T, Y0 - PAD_T
         bx0, bx1 = X0 - RACK_X1, X0 - RACK_X1 + 5.0
     drop = box(bx0, bx1, y0, y1, FINGER_TOP - 8, RACK_Z[1])
-    top = box(min(X0 - 12, bx0), max(X0 + 12, bx1), y0, y1, FINGER_TOP - 8, FINGER_TOP)
+    top = box(min(X0 - FINGER_W / 2, bx0), max(X0 + FINGER_W / 2, bx1), y0, y1, FINGER_TOP - 8, FINGER_TOP)
     s = fuse(body, drop, top)
     face = y0 if sign > 0 else y1
-    tools = [cyl_between("y", (X0, z), face - 5, face + 5, 2.6) for z in (TIP + 12, TIP + 32)]
+    tools = [cyl_between("y", (X0, z), face - 5, face + 5, 2.6) for z in (TIP + NAIL + 12, TIP + NAIL + 32)]
     hw("M2.5x10 screw (TPU finger)", 2)
     return cut(s, *tools)
 
 
 def finger(sign) -> cq.Shape:
-    """Nori-style compliant TPU 95A finger. Ridges on the pad face, bolts to the PETG rack."""
+    """Compliant TPU 95A finger: 34 mm curved pad, fingernail, FSR 402 pocket. Closed gap ~0 mm."""
+    hw = FINGER_W / 2
     if sign > 0:
-        y0, y1 = Y0 + PAD_T, Y0 + PAD_T + FINGER_T
+        y_in, y_out = Y0 + PAD_T, Y0 + PAD_T + FINGER_T
     else:
-        y0, y1 = Y0 - PAD_T - FINGER_T, Y0 - PAD_T
-    s = box(X0 - 12, X0 + 12, y0, y1, TIP, FINGER_TOP - 7)
-    face_out = y1 if sign > 0 else y0
-    face_in = y0 if sign > 0 else y1
-    tools = [cyl_between("y", (X0, z), y0 - 1, y1 + 1, 3.2) for z in (TIP + 12, TIP + 32)]
-    for z in (TIP + 6, TIP + 16, TIP + 26, TIP + 36):
-        tools.append(box(X0 - 13, X0 + 13,
-                         (face_in - 0.2) if sign > 0 else (face_out - 0.8),
-                         (face_in + 0.8) if sign > 0 else (face_out + 0.2),
-                         z - 1, z + 1))
+        y_out, y_in = Y0 - PAD_T - FINGER_T, Y0 - PAD_T
+    z0, z1 = TIP + NAIL, FINGER_TOP - 7
+    r_pad = 22.0
+    body = box(X0 - hw, X0 + hw, min(y_in, y_out), max(y_in, y_out), z0, z1)
+    # Convex pad: cylinder along Z, crest on the mid-plane (Y0) at X0.
+    pad = cyl_between("z", (X0, Y0 + sign * r_pad), z0, z1, 2 * r_pad)
+    ymin, ymax = (Y0 + 0.05, Y0 + FINGER_T) if sign > 0 else (Y0 - FINGER_T, Y0 - 0.05)
+    pad = pad.intersect(box(X0 - hw, X0 + hw, ymin, ymax, z0, z1))
+    # Fingernail: thin hook at the tip, same mid-plane crest, 3.5 mm past the pad.
+    nail_y0, nail_y1 = (Y0 + 0.05, Y0 + 2.2) if sign > 0 else (Y0 - 2.2, Y0 - 0.05)
+    nail = box(X0 - 11, X0 + 11, nail_y0, nail_y1, TIP, z0 + 1.2)
+    s = fuse(body, pad, nail)
+    tools = [cyl_between("y", (X0, z), y_in - 1, y_out + 1, 3.2) for z in (TIP + NAIL + 12, TIP + NAIL + 32)]
+    # FSR 402 pocket in the back of the pad (18 x 18 x 0.6), cable groove toward the rack.
+    midz = (z0 + z1) / 2
+    back = y_out
+    if sign > 0:
+        tools.append(box(X0 - 9, X0 + 9, back - 0.7, back + 0.2, midz - 9, midz + 9))
+        tools.append(box(X0 - 1.3, X0 + 1.3, back - 0.7, back + 0.2, midz + 8, z1 + 0.5))
+    else:
+        tools.append(box(X0 - 9, X0 + 9, back - 0.2, back + 0.7, midz - 9, midz + 9))
+        tools.append(box(X0 - 1.3, X0 + 1.3, back - 0.2, back + 0.7, midz + 8, z1 + 0.5))
     return cut(s, *tools)
 
 
@@ -444,7 +504,10 @@ def palm() -> cq.Shape:
     sx0, sx1 = X0 - P.STS_SHAFT_FROM_END, X0 - P.STS_SHAFT_FROM_END + P.STS_L
     sleeve = box(sx0 - 3, sx1 + 3, Y0 - P.STS_W / 2 - 3, Y0 + P.STS_W / 2 + 3, HOUSING_Z[1] - 0.01, top0 + 0.5)
     housing = rrect(X0, Y0, HOUSING_Z[0], HOUSING_Z[1], 50, 2 * HOUSING_Y, 6)
-    s = fuse(disc, sleeve, housing)
+    # Camera shroud on the back: 32 x 32 UB0234, 28 mm square hole pitch, lens window toward the fingers.
+    cam_z = (HOUSING_Z[0] + HOUSING_Z[1]) / 2
+    shroud = box(WRIST_CAM_X - 9.0, X0 - 24.0 - 0.4, Y0 - 18, Y0 + 18, cam_z - 18, cam_z + 18)
+    s = fuse(disc, sleeve, housing, shroud)
     tools = [box(sx0 - 0.3, sx1 + 0.3, Y0 - P.STS_W / 2 - 0.3, Y0 + P.STS_W / 2 + 0.3, J7_BODY_Z[0] - 0.01, J7_BODY_Z[1] + 0.3),
              cyl((X0, Y0, PINION_Z[0] - 1), "z", 2 * (GEAR_R + GEAR_M) + 2, J7_BODY_Z[0] - PINION_Z[0] + 1.5)]
     for sgn in (1, -1):
@@ -453,9 +516,32 @@ def palm() -> cq.Shape:
         fa, fb = sorted((sgn * (RACK_X1 - 5.6), sgn * (RACK_X1 + 0.6)))
         tools.append(box(X0 + fa, X0 + fb, Y0 - HOUSING_Y - 1, Y0 + HOUSING_Y + 1, FLOOR_Z[0] - 1, RACK_Z[0]))
     tools += _horn_holes((X0, Y0, 0), "z", top1, (0, 0, -1), depth=10)
-    for dy in (-12.0, 12.0):  # wrist camera, M2 thread-forming
-        tools.append(cyl_between("x", (Y0 + dy, (HOUSING_Z[0] + HOUSING_Z[1]) / 2), WRIST_CAM_X - 1, WRIST_CAM_X + 6, 1.8))
-    hw("M2x6 thread-forming (wrist camera)", 2)
+    # 28 x 28 mm camera holes and a lens window looking down the fingers.
+    for dy in (-CAM_PITCH / 2, CAM_PITCH / 2):
+        for dz in (-CAM_PITCH / 2, CAM_PITCH / 2):
+            tools.append(cyl_between("x", (Y0 + dy, cam_z + dz), WRIST_CAM_X - 10, WRIST_CAM_X + 6, 1.8))
+    tools.append(box(WRIST_CAM_X - 10, WRIST_CAM_X + 2.5, Y0 - 8, Y0 + 8, cam_z - 18.5, cam_z - 14.5))  # lens window
+    # Cable channel from the camera up the back into the wrist-skirt slot.
+    tools.append(box(WRIST_CAM_X - 4, WRIST_CAM_X + 2.5, Y0 - 3.2, Y0 + 3.2, cam_z + 14, top1 + 1))
+    # Lid inserts, four M3, from the underside.
+    for dx, dy in LID_SCREWS:
+        tools.append(cyl((X0 + dx, Y0 + dy, HOUSING_Z[0] - 0.2), "z", P.M3_INSERT, P.M3_INSERT_DEPTH + 0.4))
+    hw("M2x6 thread-forming (wrist camera)", 4)
+    hw("M3 heat-set insert", 4)
+    return cut(s, *tools)
+
+
+def palm_lid() -> cq.Shape:
+    """PETG lid over the pinion and racks. 0.4 mm clearance, four M3x8 into the palm."""
+    s = rrect(X0, Y0, LID_Z[0], LID_Z[1], 48, 2 * HOUSING_Y - 8, 5)
+    tools = [cyl((X0, Y0, LID_Z[0] - 1), "z", 2 * (GEAR_R + GEAR_M) + 3.0, (LID_Z[1] - LID_Z[0]) + 0.6)]
+    for sgn in (1, -1):
+        xa, xb = sorted((sgn * (RACK_X0 - 0.8), sgn * (RACK_X1 + 0.8)))
+        tools.append(box(X0 + xa, X0 + xb, Y0 - HOUSING_Y, Y0 + HOUSING_Y, LID_Z[0] - 1, LID_Z[1] + 1))
+    for dx, dy in LID_SCREWS:
+        tools.append(cyl_between("z", (X0 + dx, Y0 + dy), LID_Z[0] - 1, LID_Z[1] + 1, P.M3))
+        tools.append(cyl_between("z", (X0 + dx, Y0 + dy), LID_Z[0] - 1, LID_Z[0] + 1.2, P.M3_HEAD))
+    hw("M3x8 socket head (palm lid)", 4)
     return cut(s, *tools)
 
 
@@ -487,13 +573,14 @@ def parts(side: str) -> list[Part]:
     fa = forearm()
     add("forearm_a", split_one(fa, box(-500, X0, -500, 500, -500, 2000), "forearm_a"), "link4", color="shell")
     add("forearm_b", split_one(fa, box(X0, 500, -500, 500, -500, 2000), "forearm_b"), "link4", color="shell")
-    add("wrist", wrist(), "link5", color="dark", note="J5 horn and idler, holds J6.")
-    add("palm", palm(), "link6", color="dark", note="J6 horn on top, J7 inside, rack channels underneath.")
-    add("pinion", pinion(), "link6", color="frame", note="16T module 1.5 on the J7 horn. 100% infill.")
+    add("wrist", wrist(), "link5", color="dark", note="J5 horn and idler, holds J6. Camera cable enters the skirt at the back.")
+    add("palm", palm(), "link6", color="dark", note="J6 horn on top, J7 inside, rack channels, camera shroud (28 mm pitch) and lid inserts. Print with the horn disc down.")
+    add("pinion", pinion(), "link6", color="frame", note="16T module-1.5 involute on the J7 horn. 100% PETG, or use a bought metal pinion of the same size.")
     add("rack_a", rack(1), "link7", color="dark", note="PETG rack and drop. Slides in from the +y end.")
     add("rack_b", rack(-1), "link8", color="dark", note="PETG rack and drop. Slides in from the -y end.")
-    add("finger_a", finger(1), "link7", color="accent", material="TPU", note="Nori-style TPU 95A finger. Bolts to the rack.")
-    add("finger_b", finger(-1), "link8", color="accent", material="TPU", note="Nori-style TPU 95A finger.")
+    add("finger_a", finger(1), "link7", color="accent", material="TPU", note="TPU 95A, 34 mm curved pad, fingernail, FSR 402 pocket. Print pad-up, 100%, no supports.")
+    add("finger_b", finger(-1), "link8", color="accent", material="TPU", note="TPU 95A, 34 mm curved pad, fingernail, FSR 402 pocket.")
+    add("palm_lid", palm_lid(), "link6", color="dark", note="Covers the pinion. Print skin-down. Four M3x8 into the palm. No glue.")
     import arm_covers
 
     for name, solid, link, note in arm_covers.parts_left():

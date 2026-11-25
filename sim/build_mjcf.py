@@ -38,8 +38,9 @@ ACT = {
     "sts3095": dict(force=9.32, rated=2.21, kp=80.0, kv=1.2, armature=0.012, damping=0.08, frictionloss=0.06, vel=3.25),
     "sts3250": dict(force=4.9, rated=1.57, kp=60.0, kv=0.8, armature=0.005, damping=0.05, frictionloss=0.04, vel=7.8),
     "sts3215": dict(force=2.94, rated=0.98, kp=40.0, kv=0.6, armature=0.004, damping=0.05, frictionloss=0.03, vel=4.8),
-    # gripper: STS3215 through a 12 mm pitch-radius pinion, torque limit set to ~0.5 N·m -> ~40 N per finger
-    "sts3215g": dict(force=40.0, rated=25.0, kp=2500.0, kv=60.0, armature=0.4, damping=5.0, frictionloss=0.8, vel=0.06),
+    # gripper: STS3215, 12 mm pitch radius. Rated 0.98 N·m -> 40.8 N per finger (two racks share the pinion).
+    # Metal 16T module-1.5 pinion is the wear part; a printed pinion should be limited to 0.5 N·m (~20.8 N/finger).
+    "sts3215g": dict(force=40.8, rated=40.8, kp=2500.0, kv=60.0, armature=0.4, damping=5.0, frictionloss=0.8, vel=0.06),
     "nema": dict(force=380.0, rated=250.0, kp=60000.0, kv=9000.0, armature=0.0, damping=1000.0, frictionloss=15.0, vel=0.03),
     # DDSM115: 2.0 N·m locked, 0.96 rated, 200 rpm no-load, direct drive
     "hub": dict(force=2.0, rated=0.96, kv=1.5, armature=0.004, damping=0.01, frictionloss=0.02, vel=13.9),  # 133 rpm at 12 V
@@ -205,6 +206,9 @@ def main():
                 lo, hi = j["range"]
                 actuators.append(f'    <position name="{j["name"]}" joint="{j["name"]}" kp="{a["kp"]}" kv="{a["kv"]}" '
                                  f'ctrlrange="{lo} {hi}" forcerange="{-a["force"]} {a["force"]}"/>')
+                if j["name"].endswith("_gripper"):
+                    # Present-current proxy: actuator force is the per-finger grip force (N).
+                    sensors.append(f'    <actuatorfrc name="grip_frc_{j["name"]}" actuator="{j["name"]}"/>')
         m, com, I = inertia_of(meshes_for_inertia.get(link, []))
         w(f'{pad}  <inertial pos="{com[0]:.5f} {com[1]:.5f} {com[2]:.5f}" mass="{m:.4f}" '
           f'fullinertia="{I[0,0]:.6g} {I[1,1]:.6g} {I[2,2]:.6g} {I[0,1]:.6g} {I[0,2]:.6g} {I[1,2]:.6g}"/>')
@@ -223,7 +227,7 @@ def main():
                 c, e = (lo + hi) / 2, (hi - lo) / 2
                 ct, ca = CLS[col]
                 w(f'{pad}  <geom name="c_{it["name"]}" class="col" type="box" pos="{c[0]:.4f} {c[1]:.4f} {c[2]:.4f}" '
-                  f'size="{e[0]:.4f} {e[1]:.4f} {e[2]:.4f}" contype="{ct}" conaffinity="{ca}" friction="0.8 0.01 0.001" mass="0"/>')
+                  f'size="{e[0]:.4f} {e[1]:.4f} {e[2]:.4f}" contype="{ct}" conaffinity="{ca}" friction="1.8 0.05 0.002" mass="0"/>')
             elif col:
                 ct, ca = CLS[col]
                 fr = "1.5 0.02 0.002" if it["name"].startswith("finger_") else "0.8 0.01 0.001"

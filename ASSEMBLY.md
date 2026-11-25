@@ -81,14 +81,14 @@ One PET sleeve carries the chest power (5 V to the Pi, 12 V to both servo buses)
 1. `shoulder` onto the J1 horn: 4 × M3×8, reached through the empty J2 cup.
 2. J2 STS3095 into the shoulder cup, tab screws. `clevis` onto the J2 horn.
 3. J3 STS3250 into the clevis cup. Screw both `upper_arm` halves to the J3 horn, put the J4 STS3095 in the cup (its tab screws hold the two cup halves together), and close the clamshell (3 × M3×16 with nuts). The two bolt holes left on the inner side, just above the elbow, take the elbow cover's M3×50 bolts in step 7.
-4. `elbow` onto the J4 horn. Put the J5 STS3250 between the `forearm` halves, close them, and bolt the forearm flange to the elbow (4 × M3×16 with nuts).
+4. `elbow` onto the J4 horn. Put the J5 STS3250 between the `forearm` halves, close them, and bolt the forearm flange to the elbow (4 × M3×16 with nuts). The arm bundle goes through the +X slot in the elbow flange and the forearm (past J4 and J5); do not use the J4 Ø14 shaft hole or the J5 idler.
 5. `wrist` clevis onto the J5 horn, with the idler screw on the other side. Put J6 in the wrist sleeve.
-6. `palm` onto the J6 horn, with J7 inside it. Centre J7 at mid-travel, press the `pinion` onto the horn, slide the PETG `rack`s into their channels so they meet when the servo is at the "closed" end, and bolt on the TPU `finger`s.
+6. `palm` onto the J6 horn, with J7 inside it. Route the wrist-camera USB through the shroud and up the back channel into the wrist-skirt slot (28 mm square hole pitch, four M2). Centre J7 at mid-travel, press the metal (or 100% PETG) 16T module-1.5 `pinion` onto the horn, slide the PETG `rack`s into their channels so the pads meet when the servo is at the "closed" end, bolt on the TPU `finger`s (two M2.5 each; optional FSR 402 in the back pocket), and screw on `palm_lid` (four M3×8). No glue.
 7. Wiring: the Feetech bus runs down the hollow upper arm and the forearm. Cables cross each covered joint next to its axis (the open torso side of the shoulder drum, the hole under the clevis box, the ring on the outer face of the elbow knuckle). Leave slack at every joint.
 8. Covers, after the wiring is checked:
-   - `shoulder_cover_top` and `shoulder_cover_bot`: a drum round the J2 roll axis. Each half takes 2 × M3×10 into heat-set inserts in the shoulder tabs. The side facing the torso is open for the J2 cable.
+   - `shoulder_cover_top` and `shoulder_cover_bot`: a drum round the J2 roll axis. Each half takes 2 × M3×10 into heat-set inserts in the shoulder tabs. The side facing the torso is open for the J2 cable, and `shoulder_cover_bot` has a wider harness slot at that opening.
    - `clevis_cover_a` and `clevis_cover_b`: a rounded box over the J3 cup. 2 × M3×10 each, into inserts in the clevis span.
-   - `elbow_cover_a` and `elbow_cover_b`: slide the halves on from front and back, press the bottom snap shut, and put the two M3×50 bolts through the collar and the upper arm (nuts in the pockets on the front half).
+   - `elbow_cover_a` and `elbow_cover_b`: slide the halves on from front and back, press the bottom snap shut, and put the two M3×50 bolts through the collar and the upper arm (nuts in the pockets on the front half). The arm bundle runs in the +X lane of `elbow_cover_b`, through the collar slot, not through the J4 rear-shaft hole.
    - The wrist skirt is printed on the wrist. Nothing to fit.
    To reach a servo, take off only that joint's cover: two or four screws, or for the elbow two bolts and the snap.
 9. Set the Feetech IDs on each arm's bus: J1–J7 are 1–7; the head pan and tilt are 8 and 9 on the left bus. Multi-turn mode on every arm servo.
@@ -105,5 +105,5 @@ One PET sleeve carries the chest power (5 V to the Pi, 12 V to both servo buses)
 ## 9. Bring-up
 
 1. Home the lift and check every joint's direction and zero against the viewer (`sim/bob_v3.xml` uses the same conventions).
-2. Set torque limits: STS3095 and STS3250 at 80% of stall, STS3215 gripper at about 0.5 N·m. The servos home from their own encoders.
+2. Set torque limits: STS3095 and STS3250 at 80% of stall, STS3215 gripper at 0.98 N·m (rated, 40.8 N per finger) if the pinion is metal, or about 0.5 N·m (~20.8 N per finger) if it is printed PETG. The servos home from their own encoders.
 3. Run the pick in sim with `sim/expert.py`. Then teleoperate the real robot and record your own demonstrations.

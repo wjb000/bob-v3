@@ -251,12 +251,12 @@ CAP_BOLT = 22.0  # M5 square that holds the torso shelf down on the cap
 # ---------------------------------------------------------------- arm (left; right mirrors y)
 UPPER_ARM = 252.0  # shoulder axis to elbow axis
 FOREARM = 200.0  # elbow axis to wrist-pitch axis
-HAND = 196.0  # wrist-pitch axis to fingertip (arm.py derives the exact value from the gripper stack)
+HAND = 200.0  # wrist-pitch axis to fingernail (arm.py derives the exact value from the gripper stack)
 J1_FACE_Y = TORSO_HW - 3.0  # DM4340 output face
 J3_FACE = -113.0  # J3 module output face, relative to the shoulder axis
 ARM_TUBE_D = 64.0
 FOREARM_TUBE_D = 52.0
-GRIP_OPEN = 80.0  # max jaw gap
+GRIP_OPEN = 100.0  # max jaw gap, 50 mm per finger
 
 # ---------------------------------------------------------------- head (relative to the shoulder axis in z)
 NECK_Z = TORSO_ABOVE
@@ -279,7 +279,7 @@ LIMITS = {
     "elbow": (-2.35, 0.0),  # negative bends the forearm forward
     "wrist_pitch": (-2.3, 2.3),  # the J6 sleeve clears the forearm tube to about 2.4 rad
     "wrist_roll": (-2.8, 2.8),
-    "gripper": (0.0, 0.040),  # metres per finger, 0 = closed
+    "gripper": (0.0, 0.050),  # metres per finger, 0 = closed
 }
 
 
