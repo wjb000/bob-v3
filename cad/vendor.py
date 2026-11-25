@@ -392,6 +392,19 @@ def dewalt_pack():
     return [("", body, "black"), ("band", band, "yellow"), ("adapter", adapter, "black"), ("lead", lead, "red")]
 
 
+def battery_switch():
+    """Blue Sea 6006 m-Series mini ON-OFF. Local: panel outer face at z = 0, knob +z, body -z.
+
+    Catalogue: 21/32 in (16.7 mm) panel hole, 3/8 in studs, 0.29 kg. Face and body
+    envelopes are drawn from the published outline; MEASURE yours.
+    """
+    face = cyl((0, 0, 0), "z", 48, 6)
+    knob = cyl((0, 0, 6), "z", 40, 16)
+    body = cyl((0, 0, -42), "z", 30, 42)
+    studs = fuse(cyl((-12, 0, -50), "z", 9.5, 8), cyl((12, 0, -50), "z", 9.5, 8))
+    return [("", fuse(face, body), "black"), ("knob", knob, "red"), ("studs", studs, "copper")]
+
+
 def gx16():
     """GX16 3-pin panel socket, the hoverboard charge connector. Local: panel top face at z = 0."""
     flange = cyl((0, 0, 0), "z", 21, 2.5)

@@ -32,10 +32,10 @@ The base is 360 × 360 mm, so every pan and shell tile fits a 200 mm bed. Nothin
 
 Follow the wiring diagram on the page.
 
-1. Strap the 36 V pack into the two `battery_cradle` halves.
-2. Front shelves (`shelf_front_l/r`): the DDSM Driver HAT (A), the TMC2209, the BNO085, the contactor, the fuse block and the two Pololu regulators.
-3. Rear shelf (`shelf_rear_l`): the two DROK 12 V 10 A converters, one per arm. The other rear corner is the battery and the e-stop, so it has no shelf.
-4. Wire the power path: pack → main fuse → main switch → fuse block. The Pololu 5 V regulator is always on and feeds the Pi. The contactor sits between the fuse block and the two arm converters and the Pololu 12 V regulator (wheels and lift). The e-stop's NC contacts are in series with the contactor coil.
+1. Strap the 36 V pack into the two `battery_cradle` halves. After the shell is on, lift either `base_hatch` leaf (M3×8) to reach the pack, the straps, and the charge-socket nut.
+2. Front shelves (`shelf_front_l/r`): the DDSM Driver HAT (A), the TMC2209, the BNO085, the fuse block and the 18 V Pololu (wheels and lift). The always-on 12 V Pololu (D36V50F12, b12c) sits on `shelf_b12c` at the rear wall, in the old 5 V-regulator spot. The 5 V regulator and the two 12 V 20 A arm converters live in the torso, next to the Pi.
+3. Rear shelf (`shelf_rear_l`): the contactor. The other rear corner is the battery and the e-stop, so it has no shelf.
+4. Wire the power path: pack → main fuse → main switch (Blue Sea 6006 on the rear wall, left of centre) → fuse block. b12c is always on and feeds the e-stop coil and the torso USB hub. The 5 V regulator in the torso feeds the Pi. The contactor sits between the fuse block and the arm converters and the 18 V Pololu (wheels and lift). The e-stop's NC contacts are in series with the contactor coil. Zip-tie the wheel leads and the pack leads through the slots in the pan, and run the wheel bus through the 9 mm bore in each wheel bracket.
 5. First power-up on a current-limited bench supply at 36 V, 1 A. Check each rail before connecting any load.
 
 ## 4. Telescoping column
@@ -65,8 +65,8 @@ One PET sleeve carries the chest power (5 V to the Pi, 12 V to both servo buses)
 
 ## 5. Base shell
 
-1. Fit the eight outer `base_shell_*` tiles around the centre tile. Join every seam from inside with joiner tabs; there are about 60.
-2. Screw the shell lugs down to the pan inserts (12 × M3×10). Fit the e-stop and the main switch, and the GX16 charge socket in the top of the base (front right, where the right hand reaches it).
+1. Fit the eight outer `base_shell_*` tiles around the centre tile. The centre tile is a U around the column well, open toward the battery hatch. Join every remaining seam from inside with joiner tabs. Press the eight `base_light_*` strips into the light groove (natural or clear PETG over the LED strip).
+2. Screw the shell lugs down to the pan inserts (12 × M3×10). Fit the e-stop on the top, the GX16 charge socket in the top (front right, where the right hand reaches it), and the Blue Sea 6006 main switch in the rear wall (left of centre, 21/32 in hole). Set both hatch leaves in the rebate and drive the M3×8 screws into the lip.
 
 ## 6. Torso
 

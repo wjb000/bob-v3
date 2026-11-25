@@ -3,11 +3,11 @@
  "frame": "x forward, y left, z up, origin on the floor between the wheels",
  "links": {
   "base": {
-   "mass_g": 5157.7,
+   "mass_g": 5008.1,
    "com": [
-    7.5,
-    12.5,
-    118.1
+    -0.5,
+    24.5,
+    113.4
    ]
   },
   "lift_mid": {
@@ -195,7 +195,7 @@
    ]
   }
  },
- "total_mass_g": 11724.1,
+ "total_mass_g": 11574.5,
  "joints": [
   {
    "name": "lift",
@@ -847,7 +847,7 @@
    "kind": "print",
    "color": "shell",
    "material": "PETG",
-   "mass_g": 98.2,
+   "mass_g": 100.8,
    "print": "base_shell_rear_c",
    "note": "Print top-down. Heat-set inserts in the seam bosses."
   },
@@ -859,7 +859,7 @@
    "kind": "print",
    "color": "shell",
    "material": "PETG",
-   "mass_g": 48.1,
+   "mass_g": 48.6,
    "print": "base_shell_rear_l",
    "note": "Print top-down. Heat-set inserts in the seam bosses."
   },
@@ -883,7 +883,7 @@
    "kind": "print",
    "color": "shell",
    "material": "PETG",
-   "mass_g": 57.4,
+   "mass_g": 39.4,
    "print": "base_shell_mid_c",
    "note": "Print top-down. Heat-set inserts in the seam bosses."
   },
@@ -895,7 +895,7 @@
    "kind": "print",
    "color": "shell",
    "material": "PETG",
-   "mass_g": 76.3,
+   "mass_g": 63.7,
    "print": "base_shell_mid_l",
    "note": "Print top-down. Heat-set inserts in the seam bosses."
   },
@@ -931,7 +931,7 @@
    "kind": "print",
    "color": "shell",
    "material": "PETG",
-   "mass_g": 71.9,
+   "mass_g": 71.8,
    "print": "base_shell_front_l",
    "note": "Print top-down. Heat-set inserts in the seam bosses."
   },
@@ -955,7 +955,7 @@
    "kind": "print",
    "color": "frame",
    "material": "PETG",
-   "mass_g": 77.5,
+   "mass_g": 76.7,
    "print": "base_pan_rear_c",
    "note": "Structure. Skin down on the bed, ribs up. 4 walls."
   },
@@ -991,7 +991,7 @@
    "kind": "print",
    "color": "frame",
    "material": "PETG",
-   "mass_g": 145.2,
+   "mass_g": 142.9,
    "print": "base_pan_mid_c",
    "note": "Structure. Skin down on the bed, ribs up. 4 walls."
   },
@@ -1003,7 +1003,7 @@
    "kind": "print",
    "color": "frame",
    "material": "PETG",
-   "mass_g": 42.4,
+   "mass_g": 42.3,
    "print": "base_pan_mid_l",
    "note": "Structure. Skin down on the bed, ribs up. 4 walls."
   },
@@ -1027,7 +1027,7 @@
    "kind": "print",
    "color": "frame",
    "material": "PETG",
-   "mass_g": 113.3,
+   "mass_g": 111.6,
    "print": "base_pan_front_c",
    "note": "Structure. Skin down on the bed, ribs up. 4 walls."
   },
@@ -1113,7 +1113,7 @@
    "material": "PETG",
    "mass_g": 27.9,
    "print": "shelf_front_l",
-   "note": "Motor drivers and the ESP32 on the 20 mm grid."
+   "note": "Driver HAT, TMC2209, IMU, fuse block, Pololus on the 20 mm grid."
   },
   {
    "name": "shelf_rear_l",
@@ -1125,7 +1125,7 @@
    "material": "PETG",
    "mass_g": 20.5,
    "print": "shelf_rear_l",
-   "note": "Bucks, fuse block, contactor."
+   "note": "Contactor and spare grid."
   },
   {
    "name": "shelf_front_r",
@@ -1137,7 +1137,139 @@
    "material": "PETG",
    "mass_g": 25.8,
    "print": "shelf_front_r",
-   "note": "Motor drivers and the ESP32 on the 20 mm grid."
+   "note": "Driver HAT, TMC2209, IMU, fuse block, Pololus on the 20 mm grid."
+  },
+  {
+   "name": "shelf_b12c",
+   "file": "shelf_b12c.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "print",
+   "color": "frame",
+   "material": "PETG",
+   "mass_g": 17.4,
+   "print": "shelf_b12c",
+   "note": "Always-on 12 V Pololu (b12c) at the rear wall, old reg_5v spot."
+  },
+  {
+   "name": "base_hatch_f",
+   "file": "base_hatch_f.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "print",
+   "color": "shell",
+   "material": "PETG",
+   "mass_g": 17.3,
+   "print": "base_hatch_f",
+   "note": "Battery hatch leaf. Two M3x8 into the lip; lift either leaf to reach the pack."
+  },
+  {
+   "name": "base_hatch_r",
+   "file": "base_hatch_r.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "print",
+   "color": "shell",
+   "material": "PETG",
+   "mass_g": 15.8,
+   "print": "base_hatch_r",
+   "note": "Battery hatch leaf. Two M3x8 into the lip; lift either leaf to reach the pack."
+  },
+  {
+   "name": "base_light_rear_r",
+   "file": "base_light_rear_r.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "print",
+   "color": "dark",
+   "material": "PETG",
+   "mass_g": 0.4,
+   "print": "base_light_rear_r",
+   "note": "Press into the shell light groove. Natural or clear PETG."
+  },
+  {
+   "name": "base_light_rear_c",
+   "file": "base_light_rear_c.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "print",
+   "color": "dark",
+   "material": "PETG",
+   "mass_g": 0.7,
+   "print": "base_light_rear_c",
+   "note": "Press into the shell light groove. Natural or clear PETG."
+  },
+  {
+   "name": "base_light_rear_l",
+   "file": "base_light_rear_l.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "print",
+   "color": "dark",
+   "material": "PETG",
+   "mass_g": 0.4,
+   "print": "base_light_rear_l",
+   "note": "Press into the shell light groove. Natural or clear PETG."
+  },
+  {
+   "name": "base_light_mid_r",
+   "file": "base_light_mid_r.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "print",
+   "color": "dark",
+   "material": "PETG",
+   "mass_g": 0.7,
+   "print": "base_light_mid_r",
+   "note": "Press into the shell light groove. Natural or clear PETG."
+  },
+  {
+   "name": "base_light_mid_l",
+   "file": "base_light_mid_l.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "print",
+   "color": "dark",
+   "material": "PETG",
+   "mass_g": 0.7,
+   "print": "base_light_mid_l",
+   "note": "Press into the shell light groove. Natural or clear PETG."
+  },
+  {
+   "name": "base_light_front_r",
+   "file": "base_light_front_r.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "print",
+   "color": "dark",
+   "material": "PETG",
+   "mass_g": 0.6,
+   "print": "base_light_front_r",
+   "note": "Press into the shell light groove. Natural or clear PETG."
+  },
+  {
+   "name": "base_light_front_c",
+   "file": "base_light_front_c.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "print",
+   "color": "dark",
+   "material": "PETG",
+   "mass_g": 0.7,
+   "print": "base_light_front_c",
+   "note": "Press into the shell light groove. Natural or clear PETG."
+  },
+  {
+   "name": "base_light_front_l",
+   "file": "base_light_front_l.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "print",
+   "color": "dark",
+   "material": "PETG",
+   "mass_g": 0.6,
+   "print": "base_light_front_l",
+   "note": "Press into the shell light groove. Natural or clear PETG."
   },
   {
    "name": "cable_trough",
@@ -2131,7 +2263,7 @@
    "kind": "print",
    "color": "frame",
    "material": "PETG",
-   "mass_g": 1.6,
+   "mass_g": 1.5,
    "print": "joiner_tab",
    "note": "Joiner tab"
   },
@@ -2143,7 +2275,7 @@
    "kind": "print",
    "color": "frame",
    "material": "PETG",
-   "mass_g": 1.6,
+   "mass_g": 1.5,
    "print": "joiner_tab",
    "note": "Joiner tab"
   },
@@ -2155,7 +2287,7 @@
    "kind": "print",
    "color": "frame",
    "material": "PETG",
-   "mass_g": 1.6,
+   "mass_g": 1.5,
    "print": "joiner_tab",
    "note": "Joiner tab"
   },
@@ -2167,7 +2299,7 @@
    "kind": "print",
    "color": "frame",
    "material": "PETG",
-   "mass_g": 1.6,
+   "mass_g": 1.5,
    "print": "joiner_tab",
    "note": "Joiner tab"
   },
@@ -2179,7 +2311,7 @@
    "kind": "print",
    "color": "frame",
    "material": "PETG",
-   "mass_g": 1.6,
+   "mass_g": 1.5,
    "print": "joiner_tab",
    "note": "Joiner tab"
   },
@@ -2191,7 +2323,7 @@
    "kind": "print",
    "color": "frame",
    "material": "PETG",
-   "mass_g": 1.6,
+   "mass_g": 1.5,
    "print": "joiner_tab",
    "note": "Joiner tab"
   },
@@ -2203,7 +2335,7 @@
    "kind": "print",
    "color": "frame",
    "material": "PETG",
-   "mass_g": 1.6,
+   "mass_g": 1.5,
    "print": "joiner_tab",
    "note": "Joiner tab"
   },
@@ -2227,7 +2359,7 @@
    "kind": "print",
    "color": "frame",
    "material": "PETG",
-   "mass_g": 1.5,
+   "mass_g": 1.7,
    "print": "joiner_tab",
    "note": "Joiner tab"
   },
@@ -2239,7 +2371,7 @@
    "kind": "print",
    "color": "frame",
    "material": "PETG",
-   "mass_g": 1.5,
+   "mass_g": 1.7,
    "print": "joiner_tab",
    "note": "Joiner tab"
   },
@@ -2251,7 +2383,7 @@
    "kind": "print",
    "color": "frame",
    "material": "PETG",
-   "mass_g": 1.5,
+   "mass_g": 1.7,
    "print": "joiner_tab",
    "note": "Joiner tab"
   },
@@ -2263,7 +2395,7 @@
    "kind": "print",
    "color": "frame",
    "material": "PETG",
-   "mass_g": 1.5,
+   "mass_g": 1.7,
    "print": "joiner_tab",
    "note": "Joiner tab"
   },
@@ -2275,7 +2407,7 @@
    "kind": "print",
    "color": "frame",
    "material": "PETG",
-   "mass_g": 1.5,
+   "mass_g": 1.7,
    "print": "joiner_tab",
    "note": "Joiner tab"
   },
@@ -2287,7 +2419,7 @@
    "kind": "print",
    "color": "frame",
    "material": "PETG",
-   "mass_g": 1.5,
+   "mass_g": 1.7,
    "print": "joiner_tab",
    "note": "Joiner tab"
   },
@@ -2299,7 +2431,7 @@
    "kind": "print",
    "color": "frame",
    "material": "PETG",
-   "mass_g": 1.5,
+   "mass_g": 1.6,
    "print": "joiner_tab",
    "note": "Joiner tab"
   },
@@ -2311,7 +2443,7 @@
    "kind": "print",
    "color": "frame",
    "material": "PETG",
-   "mass_g": 1.7,
+   "mass_g": 1.6,
    "print": "joiner_tab",
    "note": "Joiner tab"
   },
@@ -2323,7 +2455,7 @@
    "kind": "print",
    "color": "frame",
    "material": "PETG",
-   "mass_g": 1.7,
+   "mass_g": 1.6,
    "print": "joiner_tab",
    "note": "Joiner tab"
   },
@@ -2335,7 +2467,7 @@
    "kind": "print",
    "color": "frame",
    "material": "PETG",
-   "mass_g": 1.7,
+   "mass_g": 1.6,
    "print": "joiner_tab",
    "note": "Joiner tab"
   },
@@ -2347,7 +2479,7 @@
    "kind": "print",
    "color": "frame",
    "material": "PETG",
-   "mass_g": 1.7,
+   "mass_g": 1.6,
    "print": "joiner_tab",
    "note": "Joiner tab"
   },
@@ -2359,7 +2491,7 @@
    "kind": "print",
    "color": "frame",
    "material": "PETG",
-   "mass_g": 1.7,
+   "mass_g": 1.6,
    "print": "joiner_tab",
    "note": "Joiner tab"
   },
@@ -2371,99 +2503,99 @@
    "kind": "print",
    "color": "frame",
    "material": "PETG",
-   "mass_g": 1.7,
+   "mass_g": 1.6,
    "print": "joiner_tab",
    "note": "Joiner tab"
   },
   {
    "name": "joiner_31",
    "file": "joiner_31.stl",
-   "link": "base",
-   "group": "base",
+   "link": "lift",
+   "group": "torso",
    "kind": "print",
    "color": "frame",
    "material": "PETG",
-   "mass_g": 1.6,
+   "mass_g": 1.7,
    "print": "joiner_tab",
    "note": "Joiner tab"
   },
   {
    "name": "joiner_32",
    "file": "joiner_32.stl",
-   "link": "base",
-   "group": "base",
+   "link": "lift",
+   "group": "torso",
    "kind": "print",
    "color": "frame",
    "material": "PETG",
-   "mass_g": 1.6,
+   "mass_g": 1.7,
    "print": "joiner_tab",
    "note": "Joiner tab"
   },
   {
    "name": "joiner_33",
    "file": "joiner_33.stl",
-   "link": "base",
-   "group": "base",
+   "link": "lift",
+   "group": "torso",
    "kind": "print",
    "color": "frame",
    "material": "PETG",
-   "mass_g": 1.6,
+   "mass_g": 1.7,
    "print": "joiner_tab",
    "note": "Joiner tab"
   },
   {
    "name": "joiner_34",
    "file": "joiner_34.stl",
-   "link": "base",
-   "group": "base",
+   "link": "lift",
+   "group": "torso",
    "kind": "print",
    "color": "frame",
    "material": "PETG",
-   "mass_g": 1.6,
+   "mass_g": 1.7,
    "print": "joiner_tab",
    "note": "Joiner tab"
   },
   {
    "name": "joiner_35",
    "file": "joiner_35.stl",
-   "link": "base",
-   "group": "base",
+   "link": "lift",
+   "group": "torso",
    "kind": "print",
    "color": "frame",
    "material": "PETG",
-   "mass_g": 1.6,
+   "mass_g": 1.7,
    "print": "joiner_tab",
    "note": "Joiner tab"
   },
   {
    "name": "joiner_36",
    "file": "joiner_36.stl",
-   "link": "base",
-   "group": "base",
+   "link": "lift",
+   "group": "torso",
    "kind": "print",
    "color": "frame",
    "material": "PETG",
-   "mass_g": 1.6,
+   "mass_g": 1.7,
    "print": "joiner_tab",
    "note": "Joiner tab"
   },
   {
    "name": "joiner_37",
    "file": "joiner_37.stl",
-   "link": "base",
-   "group": "base",
+   "link": "lift",
+   "group": "torso",
    "kind": "print",
    "color": "frame",
    "material": "PETG",
-   "mass_g": 1.6,
+   "mass_g": 1.7,
    "print": "joiner_tab",
    "note": "Joiner tab"
   },
   {
    "name": "joiner_38",
    "file": "joiner_38.stl",
-   "link": "base",
-   "group": "base",
+   "link": "lift",
+   "group": "torso",
    "kind": "print",
    "color": "frame",
    "material": "PETG",
@@ -2474,8 +2606,8 @@
   {
    "name": "joiner_39",
    "file": "joiner_39.stl",
-   "link": "base",
-   "group": "base",
+   "link": "lift",
+   "group": "torso",
    "kind": "print",
    "color": "frame",
    "material": "PETG",
@@ -2486,8 +2618,8 @@
   {
    "name": "joiner_40",
    "file": "joiner_40.stl",
-   "link": "base",
-   "group": "base",
+   "link": "lift",
+   "group": "torso",
    "kind": "print",
    "color": "frame",
    "material": "PETG",
@@ -2498,8 +2630,8 @@
   {
    "name": "joiner_41",
    "file": "joiner_41.stl",
-   "link": "base",
-   "group": "base",
+   "link": "lift",
+   "group": "torso",
    "kind": "print",
    "color": "frame",
    "material": "PETG",
@@ -2510,8 +2642,8 @@
   {
    "name": "joiner_42",
    "file": "joiner_42.stl",
-   "link": "base",
-   "group": "base",
+   "link": "lift",
+   "group": "torso",
    "kind": "print",
    "color": "frame",
    "material": "PETG",
@@ -2522,8 +2654,8 @@
   {
    "name": "joiner_43",
    "file": "joiner_43.stl",
-   "link": "base",
-   "group": "base",
+   "link": "lift",
+   "group": "torso",
    "kind": "print",
    "color": "frame",
    "material": "PETG",
@@ -2534,174 +2666,6 @@
   {
    "name": "joiner_44",
    "file": "joiner_44.stl",
-   "link": "base",
-   "group": "base",
-   "kind": "print",
-   "color": "frame",
-   "material": "PETG",
-   "mass_g": 1.6,
-   "print": "joiner_tab",
-   "note": "Joiner tab"
-  },
-  {
-   "name": "joiner_45",
-   "file": "joiner_45.stl",
-   "link": "lift",
-   "group": "torso",
-   "kind": "print",
-   "color": "frame",
-   "material": "PETG",
-   "mass_g": 1.7,
-   "print": "joiner_tab",
-   "note": "Joiner tab"
-  },
-  {
-   "name": "joiner_46",
-   "file": "joiner_46.stl",
-   "link": "lift",
-   "group": "torso",
-   "kind": "print",
-   "color": "frame",
-   "material": "PETG",
-   "mass_g": 1.7,
-   "print": "joiner_tab",
-   "note": "Joiner tab"
-  },
-  {
-   "name": "joiner_47",
-   "file": "joiner_47.stl",
-   "link": "lift",
-   "group": "torso",
-   "kind": "print",
-   "color": "frame",
-   "material": "PETG",
-   "mass_g": 1.7,
-   "print": "joiner_tab",
-   "note": "Joiner tab"
-  },
-  {
-   "name": "joiner_48",
-   "file": "joiner_48.stl",
-   "link": "lift",
-   "group": "torso",
-   "kind": "print",
-   "color": "frame",
-   "material": "PETG",
-   "mass_g": 1.7,
-   "print": "joiner_tab",
-   "note": "Joiner tab"
-  },
-  {
-   "name": "joiner_49",
-   "file": "joiner_49.stl",
-   "link": "lift",
-   "group": "torso",
-   "kind": "print",
-   "color": "frame",
-   "material": "PETG",
-   "mass_g": 1.7,
-   "print": "joiner_tab",
-   "note": "Joiner tab"
-  },
-  {
-   "name": "joiner_50",
-   "file": "joiner_50.stl",
-   "link": "lift",
-   "group": "torso",
-   "kind": "print",
-   "color": "frame",
-   "material": "PETG",
-   "mass_g": 1.7,
-   "print": "joiner_tab",
-   "note": "Joiner tab"
-  },
-  {
-   "name": "joiner_51",
-   "file": "joiner_51.stl",
-   "link": "lift",
-   "group": "torso",
-   "kind": "print",
-   "color": "frame",
-   "material": "PETG",
-   "mass_g": 1.7,
-   "print": "joiner_tab",
-   "note": "Joiner tab"
-  },
-  {
-   "name": "joiner_52",
-   "file": "joiner_52.stl",
-   "link": "lift",
-   "group": "torso",
-   "kind": "print",
-   "color": "frame",
-   "material": "PETG",
-   "mass_g": 1.6,
-   "print": "joiner_tab",
-   "note": "Joiner tab"
-  },
-  {
-   "name": "joiner_53",
-   "file": "joiner_53.stl",
-   "link": "lift",
-   "group": "torso",
-   "kind": "print",
-   "color": "frame",
-   "material": "PETG",
-   "mass_g": 1.6,
-   "print": "joiner_tab",
-   "note": "Joiner tab"
-  },
-  {
-   "name": "joiner_54",
-   "file": "joiner_54.stl",
-   "link": "lift",
-   "group": "torso",
-   "kind": "print",
-   "color": "frame",
-   "material": "PETG",
-   "mass_g": 1.6,
-   "print": "joiner_tab",
-   "note": "Joiner tab"
-  },
-  {
-   "name": "joiner_55",
-   "file": "joiner_55.stl",
-   "link": "lift",
-   "group": "torso",
-   "kind": "print",
-   "color": "frame",
-   "material": "PETG",
-   "mass_g": 1.6,
-   "print": "joiner_tab",
-   "note": "Joiner tab"
-  },
-  {
-   "name": "joiner_56",
-   "file": "joiner_56.stl",
-   "link": "lift",
-   "group": "torso",
-   "kind": "print",
-   "color": "frame",
-   "material": "PETG",
-   "mass_g": 1.6,
-   "print": "joiner_tab",
-   "note": "Joiner tab"
-  },
-  {
-   "name": "joiner_57",
-   "file": "joiner_57.stl",
-   "link": "lift",
-   "group": "torso",
-   "kind": "print",
-   "color": "frame",
-   "material": "PETG",
-   "mass_g": 1.6,
-   "print": "joiner_tab",
-   "note": "Joiner tab"
-  },
-  {
-   "name": "joiner_58",
-   "file": "joiner_58.stl",
    "link": "lift",
    "group": "torso",
    "kind": "print",
@@ -2976,37 +2940,37 @@
    "bom": "tmc"
   },
   {
-   "name": "reg_5v",
-   "file": "reg_5v.stl",
+   "name": "b12c",
+   "file": "b12c.stl",
    "link": "base",
    "group": "base",
    "kind": "electronics",
    "color": "pcb_blue",
    "material": "bought",
    "mass_g": 8,
-   "bom": "pololu5"
+   "bom": "pololu12"
   },
   {
-   "name": "reg_5v_chip",
-   "file": "reg_5v_chip.stl",
+   "name": "b12c_chip",
+   "file": "b12c_chip.stl",
    "link": "base",
    "group": "base",
    "kind": "electronics",
    "color": "black",
    "material": "bought",
    "mass_g": 0.0,
-   "bom": "pololu5"
+   "bom": "pololu12"
   },
   {
-   "name": "reg_5v_pins",
-   "file": "reg_5v_pins.stl",
+   "name": "b12c_pins",
+   "file": "b12c_pins.stl",
    "link": "base",
    "group": "base",
    "kind": "electronics",
    "color": "black",
    "material": "bought",
    "mass_g": 0.0,
-   "bom": "pololu5"
+   "bom": "pololu12"
   },
   {
    "name": "reg_12v",
@@ -3097,50 +3061,6 @@
    "bom": "relay"
   },
   {
-   "name": "buck_12v",
-   "file": "buck_12v.stl",
-   "link": "base",
-   "group": "base",
-   "kind": "electronics",
-   "color": "alu",
-   "material": "bought",
-   "mass_g": 220,
-   "bom": "buck12"
-  },
-  {
-   "name": "buck_12v_terms",
-   "file": "buck_12v_terms.stl",
-   "link": "base",
-   "group": "base",
-   "kind": "electronics",
-   "color": "black",
-   "material": "bought",
-   "mass_g": 0.0,
-   "bom": "buck12"
-  },
-  {
-   "name": "buck_12v_r",
-   "file": "buck_12v_r.stl",
-   "link": "base",
-   "group": "base",
-   "kind": "electronics",
-   "color": "alu",
-   "material": "bought",
-   "mass_g": 220,
-   "bom": "buck12"
-  },
-  {
-   "name": "buck_12v_r_terms",
-   "file": "buck_12v_r_terms.stl",
-   "link": "base",
-   "group": "base",
-   "kind": "electronics",
-   "color": "black",
-   "material": "bought",
-   "mass_g": 0.0,
-   "bom": "buck12"
-  },
-  {
    "name": "estop",
    "file": "estop.stl",
    "link": "base",
@@ -3172,6 +3092,39 @@
    "material": "bought",
    "mass_g": 0.0,
    "bom": "estop"
+  },
+  {
+   "name": "main_switch",
+   "file": "main_switch.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "electronics",
+   "color": "black",
+   "material": "bought",
+   "mass_g": 290,
+   "bom": "switch"
+  },
+  {
+   "name": "main_switch_knob",
+   "file": "main_switch_knob.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "electronics",
+   "color": "red",
+   "material": "bought",
+   "mass_g": 0.0,
+   "bom": "switch"
+  },
+  {
+   "name": "main_switch_studs",
+   "file": "main_switch_studs.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "electronics",
+   "color": "copper",
+   "material": "bought",
+   "mass_g": 0.0,
+   "bom": "switch"
   },
   {
    "name": "light_base",
