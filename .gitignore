@@ -9,3 +9,4 @@ cad/viewer/
 sim/scene_*.xml
 sim/data/
 sim/models/*.zip
+.aider*
