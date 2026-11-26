@@ -8,8 +8,10 @@ while true; do
 
   aider --model ollama_chat/qwen3-coder:30b \
         --file IMPROVEMENTS.md \
-        --message "Work on the next unchecked item in IMPROVEMENTS.md. Make one small, reversible improvement. Update any relevant docs or site-facing text. Mark the item done only if the change is clean. Do not rewrite large sections or break existing files." \
-        --yes
+        --read IMPROVEMENTS.md \
+        --message "Work on the next unchecked item in IMPROVEMENTS.md. Make one small, reversible improvement focused on docs, site text, VERIFY.md, or small parameter/comment changes. Prefer not to load large CAD/STEP/binary files. Mark the item done only if the change is clean." \
+        --yes \
+        --no-auto-commits
 
   git add -A
   git commit -m "Agent: next improvement from IMPROVEMENTS.md" || true
