@@ -10,12 +10,13 @@ while true; do
 
   aider --model ollama_chat/qwen3-coder:30b \
         --map-tokens 0 \
-        --no-gitignore \
         --file IMPROVEMENTS.md \
         --file README.md \
         --file ASSEMBLY.md \
         --file VERIFY.md \
-        --message "Work on the next unchecked item in IMPROVEMENTS.md. Make one small reversible improvement ONLY in the files already added to the chat. Do NOT open, read, or load any other files. Do not touch CAD, STEP, XML, or large files. Mark the item done only if the change is clean." \
+        --file BOM.md \
+        --file PRINT.md \
+        --message "Work on the next unchecked item in IMPROVEMENTS.md. Make one small reversible improvement ONLY in the files already added to the chat. Do NOT open or load any other files (especially CAD, STEP, XML, or large files). Mark the item done only if the change is clean." \
         --yes \
         --no-auto-commits
 
