@@ -104,4 +104,3 @@ The 36 V pack charges through a GX16 socket on top of the base; Bob can plug his
 ## Older versions
 
 The single-arm cart that used to be "Bob v3" is in git history (`git log -- cad/model.py`).
-```
