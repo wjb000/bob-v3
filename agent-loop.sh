@@ -9,11 +9,13 @@ while true; do
   git stash pop || true
 
   aider --model ollama_chat/qwen3-coder:30b \
+        --map-tokens 0 \
+        --no-gitignore \
         --file IMPROVEMENTS.md \
         --file README.md \
         --file ASSEMBLY.md \
         --file VERIFY.md \
-        --message "Work on the next unchecked item in IMPROVEMENTS.md. Make one small, reversible improvement. Prefer docs, site text, VERIFY.md, or small comments. Mark the item done only if the change is clean. Do not load large CAD/STEP files." \
+        --message "Work on the next unchecked item in IMPROVEMENTS.md. Make one small reversible improvement ONLY in the files already added to the chat. Do NOT open, read, or load any other files. Do not touch CAD, STEP, XML, or large files. Mark the item done only if the change is clean." \
         --yes \
         --no-auto-commits
 
@@ -21,6 +23,6 @@ while true; do
   git commit -m "Agent: next improvement from IMPROVEMENTS.md" || true
   git push origin main || true
 
-  echo "Sleeping 10 minutes..."
-  sleep 600
+  echo "Sleeping 30 seconds..."
+  sleep 30
 done
