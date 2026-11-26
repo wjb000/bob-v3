@@ -16,7 +16,7 @@ while true; do
         --file VERIFY.md \
         --file BOM.md \
         --file PRINT.md \
-        --message "Work on the next unchecked item in IMPROVEMENTS.md. Make one small reversible improvement ONLY in the files already added to the chat. Do NOT open or load any other files (especially CAD, STEP, XML, or large files). Mark the item done only if the change is clean." \
+        --message "Work on the next unchecked item in IMPROVEMENTS.md. Make one small reversible improvement ONLY in the files already added. Do not open any other files. Mark the item done only if the change is clean." \
         --yes \
         --no-auto-commits
 
