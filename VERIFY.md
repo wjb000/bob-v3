@@ -33,4 +33,8 @@ Things the sim models but can't prove:
 - [ ] Measure actual grip force of the grippers
 - [ ] Confirm STS3250 case temperature under 40–50% continuous load (target ≤ 65 °C)
 - [ ] Perform "hold 500 g for 5 minutes" expected-sag check
+
+## Servo Thermal Notes
+
+When measuring servo temperatures, focus specifically on the STS3095/STS3250 case temperature under 40–50% continuous load. The target maximum is ≤ 65 °C. This measurement is critical for ensuring long-term reliability of the GM-5 joint modules.
 ```
