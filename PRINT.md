@@ -1,5 +1,7 @@
 # Print list
 
+**STATUS: CAD + simulation only — not yet built**
+
 93 unique files, 210 prints, about 6.3 kg of filament at the settings below.
 Every part fits a 200 x 200 x 200 mm volume (Prusa MK4, Ender-3, Bambu A1/P1/X1, Core One).
 The STLs in `cad/stl/` are already oriented: flat face down, no rotating. Grams are at 4 walls and 20% gyroid.
@@ -17,7 +19,7 @@ The STLs in `cad/stl/` are already oriented: flat face down, no rotating. Grams 
 ## Base (2.17 kg)
 
 | File | Qty | Colour | Bed mm | g each | Support | Note |
-| --- | ---: | --- | --- | ---: | --- | --- |
+| --- | --- | --- | --- | ---: | --- | --- |
 | `base_shell_rear_r.stl` | 1 | white PETG | 122 x 128 x 182 | 87 | 34 cm² | Print top-down. Heat-set inserts in the seam bosses. |
 | `base_shell_rear_c.stl` | 1 | white PETG | 140 x 180 x 182 | 118 | 37 cm² | Print top-down. Heat-set inserts in the seam bosses. |
 | `base_shell_rear_l.stl` | 1 | white PETG | 122 x 128 x 182 | 87 | 34 cm² | Print top-down. Heat-set inserts in the seam bosses. |
@@ -56,7 +58,7 @@ The STLs in `cad/stl/` are already oriented: flat face down, no rotating. Grams 
 ## Mast and lift (1.35 kg)
 
 | File | Qty | Colour | Bed mm | g each | Support | Note |
-| --- | ---: | --- | --- | ---: | --- | --- |
+| --- | --- | --- | --- | ---: | --- | --- |
 | `mast_0.stl` | 1 | white PETG | 120 x 148 x 166 | 206 | 17 cm² | Foot flange, rod sockets, screw bushing, homing pad. |
 | `mast_1.stl` | 1 | white PETG | 92 x 120 x 166 | 140 | none | Prints standing. Inserts in the top bosses. |
 | `mast_2.stl` | 1 | white PETG | 92 x 120 x 166 | 140 | none | Prints standing. Inserts in the top bosses. |
@@ -69,7 +71,7 @@ The STLs in `cad/stl/` are already oriented: flat face down, no rotating. Grams 
 ## Torso (1.60 kg)
 
 | File | Qty | Colour | Bed mm | g each | Support | Note |
-| --- | ---: | --- | --- | ---: | --- | --- |
+| --- | --- | --- | --- | ---: | --- | --- |
 | `torso_back_plate.stl` | 1 | grey PETG | 163 x 140 x 8 | 124 | none | Takes the lift tongue, the yokes and the Pi and USB grid. |
 | `yoke_l.stl` | 1 | grey PETG | 105 x 143 x 116 | 256 | 19 cm² | Holds the left DM-J4340 (J1). Prints on its centre face, cup up. 5 walls, 30% infill. |
 | `yoke_r.stl` | 1 | grey PETG | 105 x 143 x 116 | 256 | 19 cm² | Mirror of yoke_l. |
@@ -88,7 +90,7 @@ The STLs in `cad/stl/` are already oriented: flat face down, no rotating. Grams 
 ## Head (0.36 kg)
 
 | File | Qty | Colour | Bed mm | g each | Support | Note |
-| --- | ---: | --- | --- | ---: | --- | --- |
+| --- | --- | --- | --- | ---: | --- | --- |
 | `ear_l.stl` | 1 | black PETG | 50 x 50 x 12 | 6 | 17 cm² | Press-fits into the head's left side. Speaker grille. |
 | `ear_r.stl` | 1 | black PETG | 50 x 50 x 12 | 6 | 17 cm² | Mic grille. |
 | `neck_collar.stl` | 1 | black PETG | 70 x 58 x 21 | 7 | none | Clips around the neck yoke and hides the pan servo. |
@@ -102,7 +104,7 @@ The STLs in `cad/stl/` are already oriented: flat face down, no rotating. Grams 
 ## Arms (0.78 kg)
 
 | File | Qty | Colour | Bed mm | g each | Support | Note |
-| --- | ---: | --- | --- | ---: | --- | --- |
+| --- | --- | --- | --- | ---: | --- | --- |
 | `shoulder_l.stl` | 1 | white PETG | 52 x 66 x 71 | 25 | 16 cm² | J1 output to the J2 cup. Screw it to J1 before J2 goes in. |
 | `clevis_l.stl` | 1 | grey PETG | 136 x 66 x 68 | 35 | 22 cm² | J2 output, holds J3. |
 | `upper_arm_a_l.stl` | 1 | white PETG | 179 x 64 x 33 | 40 | 68 cm² | Clamshell half. Prints on the split face. |
@@ -131,4 +133,4 @@ The STLs in `cad/stl/` are already oriented: flat face down, no rotating. Grams 
 | `finger_b_r.stl` | 1 | black PETG | 68 x 70 x 31 | 10 | none | Rack, drop and finger. Slides in from the -y end. |
 | `pad_a_r.stl` | 1 | TPU 95A | 24 x 44 x 3 | 2 | none | TPU 95A. |
 | `pad_b_r.stl` | 1 | TPU 95A | 24 x 44 x 3 | 2 | none | TPU 95A. |
-
+```
