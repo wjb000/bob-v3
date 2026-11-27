@@ -27,7 +27,7 @@ Things the sim models but can't prove:
 ## First physical prototype checklist
 
 - [ ] Measure actual servo continuous torque and temperature under load
-- [ ] Verify real center of mass (CoM) placement
+- [ ] Verify real center of mass (CoM) placement  
 - [ ] Test lift friction with actual components
 - [ ] Check wheel traction on wood and carpet surfaces
 - [ ] Measure actual grip force of the grippers
