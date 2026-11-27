@@ -2,13 +2,16 @@
 
 **STATUS: CAD + simulation only — not yet built**
 
-A two-armed home robot you can print on a 200 mm printer. It has a rounded wheeled base, a torso that rides a 650 mm lift, two seven-axis arms with parallel grippers, and a head with a depth camera and two round "eye" displays. Everything structural and everything you see is printed PETG. You buy the motors, the electronics, two steel rods, a leadscrew, bearings and screws.
+*A two-armed home robot you can print on a 200 mm printer*
 
-Page: [wyat.dev/bob-v3](https://www.wyat.dev/bob-v3/). It shows the 3D model, the print files, the wiring, the BOM and the sim results.
+It has a rounded wheeled base, a torso that rides a 650 mm lift, two seven-axis arms with parallel grippers, and a head with a depth camera and two round "eye" displays. Everything structural and everything you see is printed PETG. You buy the motors, the electronics, two steel rods, a leadscrew, bearings and screws.
+
+[Page: wyat.dev/bob-v3](https://www.wyat.dev/bob-v3/)
 
 ## Important Status Notice
 
 **This project is currently in the design phase only.**
+
 - CAD models and physics simulations are complete
 - No physical prototype has been built yet
 - All specifications and performance data are theoretical

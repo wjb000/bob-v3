@@ -517,3 +517,11 @@ Only 3 reflections allowed, stopping.
 Summarization failed for model ollama_chat/qwen3-coder:30b: cannot schedule new futures after shutdown
 Summarization failed for model ollama_chat/qwen3-coder:30b: cannot schedule new futures after shutdown
 summarizer unexpectedly failed for all models
+[main 6090f2d] Agent(site): next improvement
+ 7 files changed, 849 insertions(+), 67 deletions(-)
+ create mode 100644 agent-loop.log
+ create mode 100644 tools/dashboard/dashboard.py
+ create mode 100644 tools/dashboard/index.html
+To https://github.com/wjb000/bob-v3.git
+   7a0e16c..6090f2d  main -> main
+=== SITE Fri Nov 27 06:24:32 CST 2026 ===
