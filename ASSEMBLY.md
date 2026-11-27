@@ -1,5 +1,7 @@
 # Assembly
 
+**STATUS: CAD + simulation only — not yet built**
+
 Build it in this order. Several parts can't go on later: the centre base tile has to drop over the mast foot before the carriage goes in, and each arm's J1 screws have to go in before its J2 motor does.
 
 Tools you need:
