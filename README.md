@@ -6,6 +6,16 @@ A two-armed home robot you can print on a 200 mm printer. It has a rounded wheel
 
 Page: [wyat.dev/bob-v3](https://www.wyat.dev/bob-v3/). It shows the 3D model, the print files, the wiring, the BOM and the sim results.
 
+## Important Status Notice
+
+**This project is currently in the design phase only.**
+- CAD models and physics simulations are complete
+- No physical prototype has been built yet
+- All specifications and performance data are theoretical
+- Actual real-world performance may vary significantly
+
+## Design Overview
+
 This is a design that has been checked in CAD and in physics simulation. It has not been built yet. The things the sim cannot prove are listed in [VERIFY.md](VERIFY.md). Measure those on the real parts before you print the parts that depend on them.
 
 | | |
@@ -104,3 +114,4 @@ The 36 V pack charges through a GX16 socket on top of the base; Bob can plug his
 ## Older versions
 
 The single-arm cart that used to be "Bob v3" is in git history (`git log -- cad/model.py`).
+```
