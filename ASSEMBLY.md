@@ -85,3 +85,4 @@ Follow the wiring diagram on the page.
 1. Home the lift and check every joint's direction and zero against the viewer (`sim/bob_v3.xml` uses the same conventions).
 2. Home every GM-5 to its hall index. Set torque limits: modules at 80% of stall, STS3215 gripper at about 0.5 N·m.
 3. Run the pick in sim with `sim/expert.py`. Then teleoperate the real robot and record your own demonstrations.
+```
