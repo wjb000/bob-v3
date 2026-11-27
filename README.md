@@ -18,23 +18,25 @@ Page: [wyat.dev/bob-v3](https://www.wyat.dev/bob-v3/). It shows the 3D model, th
 
 This is a design that has been checked in CAD and in physics simulation. It has not been built yet. The things the sim cannot prove are listed in [VERIFY.md](VERIFY.md). Measure those on the real parts before you print the parts that depend on them.
 
+### Key Specifications
+
 | | |
 | --- | --- |
-| Size | Ø480 mm round base (turns in its own footprint), 240 mm wide torso, 1.11 m mast. The head top goes from 0.76 m to 1.41 m. |
-| Reach | Floor 0.32–0.45 m in front of the nose, a 0.91 m counter, a 1.55 m shelf. The hand reaches 1.74 m up and 0.81 m to the side. |
-| Payload | About 0.7 kg per hand held continuously, about 2 kg for a short lift (80% of peak torque). |
-| Joints | 19 driven: 2 hub wheels, lift, head pan and tilt, and 7 per arm (six joints plus the gripper). |
-| Gripper | Rack and pinion parallel jaw, 0–80 mm, about 40 N per finger. |
-| Mass | 19.5 kg (printed parts at 4 walls / 20%, bought parts at listed mass, 1.7 kg of wiring and screws). |
-| Prints | 231 prints from 95 files, about 7.4 kg of filament, all inside 200 × 200 × 200 mm. |
-| Cost | About $2,900 for every part at the linked stores, or $2,600 if you reuse the Bob v2 Pi 5, battery and charger. Every BOM line links to a specific product. See [BOM.md](BOM.md). |
-| Compute | Raspberry Pi 5 on the robot; big models run on a desktop GPU over Wi-Fi. A wide RGB camera in the head, a USB camera on each wrist, RPLIDAR C1 in the base. |
+| **Size** | Ø480 mm round base (turns in its own footprint), 240 mm wide torso, 1.11 m mast. The head top goes from 0.76 m to 1.41 m. |
+| **Reach** | Floor 0.32–0.45 m in front of the nose, a 0.91 m counter, a 1.55 m shelf. The hand reaches 1.74 m up and 0.81 m to the side. |
+| **Payload** | About 0.7 kg per hand held continuously, about 2 kg for a short lift (80% of peak torque). |
+| **Joints** | 19 driven: 2 hub wheels, lift, head pan and tilt, and 7 per arm (six joints plus the gripper). |
+| **Gripper** | Rack and pinion parallel jaw, 0–80 mm, about 40 N per finger. |
+| **Mass** | 19.5 kg (printed parts at 4 walls / 20%, bought parts at listed mass, 1.7 kg of wiring and screws). |
+| **Prints** | 231 prints from 95 files, about 7.4 kg of filament, all inside 200 × 200 × 200 mm. |
+| **Cost** | About $2,900 for every part at the linked stores, or $2,600 if you reuse the Bob v2 Pi 5, battery and charger. Every BOM line links to a specific product. See [BOM.md](BOM.md). |
+| **Compute** | Raspberry Pi 5 on the robot; big models run on a desktop GPU over Wi-Fi. A wide RGB camera in the head, a USB camera on each wrist, RPLIDAR C1 in the base. |
 
-## GM-5 joint module
+## GM-5 Joint Module
 
 The four big joints in each arm use the same printed module. A Feetech STS3250 drives a 12-tooth sun, three 18-tooth planets and a 48-tooth ring cut into the housing (module 1.0, 5:1). The carrier runs in a 6807 bearing and carries the same 6 × M3 output flange as the arm links. A hall sensor in the housing and a magnet in the carrier home each joint at power-up, because the servo's own encoder repeats every 72° of output. Print the gears in PETG-CF or nylon if you can. `cad/gearbox.py` has the geometry and `cad/stl/gm_*.stl` the files.
 
-## Head limits
+## Head Limits
 
 The head pans ±0.6 rad and tilts −0.35 to +0.55 rad. Below 0.51 m of lift, the software must not combine full pan with looking up, because the back of the head would reach the mast. The CAD check tests full pan at level gaze, full tilt up and down, and pan with tilt down.
 
@@ -55,7 +57,7 @@ The head pans ±0.6 rad and tilts −0.35 to +0.55 rad. Below 0.51 m of lift, th
 
 The torques come from `sim/check.py`. It runs MuJoCo inverse dynamics on the CAD masses at the worst pose for each joint.
 
-## What's in here
+## What's in Here
 
 ```
 cad/          CadQuery source. params.py holds every dimension; export.py builds and checks everything
@@ -71,7 +73,7 @@ ASSEMBLY.md   build order
 VERIFY.md     measure these before printing the parts that depend on them
 ```
 
-## Build it from source
+## Build It From Source
 
 ```bash
 python3.12 -m venv .venv
@@ -111,7 +113,7 @@ To train your own policy, see [sim/README.md](sim/README.md).
 
 The 36 V pack charges through a GX16 socket on top of the base; Bob can plug his own charger in. The e-stop drops a contactor in series with every motor converter. The Pi stays up. The leadscrew is self-locking, so the torso stays where it is with the power off. The arm servos go limp when they lose power; the 5:1 gearboxes slow the fall but do not stop it. The torso does not move. Keep the arms in the home pose when you are working near the robot.
 
-## Older versions
+## Older Versions
 
 The single-arm cart that used to be "Bob v3" is in git history (`git log -- cad/model.py`).
 ```
