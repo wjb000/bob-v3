@@ -239,7 +239,7 @@ def _shell_full() -> cq.Shape:
         tools.append(cyl((x, y, P.PAN_TOP + 4), "z", P.M3_HEAD, 10))
     # wheel arches
     for sy in (1, -1):
-        tools.append(cyl_between("y", (0, P.AXLE_Z), sy * 140, sy * 240, 2 * P.WHEEL_ARCH_R))
+        tools.append(cyl_between("y", (0, P.AXLE_Z), sy * 140, sy * 240, 2 * P.WHEEL_ARCH_R + 2))
     # mast opening
     mx0, mx1, my = MAST_HOLE
     tools.append(rrect((mx0 + mx1) / 2, 0, P.BASE_TOP - 30, P.BASE_TOP + 5, mx1 - mx0, 2 * my, P.MAST_R + 4))

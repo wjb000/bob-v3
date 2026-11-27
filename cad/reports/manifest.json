@@ -9,7 +9,7 @@
  "fill": 0.55,
  "unique_prints": 93,
  "total_prints": 210,
- "print_mass_g": 6256.0,
+ "print_mass_g": 6255.0,
  "robot_mass_g": 14230.0,
  "parts": [
   {
@@ -105,8 +105,8 @@
     150.0,
     182.0
    ],
-   "volume_cm3": 157.8,
-   "grams": 110.3
+   "volume_cm3": 157.1,
+   "grams": 109.8
   },
   {
    "name": "base_shell_mid_c",
@@ -153,8 +153,8 @@
     150.0,
     182.0
    ],
-   "volume_cm3": 157.8,
-   "grams": 110.3
+   "volume_cm3": 157.1,
+   "grams": 109.8
   },
   {
    "name": "base_shell_front_r",
@@ -1030,7 +1030,7 @@
    "support_cm2": 18.9,
    "walls": 4,
    "infill": 20,
-   "note": "Holds the left DM-J4340 (J1). Prints on its centre face, cup up. 5 walls, 30% infill.",
+   "note": "Holds the left J1 GM-5 module. Prints on its centre face, cup up. 5 walls, 30% infill.",
    "rot_deg": [
     90,
     0,
@@ -2280,7 +2280,7 @@
    "com_mm": [
     24.0,
     -0.4,
-    459.8
+    459.9
    ],
    "margin_front_mm": 149.0,
    "margin_rear_mm": 197.0,
@@ -2292,7 +2292,7 @@
    "com_mm": [
     46.9,
     -0.4,
-    376.7
+    376.8
    ],
    "margin_front_mm": 126.1,
    "margin_rear_mm": 219.9,
@@ -2304,7 +2304,7 @@
    "com_mm": [
     55.4,
     -0.4,
-    488.9
+    489.0
    ],
    "margin_front_mm": 117.6,
    "margin_rear_mm": 228.4,
@@ -2316,7 +2316,7 @@
    "com_mm": [
     42.1,
     -0.4,
-    329.6
+    329.7
    ],
    "margin_front_mm": 130.9,
    "margin_rear_mm": 215.1,
@@ -2328,7 +2328,7 @@
    "com_mm": [
     39.7,
     -0.4,
-    617.9
+    618.0
    ],
    "margin_front_mm": 133.3,
    "margin_rear_mm": 212.7,
@@ -2340,7 +2340,7 @@
    "com_mm": [
     42.9,
     12.5,
-    455.2
+    455.3
    ],
    "margin_front_mm": 130.1,
    "margin_rear_mm": 215.9,
@@ -2360,5 +2360,5 @@
  },
  "errors": [],
  "warnings": [],
- "seconds": 384.4
+ "seconds": 358.7
 }

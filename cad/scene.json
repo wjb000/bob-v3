@@ -3,11 +3,11 @@
  "frame": "x forward, y left, z up, origin on the floor between the wheels",
  "links": {
   "base": {
-   "mass_g": 8424.1,
+   "mass_g": 8423.1,
    "com": [
     -9.5,
     -0.2,
-    320.5
+    320.6
    ]
   },
   "lift": {
@@ -179,7 +179,7 @@
    ]
   }
  },
- "total_mass_g": 14230.5,
+ "total_mass_g": 14229.5,
  "joints": [
   {
    "name": "lift",
@@ -788,7 +788,7 @@
    "kind": "print",
    "color": "shell",
    "material": "PETG",
-   "mass_g": 110.3,
+   "mass_g": 109.8,
    "print": "base_shell_mid_r",
    "note": "Print top-down. Heat-set inserts in the seam bosses."
   },
@@ -812,7 +812,7 @@
    "kind": "print",
    "color": "shell",
    "material": "PETG",
-   "mass_g": 110.3,
+   "mass_g": 109.8,
    "print": "base_shell_mid_l",
    "note": "Print top-down. Heat-set inserts in the seam bosses."
   },
@@ -1258,7 +1258,7 @@
    "material": "PETG",
    "mass_g": 255.5,
    "print": "yoke_l",
-   "note": "Holds the left DM-J4340 (J1). Prints on its centre face, cup up. 5 walls, 30% infill."
+   "note": "Holds the left J1 GM-5 module. Prints on its centre face, cup up. 5 walls, 30% infill."
   },
   {
    "name": "yoke_r",
