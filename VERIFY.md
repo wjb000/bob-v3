@@ -31,7 +31,7 @@ Things the sim models but can't prove:
 - [ ] Test lift friction with actual components
 - [ ] Check wheel traction on wood and carpet surfaces
 - [ ] Measure actual grip force of the grippers
-- [ ] Confirm STS3250 case temperature under 40–50% continuous load (target ≤ 65 °C)
+- [ ] Confirm STS3095/STS3250 case temperature under 40–50% continuous load (target ≤ 65 °C)
 - [ ] Perform "hold 500 g for 5 minutes" expected-sag check
 
 ## Servo Thermal Notes
