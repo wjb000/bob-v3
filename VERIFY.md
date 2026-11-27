@@ -23,3 +23,14 @@ Things the sim models but can't prove:
 - **Rod deflection under the torso.** The 12 mm rods are 1 m long and fixed at both ends. The sim treats the lift as rigid. If the torso nods more than you like, an aluminium 2020 extrusion fits behind the rods, inside the mast.
 - **Battery runtime.** 158 Wh is about 3 hours of mixed use with the Pi 5. Holding both arms out under load cuts that roughly in half.
 - **Homing.** The servos run in multi-turn mode after homing to the hall index. If one loses power on its own, re-home that joint before moving it.
+
+## First physical prototype checklist
+
+- [ ] Measure actual servo continuous torque and temperature under load
+- [ ] Verify real center of mass (CoM) placement
+- [ ] Test lift friction with actual components
+- [ ] Check wheel traction on wood and carpet surfaces
+- [ ] Measure actual grip force of the grippers
+- [ ] Confirm STS3250 case temperature under 40–50% continuous load (target ≤ 65 °C)
+- [ ] Perform "hold 500 g for 5 minutes" expected-sag check
+```
