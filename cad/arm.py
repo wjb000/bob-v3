@@ -422,8 +422,8 @@ def parts(side: str) -> list[Part]:
     add("pinion", pinion(), "link6", color="frame", note="16T module 1.5 on the J7 horn. 100% infill.")
     add("finger_a", finger(1), "link7", color="dark", note="Rack, drop and finger in one piece. Slides in from the +y end.")
     add("finger_b", finger(-1), "link8", color="dark", note="Rack, drop and finger. Slides in from the -y end.")
-    add("pad_a", pad(1), "link7", color="accent", material="TPU", note="TPU 95A.")
-    add("pad_b", pad(-1), "link8", color="accent", material="TPU", note="TPU 95A.")
+    add("pad_a", pad(1), "link7", color="rubber", material="TPU", note="TPU 95A.")
+    add("pad_b", pad(-1), "link8", color="rubber", material="TPU", note="TPU 95A.")
     out += gm_instances(side)[0]
     return out
 

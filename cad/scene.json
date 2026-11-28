@@ -3,11 +3,11 @@
  "frame": "x forward, y left, z up, origin on the floor between the wheels",
  "links": {
   "base": {
-   "mass_g": 8423.1,
+   "mass_g": 8447.0,
    "com": [
-    -9.5,
+    -9.3,
     -0.2,
-    320.6
+    319.7
    ]
   },
   "lift": {
@@ -35,11 +35,11 @@
    ]
   },
   "head_tilt": {
-   "mass_g": 404.8,
+   "mass_g": 401.2,
    "com": [
-    135.4,
-    0.1,
-    690.3
+    138.3,
+    0.2,
+    691.7
    ]
   },
   "head_pan": {
@@ -179,7 +179,7 @@
    ]
   }
  },
- "total_mass_g": 14229.5,
+ "total_mass_g": 14249.8,
  "joints": [
   {
    "name": "lift",
@@ -908,7 +908,7 @@
    "kind": "print",
    "color": "frame",
    "material": "PETG",
-   "mass_g": 135.6,
+   "mass_g": 135.5,
    "print": "base_pan_mid_c",
    "note": "Structure. Skin down on the bed, ribs up. 4 walls."
   },
@@ -1604,33 +1604,21 @@
    "kind": "print",
    "color": "dark",
    "material": "PETG",
-   "mass_g": 22.7,
+   "mass_g": 49.9,
    "print": "visor",
-   "note": "Black PETG, face down. Eye and camera windows."
+   "note": "Snaps in from the front after the frame. Outer lip, three clips."
   },
   {
-   "name": "head_lower",
-   "file": "head_lower.stl",
+   "name": "head_shell",
+   "file": "head_shell.stl",
    "link": "head_tilt",
    "group": "head",
    "kind": "print",
    "color": "shell",
    "material": "PETG",
-   "mass_g": 56.7,
-   "print": "head_lower",
-   "note": "Floor down."
-  },
-  {
-   "name": "head_upper",
-   "file": "head_upper.stl",
-   "link": "head_tilt",
-   "group": "head",
-   "kind": "print",
-   "color": "shell",
-   "material": "PETG",
-   "mass_g": 147.2,
-   "print": "head_upper",
-   "note": "Top down. Visor fits from inside."
+   "mass_g": 182.9,
+   "print": "head_shell",
+   "note": "One piece, face opening up. Frame slides in through the visor; four screws up through the floor."
   },
   {
    "name": "shoulder_l",
@@ -1782,7 +1770,7 @@
    "link": "l_link7",
    "group": "arm",
    "kind": "print",
-   "color": "accent",
+   "color": "rubber",
    "material": "TPU",
    "mass_g": 2.1,
    "print": "pad_a_l",
@@ -1794,7 +1782,7 @@
    "link": "l_link8",
    "group": "arm",
    "kind": "print",
-   "color": "accent",
+   "color": "rubber",
    "material": "TPU",
    "mass_g": 2.1,
    "print": "pad_b_l",
@@ -2238,7 +2226,7 @@
    "link": "r_link7",
    "group": "arm",
    "kind": "print",
-   "color": "accent",
+   "color": "rubber",
    "material": "TPU",
    "mass_g": 2.1,
    "print": "pad_a_r",
@@ -2250,7 +2238,7 @@
    "link": "r_link8",
    "group": "arm",
    "kind": "print",
-   "color": "accent",
+   "color": "rubber",
    "material": "TPU",
    "mass_g": 2.1,
    "print": "pad_b_r",
@@ -3193,78 +3181,6 @@
    "note": "Joiner tab"
   },
   {
-   "name": "joiner_54",
-   "file": "joiner_54.stl",
-   "link": "head_tilt",
-   "group": "head",
-   "kind": "print",
-   "color": "frame",
-   "material": "PETG",
-   "mass_g": 1.6,
-   "print": "joiner_tab",
-   "note": "Joiner tab"
-  },
-  {
-   "name": "joiner_55",
-   "file": "joiner_55.stl",
-   "link": "head_tilt",
-   "group": "head",
-   "kind": "print",
-   "color": "frame",
-   "material": "PETG",
-   "mass_g": 1.6,
-   "print": "joiner_tab",
-   "note": "Joiner tab"
-  },
-  {
-   "name": "joiner_56",
-   "file": "joiner_56.stl",
-   "link": "head_tilt",
-   "group": "head",
-   "kind": "print",
-   "color": "frame",
-   "material": "PETG",
-   "mass_g": 1.6,
-   "print": "joiner_tab",
-   "note": "Joiner tab"
-  },
-  {
-   "name": "joiner_57",
-   "file": "joiner_57.stl",
-   "link": "head_tilt",
-   "group": "head",
-   "kind": "print",
-   "color": "frame",
-   "material": "PETG",
-   "mass_g": 1.6,
-   "print": "joiner_tab",
-   "note": "Joiner tab"
-  },
-  {
-   "name": "joiner_58",
-   "file": "joiner_58.stl",
-   "link": "head_tilt",
-   "group": "head",
-   "kind": "print",
-   "color": "frame",
-   "material": "PETG",
-   "mass_g": 1.7,
-   "print": "joiner_tab",
-   "note": "Joiner tab"
-  },
-  {
-   "name": "joiner_59",
-   "file": "joiner_59.stl",
-   "link": "head_tilt",
-   "group": "head",
-   "kind": "print",
-   "color": "frame",
-   "material": "PETG",
-   "mass_g": 1.7,
-   "print": "joiner_tab",
-   "note": "Joiner tab"
-  },
-  {
    "name": "hub_l",
    "file": "hub_l.stl",
    "link": "wheel_l",
@@ -3384,6 +3300,28 @@
    "material": "bought",
    "mass_g": 0.0,
    "bom": "battery"
+  },
+  {
+   "name": "charge_strip_pos",
+   "file": "charge_strip_pos.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "metal",
+   "color": "brass",
+   "material": "bought",
+   "mass_g": 12,
+   "bom": "brass"
+  },
+  {
+   "name": "charge_strip_neg",
+   "file": "charge_strip_neg.stl",
+   "link": "base",
+   "group": "base",
+   "kind": "metal",
+   "color": "brass",
+   "material": "bought",
+   "mass_g": 12,
+   "bom": "brass"
   },
   {
    "name": "charge_socket",

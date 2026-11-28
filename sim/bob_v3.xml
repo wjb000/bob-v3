@@ -114,8 +114,7 @@
     <mesh name="head_frame" file="head_frame.stl"/>
     <mesh name="eye_plate" file="eye_plate.stl"/>
     <mesh name="visor" file="visor.stl"/>
-    <mesh name="head_lower" file="head_lower.stl"/>
-    <mesh name="head_upper" file="head_upper.stl"/>
+    <mesh name="head_shell" file="head_shell.stl"/>
     <mesh name="shoulder_l" file="shoulder_l.stl"/>
     <mesh name="clevis_l" file="clevis_l.stl"/>
     <mesh name="upper_arm_a_l" file="upper_arm_a_l.stl"/>
@@ -246,12 +245,6 @@
     <mesh name="joiner_51" file="joiner_51.stl"/>
     <mesh name="joiner_52" file="joiner_52.stl"/>
     <mesh name="joiner_53" file="joiner_53.stl"/>
-    <mesh name="joiner_54" file="joiner_54.stl"/>
-    <mesh name="joiner_55" file="joiner_55.stl"/>
-    <mesh name="joiner_56" file="joiner_56.stl"/>
-    <mesh name="joiner_57" file="joiner_57.stl"/>
-    <mesh name="joiner_58" file="joiner_58.stl"/>
-    <mesh name="joiner_59" file="joiner_59.stl"/>
     <mesh name="hub_l" file="hub_l.stl"/>
     <mesh name="hub_l_hub" file="hub_l_hub.stl"/>
     <mesh name="hub_l_cover" file="hub_l_cover.stl"/>
@@ -263,6 +256,8 @@
     <mesh name="battery" file="battery.stl"/>
     <mesh name="battery_label" file="battery_label.stl"/>
     <mesh name="battery_lead" file="battery_lead.stl"/>
+    <mesh name="charge_strip_pos" file="charge_strip_pos.stl"/>
+    <mesh name="charge_strip_neg" file="charge_strip_neg.stl"/>
     <mesh name="charge_socket" file="charge_socket.stl"/>
     <mesh name="charge_socket_body" file="charge_socket_body.stl"/>
     <mesh name="lidar" file="lidar.stl"/>
@@ -411,7 +406,7 @@
     <body name="base" pos="0 0 0.002">
       <freejoint name="root"/>
       <site name="imu" pos="0.13 -0.04 0.14" size="0.01"/>
-      <inertial pos="-0.00830 -0.00016 0.35105" mass="9.6231" fullinertia="1.16296 1.18541 0.156782 0.000278894 0.0628441 -0.000212373"/>
+      <inertial pos="-0.00821 -0.00016 0.35023" mass="9.6470" fullinertia="1.16558 1.18805 0.156843 0.000278752 0.0631295 -0.000211079"/>
       <geom name="base_shell_rear_r" type="mesh" mesh="base_shell_rear_r" material="m_shell" group="1" mass="0"/>
       <geom name="c_base_shell_rear_r" class="col" type="mesh" mesh="base_shell_rear_r" contype="2" conaffinity="13" friction="0.8 0.01 0.001" mass="0"/>
       <geom name="base_shell_rear_c" type="mesh" mesh="base_shell_rear_c" material="m_shell" group="1" mass="0"/>
@@ -514,6 +509,8 @@
       <geom name="battery" type="mesh" mesh="battery" material="m_battery" group="2" mass="0"/>
       <geom name="battery_label" type="mesh" mesh="battery_label" material="m_white" group="2" mass="0"/>
       <geom name="battery_lead" type="mesh" mesh="battery_lead" material="m_red" group="2" mass="0"/>
+      <geom name="charge_strip_pos" type="mesh" mesh="charge_strip_pos" material="m_brass" group="2" mass="0"/>
+      <geom name="charge_strip_neg" type="mesh" mesh="charge_strip_neg" material="m_brass" group="2" mass="0"/>
       <geom name="charge_socket" type="mesh" mesh="charge_socket" material="m_steel" group="2" mass="0"/>
       <geom name="charge_socket_body" type="mesh" mesh="charge_socket_body" material="m_black" group="2" mass="0"/>
       <geom name="lidar" type="mesh" mesh="lidar" material="m_black" group="2" mass="0"/>
@@ -634,23 +631,15 @@
           <geom name="tilt_servo_horn" type="mesh" mesh="tilt_servo_horn" material="m_white" group="2" mass="0"/>
           <body name="head_tilt" pos="0.00000 0.00000 0.04900">
             <joint name="head_tilt" type="hinge" axis="0 1 0" range="-0.35 0.55" damping="0.05" armature="0.004" frictionloss="0.03"/>
-            <inertial pos="0.03342 0.00011 0.07027" mass="0.4048" fullinertia="0.001929 0.00145191 0.00170785 1.77498e-07 6.0262e-06 2.89594e-06"/>
+            <inertial pos="0.03628 0.00015 0.07167" mass="0.4012" fullinertia="0.00186427 0.00144251 0.00167966 -1.13513e-07 3.49573e-05 4.03994e-06"/>
             <geom name="ear_l" type="mesh" mesh="ear_l" material="m_dark" group="1" mass="0"/>
             <geom name="ear_r" type="mesh" mesh="ear_r" material="m_dark" group="1" mass="0"/>
             <geom name="head_frame" type="mesh" mesh="head_frame" material="m_frame" group="1" mass="0"/>
             <geom name="eye_plate" type="mesh" mesh="eye_plate" material="m_frame" group="1" mass="0"/>
             <geom name="visor" type="mesh" mesh="visor" material="m_dark" group="1" mass="0"/>
             <geom name="c_visor" class="col" type="mesh" mesh="visor" contype="2" conaffinity="13" friction="0.8 0.01 0.001" mass="0"/>
-            <geom name="head_lower" type="mesh" mesh="head_lower" material="m_shell" group="1" mass="0"/>
-            <geom name="c_head_lower" class="col" type="mesh" mesh="head_lower" contype="2" conaffinity="13" friction="0.8 0.01 0.001" mass="0"/>
-            <geom name="head_upper" type="mesh" mesh="head_upper" material="m_shell" group="1" mass="0"/>
-            <geom name="c_head_upper" class="col" type="mesh" mesh="head_upper" contype="2" conaffinity="13" friction="0.8 0.01 0.001" mass="0"/>
-            <geom name="joiner_54" type="mesh" mesh="joiner_54" material="m_frame" group="1" mass="0"/>
-            <geom name="joiner_55" type="mesh" mesh="joiner_55" material="m_frame" group="1" mass="0"/>
-            <geom name="joiner_56" type="mesh" mesh="joiner_56" material="m_frame" group="1" mass="0"/>
-            <geom name="joiner_57" type="mesh" mesh="joiner_57" material="m_frame" group="1" mass="0"/>
-            <geom name="joiner_58" type="mesh" mesh="joiner_58" material="m_frame" group="1" mass="0"/>
-            <geom name="joiner_59" type="mesh" mesh="joiner_59" material="m_frame" group="1" mass="0"/>
+            <geom name="head_shell" type="mesh" mesh="head_shell" material="m_shell" group="1" mass="0"/>
+            <geom name="c_head_shell" class="col" type="mesh" mesh="head_shell" contype="2" conaffinity="13" friction="0.8 0.01 0.001" mass="0"/>
             <geom name="head_cam" type="mesh" mesh="head_cam" material="m_pcb" group="2" mass="0"/>
             <geom name="head_cam_holder" type="mesh" mesh="head_cam_holder" material="m_black" group="2" mass="0"/>
             <geom name="head_cam_lens" type="mesh" mesh="head_cam_lens" material="m_black" group="2" mass="0"/>
@@ -797,7 +786,7 @@
                       <inertial pos="0.00390 0.00244 -0.02486" mass="0.0125" fullinertia="7.03848e-06 6.37251e-06 2.74179e-06 4.82909e-07 -1.32165e-06 1.15807e-06"/>
                       <geom name="finger_a_l" type="mesh" mesh="finger_a_l" material="m_dark" group="1" mass="0"/>
                       <geom name="c_finger_a_l" class="col" type="box" pos="0.0035 0.0070 -0.0367" size="0.0155 0.0040 0.0232" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
-                      <geom name="pad_a_l" type="mesh" mesh="pad_a_l" material="m_accent" group="1" mass="0"/>
+                      <geom name="pad_a_l" type="mesh" mesh="pad_a_l" material="m_rubber" group="1" mass="0"/>
                       <geom name="c_pad_a_l" class="col" type="mesh" mesh="pad_a_l" contype="4" conaffinity="15" friction="1.5 0.02 0.002" mass="0"/>
                       <site name="touch_a_l" type="box" pos="0.0000 0.0015 -0.0380" size="0.0130 0.0045 0.0230" rgba="0 0 0 0"/>
                     </body>
@@ -806,7 +795,7 @@
                       <inertial pos="-0.00390 -0.00244 -0.02486" mass="0.0125" fullinertia="7.03848e-06 6.37251e-06 2.74179e-06 4.82909e-07 1.32165e-06 -1.15807e-06"/>
                       <geom name="finger_b_l" type="mesh" mesh="finger_b_l" material="m_dark" group="1" mass="0"/>
                       <geom name="c_finger_b_l" class="col" type="box" pos="-0.0035 -0.0070 -0.0367" size="0.0155 0.0040 0.0232" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
-                      <geom name="pad_b_l" type="mesh" mesh="pad_b_l" material="m_accent" group="1" mass="0"/>
+                      <geom name="pad_b_l" type="mesh" mesh="pad_b_l" material="m_rubber" group="1" mass="0"/>
                       <geom name="c_pad_b_l" class="col" type="mesh" mesh="pad_b_l" contype="4" conaffinity="15" friction="1.5 0.02 0.002" mass="0"/>
                       <site name="touch_b_l" type="box" pos="0.0000 -0.0015 -0.0380" size="0.0130 0.0045 0.0230" rgba="0 0 0 0"/>
                     </body>
@@ -944,7 +933,7 @@
                       <inertial pos="0.00390 -0.00244 -0.02486" mass="0.0125" fullinertia="7.03848e-06 6.37251e-06 2.74179e-06 -4.82909e-07 -1.32165e-06 -1.15807e-06"/>
                       <geom name="finger_a_r" type="mesh" mesh="finger_a_r" material="m_dark" group="1" mass="0"/>
                       <geom name="c_finger_a_r" class="col" type="box" pos="0.0035 -0.0070 -0.0367" size="0.0155 0.0040 0.0232" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
-                      <geom name="pad_a_r" type="mesh" mesh="pad_a_r" material="m_accent" group="1" mass="0"/>
+                      <geom name="pad_a_r" type="mesh" mesh="pad_a_r" material="m_rubber" group="1" mass="0"/>
                       <geom name="c_pad_a_r" class="col" type="mesh" mesh="pad_a_r" contype="4" conaffinity="15" friction="1.5 0.02 0.002" mass="0"/>
                       <site name="touch_a_r" type="box" pos="0.0000 -0.0015 -0.0380" size="0.0130 0.0045 0.0230" rgba="0 0 0 0"/>
                     </body>
@@ -953,7 +942,7 @@
                       <inertial pos="-0.00390 0.00244 -0.02486" mass="0.0125" fullinertia="7.03848e-06 6.37251e-06 2.74179e-06 -4.82909e-07 1.32165e-06 1.15807e-06"/>
                       <geom name="finger_b_r" type="mesh" mesh="finger_b_r" material="m_dark" group="1" mass="0"/>
                       <geom name="c_finger_b_r" class="col" type="box" pos="-0.0035 0.0070 -0.0367" size="0.0155 0.0040 0.0232" contype="4" conaffinity="15" friction="0.8 0.01 0.001" mass="0"/>
-                      <geom name="pad_b_r" type="mesh" mesh="pad_b_r" material="m_accent" group="1" mass="0"/>
+                      <geom name="pad_b_r" type="mesh" mesh="pad_b_r" material="m_rubber" group="1" mass="0"/>
                       <geom name="c_pad_b_r" class="col" type="mesh" mesh="pad_b_r" contype="4" conaffinity="15" friction="1.5 0.02 0.002" mass="0"/>
                       <site name="touch_b_r" type="box" pos="0.0000 0.0015 -0.0380" size="0.0130 0.0045 0.0230" rgba="0 0 0 0"/>
                     </body>

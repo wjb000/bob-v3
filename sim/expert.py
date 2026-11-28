@@ -15,6 +15,7 @@ from __future__ import annotations
 import numpy as np
 
 from bob_env import LIFT_SPEED, CTRL_DT, MAX_DQ, BobV3Env, Ik
+from practical import arm_bumped, axes_from_mujoco, backoff_action, grasped, locate_on_counter
 
 
 def _tilt(a):
@@ -32,6 +33,34 @@ class Expert:
         self.rot = np.eye(3)
         self.bias = np.zeros(3)
         self.plan_q = {}
+        self._renderer = None
+
+    def _cube_from_camera(self):
+        """Head-camera estimate of the cube centre. None if the camera or the colour is missing."""
+        env = self.env
+        if self._renderer is False:
+            return None
+        if self._renderer is None:
+            try:
+                import mujoco
+                self._renderer = mujoco.Renderer(env.m, 120, 160)
+            except Exception:
+                self._renderer = False
+                return None
+        try:
+            self._renderer.update_scene(env.d, camera="head_cam")
+            rgb = self._renderer.render()
+            cam = env.m.camera("head_cam").id
+            # fovy is 70 degrees on the 120-pixel height.
+            f = (120 / 2) / np.tan(np.deg2rad(70) / 2)
+            K = np.array([[f * (160 / 120), 0, 79.5], [0, f, 59.5], [0, 0, 1]])
+            hit = locate_on_counter(rgb, K, axes_from_mujoco(env.d.cam_xmat[cam]), env.d.cam_xpos[cam], 0.75)
+        except Exception:
+            self._renderer = False
+            return None
+        if hit is None:
+            return None
+        return hit + np.array([0.0, 0.0, 0.0225])
 
     def _plan(self, cube):
         """Choose the lift height and hand tilt once per cube position (deterministic in the cube pose)."""
@@ -82,7 +111,8 @@ class Expert:
 
     def act(self) -> np.ndarray:
         env, d = self.env, self.env.d
-        cube = d.xpos[env.cube_body].copy()
+        seen = self._cube_from_camera()
+        cube = d.xpos[env.cube_body].copy() if seen is None else seen
         tcp = d.site_xpos[env.tcp].copy()
         key = tuple(np.round(env.cube_start, 4))
         if self.plan_for != key:
@@ -92,8 +122,11 @@ class Expert:
         touch = [d.sensordata[env.m.sensor_adr[s]] > 0.5 for s in env.touch]
         grip_q = d.qpos[env.grip_q]
         lift_now = d.qpos[env.lift_q]
+        pairs = [(env.m.geom(c.geom1).name, env.m.geom(c.geom2).name) for c in d.contact[:d.ncon]]
+        if arm_bumped(pairs):
+            return backoff_action()
         grip = 1.0
-        if all(touch) and grip_q < 0.03:
+        if grasped(sum(touch), grip_q):
             target, phase = env.cube_start + [0, 0, 0.13], "up"
             grip = -1.0
         elif np.linalg.norm(tcp - cube) < 0.015 or (any(touch) and np.linalg.norm(tcp[:2] - cube[:2]) < 0.02):

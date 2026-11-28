@@ -7,10 +7,10 @@
  ],
  "density_g_cm3": 1.27,
  "fill": 0.55,
- "unique_prints": 93,
- "total_prints": 210,
- "print_mass_g": 6255.0,
- "robot_mass_g": 14230.0,
+ "unique_prints": 92,
+ "total_prints": 203,
+ "print_mass_g": 6254.0,
+ "robot_mass_g": 14250.0,
  "parts": [
   {
    "name": "base_shell_rear_r",
@@ -345,8 +345,8 @@
     180.0,
     15.0
    ],
-   "volume_cm3": 194.1,
-   "grams": 135.6
+   "volume_cm3": 193.9,
+   "grams": 135.5
   },
   {
    "name": "base_pan_mid_l",
@@ -1483,70 +1483,46 @@
    "link": "head_tilt",
    "material": "PETG",
    "color": "dark",
-   "support_cm2": 0.0,
+   "support_cm2": 125.0,
    "walls": 4,
    "infill": 20,
-   "note": "Black PETG, face down. Eye and camera windows.",
+   "note": "Snaps in from the front after the frame. Outer lip, three clips.",
    "rot_deg": [
     0,
     -90,
     0
    ],
    "bed_mm": [
-    88.0,
-    136.0,
-    4.6
+    114.0,
+    140.0,
+    14.1
    ],
-   "volume_cm3": 32.5,
-   "grams": 22.7
+   "volume_cm3": 71.5,
+   "grams": 49.9
   },
   {
-   "name": "head_lower",
+   "name": "head_shell",
    "qty": 1,
    "group": "head",
    "link": "head_tilt",
    "material": "PETG",
    "color": "shell",
-   "support_cm2": 9.1,
+   "support_cm2": 69.6,
    "walls": 3,
    "infill": 15,
-   "note": "Floor down.",
+   "note": "One piece, face opening up. Frame slides in through the visor; four screws up through the floor.",
    "rot_deg": [
     0,
-    0,
+    -90,
     0
    ],
    "bed_mm": [
-    120.0,
-    176.0,
-    24.0
-   ],
-   "volume_cm3": 81.2,
-   "grams": 56.7
-  },
-  {
-   "name": "head_upper",
-   "qty": 1,
-   "group": "head",
-   "link": "head_tilt",
-   "material": "PETG",
-   "color": "shell",
-   "support_cm2": 13.5,
-   "walls": 3,
-   "infill": 15,
-   "note": "Top down. Visor fits from inside.",
-   "rot_deg": [
-    180,
-    0,
-    0
-   ],
-   "bed_mm": [
-    120.0,
+    144.0,
     176.0,
     120.0
    ],
-   "volume_cm3": 210.7,
-   "grams": 147.2
+   "volume_cm3": 261.9,
+   "grams": 182.9
   },
   {
    "name": "shoulder_l",
@@ -1842,7 +1818,7 @@
    "group": "arm",
    "link": "l_link7",
    "material": "TPU",
-   "color": "accent",
+   "color": "rubber",
    "support_cm2": 0.0,
    "walls": 4,
    "infill": 20,
@@ -1866,7 +1842,7 @@
    "group": "arm",
    "link": "l_link8",
    "material": "TPU",
-   "color": "accent",
+   "color": "rubber",
    "support_cm2": 0.0,
    "walls": 4,
    "infill": 20,
@@ -2178,7 +2154,7 @@
    "group": "arm",
    "link": "r_link7",
    "material": "TPU",
-   "color": "accent",
+   "color": "rubber",
    "support_cm2": 0.0,
    "walls": 4,
    "infill": 20,
@@ -2202,7 +2178,7 @@
    "group": "arm",
    "link": "r_link8",
    "material": "TPU",
-   "color": "accent",
+   "color": "rubber",
    "support_cm2": 0.0,
    "walls": 4,
    "infill": 20,
@@ -2222,7 +2198,7 @@
   },
   {
    "name": "joiner_tab",
-   "qty": 60,
+   "qty": 54,
    "group": "base",
    "link": "base",
    "material": "PETG",
@@ -2254,8 +2230,8 @@
   "M2.5x8 screw (finger pad)": 8,
   "M2x6 thread-forming (wrist camera)": 4,
   "M2x8 screw (horn)": 32,
-  "M3 heat-set insert": 266,
-  "M3x10 socket head": 177,
+  "M3 heat-set insert": 254,
+  "M3x10 socket head": 165,
   "M3x10 thread-forming (T8 nut)": 4,
   "M3x12 shoulder screw (idler)": 2,
   "M3x12 socket head": 26,
@@ -2278,74 +2254,74 @@
  "stability": {
   "zero": {
    "com_mm": [
-    24.0,
+    24.1,
     -0.4,
-    459.9
+    459.0
    ],
-   "margin_front_mm": 149.0,
-   "margin_rear_mm": 197.0,
+   "margin_front_mm": 148.9,
+   "margin_rear_mm": 197.1,
    "margin_side_mm": 184.6,
    "tip_deg_front": 18.0,
    "tip_deg_rear": 23.2
   },
   "home": {
    "com_mm": [
-    46.9,
+    47.0,
     -0.4,
-    376.8
+    376.1
    ],
-   "margin_front_mm": 126.1,
-   "margin_rear_mm": 219.9,
+   "margin_front_mm": 126.0,
+   "margin_rear_mm": 220.0,
    "margin_side_mm": 184.6,
    "tip_deg_front": 18.5,
    "tip_deg_rear": 30.3
   },
   "counter": {
    "com_mm": [
-    55.4,
+    55.5,
     -0.4,
-    489.0
+    488.0
    ],
-   "margin_front_mm": 117.6,
-   "margin_rear_mm": 228.4,
+   "margin_front_mm": 117.5,
+   "margin_rear_mm": 228.5,
    "margin_side_mm": 184.6,
    "tip_deg_front": 13.5,
-   "tip_deg_rear": 25.0
+   "tip_deg_rear": 25.1
   },
   "floor": {
    "com_mm": [
-    42.1,
+    42.2,
     -0.4,
-    329.7
+    329.1
    ],
-   "margin_front_mm": 130.9,
-   "margin_rear_mm": 215.1,
+   "margin_front_mm": 130.8,
+   "margin_rear_mm": 215.2,
    "margin_side_mm": 184.6,
    "tip_deg_front": 21.7,
-   "tip_deg_rear": 33.1
+   "tip_deg_rear": 33.2
   },
   "shelf": {
    "com_mm": [
-    39.7,
+    39.8,
     -0.4,
-    618.0
+    616.9
    ],
-   "margin_front_mm": 133.3,
-   "margin_rear_mm": 212.7,
+   "margin_front_mm": 133.2,
+   "margin_rear_mm": 212.8,
    "margin_side_mm": 184.6,
    "tip_deg_front": 12.2,
    "tip_deg_rear": 19.0
   },
   "wave": {
    "com_mm": [
-    42.9,
+    43.0,
     12.5,
-    455.3
+    454.4
    ],
-   "margin_front_mm": 130.1,
-   "margin_rear_mm": 215.9,
+   "margin_front_mm": 130.0,
+   "margin_rear_mm": 216.0,
    "margin_side_mm": 172.5,
-   "tip_deg_front": 15.9,
+   "tip_deg_front": 16.0,
    "tip_deg_rear": 25.4
   }
  },
@@ -2360,5 +2336,5 @@
  },
  "errors": [],
  "warnings": [],
- "seconds": 358.7
+ "seconds": 374.8
 }

@@ -30,8 +30,8 @@ This is a design that has been checked in CAD and in physics simulation. It has 
 | **Payload** | 400–500 g per hand, continuous. The sim's checked hold is 0.5 kg. See the envelope below. |
 | **Joints** | 19 driven: 2 hub wheels, lift, head pan and tilt, and 7 per arm (six joints plus the gripper). |
 | **Gripper** | Rack and pinion parallel jaw, 0–80 mm, about 40 N per finger. |
-| **Mass** | 19.5 kg (printed parts at 4 walls / 20%, bought parts at listed mass, 1.7 kg of wiring and screws). |
-| **Prints** | 231 prints from 95 files, about 7.4 kg of filament, all inside 200 × 200 × 200 mm. |
+| **Mass** | 14.2 kg in the CAD. The sim adds 1.7 kg for wiring and screws. |
+| **Prints** | 203 prints from 92 files, 6.25 kg of filament, all inside 200 × 200 × 200 mm. |
 | **Cost** | About $2,900 for every part at the linked stores, or $2,600 if you reuse the Bob v2 Pi 5, battery and charger. Every BOM line links to a specific product. See [BOM.md](BOM.md). |
 | **Compute** | Raspberry Pi 5 on the robot; big models run on a desktop GPU over Wi-Fi. A wide RGB camera in the head, a USB camera on each wrist, RPLIDAR C1 in the base. |
 

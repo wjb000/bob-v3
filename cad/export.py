@@ -182,7 +182,10 @@ def hole_mates(points, z, solids):
 def main() -> int:
     t0 = time.time()
     errors, warnings = [], []
-    for d in (STL, STEP, PLACED, REPORTS, VIEW):
+    # --fast rewrites STL and placed meshes only. Leave cad/step/ alone so a
+    # fast check cannot delete the STEP files the repo already has.
+    fresh = (STL, PLACED, REPORTS, VIEW) if FAST else (STL, STEP, PLACED, REPORTS, VIEW)
+    for d in fresh:
         d.mkdir(parents=True, exist_ok=True)
         for f in d.glob("*.st*"):
             f.unlink()

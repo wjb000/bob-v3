@@ -12,6 +12,7 @@ import math
 import cadquery as cq
 
 import params as P
+import station as ST
 from lib import (
     Bought, Part, box, cbox, cut, cyl, cyl_between, fuse, hexagon, hw, largest,
     rr_boundary, rrect, rrect_shell, tube_between,
@@ -421,6 +422,9 @@ def _pan_full() -> cq.Shape:
         tools.append(cyl((x, y, z0 - 1), "z", 2.5, 20))  # vent the insert hole
     # cable pass under the mast and drain holes
     tools.append(cyl((P.MAST_X + 20, 0, 0), "z", 30, 100))
+    # blind pockets the charge-strip stems drop into, under the centre tile
+    for x0, x1, y0, y1, z0p, z1p in ST.pockets():
+        tools.append(box(x0, x1, y0, y1, z0p, z1p))
     hw("M3 heat-set insert", len(pts))
     hw("M3x10 socket head", 2 * len(_pan_seam_pairs()))
     return cut(pan, *tools)
@@ -600,6 +604,8 @@ def bought() -> list[Bought]:
         out += V.boughts(name, V.place(rot, (0, sy * P.WHEEL_Y, P.AXLE_Z), **frame), link, "base", "wheel", P.HUB_MASS - 300, "ddsm115")
         out += V.boughts(f"{name}_stator", V.place(stat, (0, sy * P.WHEEL_Y, P.AXLE_Z), **frame), "base", "base", "wheel", 300, "")
     out += V.boughts("battery", V.place(V.battery(), (BATT_C[0], BATT_C[1], BATT_Z0)), "base", "base", "battery", P.BATT_MASS, "battery")
+    for name, solid in ST.strips():
+        out.append(Bought(name, solid, "base", "base", "metal", 12, "brass", look="brass"))
     out += V.boughts("charge_socket", V.place(V.gx16(), (P.CHARGE_XY[0], P.CHARGE_XY[1], P.BASE_TOP)), "base", "base", "electronics", 20, "gx16")
     out += V.boughts("lidar", V.place(V.rplidar_c1(), (P.LIDAR_X, 0, P.LIDAR_Z0)), "base", "base", "electronics", 110, "lidar")
     z = SHELF_Z + SHELF_T

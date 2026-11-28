@@ -85,7 +85,7 @@ def collides(item):
     if link == "lift":
         return "body" if n.startswith("torso_") and not n.startswith("torso_back") else None
     if link.startswith("head"):
-        return "body" if n.startswith(("head_lower", "head_upper", "visor")) else None
+        return "body" if n.startswith(("head_shell", "head_lower", "head_upper", "visor")) else None
     if link.startswith(("l_", "r_")):
         return "arm"
     return None

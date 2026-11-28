@@ -10,7 +10,6 @@ import cadquery as cq
 
 import params as P
 from lib import Bought, Joint, Part, box, cbox, cut, cyl, cyl_between, fuse, hw, rrect, rrect_shell, tube_between
-from base import JOIN_OFF, split_one, tab_at
 from arm import _horn_holes
 
 S = P.SHOULDER_Z0
@@ -20,11 +19,15 @@ TILT_Z = S + P.TILT_Z
 HX0, HX1 = P.HEAD_CX - P.HEAD_D / 2 + 4, P.HEAD_CX + P.HEAD_D / 2 + 4
 HCX = (HX0 + HX1) / 2
 HZ0, HZ1 = S + 104.0, S + 104.0 + P.HEAD_H
-SPLIT_Z = S + 128.0
 HR = 22.0
 HWALL = 3.0
 FRAME_Z = (S + 112.0, S + 116.0)
-VISOR = dict(w=128.0, h=80.0, zc=S + 176.0, r=24.0)
+# Face door. Clears the frame plate (y ±64, z 632) and the camera post (z to 730).
+# The corner radius stays small so the plate's lower corners are not pinched.
+# The tilt cheeks are lower; they use the floor track, not this opening.
+VISOR = dict(w=136.0, h=110.0, zc=S + 161.0, r=12.0)
+# Floor groove from the neck slot to the face, so the frame slides in at its installed height.
+CHEEK_TRACK = dict(x0=130.0, y0=-36.0, y1=28.0, z0=HZ0 - 6.0, z1=632.0)
 EYE_Z = S + 158.0
 EYE_Y = 31.0
 EYE_ARM_Y = 13.0  # eye plate arms, inboard of the eye pin holes
@@ -84,26 +87,37 @@ def _floor_pts():
     return [(HCX - 50, -60.0), (HCX - 50, 60.0), (HCX + 40, -60.0), (HCX + 40, 60.0)]
 
 
-def _head_seam_pairs():
-    out = []
-    yi = P.HEAD_W / 2 - HWALL
-    for sy in (1, -1):
-        for x in (HCX - 35, HCX + 25):
-            out.append(((x, sy * yi, SPLIT_Z - JOIN_OFF), (x, sy * yi, SPLIT_Z + JOIN_OFF), (0, -sy, 0)))
-    xb = HX0 + HWALL
-    for y in (-45.0, 45.0):
-        out.append(((xb, y, SPLIT_Z - JOIN_OFF), (xb, y, SPLIT_Z + JOIN_OFF), (1, 0, 0)))
-    return out
+def _yz(x0, x1, w, h, zc, r) -> cq.Shape:
+    r = min(max(r, 0.2), w / 2 - 0.05, h / 2 - 0.05)
+    return (
+        cq.Workplane("YZ").workplane(offset=min(x0, x1)).center(0, zc)
+        .sketch().rect(w, h).vertices().fillet(r).finalize()
+        .extrude(abs(x1 - x0)).val()
+    )
+
+
+def _snap_sites():
+    """Top and both sides. The bottom edge is the cheek track, so it has no clip."""
+    v = VISOR
+    zc, w, h = v["zc"], v["w"], v["h"]
+    return ((0.0, zc + h / 2, 0.0, 1.0), (w / 2, zc, 1.0, 0.0), (-w / 2, zc, -1.0, 0.0))
+
+
+def _edge_box(ey, ez, ny, nz, t0, t1, half_u, x0, x1) -> cq.Shape:
+    """Box at an opening edge. t=0 is the edge, t>0 runs out into the bezel."""
+    tc = (t0 + t1) / 2.0
+    ht = abs(t1 - t0) / 2.0
+    cy, cz = ey + ny * tc, ez + nz * tc
+    y0 = cy - (abs(ny) * ht + abs(nz) * half_u)
+    y1 = cy + (abs(ny) * ht + abs(nz) * half_u)
+    z0 = cz - (abs(nz) * ht + abs(ny) * half_u)
+    z1 = cz + (abs(nz) * ht + abs(ny) * half_u)
+    return box(min(x0, x1), max(x0, x1), y0, y1, z0, z1)
 
 
 def head_shell() -> cq.Shape:
     s = rrect_shell(HCX, 0, HZ0, HZ1, HX1 - HX0, P.HEAD_W, HR, HWALL, chamfer_top=20, chamfer_bot=8)
     adds, tools = [], []
-    for a, b, n in _head_seam_pairs():
-        for q in (a, b):
-            adds.append(cyl((q[0] - n[0], q[1] - n[1], q[2]), n, 10, 10))
-            p = (q[0] + n[0] * 9.5, q[1] + n[1] * 9.5, q[2])
-            tools.append(cyl(p, (-n[0], -n[1], -n[2]), P.M3_INSERT, P.M3_INSERT_DEPTH))
     for x, y in _floor_pts():
         adds.append(cyl((x, y, HZ0 + 1), "z", 10, FRAME_Z[0] - HZ0 - 1))
         tools.append(cyl((x, y, HZ0 - 1), "z", P.M3, 30))
@@ -112,32 +126,38 @@ def head_shell() -> cq.Shape:
     s = s.intersect(rrect(HCX, 0, HZ0, HZ1, HX1 - HX0, P.HEAD_W, HR, chamfer_top=20, chamfer_bot=8))
     # neck slot in the floor
     tools.append(rrect(NX + 12, -3, HZ0 - 5, HZ0 + 10, 76, 66, 14))
-    # visor opening
     v = VISOR
-    tools.append(cq.Workplane("YZ").workplane(offset=HX1 - HWALL - 1).center(0, v["zc"]).sketch().rect(v["w"], v["h"]).vertices()
-                 .fillet(v["r"]).finalize().extrude(20).val())
+    x_in = HX1 - HWALL
+    # Carry the door back past the bottom chamfer so the frame plate does not catch a lip.
+    tools.append(_yz(176.0, HX1 + 4, v["w"], v["h"], v["zc"], v["r"]))
+    tr = CHEEK_TRACK
+    tools.append(box(tr["x0"], HX1 + 4, tr["y0"], tr["y1"], tr["z0"], tr["z1"]))
+    for ey, ez, ny, nz in _snap_sites():
+        tools.append(_edge_box(ey, ez, ny, nz, -0.3, 1.35, 3.0, x_in - 0.15, x_in + 2.05))
     # ear pods: a press-fit spigot through each side wall
     for sy in (1, -1):
         tools.append(cyl_between("y", (EAR_X, EAR_Z), sy * (P.HEAD_W / 2 - 6), sy * (P.HEAD_W / 2 + 2), EAR_SPIGOT + 0.4))
-    hw("M3x10 socket head", 2 * len(_head_seam_pairs()) + len(_floor_pts()))
-    hw("M3 heat-set insert", 2 * len(_head_seam_pairs()))
+    hw("M3x10 socket head", len(_floor_pts()))
     return cut(s, *tools)
 
 
 def visor() -> cq.Shape:
-    """Black visor: a plug that fills the opening plus a lip behind the wall. The eye plate clamps the lip."""
+    """Front plug. An outer lip stops it falling in; three clips hold it. The frame goes in first."""
     v = VISOR
-    x0 = HX1 - HWALL
-    front = cq.Workplane("YZ").workplane(offset=x0).center(0, v["zc"]).sketch().rect(v["w"] - 0.6, v["h"] - 0.6).vertices() \
-        .fillet(v["r"] - 0.3).finalize().extrude(HWALL - 0.4).val()
-    lip = cq.Workplane("YZ").workplane(offset=x0 - 2).center(0, v["zc"]).sketch().rect(v["w"] + 8, v["h"] + 8).vertices() \
-        .fillet(v["r"] + 4).finalize().extrude(2.0).val()
-    s = fuse(front, lip)
+    x_in, x_out = HX1 - HWALL, HX1
+    plug = _yz(x_in - 1.0, x_out + 0.5, v["w"] - 0.8, v["h"] - 0.8, v["zc"], v["r"] - 0.4)
+    lip = _yz(x_out + 0.35, x_out + 2.1, v["w"] + 4.0, v["h"] + 4.0, v["zc"], v["r"] + 2.0)
+    snaps = []
+    for ey, ez, ny, nz in _snap_sites():
+        snaps.append(_edge_box(ey, ez, ny, nz, -2.5, -1.2, 3.2, x_in - 9.0, x_in - 0.4))
+        snaps.append(_edge_box(ey, ez, ny, nz, -2.5, -1.2, 3.2, x_in - 1.05, x_in - 0.15))
+        snaps.append(_edge_box(ey, ez, ny, nz, -1.2, 0.85, 2.2, x_in + 0.25, x_in + 1.45))
+    s = fuse(plug, lip, *snaps)
     tools = []
     for y in (-EYE_Y, EYE_Y):
-        tools.append(cyl_between("x", (y, EYE_Z), x0 - 5, x0 + 10, P.EYE_GLASS + 0.6))
-    tools.append(cq.Workplane("YZ").workplane(offset=x0 - 5).center(0, CAM_Z).sketch().rect(P.D435[0] - 4, P.D435[2] - 6)
-                 .vertices().fillet(8).finalize().extrude(20).val())
+        tools.append(cyl_between("x", (y, EYE_Z), x_in - 3, x_out + 4, P.EYE_GLASS + 0.6))
+    tools.append(cq.Workplane("YZ").workplane(offset=x_in - 3).center(0, CAM_Z).sketch().rect(P.D435[0] - 4, P.D435[2] - 6)
+                 .vertices().fillet(8).finalize().extrude(x_out + 6 - (x_in - 3)).val())
     return cut(s, *tools)
 
 
@@ -189,18 +209,16 @@ def parts() -> list[Part]:
         Part("head_frame", head_frame(), "head_tilt", "head", color="frame", note="Tilt horn and idler, camera post, eye plate."),
         Part("eye_plate", eye_plate(), "head_tilt", "head", color="frame", note="Two GC9A01 round TFTs."),
         Part("visor", visor(), "head_tilt", "head", color="dark", rot=(0, -90, 0),
-             note="Black PETG, face down. Eye and camera windows."),
+             note="Snaps in from the front after the frame. Outer lip, three clips."),
+        Part("head_shell", head_shell(), "head_tilt", "head", color="shell", rot=(0, -90, 0), walls=3, infill=15,
+             note="One piece, face opening up. Frame slides in through the visor; four screws up through the floor."),
     ]
-    full = head_shell()
-    out.append(Part("head_lower", split_one(full, box(-500, 500, -500, 500, 0, SPLIT_Z), "head_lower"), "head_tilt", "head",
-                    color="shell", walls=3, infill=15, note="Floor down."))
-    out.append(Part("head_upper", split_one(full, box(-500, 500, -500, 500, SPLIT_Z, 3000), "head_upper"), "head_tilt", "head",
-                    color="shell", rot=(180, 0, 0), walls=3, infill=15, note="Top down. Visor fits from inside."))
     return out
 
 
 def head_joiners():
-    return [tab_at(a, b, n) for a, b, n in _head_seam_pairs()]
+    """One shell, so the head has no seam tabs."""
+    return []
 
 
 def bought() -> list[Bought]:
