@@ -4,6 +4,14 @@
 
 Build it in this order. Several parts can't go on later: the centre base tile has to drop over the mast foot before the carriage goes in, and each arm's J1 screws have to go in before its J2 motor does.
 
+## Operating envelope
+
+Until the measurements in [VERIFY.md](VERIFY.md) are done on hardware, use the sim limits:
+
+- 400–500 g per hand, continuous. `sim/check.py` holds 0.5 kg. Heavier is not a cleared mode.
+- Lift above 200 mm: both arms in, elbows bent. `LIFT_TRAVEL` in `cad/params.py` is 650 mm. The 200 mm line is not `LIMITS["lift"]`.
+- First power-up stays on the current-limited bench supply in section 3. Do not stand the robot up with the arms out to check the sag.
+
 Tools you need:
 
 - soldering iron with a heat-set insert tip
@@ -52,7 +60,17 @@ Follow the wiring diagram on the page.
 ## 5. Base shell
 
 1. Fit the eight outer `base_shell_*` tiles around the centre tile. Join every seam from inside with joiner tabs; there are about 60.
-2. Screw the shell lugs down to the pan inserts (12 × M3×10). Fit the e-stop and the main switch, and the GX16 charge socket in the top of the base (front right, where the right hand reaches it).
+2. Screw the shell lugs down to the pan inserts (12 × M3×10). Fit the e-stop and the main switch, and the GX16 charge socket in the top of the base (front right, where the right hand reaches it). The GX16 is the bench supply. Daily charging is the floor dock.
+
+## 5b. Charge dock
+
+The hoverboard charger stays on the dock. He reverses onto it; he does not plug the GX16 in by hand. The GX16 is only the bench supply, wired in parallel to the same BMS input.
+
+1. Print the six `dock_*` tiles and the two `dock_pad_*` shims (`cad/station.py`). Each one lies flat and fits the bed.
+2. Screw each island into a row of three from below. Leave the middle open so the casters stay on the floor, and leave the outside open so the wheels do. The lipped tiles face the wall.
+3. Glue a brass shim on each pad. The +Y pad is pack positive. The −Y pad is pack negative. Wire them to the charger output.
+4. Epoxy the two `charge_strip_*` stems into the pockets under `base_pan_mid_c`. Run 18 AWG from each strip to the GX16 charge input, in parallel with the bench plug.
+5. On the viewer, Dock reverses him onto the pads. The button reads Charging when the strips are on the pads, and the drive stops there.
 
 ## 6. Torso
 
@@ -77,11 +95,11 @@ Follow the wiring diagram on the page.
 ## 8. Head
 
 1. `neck_yoke` onto the pan horn. Put the tilt STS3215 in its cradle.
-2. `head_frame` onto the tilt horn and the idler. Bolt the head camera to the post. Press the ears into the side walls. Fit the `eye_plate` with both GC9A01 and the ESP32-S3.
-3. Put the `visor` in the front opening of `head_upper`. The eye plate clamps its lip. Close `head_lower` to `head_upper` with joiner tabs, then screw the floor to the frame from below.
+2. On the bench, slide `head_frame` into `head_shell` through the face until the tilt cheeks hang out of the neck slot. Screw the floor up into the frame (4 × M3×10). Bolt the camera to the post. Fit the `eye_plate` with both GC9A01 and the ESP32-S3. Press the ears in from the sides. Snap the `visor` in from the front.
+3. Lower the head onto the tilt horn and the idler.
 
 ## 9. Bring-up
 
 1. Home the lift and check every joint's direction and zero against the viewer (`sim/bob_v3.xml` uses the same conventions).
 2. Home every GM-5 to its hall index. Set torque limits: modules at 80% of stall, STS3215 gripper at about 0.5 N·m.
-3. Run the pick in sim with `sim/expert.py`. Then teleoperate the real robot and record your own demonstrations.
+3. Run the pick in sim with `sim/expert.py`. The first hardware checks are the list in [VERIFY.md](VERIFY.md): servo case temperature, the 500 g sag hold, centre of mass, lift friction, wheel traction, and grip force. Record those before treating any payload number as measured.

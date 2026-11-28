@@ -27,13 +27,21 @@ This is a design that has been checked in CAD and in physics simulation. It has 
 | --- | --- |
 | **Size** | Ø480 mm round base (turns in its own footprint), 240 mm wide torso, 1.11 m mast. The head top goes from 0.76 m to 1.41 m. |
 | **Reach** | Floor 0.32–0.45 m in front of the nose, a 0.91 m counter, a 1.55 m shelf. The hand reaches 1.74 m up and 0.81 m to the side. |
-| **Payload** | About 0.7 kg per hand held continuously, about 2 kg for a short lift (80% of peak torque). |
+| **Payload** | 400–500 g per hand, continuous. The sim's checked hold is 0.5 kg. See the envelope below. |
 | **Joints** | 19 driven: 2 hub wheels, lift, head pan and tilt, and 7 per arm (six joints plus the gripper). |
 | **Gripper** | Rack and pinion parallel jaw, 0–80 mm, about 40 N per finger. |
 | **Mass** | 19.5 kg (printed parts at 4 walls / 20%, bought parts at listed mass, 1.7 kg of wiring and screws). |
 | **Prints** | 231 prints from 95 files, about 7.4 kg of filament, all inside 200 × 200 × 200 mm. |
 | **Cost** | About $2,900 for every part at the linked stores, or $2,600 if you reuse the Bob v2 Pi 5, battery and charger. Every BOM line links to a specific product. See [BOM.md](BOM.md). |
 | **Compute** | Raspberry Pi 5 on the robot; big models run on a desktop GPU over Wi-Fi. A wide RGB camera in the head, a USB camera on each wrist, RPLIDAR C1 in the base. |
+
+## Safe operating envelope
+
+Nothing in this section has been measured on a built robot. The numbers are the sim and the datasheet ratings. The procedure for checking them on hardware is in [VERIFY.md](VERIFY.md).
+
+- **400–500 g per hand, continuous.** `sim/check.py` uses `PAYLOAD = 0.5` kg. At that load the shoulder pitch sits at 5.8 N·m, 87% of `gearbox.TAU_RATED` (6.7 N·m, from `STS3250_RATED` 1.57 N·m through the 5:1 at 85%). A heavier continuous hold is not checked.
+- **Arms in when the lift is above 200 mm.** `LIFT_TRAVEL` is 650 mm and `LIMITS["lift"]` still allows the full stroke. 200 mm is an operating limit, not a joint stop. With the lift at 650 mm and both arms partly out, the current sim tips forward at 14.6 N and stands on only a 6.3° nose-down ramp. Those two checks fail their bars (25 N and 10°). Driving, and anyone standing next to the robot, keeps the elbows bent and the hands near the torso.
+- **Printed joints.** The GM-5 suns and the gripper pinion are PETG. The continuous rating assumes the module torque limit stays at 80% of stall, and those gears are a wear item.
 
 ## GM-5 Joint Module
 
@@ -96,25 +104,25 @@ python3.12 -m venv .venv
 
 ## Simulation
 
-`sim/bob_v3.xml` is generated from the CAD, so the meshes, masses, joint axes and limits are the same ones you print. The actuator models use datasheet torque limits. Every check currently passes:
+`sim/bob_v3.xml` is generated from the CAD, so the meshes, masses, joint axes and limits are the same ones you print. The actuator models use datasheet torque limits. Push and slope fail their bars. The other checks pass.
 
 | Check | Result |
 | --- | --- |
 | Stands at home | no drift, no tilt |
-| Holds both arms straight out with 0.5 kg each | 1.6° worst sag, no actuator saturated |
-| Lift 0 → 650 mm at the stepper's 25 mm/s | 22 s, holds within 1.4 mm |
-| Drives 0.8 m/s, stops at 1–6 m/s² with the torso up and arms out | 0.2° tilt |
-| Shove at the head, torso up, arms out, 0.5 kg each | tips at 30 N forward, 45 N back |
-| Steepest ramp in that worst pose | 11.5° nose down, 27.9° up, 17.5° sideways |
+| Holds both arms straight out with 0.5 kg each | 2.1° worst sag, no actuator saturated |
+| Lift 0 → 650 mm at the stepper's 25 mm/s | 22 s, holds within 1.0 mm, lags 5.4 mm while moving |
+| Drives with the torso up and arms out, stops at 1–6 m/s² | reached 0.59 m/s, 0.18° tilt |
+| Shove at the head, torso up, arms out, 0.5 kg each | fails: tips at 14.6 N forward, 31.1 N back (bar is 25 N) |
+| Steepest ramp in that worst pose | fails: 6.3° nose down, 24.5° up, 15.8° sideways (bar is 10°) |
 | Floor, counter, top shelf by IK, no self-collision | all reached |
-| Scripted pick off a 0.75 m table | 95% of 40 random placements |
+| Scripted pick off a 0.75 m table | 40/40 on the committed `sim/expert.py` |
 | Behaviour cloning on 390 scripted demos (MLP on state) | 39/50 picks on unseen placements |
 
 To train your own policy, see [sim/README.md](sim/README.md).
 
 ## Safety
 
-The 36 V pack charges through a GX16 socket on top of the base; Bob can plug his own charger in. The e-stop drops a contactor in series with every motor converter. The Pi stays up. The leadscrew is self-locking, so the torso stays where it is with the power off. The arm servos go limp when they lose power; the 5:1 gearboxes slow the fall but do not stop it. The torso does not move. Keep the arms in the home pose when you are working near the robot.
+The 36 V pack charges through a GX16 socket on top of the base; Bob can plug his own charger in. The e-stop drops a contactor in series with every motor converter. The Pi stays up. The leadscrew is self-locking, so the torso stays where it is with the power off. The arm servos go limp when they lose power; the 5:1 gearboxes slow the fall but do not stop it. The torso does not move. Keep the arms in, elbows bent, whenever the lift is above 200 mm, and whenever you are working near the robot. The checked continuous load is 400–500 g per hand.
 
 ## Older Versions
 

@@ -14,23 +14,23 @@ Current state (late 2026): CAD + MuJoCo simulation only. Not yet built. ~$2,600�
 7. Viewer / site quality (clarity, polish, ease of use)
 
 **Agent rules**
-- One focused improvement per run (small enough to review and revert).
-- Use first-principles thinking: question every assumption. Ask “what is actually required for this function?” instead of “how do we improve the current design?” Break problems down to fundamentals (physics, cost, reliability, user need) and rebuild the simplest solution that meets them.
-- Improve the robot, the systems, the parts, the sim, the docs, and the site. Anything that advances the north star is in scope.
-- You may change geometry, parameters, part consolidation, actuator choices, covers, structure, kinematics, wiring, power, software checks, viewer code, site layout, etc.
-- **Fix all bugs.** Robot, site, viewer, sim checks, CAD export, docs, inconsistencies — if it’s broken, incorrect, or fails a check, fix it (or clearly document and flag it). Broken is higher priority than new features or polish.
-- Always keep the CAD export and sim checks passing.
-- Update related docs (README, VERIFY.md, BOM notes, ASSEMBLY, website source) when a number or design assumption changes.
-- Prefer changes that reduce parts, cost, or complexity without hurting reliability or capability.
-- Never claim physical verification unless it exists.
-- Flag anything that still looks or feels like a 3D-printed prototype — including the website itself.
+
+The loop is `agent-loop.sh` → `tools/agent/cycle.py`. It does not take its task from these checkboxes. Each cycle edits the real source for one area: the CAD (`cad/*.py`), the website (`~/Desktop/site-repo/bob-v3/`), the sim, or a factual doc fix. A change is kept only when that area's checks pass. A failed check restores the files.
+
+- One meaningful change per cycle. A paragraph rewrite that does not change the robot, the page, or a wrong number is not a change.
+- Design cycles take a measured job: one function whose printed part needs a lot of support. The edit is kept only when that support drops and the part's mass stays close. The status line is already in README.md, ASSEMBLY.md, and the website.
+- `cad/*.py` is the source of truth for geometry, actuators, and size. The site and the docs follow it.
+- Fix a broken check, a bad fit, or a wrong fact before polishing.
+- Keep the CAD export passing. Do not claim the robot has been built or measured.
+- Generated files (`BOM.md`, `PRINT.md`, `cad/stl`, `cad/scene.json`) are rewritten by the tools. Edit `docs/bom.py` and the CAD source, not the generated output.
 
 ## Phase 0 — Close the reality gap (do these first)
-- [ ] Add a clear “STATUS: CAD + simulation only — not yet built” banner to README.md, ASSEMBLY.md, and the website source
-- [ ] Expand VERIFY.md with a short “First physical prototype checklist” (real servo continuous torque & temperature, real CoM, lift friction, wheel traction on wood/carpet, actual grip force)
-- [ ] Add a specific servo thermal note to VERIFY.md: measure STS3095/STS3250 case temperature under 40–50 % continuous load; target ≤ 65 °C
-- [ ] Document the current safe operating envelope (max continuous 400–500 g, arms-in when lift > 200 mm) in README.md and ASSEMBLY.md
-- [ ] Add a “hold 500 g for 5 minutes” expected-sag check description to VERIFY.md
+- [x] README.md and ASSEMBLY.md say CAD + simulation only, not yet built. Do not edit them just to repeat this.
+- [x] The website's hand-written spec matches the CAD (round 480 mm base, GM-5 arm, 650 mm lift, swivel casters) and says it is not built. Generated BOM and print tables still refresh when the site is published.
+- [x] Expand VERIFY.md with a short “First physical prototype checklist” (real servo continuous torque & temperature, real CoM, lift friction, wheel traction on wood/carpet, actual grip force)
+- [x] Add a specific servo thermal note to VERIFY.md: measure STS3250/STS3215 case temperature under 40–50 % of rated torque; target ≤ 65 °C. This CAD has no STS3095.
+- [x] Document the current safe operating envelope (max continuous 400–500 g, arms-in when lift > 200 mm) in README.md and ASSEMBLY.md
+- [x] Add a “hold 500 g for 5 minutes” expected-sag check description to VERIFY.md
 
 ## Phase 1 — Price & low parts count
 - [ ] Add a “Top cost drivers & reduction opportunities” subsection to BOM.md (5 most expensive lines + cheaper substitutes or “keep for reliability”)

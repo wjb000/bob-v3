@@ -137,7 +137,7 @@
  },
  "push": {
   "ok": false,
-  "push_forward_N": 15.2,
+  "push_forward_N": 14.6,
   "push_back_N": 31.1
  },
  "slope": {
@@ -145,7 +145,7 @@
   "com_m": [
    0.101,
    -0.0,
-   0.652
+   0.653
   ],
   "down_deg": 6.3,
   "up_deg": 24.5,
